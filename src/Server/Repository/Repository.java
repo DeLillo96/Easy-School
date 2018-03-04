@@ -1,30 +1,25 @@
 package Server.Repository;
 
+import Server.ApplicationConnection;
+import Server.Entity.Entity;
+
 import java.sql.*;
 
-class Repository {
-    String sql;
+public class Repository {
+    private String sql;
     private Connection connection;
+    private String tableName;
 
-    Repository() {
-        connection = connect();
+    public Repository() { this(ApplicationConnection.getInstance().getConnection(),"",""); }
+
+    public Repository(String sql, String tableName) {
+        this(ApplicationConnection.getInstance().getConnection(), sql, tableName);
     }
 
-    private Connection connect() {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Library for Postgres not found!\nPlease link the library to the project.");
-            e.printStackTrace();
-        }
-
-        try {
-            return DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/application", "admin", "admin");
-        } catch (SQLException e) {
-            System.out.println("Connection Failed!");
-            e.printStackTrace();
-            return null;
-        }
+    public Repository(Connection connection, String sql, String tableName) {
+        this.sql = sql;
+        this.tableName = tableName;
+        this.connection = connection;
     }
 
     private PreparedStatement prepareStmt() throws SQLException {
@@ -44,5 +39,9 @@ class Repository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Entity getEntityInstance() {
+        return new Entity(tableName, connection);
     }
 }
