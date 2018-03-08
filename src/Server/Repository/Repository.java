@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface Repository {
     void save(List<EntityInterface> list);
-    List readAll();
-    List read(HashMap<String, Object> param);
+    List read();
+    List read(String filterName, HashMap<String, Object> param);
+    List read(HashMap<String, HashMap<String, Object>> filters);
 }

@@ -1,24 +1,27 @@
 package Server.Entity;
 
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.Filters;
-import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@FilterDef(name="usersfilter", parameters={
-        @ParamDef(name="username", type="string" ),
-        @ParamDef(name="password", type="string" ),
-        @ParamDef(name="email", type="string"),
-        @ParamDef(name="id", type="integer")
+@FilterDef(name = "login", parameters = {
+        @ParamDef(name = "username", type = "string" ),
+        @ParamDef(name = "password", type = "string" )
+})
+@FilterDef(name = "byId", parameters = {
+        @ParamDef(name = "id", type = "integer" )
+})
+@FilterDef(name = "byEmail", parameters = {
+        @ParamDef(name = "email", type = "string")
 })
 @Filters({
-        @Filter(name = "usersfilter", condition = "username like :username"),
-        @Filter(name = "usersfilter", condition = "password like :password"),
-        @Filter(name = "usersfilter", condition = "email like :email"),
-        @Filter(name = "usersfilter", condition = "id = :id")
+        @Filter(name = "login", condition = "username like :username"),
+        @Filter(name = "login", condition = "password like :password"),
+        @Filter(name = "byEmail", condition = "email like :email"),
+        @Filter(name = "byId", condition = "id = :id")
 })
 @Table(name = "Users")
 public class Users extends AbstractEntity {
