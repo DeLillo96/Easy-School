@@ -21,7 +21,7 @@ public abstract class AbstractEntity implements EntityInterface {
             if (primaryKeysAreValid()) {
                 session.update(this);
             } else {
-                session.update(this);
+                session.persist(this);
             }
 
             session.update(this);
