@@ -20,7 +20,7 @@ public class UsersRepository extends AbstractRepository {
         HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
-        List boh = read("login", params);
-        return (boh != null && boh.size() == 0);
+        List user = read("login", params);
+        return (user != null && user.size() == 1);
     }
 }
