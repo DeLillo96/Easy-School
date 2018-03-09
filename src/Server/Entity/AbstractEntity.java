@@ -1,27 +1,19 @@
 package Server.Entity;
 
+import Server.SessionManager;
 import Server.Result;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public abstract class AbstractEntity implements EntityInterface {
     protected String tableName;
-    protected SessionFactory sessionFactory;
-
-    public AbstractEntity() {
-        setSessionFactory();
-    }
 
     @Override
     public Result save() {
         beforeSave();
 
         Result result = new Result();
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         try {
@@ -53,7 +45,7 @@ public abstract class AbstractEntity implements EntityInterface {
         beforeDelete();
 
         Result result = new Result();
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         try {
@@ -86,20 +78,6 @@ public abstract class AbstractEntity implements EntityInterface {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    private void setSessionFactory() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("Server/hibernate.cfg.xml").build();
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-            e.printStackTrace();
-        }
     }
 
     protected abstract boolean primaryKeysAreValid();

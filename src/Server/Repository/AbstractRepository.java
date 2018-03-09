@@ -1,13 +1,10 @@
 package Server.Repository;
 
 import Server.Entity.EntityInterface;
+import Server.SessionManager;
 import org.hibernate.Filter;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,7 +13,6 @@ import java.util.Map;
 
 public abstract class AbstractRepository implements Repository{
     protected String tableName;
-    protected SessionFactory sessionFactory;
 
     public AbstractRepository() {
         this("");
@@ -24,7 +20,6 @@ public abstract class AbstractRepository implements Repository{
 
     public AbstractRepository(String tableName) {
         this.tableName = tableName;
-        setSessionFactory();
     }
 
     public String getTableName() {
@@ -35,20 +30,6 @@ public abstract class AbstractRepository implements Repository{
         this.tableName = tableName;
     }
 
-    private void setSessionFactory() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("Server/hibernate.cfg.xml").build();
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-            e.printStackTrace();
-        }
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
     @Override
     public List read() {
         return read(null);
@@ -56,7 +37,7 @@ public abstract class AbstractRepository implements Repository{
 
     @Override
     public List read(HashMap<String, HashMap<String, Object>> filters) {
-        Session session = sessionFactory.openSession();
+        Session session = SessionManager.getSessionFactory().openSession();
         if(filters != null) {
             for (Map.Entry filtersEntry : filters.entrySet()) {
                 HashMap<String, Object> params = (HashMap<String, Object>) filtersEntry.getValue();
