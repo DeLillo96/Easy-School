@@ -1,9 +1,10 @@
 package Server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
-    private List<String> messages = null;
+    private List<String> messages = new ArrayList<String>();
     private boolean success = true;
     private List<Object> data = null;
 

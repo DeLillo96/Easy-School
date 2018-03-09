@@ -14,7 +14,10 @@
         <!-- Log SQL queries -->
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
         <!-- MAPPINGS -->
         <mapping class="Server.Entity.Users"/>
+        <mapping class="Server.Entity.Child"/>
     </session-factory>
 </hibernate-configuration>
