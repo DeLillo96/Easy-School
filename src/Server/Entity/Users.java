@@ -90,9 +90,4 @@ public class Users extends AbstractEntity {
     protected boolean primaryKeysAreValid() {
         return (null != getId() && getId() > 0);
     }
-
-    @Override
-    public String parseForWhere() {
-        return "username = " + username;
-    }
 }
