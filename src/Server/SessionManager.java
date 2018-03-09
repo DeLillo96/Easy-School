@@ -8,10 +8,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class SessionManager {
 
     private static SessionFactory sessionFactory = null;
-    private static Server.SessionManager instance = null;
+    private static SessionManager instance = null;
+    private static final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("Server/hibernate.cfg.xml").build();;
 
     private SessionManager() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("Server/hibernate.cfg.xml").build();
         try {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
@@ -23,8 +23,14 @@ public class SessionManager {
 
     public static SessionFactory getSessionFactory() {
         if (instance ==  null) {
-            instance = new Server.SessionManager();
+            instance = new SessionManager();
         }
         return sessionFactory;
+    }
+
+    public static void destroySessionFactory() {
+        StandardServiceRegistryBuilder.destroy(registry);
+        sessionFactory = null;
+        instance = null;
     }
 }
