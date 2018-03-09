@@ -6,8 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public abstract class AbstractEntity implements EntityInterface {
-    protected String tableName;
-
     @Override
     public Result save() {
         beforeSave();
@@ -17,7 +15,6 @@ public abstract class AbstractEntity implements EntityInterface {
         Transaction tx = session.beginTransaction();
 
         try {
-
             if (primaryKeysAreValid()) {
                 session.update(this);
             } else {
@@ -71,14 +68,6 @@ public abstract class AbstractEntity implements EntityInterface {
     protected void afterSave() { }
     protected void beforeDelete() { }
     protected void afterDelete() { }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
 
     protected abstract boolean primaryKeysAreValid();
 }
