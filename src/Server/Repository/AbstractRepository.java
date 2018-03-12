@@ -1,6 +1,7 @@
 package Server.Repository;
 
 import Server.Entity.EntityInterface;
+import Server.Result;
 import Server.SessionManager;
 import org.hibernate.Filter;
 import org.hibernate.Session;
@@ -74,10 +75,17 @@ public abstract class AbstractRepository implements Repository{
     }
 
     @Override
-    public void save(List<EntityInterface> list) {
+    public Result save(List<EntityInterface> list) {
+        Result result = new Result();
+        Result probe;
         for (EntityInterface entity : list) {
-            entity.save();
+            probe = entity.save();
+            if( !probe.isSuccess() ) {
+                result.setSuccess(false);
+                result.addMessages(probe.getMessages());
+            }
         }
+        return result;
     }
 
     protected void prepareFilter(Filter filter, HashMap<String, Object> params) {
