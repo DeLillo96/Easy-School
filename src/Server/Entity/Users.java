@@ -14,13 +14,13 @@ import javax.persistence.Table;
 @FilterDef(name = "byId", parameters = {
         @ParamDef(name = "id", type = "integer" )
 })
-@FilterDef(name = "byEmail", parameters = {
-        @ParamDef(name = "email", type = "string")
+@FilterDef(name = "byUsername", parameters = {
+        @ParamDef(name = "username", type = "string")
 })
 @Filters({
         @Filter(name = "login", condition = "username like :username"),
         @Filter(name = "login", condition = "password like :password"),
-        @Filter(name = "byEmail", condition = "email like :email"),
+        @Filter(name = "byUsername", condition = "username like :username"), //da mettere between!!!
         @Filter(name = "byId", condition = "id = :id")
 })
 @Table(name = "Users")
