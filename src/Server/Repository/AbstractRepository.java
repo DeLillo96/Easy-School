@@ -38,7 +38,14 @@ public abstract class AbstractRepository implements Repository{
 
     @Override
     public List read(HashMap<String, HashMap<String, Object>> filters) {
-        Session session = SessionManager.getSessionFactory().openSession();
+        Session session = null;
+
+        try {
+            session = SessionManager.getSessionFactory().openSession();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(filters != null) {
             for (Map.Entry filtersEntry : filters.entrySet()) {
                 HashMap<String, Object> params = (HashMap<String, Object>) filtersEntry.getValue();

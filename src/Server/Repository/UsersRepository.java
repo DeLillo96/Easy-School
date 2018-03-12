@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UsersRepository extends AbstractRepository {
 
-    public UsersRepository() { super("Users"); }
+    public UsersRepository() { super("users"); }
 
     public Users getUserById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
