@@ -16,6 +16,13 @@ public class UsersRepository extends AbstractRepository {
         return (Users) users.get(0);
     }
 
+    public Users getUserByUsername(String username) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        List users = read("byUsername", params);
+        return (Users) users.get(0);
+    }
+
     public boolean login(String username, String password) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);
