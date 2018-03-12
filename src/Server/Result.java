@@ -4,9 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
-    private List<String> messages = new ArrayList<String>();
-    private boolean success = true;
-    private List<Object> data = null;
+    private List<String> messages;
+    private boolean success;
+    private List<Object> data;
+
+    public Result() { this(new ArrayList<String>(), true, new ArrayList<Object>()); }
+
+    public Result(boolean success) {
+        this(new ArrayList<String>(), success, new ArrayList<Object>());
+    }
+
+    public Result(List<String> messages, boolean success, List<Object> data) {
+        this.messages = messages;
+        this.success = success;
+        this.data = data;
+    }
 
     public List<String> getMessages() {
         return messages;
@@ -18,6 +30,10 @@ public class Result {
 
     public void addMessage(String message) {
         messages.add(message);
+    }
+
+    public void addMessages(List<String> messages) {
+        this.messages.addAll(messages);
     }
 
     public boolean isSuccess() {
