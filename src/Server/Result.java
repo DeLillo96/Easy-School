@@ -14,6 +14,19 @@ public class Result {
         this(new ArrayList<String>(), success, new ArrayList<Object>());
     }
 
+    public Result(boolean success, List<Object> data) {
+        this(new ArrayList<String>(), success, data);
+    }
+
+    public Result(List<String> messages, boolean success) {
+        this(messages, success, new ArrayList<Object>());
+    }
+
+    public Result(String message, boolean success) {
+        this();
+        messages.add(message);
+    }
+
     public Result(List<String> messages, boolean success, List<Object> data) {
         this.messages = messages;
         this.success = success;
