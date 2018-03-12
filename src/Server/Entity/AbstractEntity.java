@@ -10,9 +10,15 @@ public abstract class AbstractEntity implements EntityInterface {
     public Result save() {
         beforeSave();
 
-        Result result = new Result();
-        Session session = SessionManager.getSessionFactory().openSession();
+        Session session;
+        try {
+            session = SessionManager.getSessionFactory().openSession();
+        } catch (Exception e) {
+            return new Result(e.getMessage(), false);
+        }
+
         Transaction tx = session.beginTransaction();
+        Result result = new Result();
 
         try {
             if (primaryKeysAreValid()) {
@@ -41,9 +47,15 @@ public abstract class AbstractEntity implements EntityInterface {
     public Result delete() {
         beforeDelete();
 
-        Result result = new Result();
-        Session session = SessionManager.getSessionFactory().openSession();
+        Session session;
+        try {
+            session = SessionManager.getSessionFactory().openSession();
+        } catch (Exception e) {
+            return new Result(e.getMessage(), false);
+        }
+
         Transaction tx = session.beginTransaction();
+        Result result = new Result();
 
         try {
             if (primaryKeysAreValid()) {
