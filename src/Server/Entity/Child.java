@@ -10,15 +10,31 @@ import java.util.Date;
 
 @Entity
 
-@FilterDef(name = "byId", parameters = {
+@FilterDef(name = "id", parameters = {
         @ParamDef(name = "id", type = "integer" )
 })
-@FilterDef(name = "byCodiceFiscale", parameters = {
+@FilterDef(name = "nome", parameters = {
+        @ParamDef(name = "nome", type = "string")
+})
+@FilterDef(name = "cognome", parameters = {
+        @ParamDef(name = "cognome", type = "string")
+})
+@FilterDef(name = "codiceFiscale", parameters = {
         @ParamDef(name = "codiceFiscale", type = "string")
 })
+@FilterDef(name = "nascita", parameters = {
+        @ParamDef(name = "nascita", type = "date")
+})
+@FilterDef(name = "contatti", parameters = {
+        @ParamDef(name = "contatti", type = "string")
+})
 @Filters({
-        @Filter(name = "byCodiceFiscale", condition = "codiceFiscale like :codiceFiscale"),
-        @Filter(name = "byId", condition = "id = :id")
+        @Filter(name = "id", condition = "id = :id"),
+        @Filter(name = "nome", condition = "nome like :nome"),
+        @Filter(name = "cognome", condition = "cognome like :cognome"),
+        @Filter(name = "codiceFiscale", condition = "codiceFiscale like :codiceFiscale"),
+        @Filter(name = "nascita", condition = "nascita = :nascita"),
+        @Filter(name = "contatti", condition = "contatti = :contatti"),
 })
 @Table(name = "child")
 public class Child extends AbstractEntity{

@@ -7,21 +7,23 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@FilterDef(name = "login", parameters = {
-        @ParamDef(name = "username", type = "string" ),
-        @ParamDef(name = "password", type = "string" )
-})
-@FilterDef(name = "byId", parameters = {
+@FilterDef(name = "id", parameters = {
         @ParamDef(name = "id", type = "integer" )
 })
-@FilterDef(name = "byUsername", parameters = {
-        @ParamDef(name = "username", type = "string")
+@FilterDef(name = "username", parameters = {
+        @ParamDef(name = "username", type = "string" )
+})
+@FilterDef(name = "password", parameters = {
+        @ParamDef(name = "password", type = "string" )
+})
+@FilterDef(name = "email", parameters = {
+        @ParamDef(name = "email", type = "string" )
 })
 @Filters({
-        @Filter(name = "login", condition = "username like :username"),
-        @Filter(name = "login", condition = "password like :password"),
-        @Filter(name = "byUsername", condition = "username like :username"),
-        @Filter(name = "byId", condition = "id = :id")
+        @Filter(name = "id", condition = "id = :id"),
+        @Filter(name = "username", condition = "username like :username"),
+        @Filter(name = "password", condition = "password like :password"),
+        @Filter(name = "email", condition = "email like :email")
 })
 @Table(name = "Users")
 public class Users extends AbstractEntity {

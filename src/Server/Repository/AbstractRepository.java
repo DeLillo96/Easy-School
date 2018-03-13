@@ -37,7 +37,7 @@ public abstract class AbstractRepository implements Repository{
     }
 
     @Override
-    public List read(HashMap<String, HashMap<String, Object>> filters) {
+    public List read(HashMap<String, Object> filters) {
         Session session = null;
 
         try {
@@ -46,39 +46,20 @@ public abstract class AbstractRepository implements Repository{
             e.printStackTrace();
         }
 
-        if(filters != null) {
-            for (Map.Entry filtersEntry : filters.entrySet()) {
-                HashMap<String, Object> params = (HashMap<String, Object>) filtersEntry.getValue();
-                if(params != null) {
-                    Filter filter = session.enableFilter((String) filtersEntry.getKey());
-                    prepareFilter(filter, params);
-                }
-            }
-        }
+        if(filters != null) { prepareFilter(filters, session); }
 
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
         List list = null;
         try {
             list = session.createQuery("FROM " + tableName).list();
-            tx.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            tx.rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
         return list;
-    }
-
-    @Override
-    public List read(String filterName, HashMap<String, Object> params) {
-        HashMap<String, HashMap<String, Object>> filters = null;
-
-        if(filterName != null && params != null) {
-            filters = new HashMap<>();
-            filters.put(filterName, params);
-        }
-        return read(filters);
     }
 
     @Override
@@ -95,11 +76,14 @@ public abstract class AbstractRepository implements Repository{
         return result;
     }
 
-    protected void prepareFilter(Filter filter, HashMap<String, Object> params) {
-        Iterator it = params.entrySet().iterator();
-        while (it.hasNext()) {
+    protected void prepareFilter(HashMap<String, Object> filters, Session session) {
+        Iterator it = filters.entrySet().iterator();
+        while (it.hasNext()){
             Map.Entry param = (Map.Entry)it.next();
+
+            Filter filter = session.enableFilter((String) param.getKey());
             filter.setParameter((String) param.getKey(), param.getValue());
+
             it.remove();
         }
     }

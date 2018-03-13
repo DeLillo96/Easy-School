@@ -18,10 +18,17 @@ public class UsersTest {
     @Test
     public void usersEntityTest() {
         UsersRepository usersRepository = new UsersRepository();
-        Users user = usersRepository.getUserByUsername("admin");
+        Users user = new Users("ale", "pela","wkpe@woef.it");
+        user.save();
+        Users user2 = usersRepository.getUserById(user.getId());
 
-        assertNotEquals(null, user, "Errore di lettura su DB");
-        assertEquals("admin", user.getUsername(), "username letto correttamente");
-        assertEquals(true, usersRepository.login(user.getUsername(), user.getPassword()), "login non effettuato correttamente");
+        String message = "errore dei filtri";
+        assertEquals(user.getId(), user2.getId(), message);
+        assertEquals(user.getId(), user2.getId(), message);
+        assertEquals(user.getId(), user2.getId(), message);
+        assertEquals(user.getId(), user2.getId(), message);
+
+        assertTrue(usersRepository.login(user.getUsername(),user.getPassword()), "Errore durante il login");
+        user.delete();
     }
 }

@@ -12,22 +12,28 @@ public class UsersRepository extends AbstractRepository {
     public Users getUserById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
-        List users = read("byId", params);
-        return (Users) users.get(0);
+        List users = read(params);
+        if(users != null && users.size() == 1)
+            return (Users) users.get(0);
+        else
+            return null;
     }
 
     public Users getUserByUsername(String username) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);
-        List users = read("byUsername", params);
-        return (Users) users.get(0);
+        List users = read(params);
+        if(users != null && users.size() == 1)
+            return (Users) users.get(0);
+        else
+            return null;
     }
 
     public boolean login(String username, String password) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
-        List user = read("login", params);
+        List user = read(params);
         return (user != null && user.size() == 1);
     }
 }
