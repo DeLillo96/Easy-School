@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
-    private List<String> messages;
-    private boolean success;
-    private List<Object> data;
-
-    public Result() { this(new ArrayList<String>(), true, new ArrayList<Object>()); }
+    private List<String> messages = new ArrayList<String>();
+    private boolean success = true;
+    private List<Object> data = new ArrayList<Object>();
 
     public Result(boolean success) {
         this(new ArrayList<String>(), success, new ArrayList<Object>());
@@ -26,14 +24,14 @@ public class Result {
     }
 
     public Result(String message, boolean success) {
-        this();
+        this(success);
         messages.add(message);
     }
 
     public Result(List<String> messages, boolean success, List<Object> data) {
-        this.messages = messages;
+        this.messages.addAll(messages);
         this.success = success;
-        this.data = data;
+        this.data.addAll(data);
     }
 
     public List<String> getMessages() {
