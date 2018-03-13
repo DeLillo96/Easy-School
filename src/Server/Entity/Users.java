@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Filters({
         @Filter(name = "login", condition = "username like :username"),
         @Filter(name = "login", condition = "password like :password"),
-        @Filter(name = "byUsername", condition = "username like :username"), //da mettere between!!!
+        @Filter(name = "byUsername", condition = "username like :username"),
         @Filter(name = "byId", condition = "id = :id")
 })
 @Table(name = "Users")
