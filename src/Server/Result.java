@@ -1,5 +1,8 @@
 package Server;
 
+import org.json.simple.JSONObject;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +66,41 @@ public class Result {
 
     public void setData(List<Object> data) {
         this.data = data;
+    }
+
+    public JSONObject toJson() {
+        JSONObject result = new JSONObject();
+        result.put("success", success);
+
+        JSONObject jsonMessages = new JSONObject();
+        for (int i = 0; i < messages.size(); i++) {
+            jsonMessages.put(i, messages.get(i));
+        }
+        result.put("messages", jsonMessages);
+
+        JSONObject jsonData = new JSONObject();
+        for (int i = 0; i < data.size(); i++) {
+            jsonData.put(i, classToJson(data.get(i)));
+        }
+        result.put("data", jsonData);
+
+        return result;
+    }
+
+    private JSONObject classToJson(Object o) {
+        Class targetClass = o.getClass();
+        Field[] declaredFields = targetClass.getDeclaredFields();
+        JSONObject jsonObject = new JSONObject();
+
+        for(Field field : declaredFields) {
+            try {
+                field.setAccessible(true);
+                jsonObject.put(field.getName(), field.get(o));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject;
     }
 }
