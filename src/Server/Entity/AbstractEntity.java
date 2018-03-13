@@ -3,7 +3,6 @@ package Server.Entity;
 import Server.SessionManager;
 import Server.Result;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public abstract class AbstractEntity implements EntityInterface {
     @Override
@@ -17,7 +16,7 @@ public abstract class AbstractEntity implements EntityInterface {
             return new Result(e.getMessage(), false);
         }
 
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
         Result result = new Result();
 
         try {
@@ -27,10 +26,9 @@ public abstract class AbstractEntity implements EntityInterface {
                 session.persist(this);
             }
 
-            session.update(this);
-            tx.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            tx.rollback();
+            session.getTransaction().rollback();
 
             result.setSuccess(false);
             result.addMessage(e.getMessage());
@@ -54,16 +52,16 @@ public abstract class AbstractEntity implements EntityInterface {
             return new Result(e.getMessage(), false);
         }
 
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
         Result result = new Result();
 
         try {
             if (primaryKeysAreValid()) {
                 session.delete(this);
-            } else throw new Exception("Primary Keys are not valid");
-            tx.commit();
+            } else throw new Exception("The values are not valid to delete");
+            session.getTransaction().commit();
         } catch (Exception e) {
-            tx.rollback();
+            session.getTransaction().rollback();
 
             result.setSuccess(false);
             result.addMessage(e.getMessage());
