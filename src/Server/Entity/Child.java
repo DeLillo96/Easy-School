@@ -1,9 +1,25 @@
 package Server.Entity;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+
+@FilterDef(name = "byId", parameters = {
+        @ParamDef(name = "id", type = "integer" )
+})
+@FilterDef(name = "byCodiceFiscale", parameters = {
+        @ParamDef(name = "codiceFiscale", type = "string")
+})
+@Filters({
+        @Filter(name = "byCodiceFiscale", condition = "codiceFiscale like :codiceFiscale"),
+        @Filter(name = "byId", condition = "id = :id")
+})
 @Table(name = "child")
 public class Child extends AbstractEntity{
     @Id
@@ -29,7 +45,7 @@ public class Child extends AbstractEntity{
     public Child() { }
 
     public Child(String nome, String cognome, Date nascita, String contatti) {
-        this(nome, cognome, "", nascita, contatti);
+        this(nome, cognome, null, nascita, contatti);
     }
 
     public Child(String nome, String cognome, String codiceFiscale, Date nascita, String contatti) {
