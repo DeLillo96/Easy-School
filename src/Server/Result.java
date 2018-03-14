@@ -11,6 +11,8 @@ public class Result {
     private boolean success = true;
     private List<Object> data = new ArrayList<Object>();
 
+    public Result(){ }
+
     public Result(boolean success) {
         this(new ArrayList<String>(), success, new ArrayList<Object>());
     }
