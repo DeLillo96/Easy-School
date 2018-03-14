@@ -60,6 +60,10 @@ public class Result {
         this.success = success;
     }
 
+    public void addData(Object data) {
+        this.data.add(data);
+    }
+
     public List<Object> getData() {
         return data;
     }
