@@ -3,12 +3,13 @@ package Server.Controller;
 import Server.Repository.UsersRepository;
 import Server.Result;
 import org.json.simple.JSONObject;
+
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-public class ClientControllerImplementation extends UnicastRemoteObject implements ClientController {
-
-    public ClientControllerImplementation() throws RemoteException {}
+public class UserControllerImplementation extends AbstractController implements UserController {
+    public UserControllerImplementation() throws RemoteException {
+        super(new UsersRepository());
+    }
 
     @Override
     public JSONObject login(String username, String password) {
@@ -24,6 +25,6 @@ public class ClientControllerImplementation extends UnicastRemoteObject implemen
 
     @Override
     public JSONObject logout(String username, String password) {
-        return null;
+        return (new Result(true)).toJson();
     }
 }

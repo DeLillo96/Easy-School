@@ -1,10 +1,19 @@
 package Server.Controller;
 
-import Server.Repository.UsersRepository;
+import org.json.simple.JSONObject;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public class UserController extends MainController {
-    public UserController() throws RemoteException {
-        super(new UsersRepository());
-    }
+public interface UserController extends Remote {
+    JSONObject login(String username, String password) throws RemoteException;
+    JSONObject logout(String username, String password) throws RemoteException;
+
+    JSONObject readAll() throws RemoteException;
+    JSONObject read(JSONObject parameters) throws RemoteException;
+
+    JSONObject save(JSONObject data) throws RemoteException;
+    JSONObject saveAll(JSONObject data) throws RemoteException;
+
+    JSONObject delete(JSONObject data) throws RemoteException;
+    JSONObject deleteAll(JSONObject data) throws RemoteException;
 }

@@ -12,10 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainController extends UnicastRemoteObject implements Controller {
+public abstract class AbstractController extends UnicastRemoteObject implements Controller {
     protected Repository repository;
 
-    public MainController(Repository repository) throws RemoteException {
+    public AbstractController(Repository repository) throws RemoteException {
         this.repository = repository;
     }
 

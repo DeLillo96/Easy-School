@@ -1,9 +1,6 @@
 package Server;
 
-import Server.Controller.MainController;
-import Server.Controller.UserController;
-import Server.Controller.ClientControllerImplementation;
-import Server.Repository.ChildRepository;
+import Server.Controller.UserControllerImplementation;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -17,9 +14,7 @@ public class Server {
 
         try {
             Registry registry = LocateRegistry.createRegistry(port);
-            registry.bind("users", new UserController());
-            registry.bind("users/login", new ClientControllerImplementation());
-            registry.bind("child", new MainController(new ChildRepository()));
+            registry.bind("users", new UserControllerImplementation());
 
             System.out.println("Server listening on port: " + port);
         } catch (Exception e) {

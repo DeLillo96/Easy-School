@@ -1,6 +1,6 @@
 package Client;
 
-import Server.Controller.ClientController;
+import Server.Controller.UserController;
 import org.json.simple.JSONObject;
 
 import java.rmi.registry.LocateRegistry;
@@ -11,11 +11,13 @@ public class Client {
         try {
             Registry registry = LocateRegistry.getRegistry("localhost");
 
-            ClientController clientController = (ClientController) registry.lookup("users/login");
+            UserController userController = (UserController) registry.lookup("users");
+            JSONObject result = userController.login("admin", "admin");
+            System.out.println("response: " + result.toString());
 
             JSONObject params = new JSONObject();
             params.put("username", "admin");
-            JSONObject result = clientController.login("admin", "admin");
+            result = userController.read(params);
             System.out.println("response: " + result.toString());
 
         } catch (Exception e) {
