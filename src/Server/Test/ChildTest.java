@@ -3,42 +3,55 @@ package Server.Test;
 import Server.Entity.Child;
 import Server.Repository.ChildRepository;
 import Server.Result;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChildTest {
+    private static String nome = "John";
+    private static String cognome = "Snow";
+    private static String codiceFiscale = "SNWJHN96T27V730G";
+    private static Date nascita = new Date();
+    private static String contatti = "Corvo verso Grande Inverno";
+    private static ChildRepository childRepository = new ChildRepository();
+    private static Child child;
 
-    @Test
-    public void childRepositoryTest() {
-        ChildRepository childRepository = new ChildRepository();
-
-        assertNotNull(childRepository.read(), "la lettura deve essere una lista");
-        assertNotNull(childRepository.getChildByFiscalCode(""), "non può essere nullo");
-        assertNotNull(childRepository.getChildById(1), "non può essere nullo");
+    @BeforeAll
+    static void createChild() {
+        child = new Child(nome, cognome, codiceFiscale, nascita, contatti);
+        child.save();
     }
 
-    @Test
-    @DisplayName("The John Snow Test")
-    public void childEntityTest() {
-        ChildRepository childRepository = new ChildRepository();
-        Child john = new Child("John", "Snow", new Date(), "lui è solo soletto");
+    @Test void readChild() {
+        Child readChild = childRepository.getChildByFiscalCode(codiceFiscale);
+        String message = "errore di lettura";
 
-        Result result = john.save();
-        assertTrue(result.isSuccess(), "Errore di salvataggio: " + result.getMessages().toString());
+        assertEquals(child.getNome(), readChild.getNome(), message);
+        assertEquals(child.getCognome(), readChild.getCognome(), message);
+        assertEquals(child.getNascita(), readChild.getNascita(), message);
+        assertEquals(child.getContatti(), readChild.getContatti(), message);
+    }
 
-        john = childRepository.getChildById( john.getId() );
-        assertNotNull(john, "Errore di lettura su DB");
+    @Test void verifyConstraint() {
+        Child impostore = new Child(nome, cognome, codiceFiscale, nascita, contatti);
+        Result result = impostore.save();
 
-        assertEquals("John", john.getNome(), "errore di lettura dei dati");
-        assertEquals("Snow", john.getCognome(), "errore di lettura dei dati");
-        assertNull(john.getCodiceFiscale(), "errore di lettura dei dati");
-        assertEquals("lui è solo soletto", john.getContatti(), "errore di lettura dei dati");
+        assertFalse(result.isSuccess(), "Le costraint sono state violate");
+    }
 
-        result = john.delete();
-        assertTrue(result.isSuccess(), "Errore di cancellazione: " + result.getMessages().toString());
+    @Test void modifyChild() {
+        child.setCognome("Targarien");
+        Result result = child.save();
+
+        assertTrue(result.isSuccess(), "Errore di salvataggio + " + result.getMessages().toString());
+    }
+
+    @AfterAll
+    static void deleteChild() {
+        child.delete();
     }
 }
