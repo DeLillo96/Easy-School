@@ -1,9 +1,13 @@
 package Server.Controller;
 
+import Server.Entity.EntityInterface;
+import Server.Entity.Users;
 import Server.Repository.UsersRepository;
 import Server.Result;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class UserControllerImplementation extends AbstractController implements UserController {
@@ -26,5 +30,11 @@ public class UserControllerImplementation extends AbstractController implements 
     @Override
     public JSONObject logout(String username, String password) {
         return (new Result(true)).toJson();
+    }
+
+    @Override
+    protected EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(jsonObject.toString(), Users.class);
     }
 }

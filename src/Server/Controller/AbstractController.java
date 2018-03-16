@@ -1,5 +1,6 @@
 package Server.Controller;
 
+import Server.Entity.EntityInterface;
 import Server.Repository.Repository;
 import Server.Result;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -8,9 +9,7 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractController extends UnicastRemoteObject implements Controller {
     protected Repository repository;
@@ -39,12 +38,35 @@ public abstract class AbstractController extends UnicastRemoteObject implements 
 
     @Override
     public JSONObject save(JSONObject data) {
-        return null;
+        EntityInterface entity;
+        try {
+            entity = castJsonIntoEntity(data);
+        } catch (IOException e) {
+            Result result = new Result(e.getMessage(), false);
+            return result.toJson();
+        }
+        Result result = entity.save();
+        return result.toJson();
     }
 
     @Override
-    public JSONObject saveAll(JSONObject data) {
-        return null;
+    public JSONObject saveAll(JSONObject jsonData) {
+        ArrayList<EntityInterface> data = new ArrayList<>();
+        Set keys = jsonData.keySet();
+        EntityInterface entity;
+
+        for (Object key : keys) {
+            try {
+                entity = castJsonIntoEntity((JSONObject) jsonData.get(key));
+                data.add(entity);
+            } catch (IOException e) {
+                Result result = new Result(e.getMessage(), false);
+                return result.toJson();
+            }
+        }
+
+        Result result = repository.save(data);
+        return result.toJson();
     }
 
     @Override
@@ -62,4 +84,6 @@ public abstract class AbstractController extends UnicastRemoteObject implements 
 
         return objectMapper.readValue(String.valueOf(parameters), new TypeReference<Map<String, Object>>() {});
     }
+
+    protected abstract EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException;
 }

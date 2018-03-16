@@ -5,14 +5,12 @@ import Server.Result;
 import Server.SessionManager;
 import org.hibernate.Filter;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractRepository implements Repository{
+public abstract class AbstractRepository implements Repository {
     protected String tableName;
 
     public AbstractRepository() {
