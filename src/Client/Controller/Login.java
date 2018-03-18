@@ -35,20 +35,23 @@ public class Login implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         if(event.getSource() == buttonLogin) {
-            try {
-                String username = usernameField.getText();
-                String password = passwordField.getText();
-                JSONObject response = ControllerManager.getUserController().login(username, password);
+            loginEvent();
+        }
+    }
 
+    private void loginEvent() {
+        try {
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            JSONObject response = ControllerManager.getUserController().login(username, password);
 
-                if((boolean) response.get("success")) {
-                    //todo things
-                } else throw new Exception(response.get("messages").toString());
-            } catch (Exception e) {
-                Error error = new Error();
-                error.render(e.getMessage(), stage.getScene());
-                //e.printStackTrace(); //FOR DEBUG!!!
-            }
+            if((boolean) response.get("success")) {
+                //todo things
+            } else throw new Exception(response.get("messages").toString());
+        } catch (Exception e) {
+            Error error = new Error();
+            error.render(e.getMessage(), stage.getScene());
+            //e.printStackTrace(); //FOR DEBUG!!!
         }
     }
 
