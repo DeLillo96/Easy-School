@@ -3,6 +3,7 @@ package Server.Controller;
 import Server.Entity.EntityInterface;
 import Server.Repository.Repository;
 import Server.Result;
+import Shared.Controller;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;

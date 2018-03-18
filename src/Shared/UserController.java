@@ -1,10 +1,13 @@
-package Server.Controller;
+package Shared;
 
 import org.json.simple.JSONObject;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface Controller extends Remote {
+public interface UserController extends Remote {
+    JSONObject login(String username, String password) throws RemoteException;
+    JSONObject logout(String username, String password) throws RemoteException;
+
     JSONObject readAll() throws RemoteException;
     JSONObject read(JSONObject parameters) throws RemoteException;
 

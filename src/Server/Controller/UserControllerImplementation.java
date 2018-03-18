@@ -4,9 +4,9 @@ import Server.Entity.EntityInterface;
 import Server.Entity.Users;
 import Server.Repository.UsersRepository;
 import Server.Result;
+import Shared.UserController;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 
@@ -21,7 +21,7 @@ public class UserControllerImplementation extends AbstractController implements 
 
         if(!((new UsersRepository()).login(username, password))) {
             result.setSuccess(false);
-            result.addMessage("Password and/or Username are invalid");
+            result.addMessage("Password or Username are invalid");
         }
 
         return result.toJson();
