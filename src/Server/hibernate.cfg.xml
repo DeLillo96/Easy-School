@@ -19,5 +19,6 @@
         <!-- MAPPINGS -->
         <mapping class="Server.Entity.Users"/>
         <mapping class="Server.Entity.Child"/>
+        <mapping class="Server.Entity.Adult"/>
     </session-factory>
 </hibernate-configuration>

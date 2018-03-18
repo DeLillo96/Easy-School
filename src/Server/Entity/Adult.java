@@ -2,6 +2,8 @@ package Server.Entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Adult")
@@ -26,6 +28,9 @@ public class Adult extends AbstractEntity {
     @OneToOne
     @JoinColumn(unique = true, name = "user_id")
     private Users user;
+
+    @ManyToMany(mappedBy = "parents")
+    private Set<Child> children = new HashSet<>();
 
     public Adult() { }
 
@@ -82,6 +87,22 @@ public class Adult extends AbstractEntity {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    public Set<Child> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Child> children) {
+        this.children = children;
+    }
+
+    public void addChildren(Child child) {
+        children.add(child);
+    }
+
+    public void removeChild(Child child) {
+        if(children.contains(child)) children.remove(child);
     }
 
     @Override

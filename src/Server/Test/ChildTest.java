@@ -12,22 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChildTest {
-    private static String nome = "John";
-    private static String cognome = "Snow";
-    private static String codiceFiscale = "SNWJHN96T27V730G";
-    private static Date nascita = new Date();
-    private static String contatti = "Corvo verso Grande Inverno";
     private static ChildRepository childRepository = new ChildRepository();
-    private static Child child;
+    private static Child child = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date(), "Corvo verso Grande Inverno");
 
     @BeforeAll
     static void createChild() {
-        child = new Child(nome, cognome, codiceFiscale, nascita, contatti);
         child.save();
     }
 
     @Test void readChild() {
-        Child readChild = childRepository.getChildByFiscalCode(codiceFiscale);
+        Child readChild = childRepository.getChildByFiscalCode(child.getCodiceFiscale());
         String message = "errore di lettura";
 
         assertEquals(child.getNome(), readChild.getNome(), message);
@@ -37,7 +31,12 @@ public class ChildTest {
     }
 
     @Test void verifyConstraint() {
-        Child impostore = new Child(nome, cognome, codiceFiscale, nascita, contatti);
+        Child impostore = new Child(
+                "impostore",
+                "impostore",
+                child.getCodiceFiscale(),
+                new Date(),
+                "nessuno");
         Result result = impostore.save();
 
         assertFalse(result.isSuccess(), "Le costraint sono state violate");

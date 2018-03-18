@@ -4,9 +4,10 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.ParamDef;
-
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 
@@ -57,6 +58,14 @@ public class Child extends AbstractEntity{
 
     @Column(nullable = false, length = 64)
     private String contatti;
+
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "Parent",
+            joinColumns = { @JoinColumn(name = "child_id") },
+            inverseJoinColumns = { @JoinColumn(name = "adult_id") }
+    )
+    private Set<Adult> parents = new HashSet<>();
 
     public Child() { }
 
@@ -118,6 +127,24 @@ public class Child extends AbstractEntity{
 
     public void setContatti(String contatti) {
         this.contatti = contatti;
+    }
+
+    public Set<Adult> getParents() {
+        return parents;
+    }
+
+    public void setParents(Set<Adult> parents) {
+        this.parents = parents;
+    }
+
+    public void addParent(Adult parent) {
+        parents.add(parent);
+    }
+
+    public void removeParent(Adult parent) {
+        if(parents.contains(parent)) {
+            parents.remove(parent);
+        }
     }
 
     @Override
