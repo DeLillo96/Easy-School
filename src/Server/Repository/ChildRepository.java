@@ -12,19 +12,15 @@ public class ChildRepository extends AbstractRepository{
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
         List childs = read(params);
-        if(childs != null && childs.size() == 1)
-            return (Child) childs.get(0);
-        else
-            return null;
+
+        return childs!= null && childs.size() == 1 ? (Child) childs.get(0) : null;
     }
 
     public Child getChildByFiscalCode(String codiceFiscale) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("codiceFiscale", codiceFiscale);
         List childs = read(params);
-        if(childs != null && childs.size() == 1)
-            return (Child) childs.get(0);
-        else
-            return null;
+
+        return childs!= null && childs.size() == 1 ? (Child) childs.get(0) : null;
     }
 }
