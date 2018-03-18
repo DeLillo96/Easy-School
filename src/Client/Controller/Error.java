@@ -14,7 +14,6 @@ public class Error implements EventHandler<ActionEvent> {
     private Button errorButtonClose;
     private Parent root;
     private Scene mainScene;
-    private TextArea errorTextArea;
 
     public void render(String message, Scene mainScene) {
         try {
@@ -23,7 +22,7 @@ public class Error implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
 
-        errorTextArea = (TextArea) root.lookup("#errorTextArea");
+        TextArea errorTextArea = (TextArea) root.lookup("#errorTextArea");
         errorTextArea.setText(message);
 
         errorButtonClose = (Button) root.lookup("#errorButtonClose");
