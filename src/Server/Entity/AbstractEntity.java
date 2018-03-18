@@ -20,11 +20,7 @@ public abstract class AbstractEntity implements EntityInterface {
         Result result = new Result();
 
         try {
-            if (primaryKeysAreValid()) {
-                session.update(this);
-            } else {
-                session.persist(this);
-            }
+            session.saveOrUpdate(this);
 
             session.getTransaction().commit();
         } catch (Exception e) {
