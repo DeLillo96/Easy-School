@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="331.0" style="-fx-background-color: #dc143c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Errore" textAlignment="CENTER" wrappingWidth="331.0">
+         <font>
+            <Font name="Monospaced Bold" size="25.0" />
+         </font>
+      </Text>
+      <TextArea id="errorTextArea" disable="true" layoutX="13.0" layoutY="43.0" prefHeight="140.0" prefWidth="306.0" style="-fx-background-color: #dc143c;" />
+   </children>
+</Pane>

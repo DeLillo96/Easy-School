@@ -1,29 +1,20 @@
 package Client;
 
-import Server.Controller.UserController;
-import org.json.simple.JSONObject;
+import Client.Controller.Login;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+public class Client extends Application {
+    public static void main(String args[]) {
+        launch(args);
+    }
 
-public class Client {
-    public static void main(String args[]){
-        try {
-            Registry registry = LocateRegistry.getRegistry("localhost");
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-            UserController userController = (UserController) registry.lookup("users");
-            JSONObject result = userController.login("admin", "admin");
-            System.out.println("response: " + result.toString());
-
-            JSONObject params = new JSONObject();
-            params.put("username", "admin");
-            result = userController.read(params);
-            System.out.println("response: " + result.toString());
-
-        } catch (Exception e) {
-
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
-        }
+        primaryStage.setTitle("Easy School");
+        Login login = new Login();
+        login.render(primaryStage);
+        primaryStage.show();
     }
 }

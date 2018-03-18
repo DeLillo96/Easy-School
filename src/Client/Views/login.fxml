@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+    <Button id="loginButton" fx:id="login" layoutX="232.0" layoutY="464.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" text="Login" textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="Monospaced Bold" size="29.0" />
+        </font>
+    </Button>
+    <TextField id="usernameTextField" layoutX="99.0" layoutY="272.0" prefHeight="57.0" prefWidth="402.0">
+        <font>
+            <Font name="Monospaced Regular" size="30.0" />
+        </font></TextField>
+    <Text layoutX="99.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="402.0">
+        <font>
+            <Font name="Monospaced Regular" size="30.0" />
+        </font>
+    </Text>
+    <Text layoutX="99.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="402.0">
+        <font>
+            <Font name="Monospaced Regular" size="30.0" />
+        </font>
+    </Text>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/icon-school.png" />
+        </image>
+    </ImageView>
+    <PasswordField id="passwordTextField" layoutX="99.0" layoutY="390.0" prefHeight="57.0" prefWidth="402.0">
+        <font>
+            <Font name="Monospaced Regular" size="30.0" />
+        </font>
+    </PasswordField>
+</children>
+</Pane>
