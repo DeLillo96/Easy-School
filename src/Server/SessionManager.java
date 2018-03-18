@@ -20,7 +20,6 @@ public class SessionManager {
         }
     }
 
-
     public static SessionFactory getSessionFactory() throws Exception {
         if (instance ==  null) {
             instance = new SessionManager();
