@@ -1,7 +1,6 @@
 package Server;
 
 import org.json.simple.JSONObject;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,11 +75,7 @@ public class Result {
         JSONObject result = new JSONObject();
         result.put("success", success);
 
-        JSONObject jsonMessages = new JSONObject();
-        for (int i = 0; i < messages.size(); i++) {
-            jsonMessages.put(i, messages.get(i));
-        }
-        result.put("messages", jsonMessages);
+        result.put("messages", messages.toString());
 
         JSONObject jsonData = new JSONObject();
         for (int i = 0; i < data.size(); i++) {
