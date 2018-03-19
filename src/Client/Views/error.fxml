@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -10,21 +11,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane id="errorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="190.0" prefWidth="331.0" style="-fx-background-color: #dc143c; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="errorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="190.0" prefWidth="331.0" style="-fx-background-color: #D50400; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Errore" textAlignment="CENTER" wrappingWidth="331.0">
+      <Text layoutX="87.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Errore" textAlignment="CENTER" wrappingWidth="158.0">
          <font>
             <Font name="Monospaced Bold" size="25.0" />
          </font>
       </Text>
-      <TextArea id="errorTextArea" disable="true" editable="false" layoutX="13.0" layoutY="39.0" opacity="0.3" pickOnBounds="false" prefHeight="144.0" prefWidth="306.0" style="-fx-background-radius: 20px;" wrapText="true">
+      <TextArea id="errorTextArea" editable="false" layoutX="13.0" layoutY="39.0" opacity="0.3" pickOnBounds="false" prefHeight="144.0" prefWidth="306.0" style="-fx-background-radius: 15px;" wrapText="true">
          <font>
-            <Font name="Monospaced Regular" size="15.0" />
-         </font></TextArea>
-      <Button id="errorButtonClose" cancelButton="true" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="20.0" style="-fx-background-radius: 25px; -fx-background-color: #FF8C00;" text="X">
+            <Font name="Monospaced Regular" size="17.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </TextArea>
+      <Button id="errorButtonClose" cancelButton="true" layoutX="4.0" layoutY="3.0" mnemonicParsing="false" prefHeight="3.0" style="-fx-background-radius: 25px; -fx-background-color: #AC2022;" text="X">
          <font>
             <Font name="Monospaced Bold" size="11.0" />
          </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </Button>
    </children>
 </Pane>
