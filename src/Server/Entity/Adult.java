@@ -1,11 +1,43 @@
 package Server.Entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+
+@FilterDef(name = "id", parameters = {
+        @ParamDef(name = "id", type = "integer" )
+})
+@FilterDef(name = "nome", parameters = {
+        @ParamDef(name = "nome", type = "string")
+})
+@FilterDef(name = "cognome", parameters = {
+        @ParamDef(name = "cognome", type = "string")
+})
+@FilterDef(name = "codiceFiscale", parameters = {
+        @ParamDef(name = "codiceFiscale", type = "string")
+})
+@FilterDef(name = "nascita", parameters = {
+        @ParamDef(name = "nascita", type = "date")
+})
+@FilterDef(name = "user_id", parameters = {
+        @ParamDef(name = "user_id", type = "integer")
+})
+@Filters({
+        @Filter(name = "id", condition = "id = :id"),
+        @Filter(name = "nome", condition = "nome like :nome"),
+        @Filter(name = "cognome", condition = "cognome like :cognome"),
+        @Filter(name = "codiceFiscale", condition = "codiceFiscale like :codiceFiscale"),
+        @Filter(name = "nascita", condition = "nascita = :nascita"),
+        @Filter(name = "user_id", condition = "user_id = :user_id"),
+})
+
 @Table(name = "Adult")
 public class Adult extends AbstractEntity {
     @Id
