@@ -67,6 +67,9 @@ public class Child extends AbstractEntity{
     )
     private Set<Adult> parents = new HashSet<>();
 
+    @ManyToMany(mappedBy = "presentChildren")
+    private Set<Child> presenze = new HashSet<>();
+
     public Child() { }
 
     public Child(String nome, String cognome, Date nascita, String contatti) {
@@ -145,10 +148,5 @@ public class Child extends AbstractEntity{
         if(parents.contains(parent)) {
             parents.remove(parent);
         }
-    }
-
-    @Override
-    protected boolean primaryKeysAreValid() {
-        return (null != getId() && getId() > 0);
     }
 }

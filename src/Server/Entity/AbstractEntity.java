@@ -52,9 +52,8 @@ public abstract class AbstractEntity implements EntityInterface {
         Result result = new Result();
 
         try {
-            if (primaryKeysAreValid()) {
-                session.delete(this);
-            } else throw new Exception("The values are not valid to delete");
+            session.delete(this);
+
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -74,6 +73,4 @@ public abstract class AbstractEntity implements EntityInterface {
     protected void afterSave() { }
     protected void beforeDelete() { }
     protected void afterDelete() { }
-
-    protected abstract boolean primaryKeysAreValid();
 }

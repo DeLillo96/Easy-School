@@ -87,9 +87,4 @@ public class Users extends AbstractEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @Override
-    protected boolean primaryKeysAreValid() {
-        return (null != getId() && getId() > 0);
-    }
 }

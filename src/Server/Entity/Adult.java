@@ -104,9 +104,4 @@ public class Adult extends AbstractEntity {
     public void removeChild(Child child) {
         if(children.contains(child)) children.remove(child);
     }
-
-    @Override
-    protected boolean primaryKeysAreValid() {
-        return (getId() != null && getId() > 0);
-    }
 }
