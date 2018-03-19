@@ -59,7 +59,7 @@ public class Child extends AbstractEntity{
     @Column(nullable = false, length = 64)
     private String contatti;
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
     @JoinTable(
             name = "Parent",
             joinColumns = { @JoinColumn(name = "child_id") },
@@ -68,7 +68,7 @@ public class Child extends AbstractEntity{
     private Set<Adult> parents = new HashSet<>();
 
     @ManyToMany(mappedBy = "presentChildren")
-    private Set<Child> presenze = new HashSet<>();
+    private Set<Calendario> presenze = new HashSet<>();
 
     public Child() { }
 
@@ -140,13 +140,11 @@ public class Child extends AbstractEntity{
         this.parents = parents;
     }
 
-    public void addParent(Adult parent) {
-        parents.add(parent);
+    public Set<Calendario> getPresenze() {
+        return presenze;
     }
 
-    public void removeParent(Adult parent) {
-        if(parents.contains(parent)) {
-            parents.remove(parent);
-        }
+    public void setPresenze(Set<Calendario> presenze) {
+        this.presenze = presenze;
     }
 }
