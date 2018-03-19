@@ -19,6 +19,8 @@ public class ParentsTest {
 
     @BeforeAll
     static void createParents() {
+        mom.save();
+        dad.save();
         child.getParents().add(dad);
         child.save();
     }
@@ -34,13 +36,11 @@ public class ParentsTest {
         assertTrue(child.getParents().add(mom), "aggiunta genitore fallita");
 
         Result result = child.save();
-        assertTrue(result.isSuccess());
+        assertTrue(result.isSuccess(), "Errore in salvataggio " + result.getMessages().toString());
     }
 
     @AfterAll
     static void deleteParents() {
-        child.setParents(null);
-        child.save();
         child.delete();
         dad.delete();
         mom.delete();
