@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -13,10 +15,21 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-    <Button id="loginButton" fx:id="login" layoutX="232.0" layoutY="464.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" text="Login" textAlignment="CENTER" wrapText="true">
+    <Button id="loginButton" fx:id="login" defaultButton="true" layoutX="232.0" layoutY="464.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" style="-fx-background-color: #25B7D3; -fx-border-color: #15A7C3;" text="Login" textAlignment="CENTER" wrapText="true">
         <font>
             <Font name="Monospaced Bold" size="29.0" />
         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="WHITE" />
+                  <Stop color="#f0f0f0" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
     </Button>
     <TextField id="usernameTextField" layoutX="99.0" layoutY="272.0" prefHeight="57.0" prefWidth="402.0">
         <font>
@@ -36,6 +49,9 @@
         <image>
             <Image url="@images/icon-school.png" />
         </image>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="78.68" radius="38.84" width="78.68" />
+         </effect>
     </ImageView>
     <PasswordField id="passwordTextField" layoutX="99.0" layoutY="390.0" prefHeight="57.0" prefWidth="402.0">
         <font>
