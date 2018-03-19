@@ -15,7 +15,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-    <Button id="loginButton" fx:id="login" defaultButton="true" layoutX="232.0" layoutY="464.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" style="-fx-background-color: #25B7D3; -fx-border-color: #15A7C3;" text="Login" textAlignment="CENTER" wrapText="true">
+    <Button id="loginButton" fx:id="login" defaultButton="true" layoutX="232.0" layoutY="464.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER" wrapText="true">
         <font>
             <Font name="Monospaced Bold" size="29.0" />
         </font>

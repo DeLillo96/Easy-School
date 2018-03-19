@@ -7,14 +7,11 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UsersTest {
-    private static String username = "Sansa";
-    private static String password = "Stark";
     private static UsersRepository usersRepository = new UsersRepository();
-    private static Users user;
+    private static Users user = new Users("Sansa", "Stark");
 
     @BeforeAll
     static void createUser() {
-        user = new Users(username, password);
         user.save();
     }
 
@@ -37,7 +34,7 @@ public class UsersTest {
     }
 
     @Test void verifyConstraint() {
-        Users impostore = new Users(username, "fake password");
+        Users impostore = new Users(user.getUsername(), "fake password");
         Result result = impostore.save();
 
         assertFalse(result.isSuccess(), "Le costraint sono state violate");
