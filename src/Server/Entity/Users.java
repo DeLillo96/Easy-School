@@ -5,6 +5,8 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Entity
 @FilterDef(name = "id", parameters = {
@@ -36,7 +38,7 @@ public class Users extends AbstractEntity {
     @Column(unique = true, nullable = false, length = 16)
     private String username;
 
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false)
     private String password;
 
     @Column(unique = true, length = 32)
@@ -86,5 +88,27 @@ public class Users extends AbstractEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    protected void beforeSave() {
+        try {
+            password = hashPassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
     }
 }
