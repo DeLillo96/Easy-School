@@ -1,6 +1,9 @@
 package Server.Repository;
 
 import Server.Entity.Users;
+import org.osgi.service.useradmin.User;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +30,13 @@ public class UsersRepository extends AbstractRepository {
     public boolean login(String username, String password) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);
-        params.put("password", password);
+        try {
+            params.put("password", Users.hashPassword(password));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
+
         List user = read(params);
         return (user != null && user.size() == 1);
     }
