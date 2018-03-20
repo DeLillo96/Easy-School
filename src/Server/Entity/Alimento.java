@@ -5,6 +5,8 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 
@@ -29,6 +31,9 @@ public class Alimento extends AbstractEntity {
 
     @Column(unique = true, length = 32)
     private String nome;
+
+    @ManyToMany(mappedBy = "ingredients")
+    private Set<Dish> dishes = new HashSet<>();
 
     public Alimento() { }
 
