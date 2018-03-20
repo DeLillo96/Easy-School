@@ -27,7 +27,7 @@ public class Alimento extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @Column(nullable = false, length = 32)
+    @Column(unique = true, length = 32)
     private String nome;
 
     public Alimento() { }
