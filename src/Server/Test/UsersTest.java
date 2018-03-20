@@ -7,8 +7,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UsersTest {
+    private static String password = "Stark";
     private static UsersRepository usersRepository = new UsersRepository();
-    private static Users user = new Users("Sansa", "Stark");
+    private static Users user = new Users("Sansa", password);
 
     @BeforeAll
     static void createUser() {
@@ -30,7 +31,7 @@ public class UsersTest {
         assertFalse(usersRepository.login("wrong username", "wrong password"), message);
         assertFalse(usersRepository.login("wrong username", user.getPassword()), message);
         assertFalse(usersRepository.login(user.getUsername(), "wrong password"), message);
-        assertTrue(usersRepository.login(user.getUsername(), user.getPassword()), message);
+        assertTrue(usersRepository.login(user.getUsername(), password), message);
     }
 
     @Test void verifyConstraint() {
