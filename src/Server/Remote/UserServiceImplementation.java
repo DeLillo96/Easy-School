@@ -1,17 +1,17 @@
-package Server.Controller;
+package Server.Remote;
 
 import Server.Entity.EntityInterface;
 import Server.Entity.Users;
 import Server.Repository.UsersRepository;
 import Server.Result;
-import Shared.UserController;
+import Shared.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-public class UserControllerImplementation extends AbstractController implements UserController {
-    public UserControllerImplementation() throws RemoteException {
+public class UserServiceImplementation extends AbstractBaseService implements UserService {
+    public UserServiceImplementation() throws RemoteException {
         super(new UsersRepository());
     }
 

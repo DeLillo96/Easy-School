@@ -1,9 +1,9 @@
-package Server.Controller;
+package Server.Remote;
 
 import Server.Entity.EntityInterface;
 import Server.Repository.Repository;
 import Server.Result;
-import Shared.Controller;
+import Shared.BaseService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
@@ -12,10 +12,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
-public abstract class AbstractController extends UnicastRemoteObject implements Controller {
+public abstract class AbstractBaseService extends UnicastRemoteObject implements BaseService {
     protected Repository repository;
 
-    public AbstractController(Repository repository) throws RemoteException {
+    public AbstractBaseService(Repository repository) throws RemoteException {
         this.repository = repository;
     }
 

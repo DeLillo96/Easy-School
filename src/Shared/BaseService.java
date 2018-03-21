@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface Controller extends Remote {
+public interface BaseService extends Remote {
     JSONObject readAll() throws RemoteException;
     JSONObject read(JSONObject parameters) throws RemoteException;
 

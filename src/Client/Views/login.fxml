@@ -13,7 +13,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
     <Button id="loginButton" fx:id="login" defaultButton="true" layoutX="232.0" layoutY="464.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER" wrapText="true">
         <font>
@@ -34,7 +34,8 @@
     <TextField id="usernameTextField" layoutX="99.0" layoutY="272.0" prefHeight="57.0" prefWidth="402.0">
         <font>
             <Font name="Monospaced Regular" size="30.0" />
-        </font></TextField>
+        </font>
+    </TextField>
     <Text layoutX="99.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="402.0">
         <font>
             <Font name="Monospaced Regular" size="30.0" />
@@ -58,5 +59,6 @@
             <Font name="Monospaced Regular" size="30.0" />
         </font>
     </PasswordField>
+    <ChoiceBox id="remoteChoiceBox" layoutX="232.0" layoutY="528.0" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #25B7D3;" />
 </children>
 </Pane>

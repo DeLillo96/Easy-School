@@ -4,8 +4,8 @@ import org.json.simple.JSONObject;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface UserController extends Remote {
-    JSONObject login(String username, String password) throws RemoteException;
+public interface UserService extends Remote {
+    JSONObject login(String username, String password) throws Exception;
     JSONObject logout(String username, String password) throws RemoteException;
 
     JSONObject readAll() throws RemoteException;
