@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChildTest {
     private static ChildRepository childRepository = new ChildRepository();
-    private static Child child = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date(), "Corvo verso Grande Inverno");
+    private static Child child = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date(), "A raven to the Barrier");
 
     @BeforeAll
     static void createChild() {
@@ -22,8 +22,8 @@ public class ChildTest {
 
     @Test void readChild() {
         Child readChild = childRepository.getChildByFiscalCode(child.getCodiceFiscale());
-        String message = "errore di lettura";
 
+        String message = "Read error";
         assertEquals(child.getNome(), readChild.getNome(), message);
         assertEquals(child.getCognome(), readChild.getCognome(), message);
         assertEquals(child.getNascita(), readChild.getNascita(), message);
@@ -31,22 +31,24 @@ public class ChildTest {
     }
 
     @Test void verifyConstraint() {
-        Child impostore = new Child(
+        Child newChild = new Child(
                 "impostore",
                 "impostore",
                 child.getCodiceFiscale(),
                 new Date(),
                 "nessuno");
-        Result result = impostore.save();
+        Result result = newChild.save();
 
-        assertFalse(result.isSuccess(), "Le costraint sono state violate");
+        assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
+        if(!result.isSuccess()) newChild.delete();
+
     }
 
     @Test void modifyChild() {
         child.setCognome("Targarien");
         Result result = child.save();
 
-        assertTrue(result.isSuccess(), "Errore di salvataggio + " + result.getMessages().toString());
+        assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
     }
 
     @AfterAll

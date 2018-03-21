@@ -14,40 +14,40 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AlimentTest {
 
     private static AlimentRepository alimentRepository = new AlimentRepository();
-    private static Alimento alimentOne = new Alimento("Formaggio");
-    private static Alimento alimentTwo = new Alimento("Pane Lupo");
+    private static Alimento aliment = new Alimento("farina");
 
     @BeforeAll
     static void createALiment() {
-        alimentOne.save();
-        alimentTwo.save();
+        aliment.save();
     }
 
     @Test void readAliment() {
-        Alimento temp = alimentRepository.getAlimentByNome(alimentOne.getNome());
-        assertEquals(alimentOne.getId(),temp.getId(),"Errore di ID");
-        assertEquals(alimentOne.getNome(),temp.getNome(),"Errore di Nome");
+        Alimento readAliment = alimentRepository.getAlimentByNome(aliment.getNome());
+
+        String message = "Read error";
+        assertEquals(aliment.getId(), readAliment.getId(), message);
+        assertEquals(aliment.getNome(), readAliment.getNome(), message);
     }
 
     @Test void veryfyConstraint() {
-        Alimento cheesyCopy = new Alimento(alimentOne.getNome());
-        Result result = cheesyCopy.save();
-        assertFalse(result.isSuccess(), "FORMAGGIO PER TUTTI!");
+        Alimento newAliment = new Alimento(aliment.getNome());
+        Result result = newAliment.save();
+
+        assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
+
+        if(!result.isSuccess()) newAliment.delete();
     }
 
     @Test void modifyAliment() {
-        alimentOne.setNome("Mozzarella");
-        alimentTwo.setNome("Mozzarella");
-        Result firstTry = alimentOne.save();
-        Result secondTry = alimentTwo.save();
-        assertTrue(firstTry.isSuccess(),"Poco formaggio");
-        assertFalse(secondTry.isSuccess(),"Troppo formaggio");
+        aliment.setNome("Mozzarella");
+        Result result = aliment.save();
+
+        assertTrue(result.isSuccess(),"Error: " + result.getMessages().toString());
     }
 
     @AfterAll
     static void deleteAliment() {
-        alimentOne.delete();
-        alimentTwo.delete();
+        aliment.delete();
     }
 
 }

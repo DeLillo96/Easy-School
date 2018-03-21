@@ -36,10 +36,10 @@ public class RecipesTest {
 
     @Test
     void addNewIngredient() {
-        assertTrue(dish.getIngredients().add(secondAlim), "Il PaneLupo si fa solo con il pane");
+        assertTrue(dish.getIngredients().add(secondAlim));
 
         Result result = dish.save();
-        assertTrue(result.isSuccess(), "Errore in salvataggio " + result.getMessages().toString());
+        assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
     }
 
     @AfterAll

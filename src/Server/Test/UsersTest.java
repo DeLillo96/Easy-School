@@ -29,16 +29,17 @@ public class UsersTest {
         String message = "Errore durante il login";
 
         assertFalse(usersRepository.login("wrong username", "wrong password"), message);
-        assertFalse(usersRepository.login("wrong username", user.getPassword()), message);
+        assertFalse(usersRepository.login("wrong username", password), message);
         assertFalse(usersRepository.login(user.getUsername(), "wrong password"), message);
         assertTrue(usersRepository.login(user.getUsername(), password), message);
     }
 
     @Test void verifyConstraint() {
-        Users impostore = new Users(user.getUsername(), "fake password");
-        Result result = impostore.save();
+        Users newUser = new Users(user.getUsername(), "fake password");
+        Result result = newUser.save();
 
         assertFalse(result.isSuccess(), "Le costraint sono state violate");
+        if(!result.isSuccess()) newUser.delete();
     }
 
     @Test void modifyUser() {

@@ -3,70 +3,62 @@ package Server.Test;
 import Server.Entity.Dish;
 import Server.Repository.DishRepository;
 import Server.Result;
-import org.junit.After;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DishTest {
 
     private static DishRepository dishRepository = new DishRepository();
-    private static Dish dishOne = new Dish("PaneLupo", "Primo");
-    private static Dish dishTwo = new Dish("Carne di Lupo", "Secondo");
+    private static Dish dish = new Dish("Pasticcio di piccione", "Secondo");
 
     @BeforeAll
-    static void createDishes() {
-        dishOne.save();
-        dishTwo.save();
+    static void createDish() {
+        dish.save();
     }
 
     @Test
-    void readDishes() {
-        Dish temp = dishRepository.getDishByName(dishOne.getName());
+    void readDishByName() {
+        Dish readDish = dishRepository.getDishByName(dish.getName());
+        assertDishesEqual(dish, readDish);
+    }
 
-        assertEquals(dishOne.getId(), temp.getId(), "Errore di id nel primo");
-        assertEquals(dishOne.getName(), temp.getName(), "Errore di nome nel primo");
+    @Test
+    void readDishById() {
+        Dish readDish = dishRepository.getDishById(dish.getId());
+        assertDishesEqual(dish, readDish);
+    }
 
-        temp = dishRepository.getDishById(dishTwo.getId());
-
-        assertEquals(dishTwo.getId(), temp.getId(), "Errore di id nel secondo");
-        assertEquals(dishTwo.getName(), temp.getName(), "Errore di nome nel secondo");
+    private void assertDishesEqual(Dish dish1, Dish dish2) {
+        String message = "Read by id error";
+        assertEquals(dish1.getId(), dish2.getId(), message);
+        assertEquals(dish1.getName(), dish2.getName(), message);
+        assertEquals(dish1.getCategory(), dish2.getCategory(), message);
     }
 
     @Test
     void verifyConstraint() {
-        Dish tempTrue = new Dish("Pane Lupo", "Primo");
-        Dish tempFalse = new Dish("PaneLupo", "Primo");
-        Result resultTrue = tempTrue.save();
-        Result resultFalse = tempFalse.save();
+        Dish newDish = new Dish(dish.getName(), "Secondo");
+        Result result = newDish.save();
 
-        assertTrue(resultTrue.isSuccess(), "Non salva correttamente piatti simili");
-        assertFalse(resultFalse.isSuccess(), "Troppo pane");
+        assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
 
-        tempTrue.delete();
+        if(!result.isSuccess()) newDish.delete();
     }
 
     @Test
     void modifyDishes() {
-        dishOne.setName("Pane");
-        Result result = dishOne.save();
+        dish.setName("Pane");
+        Result result = dish.save();
 
-        assertTrue(result.isSuccess(), "Mancata modifica");
-
-        dishOne.setName(dishTwo.getName());
-        result = dishOne.save();
-
-        assertFalse(result.isSuccess(), "Non è unique");
+        assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
     }
 
     @AfterAll
     static void deleteDishes() {
-        dishOne.delete();
-        dishTwo.delete();
+        dish.delete();
     }
 
 }
