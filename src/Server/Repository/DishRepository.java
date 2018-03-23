@@ -25,11 +25,11 @@ public class DishRepository extends AbstractRepository {
         return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
     }
 
-    public Dish getDishByCategory(String category) {
+    /*public Dish getDishByCategory(String category) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("category", category);
         List dishes = read(params);
 
         return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
-    }
+    }*/
 }
