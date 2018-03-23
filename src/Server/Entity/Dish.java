@@ -38,8 +38,9 @@ public class Dish extends AbstractEntity{
     @Column(unique = true)
     private String name;
 
-    @Column(nullable = false, length = 16)
-    private String category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
     @JoinTable(
@@ -51,9 +52,8 @@ public class Dish extends AbstractEntity{
 
     public Dish() { }
 
-    public Dish(String name, String category) {
+    public Dish(String name) {
         this.name = name;
-        this.category = category;
     }
 
     public Integer getId() {
@@ -72,11 +72,11 @@ public class Dish extends AbstractEntity{
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
