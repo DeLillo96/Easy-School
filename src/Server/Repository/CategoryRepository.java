@@ -18,7 +18,7 @@ public class CategoryRepository extends AbstractRepository{
         return category!= null && category.size() == 1 ? (Category) category.get(0) : null;
     }
 
-    public Category getCategoryByNome(String name) {
+    public Category getCategoryByName(String name) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("name", name);
         List category = read(params);
