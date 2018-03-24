@@ -1,6 +1,6 @@
 package Server.Test;
 
-import Server.Entity.Calendario;
+import Server.Entity.Calendar;
 import Server.Entity.Child;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
@@ -13,24 +13,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PresentTest {
     private static Child child = new Child("Daenerys", "Targaryen", "DNRTRG50J15S649F", new Date(), "Dracarys");
-    private static Calendario calendario = new Calendario();
+    private static Calendar calendar = new Calendar();
 
     @BeforeAll
     private static void initData() {
         child.save();
-        calendario.save();
+        calendar.save();
     }
 
     @Test void signPresent() {
-        calendario.getPresentChilds().add(child);
-        Result result = calendario.save();
+        calendar.getPresentChilds().add(child);
+        Result result = calendar.save();
 
-        assertTrue(result.isSuccess(), "Errore di salvataggio + " + result.getMessages().toString());
+        assertTrue(result.isSuccess(), "Error during saving operation + " + result.getMessages().toString());
     }
 
     @AfterAll
     private static void deleteData() {
-        calendario.delete();
+        calendar.delete();
         child.delete();
     }
 }
