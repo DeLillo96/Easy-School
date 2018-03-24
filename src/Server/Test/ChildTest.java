@@ -21,22 +21,22 @@ public class ChildTest {
     }
 
     @Test void readChild() {
-        Child readChild = childRepository.getChildByFiscalCode(child.getCodiceFiscale());
+        Child readChild = childRepository.getChildByFiscalCode(child.getFiscalCode());
 
         String message = "Read error";
-        assertEquals(child.getNome(), readChild.getNome(), message);
-        assertEquals(child.getCognome(), readChild.getCognome(), message);
-        assertEquals(child.getNascita(), readChild.getNascita(), message);
-        assertEquals(child.getContatti(), readChild.getContatti(), message);
+        assertEquals(child.getName(), readChild.getName(), message);
+        assertEquals(child.getSurname(), readChild.getSurname(), message);
+        assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
+        assertEquals(child.getContacts(), readChild.getContacts(), message);
     }
 
     @Test void verifyConstraint() {
         Child newChild = new Child(
-                "impostore",
-                "impostore",
-                child.getCodiceFiscale(),
+                "Impostor",
+                "Impostor",
+                child.getFiscalCode(),
                 new Date(),
-                "nessuno");
+                "Nobody");
         Result result = newChild.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
@@ -45,7 +45,7 @@ public class ChildTest {
     }
 
     @Test void modifyChild() {
-        child.setCognome("Targarien");
+        child.setSurname("Targarien");
         Result result = child.save();
 
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
