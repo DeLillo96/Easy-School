@@ -1,6 +1,6 @@
 package Server.Test;
 
-import Server.Entity.Alimento;
+import Server.Entity.Aliment;
 import Server.Repository.AlimentRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AlimentTest {
 
     private static AlimentRepository alimentRepository = new AlimentRepository();
-    private static Alimento aliment = new Alimento("farina");
+    private static Aliment aliment = new Aliment("Flour");
 
     @BeforeAll
     static void createALiment() {
@@ -22,15 +22,15 @@ public class AlimentTest {
     }
 
     @Test void readAliment() {
-        Alimento readAliment = alimentRepository.getAlimentByNome(aliment.getNome());
+        Aliment readAliment = alimentRepository.getAlimentByName(aliment.getName());
 
         String message = "Read error";
         assertEquals(aliment.getId(), readAliment.getId(), message);
-        assertEquals(aliment.getNome(), readAliment.getNome(), message);
+        assertEquals(aliment.getName(), readAliment.getName(), message);
     }
 
     @Test void veryfyConstraint() {
-        Alimento newAliment = new Alimento(aliment.getNome());
+        Aliment newAliment = new Aliment(aliment.getName());
         Result result = newAliment.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
@@ -39,7 +39,7 @@ public class AlimentTest {
     }
 
     @Test void modifyAliment() {
-        aliment.setNome("Mozzarella");
+        aliment.setName("Cheese");
         Result result = aliment.save();
 
         assertTrue(result.isSuccess(),"Error: " + result.getMessages().toString());
