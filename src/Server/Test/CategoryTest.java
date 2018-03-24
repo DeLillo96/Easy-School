@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CategoryTest {
 
     private static CategoryRepository categoryRepository = new CategoryRepository();
-    private static Category first = new Category("Primo");
-    private static Category second = new Category("Secondo");
+    private static Category first = new Category("First");
+    private static Category second = new Category("Main");
 
     @BeforeAll
     static void createCategory() {
@@ -27,8 +27,8 @@ public class CategoryTest {
     void readCategory() {
         Category read = categoryRepository.getCategoryByName(first.getName());
 
-        assertEquals(first.getId(), read.getId(), "Errore nella lettura dell'id");
-        assertEquals(first.getName(), read.getName(), "Errore nella lettura del nome");
+        assertEquals(first.getId(), read.getId(), "Read Id Error");
+        assertEquals(first.getName(), read.getName(), "Read Name Error");
     }
 
     @Test
@@ -36,17 +36,17 @@ public class CategoryTest {
         Category constraint = new Category(first.getName());
         Result result = constraint.save();
 
-        assertFalse(result.isSuccess(), "Errore di duplicazione");
+        assertFalse(result.isSuccess(), "Duplication Error");
 
         if(!result.isSuccess()) constraint.delete();
     }
 
     @Test
     void modifyCategory() {
-        first.setName("Contorno");
+        first.setName("Side");
         Result result = first.save();
 
-        assertTrue(result.isSuccess(), "Errore nella modifica");
+        assertTrue(result.isSuccess(), "Modify Error");
     }
 
     @AfterAll
