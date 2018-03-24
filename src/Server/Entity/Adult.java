@@ -14,27 +14,27 @@ import java.util.Set;
 @FilterDef(name = "id", parameters = {
         @ParamDef(name = "id", type = "integer" )
 })
-@FilterDef(name = "nome", parameters = {
-        @ParamDef(name = "nome", type = "string")
+@FilterDef(name = "name", parameters = {
+        @ParamDef(name = "name", type = "string")
 })
-@FilterDef(name = "cognome", parameters = {
-        @ParamDef(name = "cognome", type = "string")
+@FilterDef(name = "surname", parameters = {
+        @ParamDef(name = "surname", type = "string")
 })
-@FilterDef(name = "codiceFiscale", parameters = {
-        @ParamDef(name = "codiceFiscale", type = "string")
+@FilterDef(name = "fiscalCode", parameters = {
+        @ParamDef(name = "fiscalCode", type = "string")
 })
-@FilterDef(name = "nascita", parameters = {
-        @ParamDef(name = "nascita", type = "date")
+@FilterDef(name = "birthDate", parameters = {
+        @ParamDef(name = "birthDate", type = "date")
 })
 @FilterDef(name = "user_id", parameters = {
         @ParamDef(name = "user_id", type = "integer")
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "nome", condition = "nome like :nome"),
-        @Filter(name = "cognome", condition = "cognome like :cognome"),
-        @Filter(name = "codiceFiscale", condition = "codiceFiscale like :codiceFiscale"),
-        @Filter(name = "nascita", condition = "nascita = :nascita"),
+        @Filter(name = "name", condition = "name like :name"),
+        @Filter(name = "surname", condition = "surname like :surname"),
+        @Filter(name = "fiscalCode", condition = "fiscalCode like :fiscalCode"),
+        @Filter(name = "birthDate", condition = "birthDate = :birthDate"),
         @Filter(name = "user_id", condition = "user_id = :user_id"),
 })
 
@@ -46,16 +46,16 @@ public class Adult extends AbstractEntity {
     private Integer id;
 
     @Column(nullable = false, length = 32)
-    private String nome;
+    private String name;
 
     @Column(nullable = false, length = 32)
-    private String cognome;
+    private String surname;
 
     @Column(unique = true, length = 16)
-    private String codiceFiscale;
+    private String fiscalCode;
 
     @Column(nullable = false)
-    private Date nascita;
+    private Date birthDate;
 
     @OneToOne
     @JoinColumn(unique = true, name = "user_id")
@@ -66,11 +66,11 @@ public class Adult extends AbstractEntity {
 
     public Adult() { }
 
-    public Adult(String nome, String cognome, String codiceFiscale, Date nascita) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.codiceFiscale = codiceFiscale;
-        this.nascita = nascita;
+    public Adult(String name, String surname, String fiscalCode, Date birthDate) {
+        this.name = name;
+        this.surname = surname;
+        this.fiscalCode = fiscalCode;
+        this.birthDate = birthDate;
     }
 
     public Integer getId() {
@@ -81,36 +81,36 @@ public class Adult extends AbstractEntity {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCognome() {
-        return cognome;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getCodiceFiscale() {
-        return codiceFiscale;
+    public String getFiscalCode() {
+        return fiscalCode;
     }
 
-    public void setCodiceFiscale(String codiceFiscale) {
-        this.codiceFiscale = codiceFiscale;
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
     }
 
-    public Date getNascita() {
-        return nascita;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setNascita(Date nascita) {
-        this.nascita = nascita;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Users getUser() {
