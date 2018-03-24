@@ -19,7 +19,7 @@ public class SocketParser extends Thread {
 
     @Override
     public void run() {
-        while(!interrupted() || socket.isConnected()) {
+        while(!interrupted() && !socket.isClosed()) {
             try {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -36,13 +36,15 @@ public class SocketParser extends Thread {
                     if(json.get("function").equals("login")){
                         JSONObject data = (JSONObject) json.get("data");
                         result = userService.login((String) data.get("username"), (String) data.get("password"));
+
+                        out.println(result.toString());
                     }
                 }
 
-                if (result != null) {
-                    out.println(result.toString());
-                } else {
-                    out.println("nuuuu");
+                if (json.get("service").equals("main")) {
+                    if (json.get("function").equals("exit")) {
+                        socket.close();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Controller.Login;
+import Client.Remote.RemoteManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,6 +16,13 @@ public class Client extends Application {
         primaryStage.setTitle("Easy School");
         Login login = new Login();
         login.render(primaryStage);
+
+        primaryStage.setOnCloseRequest(event -> {
+            try {
+                RemoteManager.getInstance().closeServices();
+            } catch (Exception ignored) {}
+        });
+
         primaryStage.show();
     }
 }
