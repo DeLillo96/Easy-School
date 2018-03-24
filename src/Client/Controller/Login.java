@@ -60,22 +60,30 @@ public class Login implements EventHandler<ActionEvent> {
             RemoteServicesManager remoteServicesManager = RemoteManager.getInstance().getRemoteServicesManager();
             JSONObject response = remoteServicesManager.getUserService().login(username, password);
 
-            System.out.println(response.toJSONString());
             if((boolean) response.get("success")) {
-                //todo things
+                openHome();
             } else throw new Exception(response.get("messages").toString());
         } catch (Exception e) {
             Error error = new Error();
             error.render(e.getMessage(), stage.getScene());
-            //e.printStackTrace(); //FOR DEBUG!!!
         }
     }
 
-    private void setRemoteService() throws RemoteException {
+    private void setRemoteService() throws Exception {
         if(remoteChoiceBox.getValue() == "RMI") {
             RemoteManager.getInstance().setService(new RMIServicesManager());
         } else {
             RemoteManager.getInstance().setService(new SocketServicesManager());
+        }
+    }
+
+    private void openHome() {
+        Home home = new Home();
+        try {
+            home.render(stage);
+        } catch (IOException e) {
+            Error error = new Error();
+            error.render("Internal Error, could not render home page", stage.getScene());
         }
     }
 }
