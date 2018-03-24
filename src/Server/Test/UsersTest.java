@@ -18,7 +18,7 @@ public class UsersTest {
 
     @Test void readUser() {
         Users readUser = usersRepository.getUserById(user.getId());
-        String message = "errore di lettura";
+        String message = "Error during reading operation";
 
         assertEquals(user.getUsername(), readUser.getUsername(), message);
         assertEquals(user.getPassword(), readUser.getPassword(), message);
@@ -26,7 +26,7 @@ public class UsersTest {
     }
 
     @Test void loginUser(){
-        String message = "Errore durante il login";
+        String message = "Login error";
 
         assertFalse(usersRepository.login("wrong username", "wrong password"), message);
         assertFalse(usersRepository.login("wrong username", password), message);
@@ -38,7 +38,7 @@ public class UsersTest {
         Users newUser = new Users(user.getUsername(), "fake password");
         Result result = newUser.save();
 
-        assertFalse(result.isSuccess(), "Le costraint sono state violate");
+        assertFalse(result.isSuccess(), "Violated constraints");
         if(!result.isSuccess()) newUser.delete();
     }
 
@@ -46,7 +46,7 @@ public class UsersTest {
         user.setEmail("sophie.turner@grandeinverno.com");
         Result result = user.save();
 
-        assertTrue(result.isSuccess(), "Errore di salvataggio + " + result.getMessages().toString());
+        assertTrue(result.isSuccess(), "Error during saving operation + " + result.getMessages().toString());
     }
 
     @AfterAll
