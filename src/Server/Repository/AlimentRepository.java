@@ -1,26 +1,26 @@
 package Server.Repository;
 
-import Server.Entity.Alimento;
+import Server.Entity.Aliment;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class AlimentRepository extends AbstractRepository{
-    public AlimentRepository() { super("Alimento"); }
+    public AlimentRepository() { super("Aliment"); }
 
-    public Alimento getAlimentById(Integer id) {
+    public Aliment getAlimentById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
         List aliment = read(params);
 
-        return aliment!= null && aliment.size() == 1 ? (Alimento) aliment.get(0) : null;
+        return aliment!= null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
     }
 
-    public Alimento getAlimentByNome(String nome) {
+    public Aliment getAlimentByName(String name) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("nome", nome);
+        params.put("name", name);
         List aliment = read(params);
 
-        return aliment!= null && aliment.size() == 1 ? (Alimento) aliment.get(0) : null;
+        return aliment!= null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
     }
 }
