@@ -18,13 +18,9 @@ import java.util.Set;
 @FilterDef(name = "name", parameters = {
         @ParamDef(name = "name", type = "string")
 })
-@FilterDef(name = "category", parameters = {
-        @ParamDef(name = "category", type = "string")
-})
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
         @Filter(name = "name", condition = "name like :name"),
-        @Filter(name = "category", condition = "category like :category"),
 })
 
 @Table(name = "Dish")
@@ -48,7 +44,7 @@ public class Dish extends AbstractEntity{
             joinColumns = { @JoinColumn(name = "dish_id") },
             inverseJoinColumns = { @JoinColumn(name = "aliment_id") }
     )
-    private Set<Alimento> ingredients = new HashSet<>();
+    private Set<Aliment> ingredients = new HashSet<>();
 
     public Dish() { }
 
@@ -80,11 +76,11 @@ public class Dish extends AbstractEntity{
         this.category = category;
     }
 
-    public Set<Alimento> getIngredients() {
+    public Set<Aliment> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<Alimento> ingredients) {
+    public void setIngredients(Set<Aliment> ingredients) {
         this.ingredients = ingredients;
     }
 }
