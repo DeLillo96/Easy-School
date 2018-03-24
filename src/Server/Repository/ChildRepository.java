@@ -16,9 +16,9 @@ public class ChildRepository extends AbstractRepository{
         return childs!= null && childs.size() == 1 ? (Child) childs.get(0) : null;
     }
 
-    public Child getChildByFiscalCode(String codiceFiscale) {
+    public Child getChildByFiscalCode(String fiscalCode) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("codiceFiscale", codiceFiscale);
+        params.put("fiscalCode", fiscalCode);
         List childs = read(params);
 
         return childs!= null && childs.size() == 1 ? (Child) childs.get(0) : null;
