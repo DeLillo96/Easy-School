@@ -1,6 +1,6 @@
 package Server.Test;
 
-import Server.Entity.Alimento;
+import Server.Entity.Aliment;
 import Server.Entity.Dish;
 import Server.Repository.DishRepository;
 import Server.Result;
@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipesTest {
 
-    private static Dish dish = new Dish("PaneLupo");
-    private static Alimento firstAlim = new Alimento("Pane");
-    private static Alimento secondAlim = new Alimento("Lupo");
+    private static Dish dish = new Dish("Bread & Wolf");
+    private static Aliment firstAlim = new Aliment("Bread");
+    private static Aliment secondAlim = new Aliment("Wolf");
     private DishRepository dishRepository = new DishRepository();
 
     @BeforeAll
