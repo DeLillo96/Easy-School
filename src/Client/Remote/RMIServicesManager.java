@@ -13,7 +13,9 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     public UserService getUserService() throws Exception {
-        if (registry == null) new RMIServicesManager();
         return (UserService) registry.lookup("users");
     }
+
+    @Override
+    public void closeConnection() throws Exception {}
 }
