@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipesTest {
 
-    private static Dish dish = new Dish("PaneLupo", "Primo");
+    private static Dish dish = new Dish("PaneLupo");
     private static Alimento firstAlim = new Alimento("Pane");
     private static Alimento secondAlim = new Alimento("Lupo");
     private DishRepository dishRepository = new DishRepository();
