@@ -25,7 +25,7 @@ public class CategoryTest {
 
     @Test
     void readCategory() {
-        Category read = categoryRepository.getCategoryByNome(first.getName());
+        Category read = categoryRepository.getCategoryByName(first.getName());
 
         assertEquals(first.getId(), read.getId(), "Errore nella lettura dell'id");
         assertEquals(first.getName(), read.getName(), "Errore nella lettura del nome");
