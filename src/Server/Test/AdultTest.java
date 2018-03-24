@@ -23,12 +23,12 @@ public class AdultTest {
     }
 
     @Test void readAdult() {
-        Adult readAdult = adultRepository.getAdultByFiscalCode(adult.getCodiceFiscale());
+        Adult readAdult = adultRepository.getAdultByFiscalCode(adult.getFiscalCode());
 
         String message = "Read error";
-        assertEquals(adult.getNome(), readAdult.getNome(), message);
-        assertEquals(adult.getCognome(), readAdult.getCognome(), message);
-        assertEquals(adult.getCodiceFiscale(), readAdult.getCodiceFiscale(), message);
+        assertEquals(adult.getName(), readAdult.getName(), message);
+        assertEquals(adult.getSurname(), readAdult.getSurname(), message);
+        assertEquals(adult.getFiscalCode(), readAdult.getFiscalCode(), message);
     }
 
     @Test void readAdultByUser() {
@@ -43,7 +43,7 @@ public class AdultTest {
     }
 
     @Test void verifyConstraint() {
-        Adult newAdult = new Adult("Rory", "McCann", adult.getCodiceFiscale(), new Date());
+        Adult newAdult = new Adult("Rory", "McCann", adult.getFiscalCode(), new Date());
         Result result = newAdult.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
@@ -52,8 +52,8 @@ public class AdultTest {
     }
 
     @Test void modifyAdult() {
-        adult.setNome("Rory");
-        adult.setCognome("McCann");
+        adult.setName("Rory");
+        adult.setSurname("McCann");
         Result result = adult.save();
 
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
