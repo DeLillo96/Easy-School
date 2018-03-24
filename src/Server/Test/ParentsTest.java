@@ -26,17 +26,17 @@ public class ParentsTest {
     }
 
     @Test void readChildWithParents() {
-        Child readChild = childRepository.getChildByFiscalCode(child.getCodiceFiscale());
+        Child readChild = childRepository.getChildByFiscalCode(child.getFiscalCode());
 
         assertNotNull(readChild, "read child error");
-        assertNotNull(readChild.getParents(), "join fallita");
+        assertNotNull(readChild.getParents(), "Failed join");
     }
 
     @Test void addParent() {
-        assertTrue(child.getParents().add(mom), "aggiunta genitore fallita");
+        assertTrue(child.getParents().add(mom), "Failed add parent operation");
 
         Result result = child.save();
-        assertTrue(result.isSuccess(), "Errore in salvataggio " + result.getMessages().toString());
+        assertTrue(result.isSuccess(), "Error during saving operation " + result.getMessages().toString());
     }
 
     @AfterAll
