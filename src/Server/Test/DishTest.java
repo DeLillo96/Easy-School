@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DishTest {
 
     private static DishRepository dishRepository = new DishRepository();
-    private static Dish dish = new Dish("Pasticcio di piccione");
-    private static Dish otherDish = new Dish ("Risotto con le erbette");
-    private static Category category = new Category("Secondo");
+    private static Dish dish = new Dish("Pigeon pie");
+    private static Dish otherDish = new Dish ("Rice with herbs");
+    private static Category category = new Category("Main course");
 
     @BeforeAll
     static void createDish() {
@@ -29,20 +29,20 @@ public class DishTest {
     @Test
     void readDish() {
         Dish readDish = dishRepository.getDishById(dish.getId());
-        assertEquals(dish.getId(), readDish.getId(), "Errore di lettura dell'id del piatto 1");
-        assertEquals(dish.getName(), readDish.getName(), "Errore di lettura del nome del piatto 1");
+        assertEquals(dish.getId(), readDish.getId(), "Id Error on Dish N.1");
+        assertEquals(dish.getName(), readDish.getName(), "Name Error on Dish N.1");
 
         Category readCategory = dish.getCategory();
-        assertEquals(category.getId(), readCategory.getId(), "Errore di lettura del nome della categoria 1");
-        assertEquals(category.getName(), readCategory.getName(), "Errore di lettura del nome della categoria 1");
+        assertEquals(category.getId(), readCategory.getId(), "Id Error on Category N.1");
+        assertEquals(category.getName(), readCategory.getName(), "Name Error on Category N.1");
 
         readDish = dishRepository.getDishById(otherDish.getId());
-        assertEquals(otherDish.getId(), readDish.getId(), "Errore di lettura dell'id del piatto 2");
-        assertEquals(otherDish.getName(), readDish.getName(), "Errore di lettura del nome del piatto 2");
+        assertEquals(otherDish.getId(), readDish.getId(), "Id Error on Dish N.2");
+        assertEquals(otherDish.getName(), readDish.getName(), "Name Error on Dish N.1");
 
         readCategory = otherDish.getCategory();
-        assertEquals(category.getId(), readCategory.getId(), "Errore di lettura del nome della categoria 2");
-        assertEquals(category.getName(), readCategory.getName(), "Errore di lettura del nome della categoria 2");
+        assertEquals(category.getId(), readCategory.getId(), "Id Error on Category N.2");
+        assertEquals(category.getName(), readCategory.getName(), "Name Error on Category N.2");
     }
 
     @Test
@@ -50,7 +50,7 @@ public class DishTest {
         Dish newDish = new Dish(dish.getName());
         Result result = newDish.save();
 
-        assertFalse(result.isSuccess(), "Errore di duplicazione");
+        assertFalse(result.isSuccess(), "Duplication Error");
 
         if(!result.isSuccess()) newDish.delete();
     }
