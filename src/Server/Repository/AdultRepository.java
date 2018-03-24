@@ -20,9 +20,9 @@ public class AdultRepository extends AbstractRepository {
             return null;
     }
 
-    public Adult getAdultByFiscalCode(String codiceFiscale) {
+    public Adult getAdultByFiscalCode(String fiscalCode) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("codiceFiscale", codiceFiscale);
+        params.put("fiscalCode", fiscalCode);
         List adults = read(params);
         if(adults != null && adults.size() == 1)
             return (Adult) adults.get(0);
