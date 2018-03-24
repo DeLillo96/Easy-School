@@ -43,7 +43,7 @@ public class UsersTest {
     }
 
     @Test void modifyUser() {
-        user.setEmail("sophie.turner@grandeinverno.com");
+        user.setEmail("sophie.turner@winterfell.com");
         Result result = user.save();
 
         assertTrue(result.isSuccess(), "Error during saving operation + " + result.getMessages().toString());
