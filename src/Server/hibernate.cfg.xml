@@ -18,10 +18,10 @@
         <property name="hbm2ddl.auto">update</property>
         <!-- MAPPINGS -->
         <mapping class="Server.Entity.Users"/>
-        <mapping class="Server.Entity.Calendario"/>
+        <mapping class="Server.Entity.Calendar"/>
         <mapping class="Server.Entity.Child"/>
         <mapping class="Server.Entity.Adult"/>
-        <mapping class="Server.Entity.Alimento"/>
+        <mapping class="Server.Entity.Aliment"/>
         <mapping class="Server.Entity.Dish"/>
         <mapping class="Server.Entity.Category"/>
     </session-factory>
