@@ -19,7 +19,9 @@ public class RemoteManager {
         return instance;
     }
 
-    public void closeServices() throws Exception {
-        remoteServicesManager.closeConnection();
+    public void closeServices() {
+        try {
+            remoteServicesManager.closeConnection();
+        } catch (Exception ignored) {}
     }
 }

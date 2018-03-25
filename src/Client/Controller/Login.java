@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -18,10 +19,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 public class Login implements EventHandler<ActionEvent> {
-    private Button buttonLogin;
+    private Button loginButton;
     private TextField usernameField;
     private PasswordField passwordField;
     private ChoiceBox remoteChoiceBox;
@@ -31,7 +31,7 @@ public class Login implements EventHandler<ActionEvent> {
         stage = mainStage;
         Pane root = FXMLLoader.load(getClass().getResource("../Views/login.fxml"));
 
-        buttonLogin = (Button) root.lookup("#loginButton");
+        loginButton = (Button) root.lookup("#loginButton");
         usernameField = (TextField) root.lookup("#usernameTextField");
         passwordField = (PasswordField) root.lookup("#passwordTextField");
         remoteChoiceBox = (ChoiceBox) root.lookup("#remoteChoiceBox");
@@ -39,16 +39,18 @@ public class Login implements EventHandler<ActionEvent> {
         ObservableList<String> collection = FXCollections.observableArrayList("RMI", "Socket");
         remoteChoiceBox.setItems(collection);
         remoteChoiceBox.setValue("RMI");
-        buttonLogin.setOnAction(this);
+        loginButton.setOnAction(this);
 
         mainStage.setScene(new Scene(root));
     }
 
     @Override
     public void handle(ActionEvent event) {
-        if(event.getSource() == buttonLogin) {
+        stage.getScene().setCursor(Cursor.WAIT);
+        if(event.getSource() == loginButton) {
             loginEvent();
         }
+        stage.getScene().setCursor(Cursor.DEFAULT);
     }
 
     private void loginEvent() {

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="844.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<TabPane rotateGraphic="true" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMinWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab text="Home">
+    <Tab closable="false" text="Home">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
                <children>
-                  <ImageView fitHeight="448.0" fitWidth="613.0" layoutX="122.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="448.0" fitWidth="613.0" layoutX="249.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="248.20703125" AnchorPane.topAnchor="92.0">
                      <image>
                         <Image url="@images/school-teacher-children-child-care-png-23.png" />
                      </image>
@@ -21,24 +18,24 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Child">
+    <Tab closable="false" text="Child">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" />
       </content>
     </Tab>
-      <Tab text="Adult">
+      <Tab closable="false" text="Adult">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" />
         </content>
       </Tab>
-      <Tab text="Canteen">
+      <Tab closable="false" text="Canteen">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" />
         </content>
       </Tab>
-      <Tab text="Trip">
+      <Tab closable="false" text="Trip">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" />
         </content>
       </Tab>
   </tabs>
