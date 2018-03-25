@@ -12,7 +12,7 @@ public class Client extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setResizable(false);
+        primaryStage.setTitle("Easy School");
 
         Login login = new Login();
         login.render(primaryStage);
