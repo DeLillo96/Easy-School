@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Result {
     private List<String> messages = new ArrayList<String>();
@@ -94,7 +95,8 @@ public class Result {
         for(Field field : declaredFields) {
             try {
                 field.setAccessible(true);
-                jsonObject.put(field.getName(), field.get(o));
+                if(field.getType() != Set.class)
+                    jsonObject.put(field.getName(), field.get(o));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
