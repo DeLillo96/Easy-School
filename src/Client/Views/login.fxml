@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
@@ -8,11 +10,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="600.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="600.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-      <VBox layoutX="90.0" layoutY="-10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="90.0" layoutY="-10.0" prefHeight="672.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="318.0" prefWidth="600.0">
                <children>
                   <Group>
                      <children>
@@ -36,57 +38,59 @@
                   </Group>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="287.0" prefWidth="600.0">
+            <HBox alignment="CENTER" prefHeight="217.0" prefWidth="600.0">
                <children>
                   <Group>
                      <children>
-                      <TextField id="usernameTextField" layoutX="90.0" layoutY="365.0" prefHeight="57.0" prefWidth="402.0" snapToPixel="false">
+                      <TextField id="usernameTextField" alignment="CENTER" layoutX="90.0" layoutY="365.0" promptText="Username" snapToPixel="false">
                           <font>
                               <Font name="Monospaced Regular" size="30.0" />
                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="10.0" left="100.0" right="100.0" top="5.0" />
+                           </padding>
                       </TextField>
-                      <Text layoutX="219.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER">
+                      <PasswordField id="passwordTextField" alignment="CENTER" layoutX="90.0" layoutY="482.0" promptText="Password" snapToPixel="false">
                           <font>
                               <Font name="Monospaced Regular" size="30.0" />
                           </font>
-                      </Text>
-                      <PasswordField id="passwordTextField" layoutX="90.0" layoutY="482.0" prefHeight="57.0" prefWidth="402.0" snapToPixel="false">
-                          <font>
-                              <Font name="Monospaced Regular" size="30.0" />
-                          </font>
+                           <padding>
+                              <Insets bottom="10.0" left="100.0" right="100.0" top="5.0" />
+                           </padding>
                       </PasswordField>
-                      <Text layoutX="219.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER">
-                          <font>
-                              <Font name="Monospaced Regular" size="30.0" />
-                          </font>
-                      </Text>
                      </children>
                   </Group>
                </children>
             </HBox>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="140.0" prefWidth="600.0">
                <children>
-                <Button id="loginButton" fx:id="login" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="232.0" layoutY="572.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="136.0" snapToPixel="false" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font name="Monospaced Bold" size="29.0" />
-                    </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <textFill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop color="WHITE" />
-                              <Stop color="#f0f0f0" offset="1.0" />
-                           </stops>
-                        </LinearGradient>
-                     </textFill>
-                </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER">
-               <children>
-                <ChoiceBox id="remoteChoiceBox" layoutX="232.0" layoutY="636.0" prefHeight="25.0" prefWidth="136.0" snapToPixel="false" style="-fx-background-color: #25B7D3;" />
+                  <Group>
+                     <children>
+                      <ChoiceBox id="remoteChoiceBox" layoutY="55.0" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #25B7D3;" />
+                      <Button id="loginButton" fx:id="login" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" snapToPixel="false" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER" wrapText="true">
+                          <font>
+                              <Font name="Monospaced Bold" size="29.0" />
+                          </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <textFill>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="WHITE" />
+                                    <Stop color="#f0f0f0" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                           <padding>
+                              <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                           </padding>
+                      </Button>
+                     </children>
+                  </Group>
                </children>
             </HBox>
          </children>
