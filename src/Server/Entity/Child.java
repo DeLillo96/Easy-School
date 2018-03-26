@@ -1,10 +1,11 @@
 package Server.Entity;
 
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.Filters;
-import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,6 +59,9 @@ public class Child extends AbstractEntity{
 
     @Column(nullable = false, length = 64)
     private String contacts;
+
+    @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER)
+    private Set<EatingDisorder> eatingDisorders = new HashSet<EatingDisorder>();
 
     @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
     @JoinTable(
@@ -146,5 +150,13 @@ public class Child extends AbstractEntity{
 
     public void setPresences(Set<Calendar> presences) {
         this.presences = presences;
+    }
+
+    public Set<EatingDisorder> getEatingDisorders() {
+        return eatingDisorders;
+    }
+
+    public void setEatingDisorders(Set<EatingDisorder> eatingDisorders) {
+        this.eatingDisorders = eatingDisorders;
     }
 }
