@@ -18,6 +18,9 @@ import java.util.Set;
 @FilterDef(name = "name", parameters = {
         @ParamDef(name = "name", type = "string")
 })
+@FilterDef(name = "categoryParam", parameters = {
+        @ParamDef(name = "categoryParam", type = "string")
+})
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
         @Filter(name = "name", condition = "name like :name"),
