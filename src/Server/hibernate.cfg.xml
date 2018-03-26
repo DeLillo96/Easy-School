@@ -14,6 +14,7 @@
         <!-- Log SQL queries -->
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
+        <property name="show_sql">true</property>
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
         <!-- MAPPINGS -->
@@ -24,5 +25,6 @@
         <mapping class="Server.Entity.Aliment"/>
         <mapping class="Server.Entity.Dish"/>
         <mapping class="Server.Entity.Category"/>
+        <mapping class="Server.Entity.EatingDisorder"/>
     </session-factory>
 </hibernate-configuration>
