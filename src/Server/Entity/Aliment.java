@@ -35,6 +35,9 @@ public class Aliment extends AbstractEntity {
     @ManyToMany(mappedBy = "ingredients")
     private Set<Dish> dishes = new HashSet<>();
 
+    @OneToMany(mappedBy = "affectedAliment", fetch = FetchType.EAGER)
+    private Set<EatingDisorder> eatingDisorders = new HashSet<>();
+
     public Aliment() { }
 
     public Aliment(String name) {
@@ -55,5 +58,13 @@ public class Aliment extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<EatingDisorder> getEatingDisorders() {
+        return eatingDisorders;
+    }
+
+    public void setEatingDisorders(Set<EatingDisorder> eatingDisorders) {
+        this.eatingDisorders = eatingDisorders;
     }
 }
