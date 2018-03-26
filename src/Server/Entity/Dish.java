@@ -1,22 +1,21 @@
 package Server.Entity;
 
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.Filters;
-import org.hibernate.annotations.ParamDef;
-import org.jboss.logging.Param;
-
+import org.hibernate.annotations.*;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer")
-})
-@FilterDef(name = "name", parameters = {
-        @ParamDef(name = "name", type = "string")
+@FilterDefs({
+        @FilterDef(name = "id", parameters = {
+                @ParamDef(name = "id", type = "integer")
+        }),
+        @FilterDef(name = "name", parameters = {
+                @ParamDef(name = "name", type = "string")
+        })
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -36,7 +35,7 @@ public class Dish extends AbstractEntity{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private Category dishCategory;
 
     @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
     @JoinTable(
@@ -69,11 +68,11 @@ public class Dish extends AbstractEntity{
     }
 
     public Category getCategory() {
-        return category;
+        return dishCategory;
     }
 
     public void setCategory(Category category) {
-        this.category = category;
+        this.dishCategory = category;
     }
 
     public Set<Aliment> getIngredients() {

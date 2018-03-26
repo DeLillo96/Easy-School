@@ -1,9 +1,10 @@
 package Server.Repository;
 
+import Server.Entity.Category;
 import Server.Entity.Dish;
-
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class DishRepository extends AbstractRepository {
 
@@ -25,11 +26,10 @@ public class DishRepository extends AbstractRepository {
         return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
     }
 
-    /*public Dish getDishByCategory(String category) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("category", category);
-        List dishes = read(params);
+    public Set<Dish> getDishesByCategory(String categoryName) {
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category dishes = categoryRepository.getCategoryByName(categoryName);
 
-        return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
-    }*/
+        return dishes.getDishes();
+    }
 }

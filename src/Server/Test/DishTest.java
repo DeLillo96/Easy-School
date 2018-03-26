@@ -2,11 +2,16 @@ package Server.Test;
 
 import Server.Entity.Category;
 import Server.Entity.Dish;
+import Server.Repository.CategoryRepository;
 import Server.Repository.DishRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,13 +20,15 @@ public class DishTest {
     private static DishRepository dishRepository = new DishRepository();
     private static Dish dish = new Dish("Pigeon pie");
     private static Dish otherDish = new Dish ("Rice with herbs");
-    private static Category category = new Category("Main course");
+    private static Category category = new Category("Main");
+    private static Category categoryTwo = new Category("LOL");
 
     @BeforeAll
     static void createDish() {
         category.save();
+        categoryTwo.save();
         dish.setCategory(category);
-        otherDish.setCategory(category);
+        otherDish.setCategory(categoryTwo);
         dish.save();
         otherDish.save();
     }
@@ -43,6 +50,12 @@ public class DishTest {
         readCategory = otherDish.getCategory();
         assertEquals(category.getId(), readCategory.getId(), "Id Error on Category N.2");
         assertEquals(category.getName(), readCategory.getName(), "Name Error on Category N.2");
+    }
+
+    @Test void testReadFromCategory() {
+        Set result = dishRepository.getDishesByCategory("Main");
+
+        assertNotNull(result);
     }
 
     @Test
@@ -68,6 +81,7 @@ public class DishTest {
         dish.delete();
         otherDish.delete();
         category.delete();
+        categoryTwo.delete();
     }
 
 }
