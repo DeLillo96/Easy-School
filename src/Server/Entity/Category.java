@@ -7,6 +7,8 @@ import org.hibernate.annotations.ParamDef;
 import org.jboss.logging.Param;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 
@@ -30,8 +32,11 @@ public class Category extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @Column(unique = true, length = 16)
+    @PrimaryKeyJoinColumn
     private String name;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private Set<Dish> dishes = new HashSet<Dish>();
 
     public Category() { }
 
@@ -53,5 +58,13 @@ public class Category extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 }
