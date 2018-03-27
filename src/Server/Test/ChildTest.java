@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChildTest {
     private static ChildRepository childRepository = new ChildRepository();
-    private static Child child = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date(), "A raven to the Barrier");
+    private static Child child = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date());
 
     @BeforeAll
     static void createChild() {
@@ -27,7 +27,6 @@ public class ChildTest {
         assertEquals(child.getName(), readChild.getName(), message);
         assertEquals(child.getSurname(), readChild.getSurname(), message);
         assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
-        assertEquals(child.getContacts(), readChild.getContacts(), message);
     }
 
     @Test void verifyConstraint() {
@@ -35,8 +34,7 @@ public class ChildTest {
                 "Impostor",
                 "Impostor",
                 child.getFiscalCode(),
-                new Date(),
-                "Nobody");
+                new Date());
         Result result = newChild.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());

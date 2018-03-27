@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdultTest {
     private static AdultRepository adultRepository = new AdultRepository();
     private static Users user = new Users("hound", "none");
-    private static Adult adult = new Adult("Sandor", "Clegane", "SNDCLG92H51A730S", new Date());
+    private static Adult adult = new Adult("Sandor", "Clegane", "SNDCLG92H51A730S", new Date(), "8204710473");
 
     @BeforeAll
     static void createAdult() {
@@ -43,7 +43,7 @@ public class AdultTest {
     }
 
     @Test void verifyConstraint() {
-        Adult newAdult = new Adult("Rory", "McCann", adult.getFiscalCode(), new Date());
+        Adult newAdult = new Adult("Rory", "McCann", adult.getFiscalCode(), new Date(), "8273058105");
         Result result = newAdult.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());

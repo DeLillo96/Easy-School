@@ -10,24 +10,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer" )
-})
-@FilterDef(name = "name", parameters = {
-        @ParamDef(name = "name", type = "string")
-})
-@FilterDef(name = "surname", parameters = {
-        @ParamDef(name = "surname", type = "string")
-})
-@FilterDef(name = "fiscalCode", parameters = {
-        @ParamDef(name = "fiscalCode", type = "string")
-})
-@FilterDef(name = "birthDate", parameters = {
-        @ParamDef(name = "birthDate", type = "date")
-})
-@FilterDef(name = "user_id", parameters = {
-        @ParamDef(name = "user_id", type = "integer")
+@FilterDefs({
+        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer" ) }),
+        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") }),
+        @FilterDef(name = "surname", parameters = { @ParamDef(name = "surname", type = "string") }),
+        @FilterDef(name = "fiscalCode", parameters = { @ParamDef(name = "fiscalCode", type = "string") }),
+        @FilterDef(name = "birthDate", parameters = { @ParamDef(name = "birthDate", type = "date") }),
+        @FilterDef(name = "user_id", parameters = { @ParamDef(name = "user_id", type = "integer") })
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -64,13 +53,17 @@ public class Adult extends AbstractEntity {
     @ManyToMany(mappedBy = "parents")
     private Set<Child> children = new HashSet<>();
 
+    @Column(nullable = false, length = 10)
+    private String telephone;
+
     public Adult() { }
 
-    public Adult(String name, String surname, String fiscalCode, Date birthDate) {
+    public Adult(String name, String surname, String fiscalCode, Date birthDate, String telephone) {
         this.name = name;
         this.surname = surname;
         this.fiscalCode = fiscalCode;
         this.birthDate = birthDate;
+        this.telephone = telephone;
     }
 
     public Integer getId() {
@@ -111,6 +104,14 @@ public class Adult extends AbstractEntity {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public Users getUser() {

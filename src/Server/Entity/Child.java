@@ -1,7 +1,6 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,23 +11,13 @@ import java.util.Set;
 
 @Entity
 
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer" )
-})
-@FilterDef(name = "name", parameters = {
-        @ParamDef(name = "name", type = "string")
-})
-@FilterDef(name = "surname", parameters = {
-        @ParamDef(name = "surname", type = "string")
-})
-@FilterDef(name = "fiscalCode", parameters = {
-        @ParamDef(name = "fiscalCode", type = "string")
-})
-@FilterDef(name = "birthDate", parameters = {
-        @ParamDef(name = "birthDate", type = "date")
-})
-@FilterDef(name = "contacts", parameters = {
-        @ParamDef(name = "contacts", type = "string")
+@FilterDefs({
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
+        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string") ),
+        @FilterDef(name = "surname", parameters = @ParamDef(name = "surname", type = "string") ),
+        @FilterDef(name = "fiscalCode", parameters = @ParamDef(name = "fiscalCode", type = "string") ),
+        @FilterDef(name = "birthDate", parameters = @ParamDef(name = "birthDate", type = "date") ),
+        @FilterDef(name = "contacts", parameters = @ParamDef(name = "contacts", type = "string") )
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -76,16 +65,15 @@ public class Child extends AbstractEntity{
 
     public Child() { }
 
-    public Child(String name, String surname, Date birthDate, String contacts) {
-        this(name, surname, null, birthDate, contacts);
+    public Child(String name, String surname, Date birthDate) {
+        this(name, surname, null, birthDate);
     }
 
-    public Child(String name, String surname, String fiscalCode, Date birthDate, String contacts) {
+    public Child(String name, String surname, String fiscalCode, Date birthDate) {
         this.name = name;
         this.surname = surname;
         this.fiscalCode = fiscalCode;
         this.birthDate = birthDate;
-        this.contacts = contacts;
     }
 
     public Integer getId() {
@@ -126,14 +114,6 @@ public class Child extends AbstractEntity{
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public String getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
     }
 
     public Set<Adult> getParents() {
