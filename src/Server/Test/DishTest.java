@@ -2,14 +2,12 @@ package Server.Test;
 
 import Server.Entity.Category;
 import Server.Entity.Dish;
-import Server.Repository.CategoryRepository;
 import Server.Repository.DishRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +18,8 @@ public class DishTest {
     private static DishRepository dishRepository = new DishRepository();
     private static Dish dish = new Dish("Pigeon pie");
     private static Dish otherDish = new Dish ("Rice with herbs");
-    private static Category category = new Category("Main");
-    private static Category categoryTwo = new Category("LOL");
+    private static Category category = new Category("Main course");
+    private static Category categoryTwo = new Category("Second course");
 
     @BeforeAll
     static void createDish() {
@@ -34,27 +32,28 @@ public class DishTest {
     }
 
     @Test
-    void readDish() {
+    void readDishOne() {
         Dish readDish = dishRepository.getDishById(dish.getId());
+        Category readCategory = dish.getCategory();
         assertEquals(dish.getId(), readDish.getId(), "Id Error on Dish N.1");
         assertEquals(dish.getName(), readDish.getName(), "Name Error on Dish N.1");
-
-        Category readCategory = dish.getCategory();
         assertEquals(category.getId(), readCategory.getId(), "Id Error on Category N.1");
         assertEquals(category.getName(), readCategory.getName(), "Name Error on Category N.1");
-
-        readDish = dishRepository.getDishById(otherDish.getId());
-        assertEquals(otherDish.getId(), readDish.getId(), "Id Error on Dish N.2");
-        assertEquals(otherDish.getName(), readDish.getName(), "Name Error on Dish N.1");
-
-        readCategory = otherDish.getCategory();
-        assertEquals(category.getId(), readCategory.getId(), "Id Error on Category N.2");
-        assertEquals(category.getName(), readCategory.getName(), "Name Error on Category N.2");
     }
 
-    @Test void testReadFromCategory() {
-        Set result = dishRepository.getDishesByCategory("Main");
+    @Test
+    void readDishTwo() {
+        Dish readDish = dishRepository.getDishById(otherDish.getId());
+        Category readCategory = otherDish.getCategory();
+        assertEquals(otherDish.getId(), readDish.getId(), "Id Error on Dish N.2");
+        assertEquals(otherDish.getName(), readDish.getName(), "Name Error on Dish N.1");
+        assertEquals(categoryTwo.getId(), readCategory.getId(), "Id Error on Category N.2");
+        assertEquals(categoryTwo.getName(), readCategory.getName(), "Name Error on Category N.2");
+    }
 
+    @Test
+    void readFromCategory() {
+        Set result = dishRepository.getDishByCategory(categoryTwo.getName());
         assertNotNull(result);
     }
 

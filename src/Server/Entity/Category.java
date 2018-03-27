@@ -1,21 +1,22 @@
 package Server.Entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
+import org.jboss.logging.Param;
+
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 
-@FilterDefs({
-    @FilterDef(name = "id", parameters = {
-            @ParamDef(name = "id", type = "integer")
-    }),
-    @FilterDef(name = "name", parameters = {
-            @ParamDef(name = "name", type = "string")
-    }),
+@FilterDef(name = "id", parameters = {
+        @ParamDef(name = "id", type = "integer")
+})
+@FilterDef(name = "name", parameters = {
+        @ParamDef(name = "name", type = "string")
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -31,10 +32,10 @@ public class Category extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @Column(unique = true, length = 16)
+    @PrimaryKeyJoinColumn
     private String name;
 
-    @OneToMany(mappedBy = "dishCategory", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<Dish> dishes = new HashSet<Dish>();
 
     public Category() { }
