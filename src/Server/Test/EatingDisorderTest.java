@@ -21,8 +21,8 @@ public class EatingDisorderTest {
     private static EatingDisorderRepository eatingDisorderRepository = new EatingDisorderRepository();
     private static ChildRepository childRepository = new ChildRepository();
     private static AlimentRepository alimentRepository = new AlimentRepository();
-    private static Child childOne = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date(), "A raven to the Barrier");
-    private static Child childTwo = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date(), "Valar Morghunis");
+    private static Child childOne = new Child("Jon", "Snow", "SNWJHN96T27V730G", new Date());
+    private static Child childTwo = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date());
     private static Aliment alimentOne = new Aliment("Flour");
     private static Aliment alimentTwo = new Aliment("Wolf");
     private static EatingDisorder eatingDisorderOne = new EatingDisorder(childOne,alimentOne,"Allergy");
