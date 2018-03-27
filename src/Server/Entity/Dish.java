@@ -10,15 +10,8 @@ import java.util.Set;
 
 @Entity
 @FilterDefs({
-        @FilterDef(name = "id", parameters = {
-                @ParamDef(name = "id", type = "integer")
-        }),
-        @FilterDef(name = "name", parameters = {
-                @ParamDef(name = "name", type = "string")
-        })
-})
-@FilterDef(name = "categoryParam", parameters = {
-        @ParamDef(name = "categoryParam", type = "string")
+        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer") }),
+        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") }),
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),

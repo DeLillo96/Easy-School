@@ -8,17 +8,9 @@ import javax.persistence.Table;
 
 @Entity
 
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer")
-})
-@FilterDef(name = "affectedChildFilter", parameters = {
-        @ParamDef(name = "affectedChildFilter", type = "string")
-})
-@FilterDef(name = "affectedAlimentFilter", parameters = {
-        @ParamDef(name = "affectedAlimentFilter", type = "string")
-})
-@FilterDef(name = "type", parameters = {
-        @ParamDef(name = "type", type = "string")
+@FilterDefs({
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
+        @FilterDef(name = "type", parameters = @ParamDef(name = "type", type = "string") ),
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),

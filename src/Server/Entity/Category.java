@@ -1,22 +1,19 @@
 package Server.Entity;
 
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.Filters;
-import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.*;
 import org.jboss.logging.Param;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer")
-})
-@FilterDef(name = "name", parameters = {
-        @ParamDef(name = "name", type = "string")
+@FilterDefs({
+        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer") }),
+        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") })
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),

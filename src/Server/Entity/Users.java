@@ -1,7 +1,6 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,17 +8,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Entity
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer" )
-})
-@FilterDef(name = "username", parameters = {
-        @ParamDef(name = "username", type = "string" )
-})
-@FilterDef(name = "password", parameters = {
-        @ParamDef(name = "password", type = "string" )
-})
-@FilterDef(name = "email", parameters = {
-        @ParamDef(name = "email", type = "string" )
+@FilterDefs({
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer" ) ),
+        @FilterDef(name = "username", parameters = @ParamDef(name = "username", type = "string" ) ),
+        @FilterDef(name = "password", parameters = @ParamDef(name = "password", type = "string" ) ),
+        @FilterDef(name = "email", parameters = @ParamDef(name = "email", type = "string" ) )
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),

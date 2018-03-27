@@ -12,7 +12,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PresentTest {
-    private static Child child = new Child("Daenerys", "Targaryen", "DNRTRG50J15S649F", new Date(), "Dracarys");
+    private static Child child = new Child("Daenerys", "Targaryen", "DNRTRG50J15S649F", new Date());
     private static Calendar calendar = new Calendar();
 
     @BeforeAll

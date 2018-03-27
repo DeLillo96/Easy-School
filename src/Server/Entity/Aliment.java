@@ -1,7 +1,6 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,11 +9,9 @@ import java.util.Set;
 
 @Entity
 
-@FilterDef(name = "id", parameters = {
-        @ParamDef(name = "id", type = "integer")
-})
-@FilterDef(name = "name", parameters = {
-        @ParamDef(name = "name", type = "string")
+@FilterDefs({
+        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer") }),
+        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") })
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),

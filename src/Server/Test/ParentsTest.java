@@ -8,13 +8,16 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParentsTest {
-    private static Adult dad = new Adult("Eddard", "Stark", "EDDSTK93H57V379L", new Date());
-    private static Adult mom = new Adult("Catelyn", "Tully", "CRLTLL93D65L153G", new Date());
-    private static Child child = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date(), "Valar Morghunis");
+    private static Adult dad = new Adult("Eddard", "Stark", "EDDSTK93H57V379L", new Date(), "7395061038");
+    private static Adult mom = new Adult("Catelyn", "Tully", "CRLTLL93D65L153G", new Date(), "7263017233");
+    private static Child child = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date());
     private ChildRepository childRepository = new ChildRepository();
 
     @BeforeAll
@@ -37,6 +40,14 @@ public class ParentsTest {
 
         Result result = child.save();
         assertTrue(result.isSuccess(), "Error during saving operation " + result.getMessages().toString());
+    }
+
+    @Test void readFilterJoinTable() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("parentName", 1);
+        List child = childRepository.read(params);
+
+        assertNotNull(child, "read children error");
     }
 
     @AfterAll
