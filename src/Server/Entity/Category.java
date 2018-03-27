@@ -29,10 +29,10 @@ public class Category extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @PrimaryKeyJoinColumn
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dishCategory", fetch = FetchType.EAGER)
     private Set<Dish> dishes = new HashSet<Dish>();
 
     public Category() { }

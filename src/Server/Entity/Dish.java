@@ -41,6 +41,18 @@ public class Dish extends AbstractEntity{
     )
     private Set<Aliment> ingredients = new HashSet<>();
 
+    @OneToMany(mappedBy = "firstDish", fetch = FetchType.EAGER)
+    private Set<Menu> firstMenu = new HashSet<>();
+
+    @OneToMany(mappedBy = "secondDish", fetch = FetchType.EAGER)
+    private Set<Menu> secondMenu = new HashSet<>();
+
+    @OneToMany(mappedBy = "sideDish", fetch = FetchType.EAGER)
+    private Set<Menu> sideMenu = new HashSet<>();
+
+    @OneToMany(mappedBy = "sweet", fetch = FetchType.EAGER)
+    private Set<Menu> sweet = new HashSet<>();
+
     public Dish() { }
 
     public Dish(String name) {
@@ -77,5 +89,37 @@ public class Dish extends AbstractEntity{
 
     public void setIngredients(Set<Aliment> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Set<Menu> getFirstMenu() {
+        return firstMenu;
+    }
+
+    public void setFirstMenu(Set<Menu> firstMenu) {
+        this.firstMenu = firstMenu;
+    }
+
+    public Set<Menu> getSecondMenu() {
+        return secondMenu;
+    }
+
+    public void setSecondMenu(Set<Menu> secondMenu) {
+        this.secondMenu = secondMenu;
+    }
+
+    public Set<Menu> getSideMenu() {
+        return sideMenu;
+    }
+
+    public void setSideMenu(Set<Menu> sideMenu) {
+        this.sideMenu = sideMenu;
+    }
+
+    public Set<Menu> getSweet() {
+        return sweet;
+    }
+
+    public void setSweet(Set<Menu> sweet) {
+        this.sweet = sweet;
     }
 }

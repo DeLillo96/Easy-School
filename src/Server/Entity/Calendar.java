@@ -24,6 +24,10 @@ public class Calendar extends AbstractEntity {
     )
     private Set<Child> presentChildren = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "daily_menu")
+    private Menu dailyMenu;
+
     public Calendar() {
         this.date = new Date();
     }
@@ -54,5 +58,13 @@ public class Calendar extends AbstractEntity {
 
     public void setPresentChilds(Set<Child> presentChilds) {
         this.presentChildren = presentChilds;
+    }
+
+    public Menu getDailyMenu() {
+        return dailyMenu;
+    }
+
+    public void setDailyMenu(Menu dailyMenu) {
+        this.dailyMenu = dailyMenu;
     }
 }

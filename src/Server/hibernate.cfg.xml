@@ -26,5 +26,6 @@
         <mapping class="Server.Entity.Dish"/>
         <mapping class="Server.Entity.Category"/>
         <mapping class="Server.Entity.EatingDisorder"/>
+        <mapping class="Server.Entity.Menu"/>
     </session-factory>
 </hibernate-configuration>

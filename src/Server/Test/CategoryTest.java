@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CategoryTest {
 
     private static CategoryRepository categoryRepository = new CategoryRepository();
-    private static Category first = new Category("First");
-    private static Category second = new Category("Main");
+    private static Category first = new Category("First dish");
+    private static Category second = new Category("Second dish");
 
     @BeforeAll
     static void createCategory() {
@@ -43,7 +43,7 @@ public class CategoryTest {
 
     @Test
     void modifyCategory() {
-        first.setName("Side");
+        first.setName("Side dish");
         Result result = first.save();
 
         assertTrue(result.isSuccess(), "Modify Error");
