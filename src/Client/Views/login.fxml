@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="600.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="600.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.Login">
 <children>
       <VBox layoutX="90.0" layoutY="-10.0" prefHeight="672.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -42,7 +43,7 @@
                <children>
                   <Group>
                      <children>
-                      <TextField id="usernameTextField" alignment="CENTER" layoutX="90.0" layoutY="365.0" promptText="Username" snapToPixel="false">
+                      <TextField fx:id="usernameField" alignment="CENTER" layoutX="90.0" layoutY="365.0" promptText="Username" snapToPixel="false">
                           <font>
                               <Font name="Monospaced Regular" size="30.0" />
                           </font>
@@ -53,7 +54,7 @@
                               <Insets bottom="10.0" left="100.0" right="100.0" top="5.0" />
                            </padding>
                       </TextField>
-                      <PasswordField id="passwordTextField" alignment="CENTER" layoutX="90.0" layoutY="482.0" promptText="Password" snapToPixel="false">
+                      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="90.0" layoutY="482.0" promptText="Password" snapToPixel="false">
                           <font>
                               <Font name="Monospaced Regular" size="30.0" />
                           </font>
@@ -69,8 +70,15 @@
                <children>
                   <Group>
                      <children>
-                      <ChoiceBox id="remoteChoiceBox" layoutY="55.0" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #25B7D3;" />
-                      <Button id="loginButton" fx:id="login" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" snapToPixel="false" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER" wrapText="true">
+                      <ChoiceBox fx:id="remoteChoiceBox" layoutY="55.0" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #25B7D3;" value="RMI">
+                          <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="RMI" />
+                                  <String fx:value="Socket" />
+                              </FXCollections>
+                          </items>
+                      </ChoiceBox>
+                      <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#loginButtonAction" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER">
                           <font>
                               <Font name="Monospaced Bold" size="29.0" />
                           </font>
