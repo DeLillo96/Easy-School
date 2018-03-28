@@ -8,8 +8,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,14 +38,6 @@ public class ParentsTest {
 
         Result result = child.save();
         assertTrue(result.isSuccess(), "Error during saving operation " + result.getMessages().toString());
-    }
-
-    @Test void readFilterJoinTable() {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("parentName", 1);
-        List child = childRepository.read(params);
-
-        assertNotNull(child, "read children error");
     }
 
     @AfterAll

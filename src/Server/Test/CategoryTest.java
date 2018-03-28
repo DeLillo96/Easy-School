@@ -36,7 +36,7 @@ public class CategoryTest {
         Category constraint = new Category(first.getName());
         Result result = constraint.save();
 
-        assertFalse(result.isSuccess(), "Duplication Error");
+        assertFalse(result.isSuccess(), "Duplication Error" + result.getMessages().toString());
 
         if(!result.isSuccess()) constraint.delete();
     }
