@@ -1,8 +1,6 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-import org.jboss.logging.Param;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-
 @FilterDefs({
         @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer") }),
         @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") })
@@ -19,9 +16,7 @@ import java.util.Set;
         @Filter(name = "id", condition = "id = :id"),
         @Filter(name = "name", condition = "name like :name"),
 })
-
 @Table(name = "Category")
-
 public class Category extends AbstractEntity {
 
     @Id
@@ -29,11 +24,11 @@ public class Category extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 16)
     private String name;
 
     @OneToMany(mappedBy = "dishCategory", fetch = FetchType.EAGER)
-    private Set<Dish> dishes = new HashSet<Dish>();
+    private Set<Dish> dishes = new HashSet<>();
 
     public Category() { }
 

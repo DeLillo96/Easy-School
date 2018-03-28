@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-
 @FilterDefs({
         @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
         @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string") ),
@@ -45,9 +44,6 @@ public class Child extends AbstractEntity{
 
     @Column(nullable = false)
     private Date birthDate;
-
-    @Column(nullable = false, length = 64)
-    private String contacts;
 
     @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER)
     private Set<EatingDisorder> eatingDisorders = new HashSet<EatingDisorder>();
