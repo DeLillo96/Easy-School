@@ -48,7 +48,7 @@ public class Login {
                 Client.getInstance().renderHome();
             } else throw new Exception(response.get("messages").toString());
         } catch (Exception e) {
-            Client.getInstance().renderError(e.getMessage());
+            Client.getInstance().notifyError(e.getMessage());
         }
     }
 

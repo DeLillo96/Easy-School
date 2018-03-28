@@ -1,7 +1,7 @@
 package Client.Controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import Client.Client;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,39 +10,29 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
 
-public class Error implements EventHandler<ActionEvent> {
-    private Button errorButtonClose;
-    private Parent root;
-    private Scene mainScene;
+public class Error {
+    @FXML private Button errorButtonClose;
+    @FXML private TextArea errorTextArea;
 
-    public void render(String message, Scene mainScene) {
+    public Parent render(String message, Scene mainScene) {
+        Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Views/error.fxml"));
+             root = FXMLLoader.load(getClass().getResource("../Views/error.fxml"));
+
+            TextArea errorTextArea = (TextArea) root.lookup("#errorTextArea");
+            errorTextArea.setText(message);
+
+            Pane mainRoot = (Pane) mainScene.getRoot();
+            mainRoot.getChildren().add(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        TextArea errorTextArea = (TextArea) root.lookup("#errorTextArea");
-        errorTextArea.setText(message);
-
-        errorButtonClose = (Button) root.lookup("#errorButtonClose");
-        errorButtonClose.setOnAction(this);
-
-        this.mainScene = mainScene;
-        Pane mainRoot = (Pane) mainScene.getRoot();
-        mainRoot.getChildren().add(root);
+        return root;
     }
 
-    @Override
-    public void handle(ActionEvent event) {
-        if(event.getSource() == errorButtonClose) {
-            removeErrorsPane();
-        }
-    }
-
-    private void removeErrorsPane() {
-        Pane mainRoot = (Pane) mainScene.getRoot();
-        mainRoot.getChildren().remove(root);
+    @FXML private void remove() {
+        Client.getInstance().removeNotify();
     }
 
 }
