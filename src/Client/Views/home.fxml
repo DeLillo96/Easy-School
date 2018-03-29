@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane rotateGraphic="true" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMinWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="mainTabPane" rotateGraphic="true" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMinWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.Home">
   <tabs>
     <Tab closable="false" text="Home">
       <content>
@@ -15,12 +15,13 @@
                         <Image url="@images/school-teacher-children-child-care-png-23.png" />
                      </image>
                   </ImageView>
-               </children></AnchorPane>
+               </children>
+        </AnchorPane>
       </content>
     </Tab>
-    <Tab closable="false" text="Child">
+    <Tab fx:id="childrenTab" closable="false" text="Child">
       <content>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" />
+        <AnchorPane fx:id="childrenPane" minHeight="-Infinity" minWidth="-Infinity" />
       </content>
     </Tab>
       <Tab closable="false" text="Adult">
