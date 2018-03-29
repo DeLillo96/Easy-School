@@ -3,6 +3,7 @@ package Server;
 import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -95,8 +96,13 @@ public class Result {
         for(Field field : declaredFields) {
             try {
                 field.setAccessible(true);
-                if(field.getType() != Set.class)
-                    jsonObject.put(field.getName(), field.get(o));
+                if(field.getType() != Set.class) {
+                    String item = field.get(o).toString();
+                    if (field.getType() == Date.class) {
+                        item = item.replace(' ','T');
+                    }
+                    jsonObject.put(field.getName(), item);
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
