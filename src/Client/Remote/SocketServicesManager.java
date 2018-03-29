@@ -1,6 +1,8 @@
 package Client.Remote;
 
+import Client.Remote.Services.BaseServiceAdapter;
 import Client.Remote.Services.UserServiceAdapter;
+import Shared.BaseService;
 import Shared.UserService;
 import org.json.simple.JSONObject;
 import java.io.BufferedReader;
@@ -23,6 +25,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     @Override
     public UserService getUserService() {
         return new UserServiceAdapter(in, out);
+    }
+
+    @Override
+    public BaseService getChildrenService() {
+        return new BaseServiceAdapter("children", in, out);
     }
 
     @Override

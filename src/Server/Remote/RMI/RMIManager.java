@@ -1,7 +1,7 @@
 package Server.Remote.RMI;
 
+import Server.Remote.ChildrenServiceImplementation;
 import Server.Remote.UserServiceImplementation;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -13,6 +13,7 @@ public class RMIManager {
         Registry registry = LocateRegistry.createRegistry(port);
 
         registry.rebind("users", new UserServiceImplementation());
+        registry.rebind("children", new ChildrenServiceImplementation());
     }
 
     public int getPort() {

@@ -1,5 +1,6 @@
 package Server.Remote.Socket;
 
+import Server.Remote.ChildrenServiceImplementation;
 import Server.Remote.UserServiceImplementation;
 import Shared.UserService;
 import org.json.simple.JSONObject;
@@ -36,6 +37,17 @@ public class SocketParser extends Thread {
                     if(json.get("function").equals("login")){
                         JSONObject data = (JSONObject) json.get("data");
                         result = userService.login((String) data.get("username"), (String) data.get("password"));
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("children")) {
+                    ChildrenServiceImplementation childrenService = new ChildrenServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childrenService.read(data);
 
                         out.println(result.toString());
                     }
