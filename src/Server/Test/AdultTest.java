@@ -19,7 +19,8 @@ public class AdultTest {
     static void createAdult() {
         user.save();
         adult.setUser(user);
-        adult.save();
+        Result result = adult.save();
+        assertTrue(result.isSuccess(), result.getMessages().toString());
     }
 
     @Test void readAdult() {

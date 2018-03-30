@@ -53,7 +53,7 @@ public class EatingDisorderTest {
     }
 
     @AfterAll
-    static void deleteDishes() {
+    static void deleteEatingDisorder() {
         eatingDisorderOne.delete();
         eatingDisorderTwo.delete();
         eatingDisorderThree.delete();
