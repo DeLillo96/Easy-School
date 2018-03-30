@@ -44,10 +44,14 @@ public class PlaceTest {
     }
 
     @Test
-    void readPlacesByCost() {
+    void readSinglePlacesByCost() {
         Set resultSingle = placeRepository.getPlaceByCost(40);
-        Set resultMultiple = placeRepository.getPlaceByCost(60);
         assertNotNull(resultSingle);
+    }
+
+    @Test
+    void readMultiplePlacesByCost() {
+        Set resultMultiple = placeRepository.getPlaceByCost(60);
         assertNotNull(resultMultiple);
     }
 

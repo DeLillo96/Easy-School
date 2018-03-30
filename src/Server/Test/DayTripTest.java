@@ -58,19 +58,18 @@ public class DayTripTest {
     @Test
     void readTripByPlace() {
         Set resultSingle = dayTripRepository.getDayTripByPlace(placeOne.getId());
-        Set resultMultiple = dayTripRepository.getDayTripByPlace(placeTwo.getId());
         assertNotNull(resultSingle);
+    }
+
+    @Test
+    void readMultipleTripByPlace() {
+        Set resultMultiple = dayTripRepository.getDayTripByPlace(placeTwo.getId());
         assertNotNull(resultMultiple);
     }
 
     @Test
     void readTripByBus() {
         Set result = dayTripRepository.getDayTripByBus(busTwo.getId());
-        assertNotNull(result);
-
-        tripTwo.getBuses().remove(busTwo);
-        tripTwo.save();
-        result = dayTripRepository.getDayTripByBus(busTwo.getId());
         assertNotNull(result);
     }
 
