@@ -67,6 +67,11 @@ public class DayTripTest {
     void readTripByBus() {
         Set result = dayTripRepository.getDayTripByBus(busTwo.getId());
         assertNotNull(result);
+
+        tripTwo.getBuses().remove(busTwo);
+        tripTwo.save();
+        result = dayTripRepository.getDayTripByBus(busTwo.getId());
+        assertNotNull(result);
     }
 
     @AfterAll

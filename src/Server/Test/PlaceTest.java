@@ -30,17 +30,17 @@ public class PlaceTest {
     static void createPlaces() {
         busOne.save();
         busTwo.save();
-        tripOne.save();
-        tripTwo.save();
         placeOne.setStartBus(busOne);
         placeTwo.setStartBus(busOne);
         placeOne.setArrivalBus(busTwo);
         placeTwo.setArrivalBus(busTwo);
-        placeOne.getTrips().add(tripOne);
-        placeTwo.getTrips().add(tripOne);
-        placeTwo.getTrips().add(tripTwo);
         placeOne.save();
         placeTwo.save();
+        tripOne.getPlaces().add(placeOne);
+        tripOne.getPlaces().add(placeTwo);
+        tripTwo.getPlaces().add(placeTwo);
+        tripOne.save();
+        tripTwo.save();
     }
 
     @Test
