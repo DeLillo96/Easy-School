@@ -28,6 +28,9 @@ public class Calendar extends AbstractEntity {
     @JoinColumn(name = "daily_menu")
     private Menu dailyMenu;
 
+    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
+    private Set<DayTrip> trips = new HashSet<>();
+
     public Calendar() {
         this.date = new Date();
     }
@@ -66,5 +69,13 @@ public class Calendar extends AbstractEntity {
 
     public void setDailyMenu(Menu dailyMenu) {
         this.dailyMenu = dailyMenu;
+    }
+
+    public Set<DayTrip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(Set<DayTrip> trips) {
+        this.trips = trips;
     }
 }
