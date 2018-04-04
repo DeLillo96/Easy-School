@@ -115,6 +115,7 @@ public class Children {
     public void defineImageButton(Button button, String urlImage) {
         ObservableList<String> classes = button.getStyleClass();
         classes.add("row-button");
+        classes.add("radius-15");
         ImageView imageView = new ImageView( urlImage );
 
         imageView.setFitHeight(20);

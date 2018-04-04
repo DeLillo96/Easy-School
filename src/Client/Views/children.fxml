@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -7,11 +8,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 
-<AnchorPane styleClass="radius-button" stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.ChildrenController">
+<AnchorPane stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.ChildrenController">
    <children>
        <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
-              <HBox alignment="CENTER_LEFT" maxHeight="113.0" prefHeight="113.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
                   <children>
                       <VBox alignment="CENTER" prefHeight="313.0" prefWidth="155.0">
                           <children>
@@ -69,7 +70,7 @@
                               </TextField>
                           </children>
                       </VBox>
-                      <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#search" styleClass="radius-button">
+                      <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#search">
                           <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0">
                                  <image>
@@ -80,8 +81,12 @@
                           <HBox.margin>
                               <Insets left="5.0" />
                           </HBox.margin>
+                     <styleClass>
+                        <String fx:value="alone-button" />
+                        <String fx:value="radius-15" />
+                     </styleClass>
                       </Button>
-                      <Button fx:id="addButton" alignment="CENTER" onAction="#add" styleClass="radius-button">
+                      <Button fx:id="addButton" alignment="CENTER" onAction="#add">
                           <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0">
                                  <image>
@@ -92,8 +97,12 @@
                           <HBox.margin>
                               <Insets left="30.0" right="1.0" />
                           </HBox.margin>
+                     <styleClass>
+                        <String fx:value="alone-button" />
+                        <String fx:value="radius-15" />
+                     </styleClass>
                       </Button>
-                      <Button fx:id="refreshButton" alignment="CENTER" onAction="#refresh" styleClass="radius-button">
+                      <Button fx:id="refreshButton" alignment="CENTER" onAction="#refresh">
                           <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0">
                                  <image>
@@ -104,6 +113,10 @@
                           <HBox.margin>
                               <Insets left="1.0" right="1.0" />
                           </HBox.margin>
+                     <styleClass>
+                        <String fx:value="alone-button" />
+                        <String fx:value="radius-15" />
+                     </styleClass>
                       </Button>
                   </children>
                   <opaqueInsets>
@@ -113,7 +126,7 @@
                       <Insets left="10.0" />
                   </VBox.margin>
               </HBox>
-              <TableView fx:id="childTableView" layoutY="131.0" prefHeight="461.0" prefWidth="1136.0">
+              <TableView fx:id="childTableView" layoutY="131.0" prefWidth="1136.0">
                   <columns>
                       <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="-1.0">
                           <cellValueFactory>

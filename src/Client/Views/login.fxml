@@ -8,10 +8,9 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="600.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.Login">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="600.0" snapToPixel="false" stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.Login">
 <children>
       <VBox layoutX="90.0" layoutY="-10.0" prefHeight="672.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -70,7 +69,7 @@
                <children>
                   <Group>
                      <children>
-                      <ChoiceBox fx:id="remoteChoiceBox" layoutY="55.0" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #25B7D3;" value="RMI">
+                      <ChoiceBox fx:id="remoteChoiceBox" layoutY="55.0" prefHeight="41.0" prefWidth="152.0" snapToPixel="false" value="RMI">
                           <items>
                               <FXCollections fx:factory="observableArrayList">
                                   <String fx:value="RMI" />
@@ -78,21 +77,10 @@
                               </FXCollections>
                           </items>
                       </ChoiceBox>
-                      <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#loginButtonAction" style="-fx-background-color: #25B7D3; -fx-border-color: #0597B3;" text="Login" textAlignment="CENTER">
-                          <font>
-                              <Font name="Monospaced Bold" size="29.0" />
-                          </font>
+                      <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#loginButtonAction" text="Login" textAlignment="CENTER">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
-                           <textFill>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop color="WHITE" />
-                                    <Stop color="#f0f0f0" offset="1.0" />
-                                 </stops>
-                              </LinearGradient>
-                           </textFill>
                            <padding>
                               <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
                            </padding>

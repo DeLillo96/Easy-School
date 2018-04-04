@@ -1,20 +1,22 @@
-.button {
+.button, .choice-box{
     -fx-font-family: Monospace;
     -fx-font-size: 30;
     -fx-font-weight: bold;
     -fx-text-fill: #F0F0F0;
     -fx-alignment: center;
 
-    -fx-background-color: #25B7D3;
+    -fx-background-color: #25c5e1;
     -fx-border-color: #0597B3;
 
     -fx-cursor: hand;
 }
 
-.radius-button {
-    -fx-background-radius: 15;
-    -fx-border-radius: 15;
+.button:hover, .choice-box:hover {
+    -fx-background-color: #dbd925;
+    -fx-border-color: #bbb905;
+}
 
+.alone-button {
     -fx-pref-width: 50;
     -fx-pref-height: 50;
 
@@ -23,9 +25,6 @@
 }
 
 .row-button {
-    -fx-background-radius: 15;
-    -fx-border-radius: 15;
-
     -fx-pref-width: 35;
     -fx-pref-height: 35;
 
@@ -33,17 +32,36 @@
     -fx-min-height: 0;
 }
 
-.button:pressed {
-    -fx-background-color: #0597B3;
-}
-.button:hover {
-    -fx-background-color: #dbd925;
-    -fx-border-color: #bbb905;
+.circle-button {
+    -fx-text-fill: #626262;
+    -fx-font-size: 13;
+
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+
+    -fx-pref-height: 29;
+    -fx-pref-width: 29;
+
+    -fx-min-height: 29;
+    -fx-min-width: 29;
 }
 
-.label {
+.exit-button {
+    -fx-background-color: #f58118;
+    -fx-border-color: #d04615;
+}
+
+.error-panel {
+    -fx-background-color: #D50400
+}
+
+.radius-15 {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}
+
+.label, .text-area {
     -fx-font-family: Monospace;
     -fx-font-size: 20;
-    -fx-font-weight: bold;
     -fx-alignment: center;
 }
