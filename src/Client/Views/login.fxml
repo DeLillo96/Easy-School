@@ -29,7 +29,7 @@
                         </Text>
                       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                           <image>
-                              <Image url="@images/icon-school.png" />
+                              <Image url="@../Resources/Images/icon-school.png" />
                           </image>
                            <effect>
                               <DropShadow blurType="GAUSSIAN" height="78.68" radius="38.84" width="78.68" />

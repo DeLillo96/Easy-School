@@ -1,0 +1,49 @@
+.button {
+    -fx-font-family: Monospace;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F0F0F0;
+    -fx-alignment: center;
+
+    -fx-background-color: #25B7D3;
+    -fx-border-color: #0597B3;
+
+    -fx-cursor: hand;
+}
+
+.radius-button {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+
+    -fx-pref-width: 50;
+    -fx-pref-height: 50;
+
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+}
+
+.row-button {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+
+    -fx-pref-width: 35;
+    -fx-pref-height: 35;
+
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+}
+
+.button:pressed {
+    -fx-background-color: #0597B3;
+}
+.button:hover {
+    -fx-background-color: #dbd925;
+    -fx-border-color: #bbb905;
+}
+
+.label {
+    -fx-font-family: Monospace;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}

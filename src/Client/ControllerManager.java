@@ -68,9 +68,4 @@ public class ControllerManager {
         Parent root = FXMLLoader.load(getClass().getResource(location));
         getStage().setScene(new Scene(root));
     }
-
-    private void renderFXML(String location, String s) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(location));
-        getStage().setScene(new Scene(root));
-    }
 }
