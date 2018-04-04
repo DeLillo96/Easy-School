@@ -46,7 +46,7 @@ public class Child extends AbstractEntity{
     private Date birthDate;
 
     @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER)
-    private Set<EatingDisorder> eatingDisorders = new HashSet<EatingDisorder>();
+    private Set<EatingDisorder> eatingDisorders = new HashSet<>();
 
     @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
     @JoinTable(
