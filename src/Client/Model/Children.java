@@ -1,9 +1,11 @@
 package Client.Model;
 
+import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import Shared.BaseService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -40,9 +42,13 @@ public class Children {
         //setBirthDate(birthDate); //todo make parse to Date into DatePicker
 
         defineImageButton(save, "Client/Resources/Images/save.png");
+        save.setOnAction(this::save);
         defineImageButton(parents, "Client/Resources/Images/parents.png");
+        parents.setOnAction(this::parents);
         defineImageButton(disorder, "Client/Resources/Images/eating.png");
+        disorder.setOnAction(this::disorder);
         defineImageButton(delete, "Client/Resources/Images/delete.png");
+        delete.setOnAction(this::delete);
         buttons.setAlignment(Pos.CENTER);
 
         service = RemoteManager.getInstance().getRemoteServicesManager().getChildrenService();
@@ -64,6 +70,10 @@ public class Children {
         return name;
     }
 
+    public String getStringName() {
+        return name.getText();
+    }
+
     public void setName(TextField name) {
         this.name = name;
     }
@@ -74,6 +84,10 @@ public class Children {
 
     public TextField getSurname() {
         return surname;
+    }
+
+    public String getStringSurname() {
+        return surname.getText();
     }
 
     public void setSurname(TextField surname) {
@@ -88,6 +102,10 @@ public class Children {
         return fiscalCode;
     }
 
+    public String getStringFiscalCode() {
+        return fiscalCode.getText();
+    }
+
     public void setFiscalCode(TextField fiscalCode) {
         this.fiscalCode = fiscalCode;
     }
@@ -98,6 +116,11 @@ public class Children {
 
     public DatePicker getBirthDate() {
         return birthDate;
+    }
+
+    public Date getDateOnDatePicker() {
+        //return birthDate.getValue();
+        return new Date();
     }
 
     public void setBirthDate(DatePicker birthDate) {
@@ -122,6 +145,57 @@ public class Children {
         imageView.setFitWidth(20);
 
         button.setGraphic(imageView);
+    }
+
+    private void save(ActionEvent actionEvent) {
+        JSONObject request = new JSONObject();
+
+        if(getId() != 0) request.put("id", getId());
+        request.put("name", getStringName());
+        request.put("surname", getStringSurname());
+        request.put("birthDate", "2018-04-04");
+        request.put("fiscalCode", getStringFiscalCode());
+
+        try {
+            JSONObject response = service.save(request);
+            if(!(boolean) response.get("success")) {
+                String errorMessage = response.get("messages").toString();
+                throw new Exception(errorMessage);
+            }
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("500 Server Error");
+        }
+    }
+
+    private void parents(ActionEvent actionEvent) {
+        //todo open popup of parents
+    }
+
+    private void disorder(ActionEvent actionEvent) {
+        //todo open popup of disorder
+    }
+
+    private void delete(ActionEvent actionEvent) {
+        try {
+            if(getId() != 0) {
+                JSONObject request = new JSONObject();
+
+                request.put("id", getId());
+                request.put("name", getStringName());
+                request.put("surname", getStringSurname());
+                request.put("birthDate", "2018-04-04");
+                request.put("fiscalCode", getStringFiscalCode());
+
+                JSONObject response = service.delete(request);
+                if(!(boolean) response.get("success")) {
+                    String errorMessage = response.get("messages").toString();
+                    throw new Exception(errorMessage);
+                }
+            }
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("500 Server Error");
+        }
+        //todo refresh table
     }
 
     public ArrayList<Children> read() throws Exception {

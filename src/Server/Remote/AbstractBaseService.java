@@ -72,7 +72,15 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
 
     @Override
     public JSONObject delete(JSONObject data) {
-        return null;
+        EntityInterface entity;
+        try {
+            entity = castJsonIntoEntity(data);
+        } catch (IOException e) {
+            Result result = new Result(e.getMessage(), false);
+            return result.toJson();
+        }
+        Result result = entity.delete();
+        return result.toJson();
     }
 
     @Override
