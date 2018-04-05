@@ -3,22 +3,16 @@ package Server.Test;
 import Server.Entity.Bus;
 import Server.Entity.DayTrip;
 import Server.Entity.Place;
-import Server.Repository.BusRepository;
-import Server.Repository.DayTripRepository;
 import Server.Repository.PlaceRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PlaceTest {
 
     private static PlaceRepository placeRepository = new PlaceRepository();
-    private static DayTripRepository dayTripRepository = new DayTripRepository();
-    private static BusRepository busRepository = new BusRepository();
     private static Bus busOne = new Bus("StarkTours");
     private static Bus busTwo = new Bus("RenegadeTours");
     private static DayTrip tripOne = new DayTrip("Northern Territories");
@@ -45,13 +39,13 @@ public class PlaceTest {
 
     @Test
     void readSinglePlacesByCost() {
-        Set resultSingle = placeRepository.getPlaceByCost(40);
+        Set resultSingle = placeRepository.getPlaceByCost(40); //WTF!?
         assertNotNull(resultSingle);
     }
 
     @Test
     void readMultiplePlacesByCost() {
-        Set resultMultiple = placeRepository.getPlaceByCost(60);
+        Set resultMultiple = placeRepository.getPlaceByCost(60); //WTF!?
         assertNotNull(resultMultiple);
     }
 
@@ -60,6 +54,8 @@ public class PlaceTest {
         Set result = placeRepository.getPlaceByDayTrip(tripOne.getId());
         assertNotNull(result);
     }
+
+    //todo test di modifica
 
     @AfterAll
     static void deletePlaces() {

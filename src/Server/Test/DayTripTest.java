@@ -4,25 +4,16 @@ import Server.Entity.Bus;
 import Server.Entity.Calendar;
 import Server.Entity.DayTrip;
 import Server.Entity.Place;
-import Server.Repository.BusRepository;
-import Server.Repository.CalendarRepository;
 import Server.Repository.DayTripRepository;
-import Server.Repository.PlaceRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DayTripTest {
-
     private static DayTripRepository dayTripRepository = new DayTripRepository();
-    private static CalendarRepository calendarRepository = new CalendarRepository();
-    private static PlaceRepository placeRepository = new PlaceRepository();
-    private static BusRepository busRepository = new BusRepository();
     private static Calendar calendarOne = new Calendar(new Date());
     private static Place placeOne = new Place("Winterfell", "Stark family's home", 60);
     private static Place placeTwo = new Place("The Wall", "Extreme north", 15);

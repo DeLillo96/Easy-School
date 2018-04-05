@@ -30,11 +30,7 @@ public class ChildTest {
     }
 
     @Test void verifyConstraint() {
-        Child newChild = new Child(
-                "Impostor",
-                "Impostor",
-                child.getFiscalCode(),
-                new Date());
+        Child newChild = new Child("Impostor", "Impostor", child.getFiscalCode(), new Date());
         Result result = newChild.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
