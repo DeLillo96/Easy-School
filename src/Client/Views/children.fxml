@@ -70,7 +70,7 @@
                               </TextField>
                           </children>
                       </VBox>
-                      <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#search">
+                      <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
                           <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0">
                                  <image>
@@ -96,22 +96,6 @@
                           </graphic>
                           <HBox.margin>
                               <Insets left="30.0" right="1.0" />
-                          </HBox.margin>
-                     <styleClass>
-                        <String fx:value="alone-button" />
-                        <String fx:value="radius-15" />
-                     </styleClass>
-                      </Button>
-                      <Button fx:id="refreshButton" alignment="CENTER" onAction="#refresh">
-                          <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0">
-                                 <image>
-                                     <Image url="@../Resources/Images/refresh.png" />
-                                 </image>
-                              </ImageView>
-                          </graphic>
-                          <HBox.margin>
-                              <Insets left="1.0" right="1.0" />
                           </HBox.margin>
                      <styleClass>
                         <String fx:value="alone-button" />

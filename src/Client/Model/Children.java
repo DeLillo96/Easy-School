@@ -1,58 +1,69 @@
 package Client.Model;
 
-import Client.ControllerManager;
+import Client.Controller.AbstractTableController;
 import Client.Remote.RemoteManager;
-import Shared.BaseService;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import org.json.simple.JSONObject;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class Children {
-    private Button save = new Button();
-    private Button parents = new Button();
-    private Button disorder = new Button();
-    private Button delete = new Button();
-    private HBox buttons = new HBox(save, parents, disorder, delete);
-
+public class Children extends AbstractRowModel {
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private TextField name = new TextField();
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
 
-    private static BaseService service;
-
-    public Children() throws Exception {
-        this(0, "", "", "", new Date());
+    public Children(AbstractTableController tableController) throws Exception {
+        this(tableController, 0, "", "", "", new Date());
     }
 
-    public Children(Integer id, String name, String surname, String fiscalCode, Date birthDate) throws Exception {
+    public Children(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService(), tableController);
+
         setId(id);
         setName(name);
         setSurname(surname);
         setFiscalCode(fiscalCode);
-        //setBirthDate(birthDate); //todo make parse to Date into DatePicker
+        //todo make parse to Date into DatePicker
+    }
 
-        defineImageButton(save, "Client/Resources/Images/save.png");
-        save.setOnAction(this::save);
+    @Override
+    protected void initializeButtons() {
+        super.initializeButtons();
+
+        Button parents = new Button();
         defineImageButton(parents, "Client/Resources/Images/parents.png");
-        parents.setOnAction(this::parents);
-        defineImageButton(disorder, "Client/Resources/Images/eating.png");
-        disorder.setOnAction(this::disorder);
-        defineImageButton(delete, "Client/Resources/Images/delete.png");
-        delete.setOnAction(this::delete);
-        buttons.setAlignment(Pos.CENTER);
+        parents.setOnAction(actionEvent -> parents());
 
-        service = RemoteManager.getInstance().getRemoteServicesManager().getChildrenService();
+        Button disorder = new Button();
+        defineImageButton(disorder, "Client/Resources/Images/eating.png");
+        disorder.setOnAction(actionEvent -> disorder());
+
+        getButtons().getChildren().addAll(parents, disorder);
+    }
+
+    public void parents() {
+        //todo open popup of parents
+    }
+
+    public void disorder() {
+        //todo open popup of disorder
+    }
+
+    @Override
+    protected JSONObject makeRequest() {
+        JSONObject request = new JSONObject();
+
+        if(getId() != 0) request.put("id", getId());
+        request.put("name", getStringName());
+        request.put("surname", getStringSurname());
+        request.put("birthDate", "2018-04-04");
+        request.put("fiscalCode", getStringFiscalCode());
+
+        return request;
     }
 
     public int getId() {
@@ -126,97 +137,5 @@ public class Children {
 
     public void setBirthDate(DatePicker birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public HBox getButtons() {
-        return buttons;
-    }
-
-    public void setButtons(HBox buttons) {
-        this.buttons = buttons;
-    }
-
-    public void defineImageButton(Button button, String urlImage) {
-        ObservableList<String> classes = button.getStyleClass();
-        classes.add("row-button");
-        classes.add("radius-15");
-        ImageView imageView = new ImageView( urlImage );
-
-        imageView.setFitHeight(20);
-        imageView.setFitWidth(20);
-
-        button.setGraphic(imageView);
-    }
-
-    private void save(ActionEvent actionEvent) {
-        JSONObject request = new JSONObject();
-
-        if(getId() != 0) request.put("id", getId());
-        request.put("name", getStringName());
-        request.put("surname", getStringSurname());
-        request.put("birthDate", "2018-04-04");
-        request.put("fiscalCode", getStringFiscalCode());
-
-        try {
-            JSONObject response = service.save(request);
-            if(!(boolean) response.get("success")) {
-                String errorMessage = response.get("messages").toString();
-                throw new Exception(errorMessage);
-            }
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("500 Server Error");
-        }
-    }
-
-    private void parents(ActionEvent actionEvent) {
-        //todo open popup of parents
-    }
-
-    private void disorder(ActionEvent actionEvent) {
-        //todo open popup of disorder
-    }
-
-    private void delete(ActionEvent actionEvent) {
-        try {
-            if(getId() != 0) {
-                JSONObject request = new JSONObject();
-
-                request.put("id", getId());
-                request.put("name", getStringName());
-                request.put("surname", getStringSurname());
-                request.put("birthDate", "2018-04-04");
-                request.put("fiscalCode", getStringFiscalCode());
-
-                JSONObject response = service.delete(request);
-                if(!(boolean) response.get("success")) {
-                    String errorMessage = response.get("messages").toString();
-                    throw new Exception(errorMessage);
-                }
-            }
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("500 Server Error");
-        }
-        //todo refresh table
-    }
-
-    public ArrayList<Children> read() throws Exception {
-        ArrayList<Children> list = new ArrayList<>();
-        JSONObject response = service.readAll();
-
-        if((boolean) response.get("success")) {
-            JSONObject data = (JSONObject) response.get("data");
-
-            for (int i = 0; i < data.size(); i++) {
-                JSONObject child = (JSONObject) data.get(i);
-
-                Integer id = Integer.parseInt((String) child.get("id"));
-                String name = (String) child.get("name");
-                String surname = (String) child.get("surname");
-                String fiscalCode = (String) child.get("fiscalCode");
-
-                list.add(new Children(id, name, surname, fiscalCode, new Date()));
-            }
-            return list;
-        } else throw new Exception("Read from server error");
     }
 }
