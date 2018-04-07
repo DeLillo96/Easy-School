@@ -16,15 +16,13 @@ import java.util.Set;
         @FilterDef(name = "surname", parameters = @ParamDef(name = "surname", type = "string") ),
         @FilterDef(name = "fiscalCode", parameters = @ParamDef(name = "fiscalCode", type = "string") ),
         @FilterDef(name = "birthDate", parameters = @ParamDef(name = "birthDate", type = "date") ),
-        @FilterDef(name = "contacts", parameters = @ParamDef(name = "contacts", type = "string") )
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "name", condition = "name like :name"),
-        @Filter(name = "surname", condition = "surname like :surname"),
-        @Filter(name = "fiscalCode", condition = "fiscalCode like :fiscalCode"),
+        @Filter(name = "name", condition = "name like '%' || :name || '%'"),
+        @Filter(name = "surname", condition = "surname like '%' || :surname || '%'"),
+        @Filter(name = "fiscalCode", condition = "fiscalCode like '%' || :fiscalCode || '%'"),
         @Filter(name = "birthDate", condition = "birthDate = :birthDate"),
-        @Filter(name = "contacts", condition = "contacts = :contacts"),
 })
 @Table(name = "Child")
 public class Child extends AbstractEntity{
