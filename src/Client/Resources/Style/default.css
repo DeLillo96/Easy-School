@@ -5,15 +5,15 @@
     -fx-text-fill: #F0F0F0;
     -fx-alignment: center;
 
-    -fx-background-color: #25c5e1;
-    -fx-border-color: #0597B3;
+    -fx-background-color: #00f2f3;
+    -fx-border-color: #25c5e1;
 
     -fx-cursor: hand;
 }
 
 .button:hover, .choice-box:hover {
-    -fx-background-color: #dbd925;
-    -fx-border-color: #bbb905;
+    -fx-background-color: #fffd00;
+    -fx-border-color: #dbd925;
 }
 
 .alone-button {
@@ -33,11 +33,11 @@
 }
 
 .circle-button {
-    -fx-text-fill: #626262;
+    -fx-text-fill: #444;
     -fx-font-size: 13;
 
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
 
     -fx-pref-height: 29;
     -fx-pref-width: 29;
@@ -60,8 +60,23 @@
     -fx-border-radius: 15;
 }
 
+.row-HBox {
+    -fx-spacing: 5;
+    -fx-alignment: center;
+}
+
 .label, .text-area {
     -fx-font-family: Monospace;
     -fx-font-size: 20;
     -fx-alignment: center;
+}
+
+.text-field {
+    -fx-font-family: Monospace;
+    -fx-font-size: 20;
+    -fx-alignment: center;
+}
+
+.text-field-big {
+    -fx-font-size: 30;
 }
