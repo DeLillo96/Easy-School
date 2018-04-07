@@ -5,7 +5,7 @@ import Server.Entity.Child;
 import java.util.HashMap;
 import java.util.List;
 
-public class ChildRepository extends AbstractRepository{
+public class ChildRepository extends AbstractRepository {
     public ChildRepository() { super("Child"); }
 
     public Child getChildById(Integer id) {
