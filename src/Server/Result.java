@@ -97,11 +97,14 @@ public class Result {
             try {
                 field.setAccessible(true);
                 if(field.getType() != Set.class) {
-                    String item = field.get(o).toString();
-                    if (field.getType() == Date.class) {
-                        item = item.replace(' ','T');
+                    Object obj = field.get(o);
+                    if(obj != null) {
+                        String item = obj.toString();
+                        if (field.getType() == Date.class) {
+                            item = item.replace(' ','T');
+                        }
+                        jsonObject.put(field.getName(), item);
                     }
-                    jsonObject.put(field.getName(), item);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

@@ -4,6 +4,7 @@ import Client.Controller.Error;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -62,6 +63,10 @@ public class ControllerManager {
 
     public void renderChildren() throws IOException {
         renderFXML("Views/children.fxml");
+    }
+
+    public void renderAddAdults() throws IOException {
+        renderFXML("Views/addAdults.fxml");
     }
 
     private void renderFXML(String location) throws IOException {

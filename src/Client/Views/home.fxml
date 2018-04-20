@@ -6,7 +6,7 @@
   <tabs>
       <Tab closable="false" text="Home" />
       <Tab fx:id="childrenTab" closable="false" text="Child" />
-      <Tab closable="false" text="Adult" />
+      <Tab fx:id="adultsTab" closable="false" text="Adult" />
       <Tab closable="false" text="Canteen" />
       <Tab closable="false" text="Trip" />
   </tabs>

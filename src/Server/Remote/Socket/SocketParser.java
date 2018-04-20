@@ -1,7 +1,6 @@
 package Server.Remote.Socket;
 
-import Server.Remote.ChildrenServiceImplementation;
-import Server.Remote.UserServiceImplementation;
+import Server.Remote.*;
 import Shared.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -48,6 +47,116 @@ public class SocketParser extends Thread {
                     if(json.get("function").equals("read")){
                         JSONObject data = (JSONObject) json.get("data");
                         result = childrenService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("adults")) {
+                    AdultServiceImplementation adultService = new AdultServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = adultService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("aliments")) {
+                    AlimentServiceImplementation alimentService = new AlimentServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = alimentService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("buses")) {
+                    BusServiceImplementation busService = new BusServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = busService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("calendars")) {
+                    CalendarServiceImplementation calendarService = new CalendarServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = calendarService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("categories")) {
+                    CategoryServiceImplementation categoryService = new CategoryServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = categoryService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("daytrips")) {
+                    DayTripServiceImplementation dayTripService = new DayTripServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = dayTripService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("dishes")) {
+                    DishServiceImplementation dishService = new DishServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = dishService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if (json.get("service").equals("eatingDisorders")) {
+                    EatingDisorderServiceImplementation eatingDisorderService = new EatingDisorderServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = eatingDisorderService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if(json.get("service").equals("menus")) {
+                    MenuServiceImplementation menuService = new MenuServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = menuService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
+                if(json.get("service").equals("places")) {
+                    PlaceServiceImplementation placeService = new PlaceServiceImplementation();
+
+                    if(json.get("function").equals("read")){
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = placeService.read(data);
 
                         out.println(result.toString());
                     }
