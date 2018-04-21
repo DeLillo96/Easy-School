@@ -1,5 +1,6 @@
 package Server;
 
+import Server.Entity.AbstractEntity;
 import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -94,20 +95,33 @@ public class Result {
         JSONObject jsonObject = new JSONObject();
 
         for(Field field : declaredFields) {
-            try {
-                field.setAccessible(true);
-                if(field.getType() != Set.class) {
-                    String item = field.get(o).toString();
-                    if (field.getType() == Date.class) {
-                        item = item.replace(' ','T');
+            if(field.getType() != Set.class) {
+                try {
+                    field.setAccessible(true);
+                    Object obj = field.get(o);
+
+                    if(obj != null) {
+                        jsonObject.put(field.getName(), parseObject(obj, field.getType()));
                     }
-                    jsonObject.put(field.getName(), item);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
         }
 
         return jsonObject;
+    }
+
+    private Object parseObject(Object object, Class objectClass) {
+        if(objectClass.getSuperclass() == AbstractEntity.class) {
+            return classToJson(object);
+        } else {
+            String item = object.toString();
+
+            if (objectClass == Date.class) {
+                item = item.replace(' ','T');
+            }
+            return item;
+        }
     }
 }
