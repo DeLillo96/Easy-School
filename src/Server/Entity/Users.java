@@ -86,7 +86,7 @@ public class Users extends AbstractEntity {
     @Override
     protected void beforeSave() {
         try {
-            password = hashPassword(password);
+            if(password.length() < 16) password = hashPassword(password);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
