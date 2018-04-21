@@ -1,9 +1,6 @@
 package Client.Controller;
 
-import Client.Model.Children;
 import Shared.BaseService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;

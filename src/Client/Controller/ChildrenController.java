@@ -1,5 +1,6 @@
 package Client.Controller;
 
+import Client.ControllerManager;
 import Client.Model.Children;
 import Client.Remote.RemoteManager;
 import javafx.collections.FXCollections;
@@ -44,7 +45,7 @@ public class ChildrenController extends AbstractTableController {
             ObservableList<Children> items = FXCollections.observableArrayList(list);
             childTableView.setItems(items);
         } catch (Exception e ) {
-            //todo render error
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 
