@@ -23,5 +23,10 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getMenuService() throws Exception {
+        return (BaseService) registry.lookup("menu");
+    }
+
+    @Override
     public void closeConnection() throws Exception {}
 }

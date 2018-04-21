@@ -33,6 +33,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getMenuService() throws Exception {
+        return new BaseServiceAdapter("menu", in, out);
+    }
+
+    @Override
     public void closeConnection() {
         JSONObject request = new JSONObject();
         request.put("service", "main");
