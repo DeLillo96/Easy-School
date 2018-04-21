@@ -33,6 +33,50 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getAdultService() {
+        return new BaseServiceAdapter("adults", in, out);
+    }
+
+    @Override
+    public BaseService getAlimentService() {
+        return new BaseServiceAdapter("aliments", in, out);
+    }
+
+    @Override
+    public BaseService getBusService() {
+        return new BaseServiceAdapter("buses", in, out);
+    }
+
+    @Override
+    public BaseService getCalendarService() {
+        return new BaseServiceAdapter("calendars", in, out);
+    }
+
+    @Override
+    public BaseService getCategoryService() {
+        return new BaseServiceAdapter("categories", in, out);
+    }
+
+    @Override
+    public BaseService getDayTripService() {
+        return new BaseServiceAdapter("daytrips", in, out);
+    }
+
+    @Override
+    public BaseService getDishService() {
+        return new BaseServiceAdapter("dishes", in, out);
+    }
+
+    @Override
+    public BaseService getEatingDisorderService() { return new BaseServiceAdapter("eatingDisorders", in, out); }
+
+    @Override
+    public BaseService getMenuService() { return new BaseServiceAdapter("menus", in, out); }
+
+    @Override
+    public BaseService getPlaceService() { return new BaseServiceAdapter("places", in, out); }
+
+    @Override
     public void closeConnection() {
         JSONObject request = new JSONObject();
         request.put("service", "main");
