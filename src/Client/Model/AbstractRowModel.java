@@ -69,13 +69,12 @@ public abstract class AbstractRowModel {
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
-
-        controller.filter();
     }
 
     protected void notifyResult(JSONObject result) throws Exception {
         if((boolean) result.get("success")) {
-            //todo render Success notify
+            controller.filter();
+            ControllerManager.getInstance().notifySuccess(result.get("messages").toString());
         } else {
             String errorMessage = result.get("messages").toString();
             throw new Exception(errorMessage);

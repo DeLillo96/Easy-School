@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.Insets?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="190.0" prefWidth="331.0" stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.Success">
+   <children>
+      <Text layoutX="87.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Success" textAlignment="CENTER" wrappingWidth="158.0">
+         <font>
+            <Font name="Monospaced Bold" size="25.0" />
+         </font>
+      </Text>
+       <TextArea fx:id="successTextArea" editable="false" layoutX="13.0" layoutY="39.0" opacity="0.3" pickOnBounds="false" prefHeight="144.0" prefWidth="306.0" wrapText="true">
+           <font>
+               <Font name="Monospaced Regular" size="17.0" />
+           </font>
+           <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+           </padding>
+       </TextArea>
+   </children>
+   <styleClass>
+      <String fx:value="radius-15" />
+      <String fx:value="success-panel" />
+   </styleClass>
+</Pane>

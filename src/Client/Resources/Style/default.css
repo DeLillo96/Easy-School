@@ -2,7 +2,7 @@
     -fx-font-family: Monospace;
     -fx-font-size: 30;
     -fx-font-weight: bold;
-    -fx-text-fill: #F0F0F0;
+    -fx-text-fill: #f0f0f0;
     -fx-alignment: center;
 
     -fx-background-color: #00f2f3;
@@ -52,7 +52,11 @@
 }
 
 .error-panel {
-    -fx-background-color: #D50400
+    -fx-background-color: #d50400
+}
+
+.success-panel {
+    -fx-background-color: #21a657
 }
 
 .radius-15 {

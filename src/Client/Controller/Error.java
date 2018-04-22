@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
-public class Error {
+public class Error extends AbstractNotifyController {
     @FXML private Button errorButtonClose;
     @FXML private TextArea errorTextArea;
 
@@ -13,7 +13,8 @@ public class Error {
         ControllerManager.getInstance().removeNotify();
     }
 
-    public void setErrorMessage(String errorMessage) {
+    @Override
+    public void setMessage(String errorMessage) {
         errorTextArea.setText(errorMessage);
     }
 }

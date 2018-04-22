@@ -1,6 +1,6 @@
 package Client;
 
-import Client.Controller.Error;
+import Client.Controller.AbstractNotifyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,14 +40,30 @@ public class ControllerManager {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/error.fxml"));
             notify = loader.load();
 
-            Error errorController = loader.getController();
-            errorController.setErrorMessage(errorMessage);
-
-            Pane mainRoot = (Pane) getScene().getRoot();
-            mainRoot.getChildren().add(notify);
+            addNotify(loader, errorMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void notifySuccess(String successMessage) {
+        if(notify != null) removeNotify();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/success.fxml"));
+            notify = loader.load();
+
+            addNotify(loader, successMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void addNotify(FXMLLoader loader, String message) {
+        AbstractNotifyController controller = loader.getController();
+        controller.setMessage(message);
+
+        Pane mainRoot = (Pane) getScene().getRoot();
+        mainRoot.getChildren().add(notify);
     }
 
     public void removeNotify() {
