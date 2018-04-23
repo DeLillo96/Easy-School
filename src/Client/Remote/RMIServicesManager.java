@@ -28,5 +28,10 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getDishService() throws Exception {
+        return (BaseService) registry.lookup("dish");
+    }
+
+    @Override
     public void closeConnection() throws Exception {}
 }

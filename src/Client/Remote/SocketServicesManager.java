@@ -38,6 +38,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getDishService() throws Exception {
+        return new BaseServiceAdapter("dish", in, out);
+    }
+
+    @Override
     public void closeConnection() {
         JSONObject request = new JSONObject();
         request.put("service", "main");
