@@ -19,7 +19,7 @@ import java.util.Set;
 })
 
 @Table(name = "Dish")
-public class Dish extends AbstractEntity{
+public class Dish extends AbstractEntity {
 
     @Id
     @GeneratedValue
@@ -41,13 +41,13 @@ public class Dish extends AbstractEntity{
     )
     private Set<Aliment> ingredients = new HashSet<>();
 
-    @OneToMany(mappedBy = "firstDish", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "first", fetch = FetchType.EAGER)
     private Set<Menu> firstMenu = new HashSet<>();
 
-    @OneToMany(mappedBy = "secondDish", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "second", fetch = FetchType.EAGER)
     private Set<Menu> secondMenu = new HashSet<>();
 
-    @OneToMany(mappedBy = "sideDish", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "side", fetch = FetchType.EAGER)
     private Set<Menu> sideMenu = new HashSet<>();
 
     @OneToMany(mappedBy = "sweet", fetch = FetchType.EAGER)

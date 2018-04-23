@@ -19,22 +19,22 @@ public class MenuRepository extends AbstractRepository{
         return menus != null && menus.size() == 1 ? (Menu) menus.get(0) : null;
     }
 
-    public Set<Menu> getMenusByFirstDish(String firstDish) {
+    public Set<Menu> getMenusByfirst(String first) {
         DishRepository dishRepository = new DishRepository();
-        Dish firstDishes = dishRepository.getDishByName(firstDish);
-        return firstDishes.getFirstMenu();
+        Dish firstes = dishRepository.getDishByName(first);
+        return firstes.getFirstMenu();
     }
 
-    public Set<Menu> getMenusBySecondDish(String secondDish) {
+    public Set<Menu> getMenusBysecond(String second) {
         DishRepository dishRepository = new DishRepository();
-        Dish secondDishes = dishRepository.getDishByName(secondDish);
-        return secondDishes.getSecondMenu();
+        Dish secondes = dishRepository.getDishByName(second);
+        return secondes.getSecondMenu();
     }
 
-    public Set<Menu> getMenusBySideDish(String sideDish) {
+    public Set<Menu> getMenusByside(String side) {
         DishRepository dishRepository = new DishRepository();
-        Dish sideDishes = dishRepository.getDishByName(sideDish);
-        return sideDishes.getSideMenu();
+        Dish sidees = dishRepository.getDishByName(side);
+        return sidees.getSideMenu();
     }
 
     public Set<Menu> getMenuBySweet(String sweet) {

@@ -30,11 +30,11 @@ public class MenuTest {
     private static Category sweetCategory = new Category("Sweet");
     private static Calendar firstDay = new Calendar(new Date());
     private static Calendar secondDay = new Calendar(new Date());
-    private static Dish firstDish = new Dish("Pidgeon Pie");
-    private static Dish secondDishOptionOne = new Dish("Wolf's Left Leg");
-    private static Dish secondDishOptionTwo = new Dish("Wolf's Right Leg");
-    private static Dish sideDish = new Dish("Wall's Potatoes");
-    private static Dish sweetDish = new Dish("Revenge");
+    private static Dish first = new Dish("Pidgeon Pie");
+    private static Dish secondOptionOne = new Dish("Wolf's Left Leg");
+    private static Dish secondOptionTwo = new Dish("Wolf's Right Leg");
+    private static Dish side = new Dish("Wall's Potatoes");
+    private static Dish sweet = new Dish("Revenge");
     private static Menu menuOne = new Menu();
     private static Menu menuTwo = new Menu();
 
@@ -44,24 +44,24 @@ public class MenuTest {
         secondCategory.save();
         sideCategory.save();
         sweetCategory.save();
-        firstDish.setCategory(firstCategory);
-        secondDishOptionOne.setCategory(secondCategory);
-        secondDishOptionTwo.setCategory(secondCategory);
-        sideDish.setCategory(sideCategory);
-        sweetDish.setCategory(sweetCategory);
-        firstDish.save();
-        secondDishOptionOne.save();
-        secondDishOptionTwo.save();
-        sideDish.save();
-        sweetDish.save();
-        menuOne.setFirstDish(firstDish);
-        menuOne.setSecondDish(secondDishOptionOne);
-        menuOne.setSideDish(sideDish);
-        menuOne.setSweet(sweetDish);
-        menuTwo.setFirstDish(firstDish);
-        menuTwo.setSecondDish(secondDishOptionTwo);
-        menuTwo.setSideDish(sideDish);
-        menuTwo.setSweet(sweetDish);
+        first.setCategory(firstCategory);
+        secondOptionOne.setCategory(secondCategory);
+        secondOptionTwo.setCategory(secondCategory);
+        side.setCategory(sideCategory);
+        sweet.setCategory(sweetCategory);
+        first.save();
+        secondOptionOne.save();
+        secondOptionTwo.save();
+        side.save();
+        sweet.save();
+        menuOne.setfirst(first);
+        menuOne.setsecond(secondOptionOne);
+        menuOne.setside(side);
+        menuOne.setSweet(sweet);
+        menuTwo.setfirst(first);
+        menuTwo.setsecond(secondOptionTwo);
+        menuTwo.setside(side);
+        menuTwo.setSweet(sweet);
         menuOne.save();
         menuTwo.save();
         firstDay.setDailyMenu(menuOne);
@@ -71,15 +71,15 @@ public class MenuTest {
     }
 
     @Test
-    void readMenusByFirstDish() {
-        Set result = menuRepository.getMenusByFirstDish(firstDish.getName());
+    void readMenusByFirst() {
+        Set result = menuRepository.getMenusByfirst(first.getName());
         assertNotNull(result);
     }
 
     @Test
-    void readMenusBySecondDish() {
-        Set resultOnMenuOne = menuRepository.getMenusBySecondDish((secondDishOptionOne.getName()));
-        Set resultOnMenuTwo = menuRepository.getMenusBySecondDish((secondDishOptionTwo.getName()));
+    void readMenusBySecond() {
+        Set resultOnMenuOne = menuRepository.getMenusBysecond((secondOptionOne.getName()));
+        Set resultOnMenuTwo = menuRepository.getMenusBysecond((secondOptionTwo.getName()));
         assertNotNull(resultOnMenuOne);
         assertNotNull(resultOnMenuTwo);
     }
@@ -96,11 +96,11 @@ public class MenuTest {
         secondDay.delete();
         menuOne.delete();
         menuTwo.delete();
-        firstDish.delete();
-        secondDishOptionOne.delete();
-        secondDishOptionTwo.delete();
-        sideDish.delete();
-        sweetDish.delete();
+        first.delete();
+        secondOptionOne.delete();
+        secondOptionTwo.delete();
+        side.delete();
+        sweet.delete();
         firstCategory.delete();
         secondCategory.delete();
         sideCategory.delete();

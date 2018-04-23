@@ -29,15 +29,15 @@ public class Menu extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "first_dish")
-    private Dish firstDish;
+    private Dish first;
 
     @ManyToOne
     @JoinColumn(name = "second_dish")
-    private Dish secondDish;
+    private Dish second;
 
     @ManyToOne
     @JoinColumn(name = "side_dish")
-    private Dish sideDish;
+    private Dish side;
 
     @ManyToOne
     @JoinColumn(name = "sweet")
@@ -61,28 +61,28 @@ public class Menu extends AbstractEntity {
         this.date = date;
     }
 
-    public Dish getFirstDish() {
-        return firstDish;
+    public Dish getfirst() {
+        return first;
     }
 
-    public void setFirstDish(Dish firstDish) {
-        this.firstDish = firstDish;
+    public void setfirst(Dish first) {
+        this.first = first;
     }
 
-    public Dish getSecondDish() {
-        return secondDish;
+    public Dish getsecond() {
+        return second;
     }
 
-    public void setSecondDish(Dish secondDish) {
-        this.secondDish = secondDish;
+    public void setsecond(Dish second) {
+        this.second = second;
     }
 
-    public Dish getSideDish() {
-        return sideDish;
+    public Dish getside() {
+        return side;
     }
 
-    public void setSideDish(Dish sideDish) {
-        this.sideDish = sideDish;
+    public void setside(Dish side) {
+        this.side = side;
     }
 
     public Dish getSweet() {
@@ -95,9 +95,9 @@ public class Menu extends AbstractEntity {
 
     @Override
     protected void beforeSave() throws IllegalArgumentException {
-        if((firstDish.getCategory().getName()==null)||(!(firstDish.getCategory().getName().equals("First dish")))) throw new IllegalArgumentException();
-        if((secondDish.getCategory().getName()==null)||(!(secondDish.getCategory().getName().equals("Second dish")))) throw new IllegalArgumentException();
-        if((sideDish.getCategory().getName()==null)||(!(sideDish.getCategory().getName().equals("Side dish")))) throw new IllegalArgumentException();
+        if((first.getCategory().getName()==null)||(!(first.getCategory().getName().equals("First dish")))) throw new IllegalArgumentException();
+        if((second.getCategory().getName()==null)||(!(second.getCategory().getName().equals("Second dish")))) throw new IllegalArgumentException();
+        if((side.getCategory().getName()==null)||(!(side.getCategory().getName().equals("Side dish")))) throw new IllegalArgumentException();
         if((sweet.getCategory().getName()==null)||(!(sweet.getCategory().getName().equals("Sweet")))) throw new IllegalArgumentException();
     }
 }
