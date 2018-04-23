@@ -1,4 +1,4 @@
-package Client.Remote.Services;
+package Client.Remote.Adapter;
 
 import Shared.BaseService;
 import org.json.simple.JSONObject;

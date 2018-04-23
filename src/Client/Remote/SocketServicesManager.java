@@ -1,7 +1,7 @@
 package Client.Remote;
 
-import Client.Remote.Services.BaseServiceAdapter;
-import Client.Remote.Services.UserServiceAdapter;
+import Client.Remote.Adapter.BaseServiceAdapter;
+import Client.Remote.Adapter.UserServiceAdapter;
 import Shared.BaseService;
 import Shared.UserService;
 import org.json.simple.JSONObject;
