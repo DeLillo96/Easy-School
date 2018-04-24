@@ -28,6 +28,8 @@ public class Children extends AbstractRowModel {
         setSurname(surname);
         setFiscalCode(fiscalCode);
         //todo make parse to Date into DatePicker
+
+        events();
     }
 
     @Override
@@ -43,6 +45,13 @@ public class Children extends AbstractRowModel {
         disorder.setOnAction(actionEvent -> disorder());
 
         getButtons().getChildren().addAll(parents, disorder);
+    }
+
+    public void events() {
+        name.textProperty().addListener((obs, oldText, newText) -> needToSave());
+        surname.textProperty().addListener((obs, oldText, newText) -> needToSave());
+        fiscalCode.textProperty().addListener((obs, oldText, newText) -> needToSave());
+        birthDate.dayCellFactoryProperty().addListener((obs, oldText, newText) -> needToSave());
     }
 
     public void parents() {

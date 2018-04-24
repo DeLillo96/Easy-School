@@ -56,6 +56,7 @@ public abstract class AbstractRowModel {
     public void save() {
         try {
             JSONObject result = service.save( makeRequest() );
+            save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
@@ -73,12 +74,16 @@ public abstract class AbstractRowModel {
 
     protected void notifyResult(JSONObject result) throws Exception {
         if((boolean) result.get("success")) {
-            controller.filter();
+            controller.filter(); //TODO remove filter & do single update.
             ControllerManager.getInstance().notifySuccess(result.get("messages").toString());
         } else {
             String errorMessage = result.get("messages").toString();
             throw new Exception(errorMessage);
         }
+    }
+
+    protected void needToSave() {
+        save.getStyleClass().add("red-button");
     }
 
     protected abstract JSONObject makeRequest();

@@ -50,6 +50,11 @@
     -fx-border-color: #d04615;
 }
 
+.red-button {
+    -fx-background-color: #e63906;
+    -fx-border-color: #ba0000;
+}
+
 .choice-box-table {
     -fx-font-size: 20;
     -fx-font-weight: none;
