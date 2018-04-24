@@ -5,18 +5,16 @@ import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import Shared.DishService;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Button;
 import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 
 public class Menu extends AbstractRowModel {
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
-    private ChoiceBox<String> first = new ChoiceBox<>();
-    private ChoiceBox<String> second = new ChoiceBox<>();
-    private ChoiceBox<String> side = new ChoiceBox<>();
-    private ChoiceBox<String> sweet = new ChoiceBox<>();
+    private Button first = new Button();
+    private Button second = new Button();
+    private Button side = new Button();
+    private Button sweet = new Button();
 
     public Menu(AbstractTableController tableController) throws Exception {
         this(tableController, 0, "", "", "", "");
@@ -32,15 +30,14 @@ public class Menu extends AbstractRowModel {
         setSweet(sweet);
     }
 
-    public void prepareChoiceBoxes() {
-        fillChoiceBox(first, "first");
-        fillChoiceBox(second, "second");
-        fillChoiceBox(side, "side");
-        fillChoiceBox(sweet, "sweet");
+    public void prepareButtones() {
+        fillButton(first, "first");
+        fillButton(second, "second");
+        fillButton(side, "side");
+        fillButton(sweet, "sweet");
     }
 
-    private void fillChoiceBox(ChoiceBox choiceBox, String parameter) {
-        choiceBox.getStyleClass().add("choice-box-table");
+    private void fillButton(Button button, String parameter) {
         try {
             DishService service = RemoteManager.getInstance().getRemoteServicesManager().getDishService();
 
@@ -54,7 +51,6 @@ public class Menu extends AbstractRowModel {
                 items.add((String) dish.get("name"));
             }
 
-            choiceBox.setItems(FXCollections.observableArrayList(items));
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
@@ -73,36 +69,36 @@ public class Menu extends AbstractRowModel {
         this.id.set(id);
     }
 
-    public ChoiceBox<String> getFirst() {
+    public Button getFirst() {
         return first;
     }
 
     public void setFirst(String first) {
-        this.first.setValue(first);
+        this.first.setText(first);
     }
 
-    public ChoiceBox<String> getSecond() {
+    public Button getSecond() {
         return second;
     }
 
     public void setSecond(String second) {
-        this.second.setValue(second);
+        this.second.setText(second);
     }
 
-    public ChoiceBox<String> getSide() {
+    public Button getSide() {
         return side;
     }
 
     public void setSide(String side) {
-        this.side.setValue(side);
+        this.side.setText(side);
     }
 
-    public ChoiceBox<String> getSweet() {
+    public Button getSweet() {
         return sweet;
     }
 
     public void setSweet(String sweet) {
-        this.sweet.setValue(sweet);
+        this.sweet.setText(sweet);
     }
 
     @Override

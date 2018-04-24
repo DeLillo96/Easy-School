@@ -43,9 +43,7 @@ public class MenuController extends AbstractTableController {
             String side = (String) ((JSONObject) menu.get("side")).get("name");
             String sweet = (String) ((JSONObject) menu.get("sweet")).get("name");
 
-            Menu newMenu = new Menu(this, id, first, second, side, sweet);
-            newMenu.prepareChoiceBoxes();
-            list.add(newMenu);
+            list.add(new Menu(this, id, first, second, side, sweet));
         }
 
         return list;
