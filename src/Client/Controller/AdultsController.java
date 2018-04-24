@@ -1,10 +1,13 @@
 package Client.Controller;
 
+import Client.ControllerManager;
 import Client.Model.Adults;
+import Client.Model.Children;
 import Client.Remote.RemoteManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
@@ -19,27 +22,52 @@ public class AdultsController extends AbstractTableController {
     @FXML private TextField telephoneTextField;
     @FXML private Button searchButton;
     @FXML private Button addButton;
+    @FXML private Parent parent;
 
     @FXML private TableView<Adults> adultTableView;
+
+    private Children child;
 
     public AdultsController() throws Exception {
         super( RemoteManager.getInstance().getRemoteServicesManager().getAdultService() );
     }
 
-    @FXML
-    public void initialize() {
+    public void setChild(Children child) {
+        this.child = child;
         filter();
     }
+
+    @FXML
+    public void initialize() { }
 
     @FXML
     @Override
     public void filter() {
         try {
             ArrayList<Adults> list = search();
+            ArrayList<Adults> listTwo;
+
+            //TODO VERY VERY VERY VERY VERY VERY VERY VERY VERY VERY UGLY SERVICE DECLARATION --> FIX IT
+            JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().readParentsByChild(child.getStringFiscalCode());
+            if((boolean) response.get("success")) {
+
+                JSONObject data = (JSONObject) response.get("data");
+                listTwo = parseIntoRows(data);
+
+            } else throw new Exception("Read from server error");
+
+            for (Adults a:list) {
+                for (Adults p:listTwo) {
+                    if(a.equals(p)) {
+                        a.getSelect().setSelected(true);
+                    }
+                }
+            }
+
             ObservableList<Adults> items = FXCollections.observableArrayList(list);
             adultTableView.setItems(items);
+
         } catch (Exception e ) {
-            e.printStackTrace();
             //todo render error
         }
     }
@@ -74,8 +102,12 @@ public class AdultsController extends AbstractTableController {
             String fiscalCode = (String) adult.get("fiscalCode");
             String telephone = (String) adult.get("telephone");
 
-            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone));
+            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone, new CheckBox()));
         }
         return list;
+    }
+
+    public void remove() {
+        ControllerManager.getInstance().removePopup();
     }
 }

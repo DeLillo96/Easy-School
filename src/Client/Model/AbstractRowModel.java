@@ -30,7 +30,7 @@ public abstract class AbstractRowModel {
     }
 
     public void setButtons(HBox buttons) {
-        this.buttons = buttons;
+        this. buttons = buttons;
     }
 
     protected void initializeButtons() {

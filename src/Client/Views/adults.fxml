@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.AdultsController">
+<AnchorPane styleClass="anchor-pane-popup" stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.AdultsController">
    <children>
        <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -124,6 +124,11 @@
                         <String fx:value="radius-15" />
                      </styleClass>
                       </Button>
+                  <Button fx:id="XButton" mnemonicParsing="false" onAction="#remove" text="X">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
                   </children>
                   <opaqueInsets>
                       <Insets />
@@ -134,7 +139,12 @@
               </HBox>
               <TableView fx:id="adultTableView" layoutY="131.0" prefWidth="1136.0">
                   <columns>
-                      <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="-1.0">
+                  <TableColumn fx:id="checkParentColumn" maxWidth="2000.0" minWidth="-Infinity" prefWidth="0.0">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="select" />
+                     </cellValueFactory>
+                  </TableColumn>
+                      <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="255.0">
                           <cellValueFactory>
                               <PropertyValueFactory property="buttons" />
                           </cellValueFactory>

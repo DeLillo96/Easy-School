@@ -2,6 +2,7 @@ package Client.Remote;
 
 import Client.Remote.Services.BaseServiceAdapter;
 import Client.Remote.Services.UserServiceAdapter;
+import Shared.AdultService;
 import Shared.BaseService;
 import Shared.UserService;
 import org.json.simple.JSONObject;
@@ -32,9 +33,11 @@ public class SocketServicesManager implements RemoteServicesManager {
         return new BaseServiceAdapter("children", in, out);
     }
 
+    //TODO Create AdulServiceAdapter (with calm...)
     @Override
-    public BaseService getAdultService() {
-        return new BaseServiceAdapter("adults", in, out);
+    public AdultService getAdultService() {
+        //return new BaseServiceAdapter("adults", in, out);
+        return null;
     }
 
     @Override

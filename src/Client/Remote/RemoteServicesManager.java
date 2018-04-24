@@ -1,12 +1,13 @@
 package Client.Remote;
 
+import Shared.AdultService;
 import Shared.BaseService;
 import Shared.UserService;
 
 public interface RemoteServicesManager {
     UserService getUserService() throws Exception;
     BaseService getChildrenService() throws Exception;
-    BaseService getAdultService() throws Exception;
+    AdultService getAdultService() throws Exception;
     BaseService getAlimentService() throws Exception;
     BaseService getBusService() throws Exception;
     BaseService getCalendarService() throws Exception;

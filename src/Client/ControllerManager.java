@@ -1,18 +1,28 @@
 package Client;
 
+import Client.Controller.AddAdultsController;
+import Client.Controller.AdultsController;
 import Client.Controller.Error;
+import Client.Model.Children;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class ControllerManager {
     private static ControllerManager instance;
     private static Stage stage;
     private static Parent notify;
+    private static Stack<Parent> popup = new Stack<>();
 
     public static ControllerManager getInstance() {
         if (instance == null) instance = new ControllerManager();
@@ -65,8 +75,33 @@ public class ControllerManager {
         renderFXML("Views/children.fxml");
     }
 
-    public void renderAddAdults() throws IOException {
-        renderFXML("Views/addAdults.fxml");
+    public void renderAddAdults(Children child) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/adults.fxml"));
+            Parent parent = loader.load();
+
+            AdultsController adultsController = loader.getController();
+            adultsController.setChild(child);
+
+            VBox vBox = new VBox();
+            Pane mainRoot = (Pane) getScene().getRoot();
+            //vBox.getStyleClass().add("row-HBox");
+            vBox.setAlignment(Pos.CENTER);
+            AnchorPane.setTopAnchor(vBox, 0d);
+            AnchorPane.setBottomAnchor(vBox, 0d);
+            AnchorPane.setLeftAnchor(vBox, 0d);
+            AnchorPane.setRightAnchor(vBox, 0d);
+            vBox.getChildren().add(parent);
+            mainRoot.getChildren().add(vBox);
+            popup.push(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removePopup() {
+        Pane mainRoot = (Pane) getScene().getRoot();
+        mainRoot.getChildren().remove(popup.pop());
     }
 
     private void renderFXML(String location) throws IOException {

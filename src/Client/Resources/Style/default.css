@@ -80,3 +80,7 @@
 .text-field-big {
     -fx-font-size: 30;
 }
+
+.anchor-pane-popup {
+    -fx-background-color: #fff;
+}

@@ -1,5 +1,6 @@
 package Client.Remote;
 
+import Shared.AdultService;
 import Shared.BaseService;
 import Shared.UserService;
 import java.rmi.RemoteException;
@@ -24,8 +25,8 @@ public class RMIServicesManager implements RemoteServicesManager {
 
 
     @Override
-    public BaseService getAdultService() throws Exception {
-        return (BaseService) registry.lookup("adults");
+    public AdultService getAdultService() throws Exception {
+        return (AdultService) registry.lookup("adults");
     }
 
     @Override
