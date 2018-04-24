@@ -1,8 +1,7 @@
-.button, .choice-box{
+.button, .choice-box {
     -fx-font-family: Monospace;
     -fx-font-size: 30;
     -fx-font-weight: bold;
-    -fx-text-fill: #f0f0f0;
     -fx-alignment: center;
 
     -fx-background-color: #00f2f3;
@@ -49,6 +48,12 @@
 .exit-button {
     -fx-background-color: #f58118;
     -fx-border-color: #d04615;
+}
+
+.choice-box-table {
+    -fx-font-size: 20;
+    -fx-font-weight: none;
+    -fx-pref-width: 245;
 }
 
 .error-panel {
