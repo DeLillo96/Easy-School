@@ -95,9 +95,9 @@ public class Menu extends AbstractEntity {
 
     @Override
     protected void beforeSave() throws IllegalArgumentException {
-        if((first.getCategory().getName()==null)||(!(first.getCategory().getName().equals("First dish")))) throw new IllegalArgumentException();
-        if((second.getCategory().getName()==null)||(!(second.getCategory().getName().equals("Second dish")))) throw new IllegalArgumentException();
-        if((side.getCategory().getName()==null)||(!(side.getCategory().getName().equals("Side dish")))) throw new IllegalArgumentException();
-        if((sweet.getCategory().getName()==null)||(!(sweet.getCategory().getName().equals("Sweet")))) throw new IllegalArgumentException();
+        if((first.getCategory().getName()==null)||(!(first.getCategory().getName().equals("first")))) throw new IllegalArgumentException();
+        if((second.getCategory().getName()==null)||(!(second.getCategory().getName().equals("second")))) throw new IllegalArgumentException();
+        if((side.getCategory().getName()==null)||(!(side.getCategory().getName().equals("side")))) throw new IllegalArgumentException();
+        if((sweet.getCategory().getName()==null)||(!(sweet.getCategory().getName().equals("sweet")))) throw new IllegalArgumentException();
     }
 }

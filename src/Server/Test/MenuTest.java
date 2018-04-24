@@ -20,14 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class MenuTest {
 
-    private static CategoryRepository categoryRepository = new CategoryRepository();
     private static MenuRepository menuRepository = new MenuRepository();
     private static CalendarRepository calendarRepository = new CalendarRepository();
-    private static DishRepository dishRepository = new DishRepository();
-    private static Category firstCategory = new Category("First dish");
-    private static Category secondCategory = new Category("Second dish");
-    private static Category sideCategory = new Category("Side dish");
-    private static Category sweetCategory = new Category("Sweet");
+    private static Category firstCategory = new Category("first");
+    private static Category secondCategory = new Category("second");
+    private static Category sideCategory = new Category("side");
+    private static Category sweetCategory = new Category("sweet");
     private static Calendar firstDay = new Calendar(new Date());
     private static Calendar secondDay = new Calendar(new Date());
     private static Dish first = new Dish("Pidgeon Pie");

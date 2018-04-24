@@ -18,8 +18,8 @@ public class DishTest {
     private static DishRepository dishRepository = new DishRepository();
     private static Dish dish = new Dish("Pigeon pie");
     private static Dish otherDish = new Dish ("Rice with herbs");
-    private static Category category = new Category("Main course");
-    private static Category categoryTwo = new Category("Second course");
+    private static Category category = new Category("first");
+    private static Category categoryTwo = new Category("second");
 
     @BeforeAll
     static void createDish() {
@@ -53,7 +53,7 @@ public class DishTest {
 
     @Test
     void readFromCategory() {
-        Set result = dishRepository.getDishByCategory(categoryTwo.getName());
+        List result = dishRepository.getDishByCategory(categoryTwo.getName());
         assertNotNull(result);
     }
 

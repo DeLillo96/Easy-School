@@ -2,9 +2,9 @@ package Server.Repository;
 
 import Server.Entity.Category;
 import Server.Entity.Dish;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class DishRepository extends AbstractRepository {
 
@@ -26,9 +26,10 @@ public class DishRepository extends AbstractRepository {
         return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
     }
 
-    public Set<Dish> getDishByCategory(String categoryName) {
+    public List getDishByCategory(String categoryName) {
         CategoryRepository categoryRepository = new CategoryRepository();
         Category dishes = categoryRepository.getCategoryByName(categoryName);
-        return dishes.getDishes();
+
+        return new ArrayList(dishes.getDishes());
     }
 }
