@@ -28,8 +28,8 @@ public class DishRepository extends AbstractRepository {
 
     public List getDishByCategory(String categoryName) {
         CategoryRepository categoryRepository = new CategoryRepository();
-        Category dishes = categoryRepository.getCategoryByName(categoryName);
+        Category category = categoryRepository.getCategoryByName(categoryName);
 
-        return new ArrayList(dishes.getDishes());
+        return new ArrayList(category.getDishes());
     }
 }
