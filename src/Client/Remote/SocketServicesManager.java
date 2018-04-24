@@ -3,6 +3,7 @@ package Client.Remote;
 import Client.Remote.Adapter.BaseServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
 import Shared.BaseService;
+import Shared.DishService;
 import Shared.UserService;
 import org.json.simple.JSONObject;
 import java.io.BufferedReader;
@@ -38,8 +39,9 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getDishService() throws Exception {
-        return new BaseServiceAdapter("dish", in, out);
+    public DishService getDishService() throws Exception {
+        //TODO DishServiceAdapter
+        return (DishService) new BaseServiceAdapter("dish", in, out);
     }
 
     @Override
