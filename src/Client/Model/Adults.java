@@ -1,9 +1,6 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
-import Client.Controller.AddAdultsController;
-import Client.Controller.EatingDisorderController;
-import Client.Controller.ParentsController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,64 +10,31 @@ import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
 import java.util.Date;
 
-public class Children extends AbstractRowModel {
+public class Adults extends AbstractRowModel {
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private TextField name = new TextField();
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
+    private TextField telephone = new TextField();
 
-    public Children(AbstractTableController tableController) throws Exception {
-        this(tableController, 0, "", "", "", new Date());
+    public Adults(AbstractTableController tableController) throws Exception {
+        this(tableController, 0, "", "", "", new Date(), "");
     }
 
-    public Children(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService(), tableController);
+    public Adults(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate, String telephone) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController);
 
         setId(id);
         setName(name);
         setSurname(surname);
         setFiscalCode(fiscalCode);
-        //todo make parse to Date into DatePicker
-
-        events();
+        setTelephone(telephone);
     }
 
     @Override
     protected void initializeButtons() {
         super.initializeButtons();
-
-        Button parents = new Button();
-        defineImageButton(parents, "Client/Resources/Images/parents.png");
-        parents.setOnAction(actionEvent -> parents());
-
-        Button disorder = new Button();
-        defineImageButton(disorder, "Client/Resources/Images/eating.png");
-        disorder.setOnAction(actionEvent -> disorder());
-
-        getButtons().getChildren().addAll(parents, disorder);
-    }
-
-    public void events() {
-        name.textProperty().addListener((obs, oldText, newText) -> needToSave());
-        surname.textProperty().addListener((obs, oldText, newText) -> needToSave());
-        fiscalCode.textProperty().addListener((obs, oldText, newText) -> needToSave());
-        birthDate.dayCellFactoryProperty().addListener((obs, oldText, newText) -> needToSave());
-    }
-
-    public void parents() {
-        try {
-            //ParentsController parentsController = new ParentsController(this.getId());
-            ControllerManager.getInstance().renderAddAdults();
-        } catch(Exception e) {}
-        //todo open popup of parent
-    }
-
-    public void disorder() {
-        try {
-            EatingDisorderController eatingDisorderController = new EatingDisorderController(this.getId());
-        } catch(Exception e) {}
-        //todo open popup of disorder
     }
 
     @Override
@@ -82,6 +46,7 @@ public class Children extends AbstractRowModel {
         request.put("surname", getStringSurname());
         request.put("birthDate", "2018-04-04");
         request.put("fiscalCode", getStringFiscalCode());
+        request.put("telephone", getStringTelephone());
 
         return request;
     }
@@ -157,5 +122,21 @@ public class Children extends AbstractRowModel {
 
     public void setBirthDate(DatePicker birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public TextField getTelephone() {
+        return telephone;
+    }
+
+    public String getStringTelephone() {
+        return telephone.getText();
+    }
+
+    public void setTelephone(TextField telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone.setText(telephone);
     }
 }

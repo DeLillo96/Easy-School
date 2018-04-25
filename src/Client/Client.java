@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Remote.RemoteManager;
+import Server.Entity.Users;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

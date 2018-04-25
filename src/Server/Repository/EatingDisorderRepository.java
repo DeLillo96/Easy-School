@@ -21,9 +21,9 @@ public class EatingDisorderRepository extends AbstractRepository {
         return eatingDisorders != null && eatingDisorders.size() == 1 ? (EatingDisorder) eatingDisorders.get(0) : null;
     }
 
-    public Set<EatingDisorder> getEatingDisorderByAffectedChild(String affectedChild) {
+    public Set<EatingDisorder> getEatingDisorderByAffectedChild(String childFiscalCode) {
         ChildRepository childRepository = new ChildRepository();
-        Child children = childRepository.getChildByFiscalCode(affectedChild);
+        Child children = childRepository.getChildByFiscalCode(childFiscalCode);
         return children.getEatingDisorders();
     }
 

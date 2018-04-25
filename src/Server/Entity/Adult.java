@@ -16,14 +16,16 @@ import java.util.Set;
         @FilterDef(name = "surname", parameters = { @ParamDef(name = "surname", type = "string") }),
         @FilterDef(name = "fiscalCode", parameters = { @ParamDef(name = "fiscalCode", type = "string") }),
         @FilterDef(name = "birthDate", parameters = { @ParamDef(name = "birthDate", type = "date") }),
+        @FilterDef(name = "telephone", parameters = { @ParamDef(name = "telephone", type = "string") }),
         @FilterDef(name = "user_id", parameters = { @ParamDef(name = "user_id", type = "integer") })
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "name", condition = "name like :name"),
-        @Filter(name = "surname", condition = "surname like :surname"),
-        @Filter(name = "fiscalCode", condition = "fiscalCode like :fiscalCode"),
+        @Filter(name = "name", condition = "name like '%' || :name || '%'"),
+        @Filter(name = "surname", condition = "surname like '%' || :surname || '%'"),
+        @Filter(name = "fiscalCode", condition = "fiscalCode like '%' || :fiscalCode || '%'"),
         @Filter(name = "birthDate", condition = "birthDate = :birthDate"),
+        @Filter(name = "telephone", condition = "telephone like '%' || :telephone || '%'"),
         @Filter(name = "user_id", condition = "user_id = :user_id"),
 })
 

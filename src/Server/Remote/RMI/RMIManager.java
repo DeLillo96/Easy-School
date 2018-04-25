@@ -18,6 +18,14 @@ public class RMIManager {
         registry.rebind("children", new ChildrenServiceImplementation());
         registry.rebind("menu", new MenuServiceImplementation());
         registry.rebind("dish", new DishServiceImplementation());
+        registry.rebind("adults", new AdultServiceImplementation());
+        registry.rebind("aliments", new AlimentServiceImplementation());
+        registry.rebind("buses", new BusServiceImplementation());
+        registry.rebind("calendars", new CalendarServiceImplementation());
+        registry.rebind("categories", new CategoryServiceImplementation());
+        registry.rebind("daytrips", new DayTripServiceImplementation());
+        registry.rebind("eatingDisorders", new EatingDisorderServiceImplementation());
+        registry.rebind("places", new PlaceServiceImplementation());
     }
 
     public int getPort() {
