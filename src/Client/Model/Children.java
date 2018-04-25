@@ -61,8 +61,8 @@ public class Children extends AbstractRowModel {
     public void parents() {
         try {
             //ParentsController parentsController = new ParentsController(this.getId());
-            ControllerManager.getInstance().renderAddAdults();
-        } catch(Exception e) {}
+            ControllerManager.getInstance().renderAddAdults(this);
+        } catch(Exception e) { e.printStackTrace(); }
         //todo open popup of parent
     }
 

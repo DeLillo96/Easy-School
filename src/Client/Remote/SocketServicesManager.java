@@ -2,6 +2,7 @@ package Client.Remote;
 
 import Client.Remote.Adapter.BaseServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
+import Shared.AdultService;
 import Shared.BaseService;
 import Shared.DishService;
 import Shared.UserService;
@@ -45,14 +46,49 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getAdultService() throws Exception {
-        return new BaseServiceAdapter("adult", in, out);
+    public AdultService getAdultService() throws Exception {
+        //TODO AdultServiceAdapter
+        return (AdultService) new BaseServiceAdapter("adult", in, out);
     }
 
     @Override
     public BaseService getEatingDisorderService() throws Exception {
         return new BaseServiceAdapter("eatingdisorder", in, out);
     }
+
+    @Override
+    public BaseService getAlimentService() {
+        return new BaseServiceAdapter("aliment", in, out);
+    }
+
+    @Override
+    public BaseService getBusService() {
+        return new BaseServiceAdapter("bus", in, out);
+    }
+
+    @Override
+    public BaseService getCalendarService() {
+        return new BaseServiceAdapter("calendar", in, out);
+    }
+
+    @Override
+    public BaseService getCategoryService() {
+        return new BaseServiceAdapter("category", in, out);
+    }
+
+    @Override
+    public BaseService getDayTripService() {
+        return new BaseServiceAdapter("daytrip", in, out);
+    }
+
+    @Override
+    public BaseService getEatingDisorderService() { return new BaseServiceAdapter("eatingDisorders", in, out); }
+
+    @Override
+    public BaseService getMenuService() { return new BaseServiceAdapter("menus", in, out); }
+
+    @Override
+    public BaseService getPlaceService() { return new BaseServiceAdapter("places", in, out); }
 
     @Override
     public void closeConnection() {

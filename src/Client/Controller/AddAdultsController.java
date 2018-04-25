@@ -3,8 +3,9 @@ package Client.Controller;
 
 import Client.ControllerManager;
 import Client.Model.Adults;
+import Client.Model.Children;
 import Client.Remote.RemoteManager;
-import Shared.BaseService;
+import Shared.AdultService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,23 +18,43 @@ import java.util.Date;
 public class AddAdultsController extends AbstractTableController{
     @FXML private Button buttonClose;
     @FXML private TableView<Adults> allParentTableView;
+    @FXML private TableView<Adults> actualParentTableView;
+    private Children child;
+
+    public void setChild(Children child) {
+        this.child = child;
+        filter();
+    }
 
     public AddAdultsController() throws Exception {
         super( RemoteManager.getInstance().getRemoteServicesManager().getAdultService() );
     }
 
     @FXML
-    public void initialize() {
-        filter();
-    }
+    public void initialize() { }
 
     @FXML
     @Override
     public void filter() {
         try {
             ArrayList<Adults> list = search();
+            ArrayList<Adults> listTwo;
             ObservableList<Adults> items = FXCollections.observableArrayList(list);
+
+            /*ArrayList<Adults> listTwo = parseIntoRows(RemoteManager.getInstance().getRemoteServicesManager().getAdultService().
+                    readParentsByChild("DS"));*/
+            //ObservableList<Adults> itemsTwo = FXCollections.observableArrayList(listTwo);
             allParentTableView.setItems(items);
+
+            JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().readParentsByChild(child.getStringFiscalCode());
+            if((boolean) response.get("success")) {
+
+                JSONObject data = (JSONObject) response.get("data");
+                listTwo = parseIntoRows(data);
+
+            } else throw new Exception("Read from server error");
+            ObservableList<Adults> itemsTwo = FXCollections.observableArrayList(listTwo);
+            actualParentTableView.setItems(itemsTwo);
         } catch (Exception e ) {
             //todo render error
         }
@@ -70,7 +91,7 @@ public class AddAdultsController extends AbstractTableController{
             String fiscalCode = (String) adult.get("fiscalCode");
             String telephone = (String) adult.get("telephone");
 
-            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone));
+            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone, new CheckBox()));
         }
         return list;
     }

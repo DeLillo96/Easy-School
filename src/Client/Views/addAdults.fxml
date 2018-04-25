@@ -7,7 +7,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.AddAdultsController">
+<AnchorPane opacity="0.9" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.AddAdultsController">
    <children>
       <SplitPane dividerPositions="0.5" prefHeight="600.0" prefWidth="900.0">
         <items>
@@ -17,7 +17,7 @@
                     <columns>
                         <TableColumn fx:id="actualParentColumn" minWidth="100.0" prefWidth="-1.0" text="Actual Parents">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Aname" />
+                                <PropertyValueFactory property="name" />
                             </cellValueFactory>
                         </TableColumn>
                     </columns>

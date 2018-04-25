@@ -1,7 +1,10 @@
 package Server.Repository;
 
 import Server.Entity.Adult;
+import Server.Entity.Child;
 import Server.Entity.Users;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,5 +40,12 @@ public class AdultRepository extends AbstractRepository {
             return (Adult) adults.get(0);
         else
             return null;
+    }
+
+    public List getAdultByChildFiscalCode(String childFiscalCode) {
+        ChildRepository childRepository = new ChildRepository();
+        Child child = childRepository.getChildByFiscalCode(childFiscalCode);
+
+        return new ArrayList(child.getParents());
     }
 }

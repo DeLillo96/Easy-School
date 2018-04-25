@@ -5,6 +5,7 @@ import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
@@ -17,12 +18,13 @@ public class Adults extends AbstractRowModel {
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
     private TextField telephone = new TextField();
+    private CheckBox select = new CheckBox();
 
     public Adults(AbstractTableController tableController) throws Exception {
-        this(tableController, 0, "", "", "", new Date(), "");
+        this(tableController, 0, "", "", "", new Date(), "", new CheckBox());
     }
 
-    public Adults(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate, String telephone) throws Exception {
+    public Adults(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate, String telephone, CheckBox checkBox) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController);
 
         setId(id);
@@ -138,5 +140,13 @@ public class Adults extends AbstractRowModel {
 
     public void setTelephone(String telephone) {
         this.telephone.setText(telephone);
+    }
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
     }
 }
