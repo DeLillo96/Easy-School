@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.ChildrenController">
+    <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" maxHeight="113.0" prefHeight="113.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+            <children>
+                <VBox alignment="CENTER" prefHeight="313.0" prefWidth="155.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                            <font>
+                                <Font name="Monospaced Regular" size="25.0"/>
+                            </font>
+                        </Text>
+                        <TextField fx:id="nameTextField">
+                            <VBox.margin>
+                                <Insets left="5.0" right="5.0"/>
+                            </VBox.margin>
+                        </TextField>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="155.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
+                            <font>
+                                <Font name="Monospaced Regular" size="25.0"/>
+                            </font>
+                        </Text>
+                        <TextField fx:id="surnameTextField">
+                            <VBox.margin>
+                                <Insets left="5.0" right="5.0"/>
+                            </VBox.margin>
+                        </TextField>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="165.0" layoutY="10.0" prefHeight="200.0" prefWidth="155.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date">
+                            <font>
+                                <Font name="Monospaced Regular" size="25.0"/>
+                            </font>
+                        </Text>
+                        <DatePicker fx:id="birthDatePicker">
+                            <VBox.margin>
+                                <Insets left="5.0" right="5.0"/>
+                            </VBox.margin>
+                        </DatePicker>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="165.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FiscalCode">
+                            <font>
+                                <Font name="Monospaced Regular" size="25.0"/>
+                            </font>
+                        </Text>
+                        <TextField fx:id="fiscalCodeTextField">
+                            <VBox.margin>
+                                <Insets left="5.0" right="5.0"/>
+                            </VBox.margin>
+                        </TextField>
+                    </children>
+                </VBox>
+                <Button fx:id="searchButton" alignment="CENTER" onAction="#search"
+                        style="-fx-background-color: #25B7D3; -fx-background-radius: 15; -fx-border-color: #0597B3; -fx-border-radius: 15;">
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0">
+                            <Image url="@images/search.png"/>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="5.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="addButton" alignment="CENTER" onAction="#add"
+                        style="-fx-background-color: #25B7D3; -fx-background-radius: 15; -fx-border-color: #0597B3; -fx-border-radius: 15;">
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0">
+                            <Image url="@images/add.png"/>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="30.0" right="1.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="refreshButton" alignment="CENTER" onAction="#refresh"
+                        style="-fx-background-color: #25B7D3; -fx-background-radius: 15; -fx-border-color: #0597B3; -fx-border-radius: 15;">
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0">
+                            <Image url="@images/refresh.png"/>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="1.0" right="1.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <VBox.margin>
+                <Insets left="10.0"/>
+            </VBox.margin>
+        </HBox>
+        <TableView fx:id="childTableView" layoutY="131.0" prefHeight="461.0" prefWidth="1136.0">
+            <columns>
+                <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="-1.0">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="buttons"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="surnameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Surname">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="surname"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="dateColumn" minWidth="-Infinity" prefWidth="-1.0" text="Birth Date">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="birthDate"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="fiscalCodeColumn" minWidth="-Infinity" prefWidth="-1.0" text="Fiscal Code">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="fiscalCode"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0"/>
+            </VBox.margin>
+        </TableView>
+    </VBox>
+</AnchorPane>
