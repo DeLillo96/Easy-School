@@ -30,7 +30,7 @@ public class SocketParser extends Thread {
 
                 JSONObject result = null;
 
-                if (json.get("service").equals("users")) {
+                if (json.get("service").equals("user")) {
                     UserService userService = new UserServiceImplementation();
 
                     if(json.get("function").equals("login")){
@@ -41,7 +41,7 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("children")) {
+                if (json.get("service").equals("child")) {
                     ChildrenServiceImplementation childrenService = new ChildrenServiceImplementation();
 
                     if(json.get("function").equals("read")){
@@ -52,7 +52,7 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("adults")) {
+                if (json.get("service").equals("adult")) {
                     AdultServiceImplementation adultService = new AdultServiceImplementation();
 
                     if(json.get("function").equals("read")){
@@ -63,7 +63,7 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("aliments")) {
+                if (json.get("service").equals("aliment")) {
                     AlimentServiceImplementation alimentService = new AlimentServiceImplementation();
 
                     if(json.get("function").equals("read")){
@@ -74,7 +74,7 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("buses")) {
+                if (json.get("service").equals("bus")) {
                     BusServiceImplementation busService = new BusServiceImplementation();
 
                     if(json.get("function").equals("read")){
@@ -85,7 +85,7 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("calendars")) {
+                if (json.get("service").equals("calendar")) {
                     CalendarServiceImplementation calendarService = new CalendarServiceImplementation();
 
                     if(json.get("function").equals("read")){
@@ -96,7 +96,7 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("categories")) {
+                if (json.get("service").equals("category")) {
                     CategoryServiceImplementation categoryService = new CategoryServiceImplementation();
 
                     if(json.get("function").equals("read")){

@@ -9,6 +9,8 @@ public interface RemoteServicesManager {
     BaseService getChildrenService() throws Exception;
     BaseService getMenuService() throws Exception;
     DishService getDishService() throws Exception;
+    BaseService getAdultService() throws Exception;
+    BaseService getEatingDisorderService() throws Exception;
 
     void closeConnection() throws Exception;
 }

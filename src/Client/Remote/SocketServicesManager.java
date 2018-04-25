@@ -30,7 +30,7 @@ public class SocketServicesManager implements RemoteServicesManager {
 
     @Override
     public BaseService getChildrenService() {
-        return new BaseServiceAdapter("children", in, out);
+        return new BaseServiceAdapter("child", in, out);
     }
 
     @Override
@@ -42,6 +42,16 @@ public class SocketServicesManager implements RemoteServicesManager {
     public DishService getDishService() throws Exception {
         //TODO DishServiceAdapter
         return (DishService) new BaseServiceAdapter("dish", in, out);
+    }
+
+    @Override
+    public BaseService getAdultService() throws Exception {
+        return new BaseServiceAdapter("adult", in, out);
+    }
+
+    @Override
+    public BaseService getEatingDisorderService() throws Exception {
+        return new BaseServiceAdapter("eatingdisorder", in, out);
     }
 
     @Override

@@ -4,6 +4,7 @@ package Client.Controller;
 import Client.ControllerManager;
 import Client.Model.Adults;
 import Client.Remote.RemoteManager;
+import Shared.BaseService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

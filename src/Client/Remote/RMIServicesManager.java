@@ -15,12 +15,12 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     public UserService getUserService() throws Exception {
-        return (UserService) registry.lookup("users");
+        return (UserService) registry.lookup("user");
     }
 
     @Override
     public BaseService getChildrenService() throws Exception {
-        return (BaseService) registry.lookup("children");
+        return (BaseService) registry.lookup("child");
     }
 
     @Override
@@ -31,6 +31,16 @@ public class RMIServicesManager implements RemoteServicesManager {
     @Override
     public DishService getDishService() throws Exception {
         return (DishService) registry.lookup("dish");
+    }
+
+    @Override
+    public BaseService getAdultService() throws Exception {
+        return (BaseService) registry.lookup("adult");
+    }
+
+    @Override
+    public BaseService getEatingDisorderService() throws Exception {
+        return (BaseService) registry.lookup("eatingdisorder");
     }
 
     @Override
