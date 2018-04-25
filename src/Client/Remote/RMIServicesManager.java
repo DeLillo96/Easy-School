@@ -35,8 +35,8 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getAdultService() throws Exception {
-        return (BaseService) registry.lookup("adult");
+    public AdultService getAdultService() throws Exception {
+        return (AdultService) registry.lookup("adult");
     }
 
     @Override
@@ -44,55 +44,34 @@ public class RMIServicesManager implements RemoteServicesManager {
         return (BaseService) registry.lookup("eatingdisorder");
     }
 
-
-    @Override
-    public AdultService getAdultService() throws Exception {
-        return (AdultService) registry.lookup("adults");
-    }
-
     @Override
     public BaseService getAlimentService() throws Exception {
-        return (BaseService) registry.lookup("aliments");
+        return (BaseService) registry.lookup("aliment");
     }
 
     @Override
     public BaseService getBusService() throws Exception {
-        return (BaseService) registry.lookup("buses");
+        return (BaseService) registry.lookup("buse");
     }
 
     @Override
     public BaseService getCalendarService() throws Exception {
-        return (BaseService) registry.lookup("calendars");
+        return (BaseService) registry.lookup("calendar");
     }
 
     @Override
     public BaseService getCategoryService() throws Exception {
-        return (BaseService) registry.lookup("categories");
+        return (BaseService) registry.lookup("category");
     }
 
     @Override
     public BaseService getDayTripService() throws Exception {
-        return (BaseService) registry.lookup("daytrips");
-    }
-
-    @Override
-    public BaseService getDishService() throws Exception {
-        return (BaseService) registry.lookup("dishes");
-    }
-
-    @Override
-    public BaseService getEatingDisorderService() throws Exception {
-        return (BaseService) registry.lookup("eatingDisorders");
-    }
-
-    @Override
-    public BaseService getMenuService() throws Exception {
-        return (BaseService) registry.lookup("menus");
+        return (BaseService) registry.lookup("daytrip");
     }
 
     @Override
     public BaseService getPlaceService() throws Exception {
-        return (BaseService) registry.lookup("places");
+        return (BaseService) registry.lookup("place");
     }
 
     @Override

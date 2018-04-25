@@ -14,7 +14,7 @@ public interface RemoteServicesManager {
     BaseService getCalendarService() throws Exception;
     BaseService getCategoryService() throws Exception;
     BaseService getDayTripService() throws Exception;
-    BaseService getDishService() throws Exception;
+    DishService getDishService() throws Exception;
     BaseService getEatingDisorderService() throws Exception;
     BaseService getMenuService() throws Exception;
     BaseService getPlaceService() throws Exception;

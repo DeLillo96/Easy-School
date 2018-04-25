@@ -82,12 +82,6 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getEatingDisorderService() { return new BaseServiceAdapter("eatingDisorders", in, out); }
-
-    @Override
-    public BaseService getMenuService() { return new BaseServiceAdapter("menus", in, out); }
-
-    @Override
     public BaseService getPlaceService() { return new BaseServiceAdapter("places", in, out); }
 
     @Override
