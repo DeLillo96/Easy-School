@@ -57,7 +57,7 @@
 
 .choice-box-table {
     -fx-font-size: 20;
-    -fx-font-weight: none;
+    -fx-font-weight: normal;
     -fx-pref-width: 245;
 }
 
@@ -79,6 +79,10 @@
     -fx-alignment: center;
 }
 
+.popup-HBox {
+    -fx-alignment: center;
+}
+
 .label, .text-area {
     -fx-font-family: Monospace;
     -fx-font-size: 20;
@@ -96,5 +100,9 @@
 }
 
 .anchor-pane-popup {
-    -fx-background-color: #fff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+
+    -fx-background-color: #bbb;
+    -fx-border-color: #999;
 }

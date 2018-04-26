@@ -1,9 +1,7 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
-import Client.Controller.AddAdultsController;
 import Client.Controller.EatingDisorderController;
-import Client.Controller.ParentsController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.beans.property.SimpleIntegerProperty;

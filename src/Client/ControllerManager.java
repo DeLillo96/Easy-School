@@ -1,21 +1,15 @@
 package Client;
 
-import Client.Controller.AddAdultsController;
 import Client.Controller.AdultsController;
 import Client.Model.Children;
 import Client.Controller.AbstractNotifyController;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class ControllerManager {
@@ -91,28 +85,26 @@ public class ControllerManager {
         renderFXML("Views/children.fxml");
     }
 
-    public void renderAddAdults(Children child) throws IOException {
+    public void renderAddAdults(Children child) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/adults.fxml"));
-            Parent parent = loader.load();
+            addPopup(loader.load());
 
             AdultsController adultsController = loader.getController();
             adultsController.setChild(child);
-
-            VBox vBox = new VBox();
-            Pane mainRoot = (Pane) getScene().getRoot();
-            //vBox.getStyleClass().add("row-HBox");
-            vBox.setAlignment(Pos.CENTER);
-            AnchorPane.setTopAnchor(vBox, 0d);
-            AnchorPane.setBottomAnchor(vBox, 0d);
-            AnchorPane.setLeftAnchor(vBox, 0d);
-            AnchorPane.setRightAnchor(vBox, 0d);
-            vBox.getChildren().add(parent);
-            mainRoot.getChildren().add(vBox);
-            popup.push(vBox);
         } catch (IOException e) {
-            e.printStackTrace();
+            notifyError(e.getMessage());
         }
+    }
+
+    public void addPopup(Parent parent) {
+        AnchorPane.setTopAnchor(parent, 20d);
+        AnchorPane.setBottomAnchor(parent, 20d);
+        AnchorPane.setLeftAnchor(parent, 10d);
+        AnchorPane.setRightAnchor(parent, 10d);
+
+        Pane mainRoot = (Pane) getScene().getRoot();
+        mainRoot.getChildren().add(popup.push(parent));
     }
 
     public void removePopup() {
