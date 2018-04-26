@@ -82,7 +82,9 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getPlaceService() { return new BaseServiceAdapter("places", in, out); }
+    public BaseService getPlaceService() {
+        return new BaseServiceAdapter("places", in, out);
+    }
 
     @Override
     public void closeConnection() {
