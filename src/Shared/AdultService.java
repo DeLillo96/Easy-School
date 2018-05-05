@@ -5,4 +5,5 @@ import java.rmi.Remote;
 
 public interface AdultService extends BaseService {
     JSONObject readParentsByChild(String childFiscalCode) throws Exception;
+    void setParentsFromJSON(JSONObject data_ids) throws Exception;
 }

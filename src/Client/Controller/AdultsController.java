@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AdultsController extends AbstractTableController {
     /* FILTERS */
@@ -58,7 +59,7 @@ public class AdultsController extends AbstractTableController {
 
             for (Adults a:list) {
                 for (Adults p:listTwo) {
-                    if(a.equals(p)) {
+                    if (a.getStringFiscalCode().equals(p.getStringFiscalCode())) {
                         a.getSelect().setSelected(true);
                     }
                 }
@@ -75,6 +76,27 @@ public class AdultsController extends AbstractTableController {
     @FXML
     public void add() throws Exception {
         adultTableView.getItems().add(new Adults(this));
+    }
+
+    public void save() throws Exception {
+        JSONObject adultsJson = new JSONObject();
+        List<Adults> saveAdults = new ArrayList<>();
+        ObservableList<Adults> adults = adultTableView.getItems();
+        int count = 0;
+        for (Adults a:adults) {
+            if(a.getSelect().isSelected()) {
+                saveAdults.add(a);
+            }
+        }
+        adultsJson.put("0", child.getId());
+        for (Adults a:saveAdults) {
+            //System.out.println(a.getStringFiscalCode());
+            adultsJson.put(""+(count+1), a.getId());
+            count++;
+        }
+        adultsJson.put("max_length", saveAdults.size());
+        RemoteManager.getInstance().getRemoteServicesManager().getAdultService().setParentsFromJSON(adultsJson);
+        //System.out.println("FATTOH");
     }
 
     @Override
@@ -105,6 +127,19 @@ public class AdultsController extends AbstractTableController {
             list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone, new CheckBox()));
         }
         return list;
+    }
+
+    protected JSONObject makeRequest(Adults a) {
+        JSONObject request = new JSONObject();
+
+        if(a.getId() != 0) request.put("id", a.getId());
+        request.put("name", a.getStringName());
+        request.put("surname", a.getStringSurname());
+        request.put("birthDate", "2018-04-04");
+        request.put("fiscalCode", a.getStringFiscalCode());
+        request.put("telephone", a.getStringTelephone());
+
+        return request;
     }
 
     public void remove() {
