@@ -94,5 +94,9 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
         return objectMapper.readValue(String.valueOf(parameters), new TypeReference<Map<String, Object>>() {});
     }
 
+    protected int getMaxLength(JSONObject jsonObject) {
+        return (Integer) jsonObject.get("max_length");
+    }
+
     protected abstract EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException;
 }

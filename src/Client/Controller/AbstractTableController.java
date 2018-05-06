@@ -1,5 +1,6 @@
 package Client.Controller;
 
+import Client.ControllerManager;
 import Shared.BaseService;
 import org.json.simple.JSONObject;
 
@@ -22,6 +23,16 @@ public abstract class AbstractTableController {
             return parseIntoRows(data);
 
         } else throw new Exception("Read from server error");
+    }
+
+    protected void notifyResult(JSONObject result) throws Exception {
+        if((boolean) result.get("success")) {
+            this.filter(); //TODO remove filter & do single update.
+            ControllerManager.getInstance().notifySuccess(result.get("messages").toString());
+        } else {
+            String errorMessage = result.get("messages").toString();
+            throw new Exception(errorMessage);
+        }
     }
 
     protected abstract JSONObject takeFilters();

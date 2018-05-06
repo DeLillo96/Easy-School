@@ -23,27 +23,6 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
     }
 
     @Override
-    public void setParentsFromJSON(JSONObject data_ids) throws Exception {
-        int max = (Integer) data_ids.get("max_length");
-        Child mainChild = (new ChildRepository()).getChildById((Integer) data_ids.get("0"));
-        Set<Adult> old_adults = mainChild.getParents();
-        Set<Adult> new_adults = new HashSet<>();
-        for(Iterator<Adult> iterator = old_adults.iterator(); iterator.hasNext(); ) {
-            Adult next = iterator.next();
-            iterator.remove();
-        }
-        /*for (Adult a:old_adults) {
-            mainChild.getParents().remove(a);
-        }*/
-        for(int count=0; count<max; count++)
-        {
-            new_adults.add((new AdultRepository()).getAdultById((Integer) data_ids.get(""+(count+1))));
-        }
-        mainChild.setParents(new_adults);
-        mainChild.save();
-    }
-
-    @Override
     public JSONObject readParentsByChild(String childFiscalCode) throws Exception {
         Result result = new Result();
 
@@ -55,6 +34,22 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
             result.addMessage("adult category are invalid");
         }
 
+        return result.toJson();
+    }
+
+    @Override
+    public JSONObject setParentsFromJSON(JSONObject data_ids) throws Exception {
+
+        int max = getMaxLength(data_ids);
+
+        Child mainChild = (new ChildRepository()).getChildById((Integer) data_ids.get("0"));
+        Set<Adult> newAdults = new HashSet<>();
+        for(int count=0; count<max; count++)
+        {
+            newAdults.add((new AdultRepository()).getAdultById((Integer) data_ids.get(""+(count+1))));
+        }
+        mainChild.setParents(newAdults);
+        Result result = mainChild.save();
         return result.toJson();
     }
 

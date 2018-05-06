@@ -79,24 +79,17 @@ public class AdultsController extends AbstractTableController {
     }
 
     public void save() throws Exception {
-        JSONObject adultsJson = new JSONObject();
+        JSONObject adultsJson;
         List<Adults> saveAdults = new ArrayList<>();
         ObservableList<Adults> adults = adultTableView.getItems();
-        int count = 0;
         for (Adults a:adults) {
             if(a.getSelect().isSelected()) {
                 saveAdults.add(a);
             }
         }
-        adultsJson.put("0", child.getId());
-        for (Adults a:saveAdults) {
-            //System.out.println(a.getStringFiscalCode());
-            adultsJson.put(""+(count+1), a.getId());
-            count++;
-        }
-        adultsJson.put("max_length", saveAdults.size());
-        RemoteManager.getInstance().getRemoteServicesManager().getAdultService().setParentsFromJSON(adultsJson);
-        //System.out.println("FATTOH");
+        adultsJson = makeRequest(saveAdults);
+        JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().setParentsFromJSON(adultsJson);
+        notifyResult(result);
     }
 
     @Override
@@ -129,17 +122,16 @@ public class AdultsController extends AbstractTableController {
         return list;
     }
 
-    protected JSONObject makeRequest(Adults a) {
-        JSONObject request = new JSONObject();
-
-        if(a.getId() != 0) request.put("id", a.getId());
-        request.put("name", a.getStringName());
-        request.put("surname", a.getStringSurname());
-        request.put("birthDate", "2018-04-04");
-        request.put("fiscalCode", a.getStringFiscalCode());
-        request.put("telephone", a.getStringTelephone());
-
-        return request;
+    protected JSONObject makeRequest(List<Adults> saveAdults) {
+        JSONObject adultsJson = new JSONObject();
+        int count = 0;
+        adultsJson.put("0", child.getId());
+        for (Adults a:saveAdults) {
+            adultsJson.put(""+(count+1), a.getId());
+            count++;
+        }
+        adultsJson.put("max_length", saveAdults.size());
+        return adultsJson;
     }
 
     public void remove() {
