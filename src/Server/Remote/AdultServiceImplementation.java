@@ -12,10 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class AdultServiceImplementation extends AbstractBaseService implements AdultService {
     public AdultServiceImplementation() throws RemoteException {
@@ -26,7 +23,7 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
     public JSONObject readParentsByChild(String childFiscalCode) throws Exception {
         Result result = new Result();
 
-        List response = (new AdultRepository()).getAdultByChildFiscalCode(childFiscalCode);
+        List response = new ArrayList((new AdultRepository()).getAdultByChildFiscalCode(childFiscalCode));
         if(response != null) {
             result.setData(response);
         } else {
@@ -38,18 +35,42 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
     }
 
     @Override
-    public JSONObject setParentsFromJSON(JSONObject data) throws Exception {
+    public JSONObject setParentFromJSON(JSONObject data) throws Exception {
 
-        int max = getMaxLength(data);
-
-        Child mainChild = (new ChildRepository()).getChildById((Integer) data.get("0"));
-        Set<Adult> newAdults = new HashSet<>();
-        for(int count=0; count<max; count++)
-        {
-            newAdults.add((new AdultRepository()).getAdultById((Integer) data.get(""+(count+1))));
+        Result result = new Result();
+        boolean flag = false;
+        Child mainChild = (new ChildRepository()).getChildById((Integer) data.get("childId"));
+        Adult adultToAdd = (new AdultRepository()).getAdultById((Integer) data.get("adultId"));
+        boolean check = (boolean) data.get("check");
+        Set<Adult> actualParents = (new AdultRepository()).getAdultByChildFiscalCode(mainChild.getFiscalCode());
+        Set<Adult> adultsToRemove = new HashSet<>();
+        for(Adult a:actualParents) {
+            if(a.getFiscalCode().equals(adultToAdd.getFiscalCode())) {
+                if(check) {
+                    result.setSuccess(true);
+                    result.addMessage("DB was already updated");
+                    return result.toJson();
+                }else {
+                    flag = true;
+                    adultsToRemove.add(a);
+                }
+            }
         }
-        mainChild.setParents(newAdults);
-        Result result = mainChild.save();
+        if(flag) {
+            actualParents.removeAll(adultsToRemove);
+            mainChild.setParents(actualParents);
+            result = mainChild.save();
+            return result.toJson();
+        }else if(check)
+        {
+            actualParents.add(adultToAdd);
+            mainChild.setParents(actualParents);
+            result = mainChild.save();
+            return result.toJson();
+        }
+
+        result.setSuccess(true);
+        result.addMessage("DB was already updated");
         return result.toJson();
     }
 

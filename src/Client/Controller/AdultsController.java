@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,9 @@ import java.util.List;
 
 public class AdultsController extends AbstractTableController {
     /* FILTERS */
+    @FXML private Text childName;
+    @FXML private Text childSurname;
+    @FXML private Text childFiscalCode;
     @FXML private TextField nameTextField;
     @FXML private TextField surnameTextField;
     @FXML private DatePicker birthDatePicker;
@@ -35,6 +39,9 @@ public class AdultsController extends AbstractTableController {
 
     public void setChild(Children child) {
         this.child = child;
+        childName.setText(child.getStringName());
+        childSurname.setText(child.getStringSurname());
+        childFiscalCode.setText(child.getStringFiscalCode());
         filter();
     }
 
@@ -75,21 +82,7 @@ public class AdultsController extends AbstractTableController {
 
     @FXML
     public void add() throws Exception {
-        adultTableView.getItems().add(new Adults(this));
-    }
-
-    public void save() throws Exception {
-        JSONObject adultsJson;
-        List<Adults> saveAdults = new ArrayList<>();
-        ObservableList<Adults> adults = adultTableView.getItems();
-        for (Adults a:adults) {
-            if(a.getSelect().isSelected()) {
-                saveAdults.add(a);
-            }
-        }
-        adultsJson = makeRequest(saveAdults);
-        JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().setParentsFromJSON(adultsJson);
-        notifyResult(result);
+        adultTableView.getItems().add(new Adults(this,child.getId()));
     }
 
     @Override
@@ -117,7 +110,7 @@ public class AdultsController extends AbstractTableController {
             String fiscalCode = (String) adult.get("fiscalCode");
             String telephone = (String) adult.get("telephone");
 
-            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone, new CheckBox()));
+            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone, new CheckBox(), child.getId()));
         }
         return list;
     }

@@ -19,12 +19,13 @@ public class Adults extends AbstractRowModel {
     private DatePicker birthDate = new DatePicker();
     private TextField telephone = new TextField();
     private CheckBox select = new CheckBox();
+    private int childId;
 
-    public Adults(AbstractTableController tableController) throws Exception {
-        this(tableController, 0, "", "", "", new Date(), "", new CheckBox());
+    public Adults(AbstractTableController tableController, int childId) throws Exception {
+        this(tableController, 0, "", "", "", new Date(), "", new CheckBox(), childId);
     }
 
-    public Adults(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate, String telephone, CheckBox checkBox) throws Exception {
+    public Adults(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate, String telephone, CheckBox checkBox, int childId) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController);
 
         setId(id);
@@ -32,11 +33,32 @@ public class Adults extends AbstractRowModel {
         setSurname(surname);
         setFiscalCode(fiscalCode);
         setTelephone(telephone);
+        setChildId(childId);
     }
 
     @Override
     protected void initializeButtons() {
         super.initializeButtons();
+    }
+
+    @Override
+    public void save() {
+        try {
+            JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().save( makeRequest() );
+            if((boolean)result.get("success"))
+            {
+                JSONObject check = new JSONObject();
+                check.put("childId", childId);
+                check.put("adultId", this.getId());
+                check.put("check", getSelect().isSelected());
+                result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().setParentFromJSON(check);
+            }
+            save.getStyleClass().remove("red-button");
+            notifyResult(result);
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("500 Server Error");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -148,5 +170,13 @@ public class Adults extends AbstractRowModel {
 
     public void setSelect(CheckBox select) {
         this.select = select;
+    }
+
+    public int getChildId() {
+        return childId;
+    }
+
+    public void setChildId(int childId) {
+        this.childId = childId;
     }
 }

@@ -14,7 +14,7 @@ public abstract class AbstractRowModel {
     protected Button delete = new Button();
     protected HBox buttons = new HBox(save, delete);
 
-    protected static BaseService service;
+    protected BaseService service;
     protected static AbstractTableController controller;
 
     public AbstractRowModel(BaseService baseService, AbstractTableController tableController) {
