@@ -38,15 +38,15 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
     }
 
     @Override
-    public JSONObject setParentsFromJSON(JSONObject data_ids) throws Exception {
+    public JSONObject setParentsFromJSON(JSONObject data) throws Exception {
 
-        int max = getMaxLength(data_ids);
+        int max = getMaxLength(data);
 
-        Child mainChild = (new ChildRepository()).getChildById((Integer) data_ids.get("0"));
+        Child mainChild = (new ChildRepository()).getChildById((Integer) data.get("0"));
         Set<Adult> newAdults = new HashSet<>();
         for(int count=0; count<max; count++)
         {
-            newAdults.add((new AdultRepository()).getAdultById((Integer) data_ids.get(""+(count+1))));
+            newAdults.add((new AdultRepository()).getAdultById((Integer) data.get(""+(count+1))));
         }
         mainChild.setParents(newAdults);
         Result result = mainChild.save();
