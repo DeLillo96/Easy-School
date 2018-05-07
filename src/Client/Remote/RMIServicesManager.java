@@ -1,9 +1,7 @@
 package Client.Remote;
 
-import Shared.AdultService;
-import Shared.BaseService;
-import Shared.DishService;
-import Shared.UserService;
+import Shared.*;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -40,8 +38,8 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getEatingDisorderService() throws Exception {
-        return (BaseService) registry.lookup("eatingdisorder");
+    public EatingDisorderService getEatingDisorderService() throws Exception {
+        return (EatingDisorderService) registry.lookup("eatingdisorder");
     }
 
     @Override

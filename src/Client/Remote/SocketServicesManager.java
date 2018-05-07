@@ -2,10 +2,7 @@ package Client.Remote;
 
 import Client.Remote.Adapter.BaseServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
-import Shared.AdultService;
-import Shared.BaseService;
-import Shared.DishService;
-import Shared.UserService;
+import Shared.*;
 import org.json.simple.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,8 +49,8 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getEatingDisorderService() throws Exception {
-        return new BaseServiceAdapter("eatingdisorder", in, out);
+    public EatingDisorderService getEatingDisorderService() throws Exception {
+        return (EatingDisorderService) new BaseServiceAdapter("eatingdisorder", in, out);
     }
 
     @Override

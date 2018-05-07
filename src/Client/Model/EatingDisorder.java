@@ -1,62 +1,94 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
+import Client.ControllerManager;
 import Client.Remote.RemoteManager;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
+import java.util.Date;
 
 public class EatingDisorder extends AbstractRowModel {
-    private int id;
-    private int child_id;
-    private int aliment_id;
-    private String type;
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
+    private TextField name = new TextField();
+    private TextField type = new TextField();
+    private CheckBox select = new CheckBox();
 
     public EatingDisorder(AbstractTableController tableController) throws Exception {
-        this(tableController, 0, 0,0, "");
+        this(tableController, 0, "", "", new CheckBox());
     }
 
-    public EatingDisorder(AbstractTableController tableController, Integer id, Integer child_id, Integer aliment_id, String type) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService(), tableController);
+    public EatingDisorder(AbstractTableController tableController, Integer id, String name, String type, CheckBox checkBox) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController);
 
         setId(id);
-        setChild_id(child_id);
-        setAliment_id(aliment_id);
+        setName(name);
         setType(type);
     }
 
     @Override
+    protected void initializeButtons() {
+        super.initializeButtons();
+    }
+
+    @Override
     protected JSONObject makeRequest() {
-        return null;
+        JSONObject request = new JSONObject();
+
+        if(getId() != 0) request.put("id", getId());
+        request.put("name", getStringName());
+
+        return request;
     }
 
     public int getId() {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.set(id);
     }
 
-    public int getChild_id() {
-        return child_id;
+    public TextField getName() {
+        return name;
     }
 
-    public void setChild_id(int child_id) {
-        this.child_id = child_id;
+    public String getStringName() {
+        return name.getText();
     }
 
-    public int getAliment_id() {
-        return aliment_id;
+    public void setName(TextField name) {
+        this.name = name;
     }
 
-    public void setAliment_id(int aliment_id) {
-        this.aliment_id = aliment_id;
+    public void setName(String name) {
+        this.name.setText(name);
     }
 
-    public String getType() {
+    public TextField getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public String getStringType() { return type.getText(); }
+
+    public void setType(TextField type) {
         this.type = type;
+    }
+
+    public void setType(String type) { this.type.setText(type);}
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
     }
 }

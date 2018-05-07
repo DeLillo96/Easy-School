@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Controller.AdultsController;
+import Client.Controller.EatingDisordersController;
 import Client.Model.Children;
 import Client.Controller.AbstractNotifyController;
 import javafx.fxml.FXMLLoader;
@@ -92,6 +93,18 @@ public class ControllerManager {
 
             AdultsController adultsController = loader.getController();
             adultsController.setChild(child);
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderAddEatingDisorders(Children child) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/eatingDisorders.fxml"));
+            addPopup(loader.load());
+
+            EatingDisordersController eatingDisordersController = loader.getController();
+            eatingDisordersController.setChild(child);
         } catch (IOException e) {
             notifyError(e.getMessage());
         }

@@ -1,7 +1,6 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
-import Client.Controller.EatingDisorderController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -66,7 +65,7 @@ public class Children extends AbstractRowModel {
 
     public void disorder() {
         try {
-            EatingDisorderController eatingDisorderController = new EatingDisorderController(this.getId());
+            ControllerManager.getInstance().renderAddEatingDisorders(this);
         } catch(Exception e) {}
         //todo open popup of disorder
     }

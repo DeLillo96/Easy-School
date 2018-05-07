@@ -1,9 +1,6 @@
 package Client.Remote;
 
-import Shared.AdultService;
-import Shared.BaseService;
-import Shared.DishService;
-import Shared.UserService;
+import Shared.*;
 
 public interface RemoteServicesManager {
     UserService getUserService() throws Exception;
@@ -15,7 +12,7 @@ public interface RemoteServicesManager {
     BaseService getCategoryService() throws Exception;
     BaseService getDayTripService() throws Exception;
     DishService getDishService() throws Exception;
-    BaseService getEatingDisorderService() throws Exception;
+    EatingDisorderService getEatingDisorderService() throws Exception;
     BaseService getMenuService() throws Exception;
     BaseService getPlaceService() throws Exception;
 
