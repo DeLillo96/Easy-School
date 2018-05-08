@@ -7,6 +7,7 @@ import Server.Entity.Users;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class AdultRepository extends AbstractRepository {
 
@@ -42,10 +43,10 @@ public class AdultRepository extends AbstractRepository {
             return null;
     }
 
-    public List getAdultByChildFiscalCode(String childFiscalCode) {
+    public Set<Adult> getAdultByChildFiscalCode(String childFiscalCode) {
         ChildRepository childRepository = new ChildRepository();
         Child child = childRepository.getChildByFiscalCode(childFiscalCode);
 
-        return new ArrayList(child.getParents());
+        return child.getParents();
     }
 }
