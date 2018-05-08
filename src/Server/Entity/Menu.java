@@ -28,15 +28,15 @@ public class Menu extends AbstractEntity {
     private Set<Calendar> date = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "first_dish")
+    @JoinColumn(name = "first")
     private Dish first;
 
     @ManyToOne
-    @JoinColumn(name = "second_dish")
+    @JoinColumn(name = "second")
     private Dish second;
 
     @ManyToOne
-    @JoinColumn(name = "side_dish")
+    @JoinColumn(name = "side")
     private Dish side;
 
     @ManyToOne
@@ -95,9 +95,14 @@ public class Menu extends AbstractEntity {
 
     @Override
     protected void beforeSave() throws IllegalArgumentException {
-        if((first.getCategory().getName()==null)||(!(first.getCategory().getName().equals("first")))) throw new IllegalArgumentException();
-        if((second.getCategory().getName()==null)||(!(second.getCategory().getName().equals("second")))) throw new IllegalArgumentException();
-        if((side.getCategory().getName()==null)||(!(side.getCategory().getName().equals("side")))) throw new IllegalArgumentException();
-        if((sweet.getCategory().getName()==null)||(!(sweet.getCategory().getName().equals("sweet")))) throw new IllegalArgumentException();
+        if( !validDish(first, "first") ||
+            !validDish(second, "second") ||
+            !validDish(side, "side") ||
+            !validDish(sweet, "sweet")
+        ) throw new IllegalArgumentException();
+    }
+
+    protected boolean validDish(Dish dish, String categoryName) {
+        return dish.getCategory() == null || dish.getCategory().getName().equals(categoryName);
     }
 }
