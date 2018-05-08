@@ -45,7 +45,7 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
         Set<Adult> actualParents = (new AdultRepository()).getAdultByChildFiscalCode(mainChild.getFiscalCode());
         Set<Adult> adultsToRemove = new HashSet<>();
         for(Adult a:actualParents) {
-            if(a.getFiscalCode().equals(adultToAdd.getFiscalCode())) {
+            if(a.getId().equals(adultToAdd.getId())) {
                 if(check) {
                     result.setSuccess(true);
                     result.addMessage("DB was already updated");
