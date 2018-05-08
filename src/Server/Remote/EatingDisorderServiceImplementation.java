@@ -41,6 +41,44 @@ public class EatingDisorderServiceImplementation extends AbstractBaseService imp
 
     @Override
     public JSONObject setDisorderFromJSON(JSONObject data) throws Exception {
+        Result result = new Result();
+        AlimentRepository alimentRepository = new AlimentRepository();
+        EatingDisorderRepository eatingDisorderRepository = new EatingDisorderRepository();
+
+        Child mainChild = (new ChildRepository()).getChildById((Integer) data.get("childId"));
+        Aliment affectedAliment = alimentRepository.getAlimentById((Integer) data.get("alimentId"));
+        String type = (String) data.get("type");
+
+        Set<EatingDisorder> actualDisorders = eatingDisorderRepository.getEatingDisorderByAffectedChild(mainChild.getFiscalCode());
+        for (EatingDisorder a:actualDisorders) {
+            if(a.getAffectedAliment().getId().equals(affectedAliment.getId())) {
+                if(a.getType().equals(type)) {
+                    result.setSuccess(true);
+                    result.addMessage("DB was already updated");
+                    return result.toJson();
+                }else if(type==null) {
+                    result = a.delete();
+                    return result.toJson();
+                }else {
+                    a.setType(type);
+                    result = a.save();
+                    return result.toJson();
+                }
+            }
+        }
+        if(type==null) {
+            result.setSuccess(true);
+            result.addMessage("DB was already updated");
+            return result.toJson();
+        }else {
+            EatingDisorder disorderToAdd = new EatingDisorder(mainChild, affectedAliment, type);
+            result = disorderToAdd.save();
+            return result.toJson();
+        }
+    }
+
+    /*@Override
+    public JSONObject setDisorderFromJSON(JSONObject data) throws Exception {
 
         int max = getMaxLength(data);
         boolean flag;
@@ -86,28 +124,8 @@ public class EatingDisorderServiceImplementation extends AbstractBaseService imp
         Result finalAction = new Result();
         finalAction.setSuccess(true);
 
-        /*int max = getMaxLength(data);
-
-        AlimentRepository alimentRepository = new AlimentRepository();
-        Child mainChild = (new ChildRepository()).getChildById((Integer) data.get("0"));
-        for(int count=0; count<max-1; count++)
-        {
-            Aliment affectedAliment = alimentRepository.getAlimentById((Integer) data.get("aliment"+(count+1)));
-            String disorderType = (String) data.get("disorder"+(count+1));
-            EatingDisorder disorderToAdd = new EatingDisorder(mainChild,affectedAliment,disorderType);
-            Result singleSave = disorderToAdd.save();
-            if(!(singleSave.isSuccess())) {
-                return singleSave.toJson();
-            }
-        }
-        Aliment affectedAliment = alimentRepository.getAlimentById((Integer) data.get("aliment"+(max)));
-        String disorderType = (String) data.get("disorder"+(max));
-        EatingDisorder disorderToAdd = new EatingDisorder(mainChild,affectedAliment,disorderType);
-        Result finalSave = disorderToAdd.save();
-        return finalSave.toJson();*/
-
         return finalAction.toJson();
-    }
+    }*/
 
     @Override
     protected EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException {
