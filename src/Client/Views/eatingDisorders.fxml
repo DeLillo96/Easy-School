@@ -23,6 +23,61 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Child in modify =">
+                           <font>
+                              <Font name="Monospaced Regular" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text fx:id="childName" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="165.0" layoutY="10.0">
+                     <children>
+                        <Text fx:id="childSurname" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="165.0" layoutY="10.0">
+                     <children>
+                        <Text fx:id="childFiscalCode" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="3.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                            <font>
                               <Font name="Monospaced Regular" size="25.0" />
@@ -67,22 +122,6 @@
                         <String fx:value="radius-15" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="saveButton" alignment="CENTER" onAction="#save">
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0">
-                           <image>
-                              <Image url="@../Resources/Images/save.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <styleClass>
-                        <String fx:value="alone-button" />
-                        <String fx:value="radius-15" />
-                     </styleClass>
-                     <HBox.margin>
-                        <Insets left="30.0" right="1.0" />
-                     </HBox.margin>
-                  </Button>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -101,17 +140,12 @@
                         <PropertyValueFactory property="buttons" />
                      </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="checkEatingDisorderColumn" maxWidth="3000.0" minWidth="-Infinity" prefWidth="0.0" text="EatingDisorder">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="select" />
-                     </cellValueFactory>
-                  </TableColumn>
                   <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
                      <cellValueFactory>
                         <PropertyValueFactory property="name" />
                      </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="typeColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
+                  <TableColumn fx:id="typeColumn" minWidth="-Infinity" prefWidth="-1.0" text="Type">
                      <cellValueFactory>
                         <PropertyValueFactory property="type" />
                      </cellValueFactory>
