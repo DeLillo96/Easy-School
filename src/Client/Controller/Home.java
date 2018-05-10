@@ -13,6 +13,7 @@ public class Home {
     @FXML private TabPane mainTabPane;
     @FXML private Tab childrenTab;
     @FXML private Tab canteenTab;
+    @FXML private Tab dayTripsTab;
 
     @FXML
     public void initialize() throws IOException {
@@ -21,5 +22,8 @@ public class Home {
 
         AnchorPane canteenPane = FXMLLoader.load(getClass().getResource("../Views/menu.fxml"));
         canteenTab.setContent(canteenPane);
+
+        AnchorPane dayTripsPane = FXMLLoader.load(getClass().getResource("../Views/daytrips.fxml"));
+        dayTripsTab.setContent(dayTripsPane);
     }
 }

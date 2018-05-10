@@ -12,7 +12,7 @@
             <Tab closable="false" text="Home" />
             <Tab fx:id="childrenTab" closable="false" text="Child" />
             <Tab fx:id="canteenTab" closable="false" text="Canteen" />
-            <Tab closable="false" text="Trip" />
+            <Tab fx:id="dayTripsTab" closable="false" text="Trip" />
         </tabs>
       </TabPane>
    </children>

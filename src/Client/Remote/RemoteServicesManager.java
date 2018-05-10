@@ -7,7 +7,7 @@ public interface RemoteServicesManager {
     BaseService getChildrenService() throws Exception;
     AdultService getAdultService() throws Exception;
     BaseService getAlimentService() throws Exception;
-    BaseService getBusService() throws Exception;
+    BusService getBusService() throws Exception;
     BaseService getCalendarService() throws Exception;
     BaseService getCategoryService() throws Exception;
     BaseService getDayTripService() throws Exception;

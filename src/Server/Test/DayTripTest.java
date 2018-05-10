@@ -17,8 +17,8 @@ public class DayTripTest {
     private static Calendar calendarOne = new Calendar(new Date());
     private static Place placeOne = new Place("Winterfell", "Stark family's home", 60);
     private static Place placeTwo = new Place("The Wall", "Extreme north", 15);
-    private static Bus busOne = new Bus("StarkTours");
-    private static Bus busTwo = new Bus("RenegadeTours");
+    private static Bus busOne = new Bus("AA111BB","StarkTours");
+    private static Bus busTwo = new Bus("CC222DD","RenegadeTours");
     private static DayTrip tripOne = new DayTrip("Northern Territories");
     private static DayTrip tripTwo = new DayTrip("Right to the Wall");
 

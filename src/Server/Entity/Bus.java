@@ -12,12 +12,14 @@ import java.util.Set;
 
 @FilterDefs({
         @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
+        @FilterDef(name = "licensePlate", parameters = @ParamDef(name = "licensePlate", type = "string") ),
         @FilterDef(name = "companyName", parameters = @ParamDef(name = "companyName", type = "string") )
 })
 
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "companyName", condition = "companyName like :companyName"),
+        @Filter(name = "licensePlate", condition = "licensePlate like '%' || :licensePlate || '%'"),
+        @Filter(name = "companyName", condition = "companyName like '%' || :companyName || '%'"),
 })
 
 @Table(name = "Bus")
@@ -28,6 +30,9 @@ public class Bus extends AbstractEntity {
     @GeneratedValue
     @PrimaryKeyJoinColumn
     private int id;
+
+    @Column(unique = true, length = 7)
+    private String licensePlate;
 
     @Column(nullable = false)
     private String companyName;
@@ -43,7 +48,8 @@ public class Bus extends AbstractEntity {
 
     public Bus() { }
 
-    public Bus(String companyName) {
+    public Bus(String licensePlate, String companyName) {
+        this.licensePlate = licensePlate;
         this.companyName = companyName;
     }
 
@@ -53,6 +59,14 @@ public class Bus extends AbstractEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public String getCompanyName() {

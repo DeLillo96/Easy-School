@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class PlaceTest {
 
     private static PlaceRepository placeRepository = new PlaceRepository();
-    private static Bus busOne = new Bus("StarkTours");
-    private static Bus busTwo = new Bus("RenegadeTours");
+    private static Bus busOne = new Bus("AA111BB","StarkTours");
+    private static Bus busTwo = new Bus("CC222DD","RenegadeTours");
     private static DayTrip tripOne = new DayTrip("Northern Territories");
     private static DayTrip tripTwo = new DayTrip("Right to the Wall");
     private static Place placeOne = new Place("Winterfell", "Stark family's home", 60);
