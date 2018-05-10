@@ -73,5 +73,11 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public AssignService getRecipesService() throws Exception {
+        return (AssignService) registry.lookup("recipes");
+
+    }
+
+    @Override
     public void closeConnection() throws Exception {}
 }

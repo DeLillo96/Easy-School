@@ -23,6 +23,7 @@ public class RMIManager {
         registry.rebind("daytrip", new DayTripServiceImplementation());
         registry.rebind("eatingdisorder", new EatingDisorderServiceImplementation());
         registry.rebind("place", new PlaceServiceImplementation());
+        registry.rebind("recipes", new RecipesServiceImplementation());
     }
 
     public int getPort() {

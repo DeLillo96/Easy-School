@@ -84,6 +84,12 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public AssignService getRecipesService() throws Exception {
+        //todo ERRORACCIO!
+        return (AssignService) new BaseServiceAdapter("recipes", in, out);
+    }
+
+    @Override
     public void closeConnection() {
         JSONObject request = new JSONObject();
         request.put("service", "main");

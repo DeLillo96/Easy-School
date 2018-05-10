@@ -15,6 +15,7 @@ public interface RemoteServicesManager {
     EatingDisorderService getEatingDisorderService() throws Exception;
     BaseService getMenuService() throws Exception;
     BaseService getPlaceService() throws Exception;
+    AssignService getRecipesService() throws Exception;
 
     void closeConnection() throws Exception;
 }

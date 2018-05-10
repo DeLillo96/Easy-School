@@ -32,4 +32,11 @@ public class DishRepository extends AbstractRepository {
 
         return new ArrayList(category.getDishes());
     }
+
+    public List getDishByCategory(Integer categoryId) {
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category category = categoryRepository.getCategoryById(categoryId);
+
+        return new ArrayList(category.getDishes());
+    }
 }
