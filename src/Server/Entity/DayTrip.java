@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "name", condition = "name like :name"),
+        @Filter(name = "name", condition = "name like '%' || :name || '%'"),
 })
 
 @Table(name = "DayTrip")

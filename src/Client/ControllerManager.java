@@ -1,9 +1,14 @@
 package Client;
 
 import Client.Controller.*;
+import Client.Controller.AdultsController;
+import Client.Controller.BusesController;
+import Client.Controller.EatingDisordersController;
 import Client.Model.Children;
 import Client.Model.Dish;
 import Client.Model.Menu;
+import Client.Controller.AbstractNotifyController;
+import Client.Model.DayTrips;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -107,6 +112,18 @@ public class ControllerManager {
 
             EatingDisordersController eatingDisordersController = loader.getController();
             eatingDisordersController.setChild(child);
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderAddBuses(DayTrips trip) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/buses.fxml"));
+            addPopup(loader.load());
+
+            BusesController busesController = loader.getController();
+            busesController.setTrip(trip);
         } catch (IOException e) {
             notifyError(e.getMessage());
         }

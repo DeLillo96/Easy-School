@@ -18,6 +18,13 @@ public class BusRepository extends AbstractRepository{
         return buses != null && buses.size() == 1 ? (Bus) buses.get(0) : null;
     }
 
+    public Bus getBusByLicensePlate(String licensePlate) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("licensePlate", licensePlate);
+        List buses = read(params);
+        return buses != null && buses.size() == 1 ? (Bus) buses.get(0) : null;
+    }
+
     public Set<Bus> getBusByDayTrip(Integer trip_id) {
         DayTripRepository dayTripRepository = new DayTripRepository();
         DayTrip trips = dayTripRepository.getDayTripById(trip_id);

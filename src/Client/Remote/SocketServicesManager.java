@@ -54,13 +54,13 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getAlimentService() {
-        return new BaseServiceAdapter("aliment", in, out);
+    public BusService getBusService() {
+        return (BusService) new BaseServiceAdapter("bus", in, out);
     }
 
     @Override
-    public BaseService getBusService() {
-        return new BaseServiceAdapter("bus", in, out);
+    public BaseService getAlimentService() {
+        return new BaseServiceAdapter("aliment", in, out);
     }
 
     @Override

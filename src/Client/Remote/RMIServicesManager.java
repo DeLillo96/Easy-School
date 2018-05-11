@@ -48,8 +48,8 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getBusService() throws Exception {
-        return (BaseService) registry.lookup("buse");
+    public BusService getBusService() throws Exception {
+        return (BusService) registry.lookup("bus");
     }
 
     @Override
