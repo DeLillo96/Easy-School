@@ -7,9 +7,9 @@ import Server.Repository.DishRepository;
 import Server.Result;
 import Shared.AssignService;
 import org.json.simple.JSONObject;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class RecipesServiceImplementation extends UnicastRemoteObject implements AssignService {
     protected DishRepository dishRepository;
@@ -25,6 +25,14 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
         Dish dish = dishRepository.getDishById(dishId);
         Aliment aliment = alimentRepository.getAlimentById(alimentId);
 
+        for (Aliment recipe : dish.getIngredients()) {
+            if(recipe.getId().equals(alimentId)) {
+                Result result = new Result();
+                result.addData(dish);
+                return result.toJson();
+            }
+        }
+
         dish.getIngredients().add(aliment);
         return dish.save().toJson();
     }
@@ -36,22 +44,24 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
         for (Aliment recipe: dish.getIngredients()) {
             if (recipe.getId().equals(alimentId)) {
                 dish.getIngredients().remove(recipe);
-                break;
+                return dish.save().toJson();
             }
         }
 
-        return dish.save().toJson();
-    }
-
-    @Override
-    public JSONObject rightRead(Integer categoryId) throws Exception {
         Result result = new Result();
-        result.addData(dishRepository.getDishByCategory(categoryId));
+        result.addData(dish);
         return result.toJson();
     }
 
     @Override
-    public JSONObject leftRead(Integer leftId) throws Exception {
-        return null;
+    public JSONObject leftRead(Integer alimentId) throws Exception {
+        List list = dishRepository.getDishByAliment(alimentId);
+        return new Result(true, list).toJson();
+    }
+
+    @Override
+    public JSONObject rightRead(Integer dishId) throws Exception {
+        List list = alimentRepository.getAlimentByDish(dishId);
+        return new Result(true, list).toJson();
     }
 }

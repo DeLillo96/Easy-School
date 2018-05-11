@@ -29,7 +29,7 @@ public class Aliment extends AbstractEntity {
     @Column(unique = true, length = 32)
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
+    @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER)
     private Set<Dish> dishes = new HashSet<>();
 
     @OneToMany(mappedBy = "affectedAliment", fetch = FetchType.EAGER)
@@ -63,5 +63,18 @@ public class Aliment extends AbstractEntity {
 
     public void setEatingDisorders(Set<EatingDisorder> eatingDisorders) {
         this.eatingDisorders = eatingDisorders;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
+    @Override
+    protected void beforeDelete() {
+        super.beforeDelete();
     }
 }

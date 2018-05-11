@@ -55,7 +55,7 @@
     -fx-border-color: #ba0000;
 }
 
-.choice-box-table {
+.choice-box-table, .button-table {
     -fx-font-size: 20;
     -fx-font-weight: normal;
     -fx-pref-width: 245;

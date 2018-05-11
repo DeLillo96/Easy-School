@@ -1,7 +1,9 @@
 package Server.Repository;
 
 import Server.Entity.Aliment;
+import Server.Entity.Dish;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,5 +24,12 @@ public class AlimentRepository extends AbstractRepository{
         List aliment = read(params);
 
         return aliment!= null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
+    }
+
+    public List getAlimentByDish(Integer dishId) {
+        DishRepository dishRepository = new DishRepository();
+        Dish dish = dishRepository.getDishById(dishId);
+
+        return new ArrayList(dish.getIngredients());
     }
 }

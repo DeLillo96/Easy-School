@@ -37,11 +37,6 @@ public class Adults extends AbstractRowModel {
     }
 
     @Override
-    protected void initializeButtons() {
-        super.initializeButtons();
-    }
-
-    @Override
     public void save() {
         try {
             JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().save( makeRequest() );

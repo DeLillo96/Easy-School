@@ -1,15 +1,17 @@
 package Client;
 
-import Client.Controller.AdultsController;
-import Client.Controller.EatingDisordersController;
+import Client.Controller.*;
 import Client.Model.Children;
-import Client.Controller.AbstractNotifyController;
+import Client.Model.Dish;
+import Client.Model.Menu;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.util.Stack;
 
@@ -106,6 +108,37 @@ public class ControllerManager {
             EatingDisordersController eatingDisordersController = loader.getController();
             eatingDisordersController.setChild(child);
         } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderDishes(Menu menu, String dishName, JSONObject jsonCategory) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/dish.fxml"));
+            addPopup(loader.load());
+
+            DishController dishController = loader.getController();
+            dishController.setMenu(menu);
+            dishController.setCategory(jsonCategory);
+            dishController.name.setText(dishName);
+            dishController.category.setText((String) jsonCategory.get("name"));
+
+            dishController.filter();
+        } catch (Exception e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderRecipes(Dish dish) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/aliment.fxml"));
+            addPopup(loader.load());
+
+            AlimentController alimentController = loader.getController();
+            alimentController.setDish(dish);
+
+            alimentController.filter();
+        } catch (Exception e) {
             notifyError(e.getMessage());
         }
     }

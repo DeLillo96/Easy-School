@@ -3,70 +3,51 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.DishService;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Button;
 import org.json.simple.JSONObject;
-import java.util.ArrayList;
 
 public class Menu extends AbstractRowModel {
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private Button first = new Button();
     private Button second = new Button();
     private Button side = new Button();
     private Button sweet = new Button();
 
     public Menu(AbstractTableController tableController) throws Exception {
-        this(tableController, 0, "", "", "", "");
+        this(tableController, new JSONObject());
     }
 
-    public Menu(AbstractTableController tableController, Integer id, String first, String second, String side, String sweet) throws Exception {
+    public Menu(AbstractTableController tableController, JSONObject menu) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getMenuService(), tableController);
-
-        setId(id);
-        setFirst(first);
-        setSecond(second);
-        setSide(side);
-        setSweet(sweet);
+        data = menu;
+        refreshButtonsRow();
     }
 
-    public void prepareButtones() {
-        fillButton(first, "first");
-        fillButton(second, "second");
-        fillButton(side, "side");
-        fillButton(sweet, "sweet");
+    protected void refreshButtonsRow() {
+        initializeButton(first, "first");
+        initializeButton(second, "second");
+        initializeButton(side, "side");
+        initializeButton(sweet, "sweet");
     }
 
-    private void fillButton(Button button, String parameter) {
-        try {
-            DishService service = RemoteManager.getInstance().getRemoteServicesManager().getDishService();
+    private void initializeButton(Button button, String dishCategory) {
+        String name = (String) ((JSONObject) data.get(dishCategory)).get("name");
+        JSONObject category = (JSONObject) ((JSONObject) data.get(dishCategory)).get("dishCategory");
 
-            JSONObject result = service.getDishesByCategoryName(parameter);
-
-            ArrayList<String> items = new ArrayList<>();
-            JSONObject data = (JSONObject) result.get("data");
-
-            for (int i = 0; i < data.size(); i++) {
-                JSONObject dish = (JSONObject) data.get(i);
-                items.add((String) dish.get("name"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
+        button.setText(name);
+        button.setOnAction(e -> openDishPopup(name, category));
+        button.getStyleClass().add("button-table");
     }
 
-    public int getId() {
-        return id.get();
+    protected void openDishPopup(String dishName, JSONObject categoryName) {
+        ControllerManager.getInstance().renderDishes(this, dishName, categoryName);
     }
 
-    public SimpleIntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+    public void setDishData(Integer dishId, String dishName, String dishCategory) {
+        JSONObject dish = (JSONObject) data.get(dishCategory);
+        dish.replace("id", dishId);
+        dish.replace("name", dishName);
+        refreshButtonsRow();
+        needToSave();
     }
 
     public Button getFirst() {
@@ -103,6 +84,6 @@ public class Menu extends AbstractRowModel {
 
     @Override
     protected JSONObject makeRequest() {
-        return null;
+        return data;
     }
 }
