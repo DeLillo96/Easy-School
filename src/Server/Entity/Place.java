@@ -19,8 +19,8 @@ import java.util.Set;
 
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "name", condition = "name like :name"),
-        @Filter(name = "address", condition = "address like :address"),
+        @Filter(name = "name", condition = "name like '%' || :name || '%'"),
+        @Filter(name = "address", condition = "address like '%' || :address || '%'"),
         @Filter(name = "cost", condition = "cost <= :cost"),
 })
 
@@ -45,13 +45,21 @@ public class Place extends AbstractEntity {
     @ManyToMany(mappedBy = "places", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Set<DayTrip> trips = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "startBus")
-    private Bus startBus;
+    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "StartingBuses",
+            joinColumns = { @JoinColumn(name = "place_id") },
+            inverseJoinColumns = { @JoinColumn(name = "bus_id") }
+    )
+    private Set<Bus> startBuses = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "arrivalBus")
-    private Bus arrivalBus;
+    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "ArrivingBuses",
+            joinColumns = { @JoinColumn(name = "place_id") },
+            inverseJoinColumns = { @JoinColumn(name = "bus_id") }
+    )
+    private Set<Bus> arrivalBuses = new HashSet<>();
 
     public Place() { }
 
@@ -101,19 +109,19 @@ public class Place extends AbstractEntity {
         this.trips = trips;
     }
 
-    public Bus getStartBus() {
-        return startBus;
+    public Set<Bus> getStartBuses() {
+        return startBuses;
     }
 
-    public void setStartBus(Bus startBus) {
-        this.startBus = startBus;
+    public void setStartBuses(Set<Bus> startBuses) {
+        this.startBuses = startBuses;
     }
 
-    public Bus getArrivalBus() {
-        return arrivalBus;
+    public Set<Bus> getArrivalBuses() {
+        return arrivalBuses;
     }
 
-    public void setArrivalBus(Bus arrivalBus) {
-        this.arrivalBus = arrivalBus;
+    public void setArrivalBuses(Set<Bus> arrivalBuses) {
+        this.arrivalBuses = arrivalBuses;
     }
 }

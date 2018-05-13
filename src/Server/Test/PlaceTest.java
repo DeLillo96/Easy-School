@@ -24,10 +24,10 @@ public class PlaceTest {
     static void createPlaces() {
         busOne.save();
         busTwo.save();
-        placeOne.setStartBus(busOne);
-        placeTwo.setStartBus(busOne);
-        placeOne.setArrivalBus(busTwo);
-        placeTwo.setArrivalBus(busTwo);
+        placeOne.getStartBuses().add(busOne);
+        placeTwo.getStartBuses().add(busOne);
+        placeOne.getArrivalBuses().add(busTwo);
+        placeTwo.getArrivalBuses().add(busTwo);
         placeOne.save();
         placeTwo.save();
         tripOne.getPlaces().add(placeOne);

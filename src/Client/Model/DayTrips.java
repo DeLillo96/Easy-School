@@ -36,11 +36,11 @@ public class DayTrips extends AbstractRowModel {
         defineImageButton(buses, "Client/Resources/Images/parents.png");
         buses.setOnAction(actionEvent -> buses());
 
-        /*Button disorder = new Button();
-        defineImageButton(disorder, "Client/Resources/Images/eating.png");
-        disorder.setOnAction(actionEvent -> disorder());*/
+        Button places = new Button();
+        defineImageButton(places, "Client/Resources/Images/eating.png");
+        places.setOnAction(actionEvent -> places());
 
-        getButtons().getChildren().addAll(buses);
+        getButtons().getChildren().addAll(buses, places);
     }
 
     public void events() {
@@ -51,8 +51,12 @@ public class DayTrips extends AbstractRowModel {
         try {
             ControllerManager.getInstance().renderAddBuses(this);
         } catch(Exception e) { e.printStackTrace(); }
+    }
 
-        //TODO ADD BUSES HERE
+    public void places() {
+        try {
+            ControllerManager.getInstance().renderAddPlaces(this);
+        } catch(Exception e) { e.printStackTrace(); }
     }
 
     @Override

@@ -1,11 +1,9 @@
 package Client;
 
-import Client.Controller.AdultsController;
-import Client.Controller.BusesController;
-import Client.Controller.EatingDisordersController;
+import Client.Controller.*;
 import Client.Model.Children;
-import Client.Controller.AbstractNotifyController;
 import Client.Model.DayTrips;
+import Client.Model.Places;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -119,6 +117,42 @@ public class ControllerManager {
 
             BusesController busesController = loader.getController();
             busesController.setTrip(trip);
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderAddPlaces(DayTrips trip) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/places.fxml"));
+            addPopup(loader.load());
+
+            PlacesController placesController = loader.getController();
+            placesController.setTrip(trip);
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderSetArrivalBuses(int tripId, Places place) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/arrivalBuses.fxml"));
+            addPopup(loader.load());
+
+            ArrivalBusesController arrivalBusesController = loader.getController();
+            arrivalBusesController.setValues(tripId, place);
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderSetStartBuses(int tripId, Places place) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/startBuses.fxml"));
+            addPopup(loader.load());
+
+            StartBusesController startBusesController = loader.getController();
+            startBusesController.setValues(tripId, place);
         } catch (IOException e) {
             notifyError(e.getMessage());
         }

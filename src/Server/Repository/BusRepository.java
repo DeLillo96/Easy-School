@@ -2,6 +2,7 @@ package Server.Repository;
 
 import Server.Entity.Bus;
 import Server.Entity.DayTrip;
+import Server.Entity.Place;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,20 @@ public class BusRepository extends AbstractRepository{
         DayTripRepository dayTripRepository = new DayTripRepository();
         DayTrip trips = dayTripRepository.getDayTripById(trip_id);
         return trips.getBuses();
+    }
+
+    public Set<Bus> getArrivalBusesByPlace(Integer placeId) {
+        PlaceRepository placeRepository = new PlaceRepository();
+        Place place = placeRepository.getPlaceById(placeId);
+
+        return place.getArrivalBuses();
+    }
+
+    public Set<Bus> getStartBusesByPlace(Integer placeId) {
+        PlaceRepository placeRepository = new PlaceRepository();
+        Place place = placeRepository.getPlaceById(placeId);
+
+        return place.getStartBuses();
     }
 
 }

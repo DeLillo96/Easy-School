@@ -40,10 +40,10 @@ public class Bus extends AbstractEntity {
     @ManyToMany(mappedBy = "buses", fetch = FetchType.EAGER)
     private Set<DayTrip> trips = new HashSet<>();
 
-    @OneToMany(mappedBy = "startBus", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "startBuses")
     private Set<Place> startPlaces = new HashSet<>();
 
-    @OneToMany(mappedBy = "arrivalBus", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "arrivalBuses", fetch = FetchType.EAGER)
     private Set<Place> destinationPlaces = new HashSet<>();
 
     public Bus() { }

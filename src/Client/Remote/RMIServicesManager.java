@@ -68,8 +68,8 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getPlaceService() throws Exception {
-        return (BaseService) registry.lookup("place");
+    public PlaceService getPlaceService() throws Exception {
+        return (PlaceService) registry.lookup("place");
     }
 
     @Override
