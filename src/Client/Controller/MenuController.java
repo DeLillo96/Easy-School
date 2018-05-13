@@ -26,7 +26,6 @@ public class MenuController extends AbstractTableController {
 
     @Override
     protected JSONObject takeFilters() {
-        //todo take value of choice-box
         return null;
     }
 
@@ -37,13 +36,7 @@ public class MenuController extends AbstractTableController {
         for (int i = 0; i < data.size(); i++) {
             JSONObject menu = (JSONObject) data.get(i);
 
-            Integer id = Integer.parseInt((String) menu.get("id"));
-            String first = (String) ((JSONObject) menu.get("first")).get("name");
-            String second = (String) ((JSONObject) menu.get("second")).get("name");
-            String side = (String) ((JSONObject) menu.get("side")).get("name");
-            String sweet = (String) ((JSONObject) menu.get("sweet")).get("name");
-
-            list.add(new Menu(this, id, first, second, side, sweet));
+            list.add(new Menu(this, menu));
         }
 
         return list;

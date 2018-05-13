@@ -10,6 +10,8 @@ import javafx.scene.layout.HBox;
 import org.json.simple.JSONObject;
 
 public abstract class AbstractRowModel {
+    protected JSONObject data;
+
     protected Button save = new Button();
     protected Button delete = new Button();
     protected HBox buttons = new HBox(save, delete);
@@ -56,7 +58,7 @@ public abstract class AbstractRowModel {
     public void save() {
         try {
             JSONObject result = service.save( makeRequest() );
-            save.getStyleClass().remove("red-button");
+            if((boolean) result.get("success")) save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
@@ -68,6 +70,7 @@ public abstract class AbstractRowModel {
             JSONObject result = service.delete( makeRequest() );
             notifyResult(result);
         } catch (Exception e) {
+            e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
     }
@@ -87,4 +90,12 @@ public abstract class AbstractRowModel {
     }
 
     protected abstract JSONObject makeRequest();
+
+    public JSONObject getData() {
+        return data;
+    }
+
+    public void setData(JSONObject data) {
+        this.data = data;
+    }
 }

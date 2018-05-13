@@ -33,6 +33,7 @@ public abstract class AbstractEntity implements EntityInterface {
         }
 
         afterSave();
+        result.addData(this);
 
         return result;
     }

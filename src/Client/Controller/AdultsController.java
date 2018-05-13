@@ -120,7 +120,7 @@ public class AdultsController extends AbstractTableController {
         int count = 0;
         adultsJson.put("0", child.getId());
         for (Adults a:saveAdults) {
-            adultsJson.put(""+(count+1), a.getId());
+            adultsJson.put("" + (count + 1), a.getId());
             count++;
         }
         adultsJson.put("max_length", saveAdults.size());

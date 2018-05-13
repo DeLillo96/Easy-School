@@ -1,5 +1,6 @@
 package Server.Repository;
 
+import Server.Entity.Aliment;
 import Server.Entity.Category;
 import Server.Entity.Dish;
 import java.util.ArrayList;
@@ -31,5 +32,19 @@ public class DishRepository extends AbstractRepository {
         Category category = categoryRepository.getCategoryByName(categoryName);
 
         return new ArrayList(category.getDishes());
+    }
+
+    public List getDishByCategory(Integer categoryId) {
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category category = categoryRepository.getCategoryById(categoryId);
+
+        return new ArrayList(category.getDishes());
+    }
+
+    public List getDishByAliment(Integer alimentId) {
+        AlimentRepository alimentRepository = new AlimentRepository();
+        Aliment aliment = alimentRepository.getAlimentById(alimentId);
+
+        return aliment.getDishes() != null ? new ArrayList(aliment.getDishes()) : new ArrayList();
     }
 }
