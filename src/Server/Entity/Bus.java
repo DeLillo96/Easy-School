@@ -43,6 +43,9 @@ public class Bus extends AbstractEntity {
     @ManyToMany(mappedBy = "arrivalBuses", fetch = FetchType.EAGER)
     private Set<Place> destinationPlaces = new HashSet<>();
 
+    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
+    private Set<BusPresence> busPresences = new HashSet<>();
+
     public Bus() {
     }
 
@@ -55,7 +58,7 @@ public class Bus extends AbstractEntity {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -89,5 +92,13 @@ public class Bus extends AbstractEntity {
 
     public void setDestinationPlaces(Set<Place> destinationPlaces) {
         this.destinationPlaces = destinationPlaces;
+    }
+
+    public Set<BusPresence> getBusPresences() {
+        return busPresences;
+    }
+
+    public void setBusPresences(Set<BusPresence> busPresences) {
+        this.busPresences = busPresences;
     }
 }

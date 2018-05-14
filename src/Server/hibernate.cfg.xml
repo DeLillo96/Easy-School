@@ -30,5 +30,6 @@
         <mapping class="Server.Entity.DayTrip"/>
         <mapping class="Server.Entity.Place"/>
         <mapping class="Server.Entity.Bus"/>
+        <mapping class="Server.Entity.BusPresence"/>
     </session-factory>
 </hibernate-configuration>
