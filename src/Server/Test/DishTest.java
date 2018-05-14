@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +16,7 @@ public class DishTest {
 
     private static DishRepository dishRepository = new DishRepository();
     private static Dish dish = new Dish("Pigeon pie");
-    private static Dish otherDish = new Dish ("Rice with herbs");
+    private static Dish otherDish = new Dish("Rice with herbs");
     private static Category category = new Category("first");
     private static Category categoryTwo = new Category("second");
 
@@ -29,6 +28,14 @@ public class DishTest {
         otherDish.setCategory(categoryTwo);
         dish.save();
         otherDish.save();
+    }
+
+    @AfterAll
+    static void deleteDishes() {
+        dish.delete();
+        otherDish.delete();
+        category.delete();
+        categoryTwo.delete();
     }
 
     @Test
@@ -64,7 +71,7 @@ public class DishTest {
 
         assertFalse(result.isSuccess(), "Duplication Error");
 
-        if(!result.isSuccess()) newDish.delete();
+        if (!result.isSuccess()) newDish.delete();
     }
 
     @Test
@@ -73,14 +80,6 @@ public class DishTest {
         Result result = dish.save();
 
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteDishes() {
-        dish.delete();
-        otherDish.delete();
-        category.delete();
-        categoryTwo.delete();
     }
 
 }

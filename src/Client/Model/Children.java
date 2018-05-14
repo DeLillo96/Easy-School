@@ -3,32 +3,30 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 public class Children extends AbstractRowModel {
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private TextField name = new TextField();
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
 
     public Children(AbstractTableController tableController) throws Exception {
-        this(tableController, 0, "", "", "", new Date());
+        this(tableController, new JSONObject());
     }
 
-    public Children(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService(), tableController);
+    public Children(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService(), tableController, data);
 
-        setId(id);
-        setName(name);
-        setSurname(surname);
-        setFiscalCode(fiscalCode);
-        //todo make parse to Date into DatePicker
+        setName((String) data.get("name"));
+        setSurname((String) data.get("surname"));
+        setFiscalCode((String) data.get("fiscalCode"));
+        setBirthDate((CharSequence) data.get("birthDate"));
 
         events();
     }
@@ -49,58 +47,38 @@ public class Children extends AbstractRowModel {
     }
 
     public void events() {
-        name.textProperty().addListener((obs, oldText, newText) -> needToSave());
-        surname.textProperty().addListener((obs, oldText, newText) -> needToSave());
-        fiscalCode.textProperty().addListener((obs, oldText, newText) -> needToSave());
-        birthDate.dayCellFactoryProperty().addListener((obs, oldText, newText) -> needToSave());
+        name.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("name", newText);
+        });
+        surname.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("surname", newText);
+        });
+        fiscalCode.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("fiscalCode", newText);
+        });
+        birthDate.setOnAction(event -> {
+            needToSave();
+            data.put("birthDate", birthDate.getValue().toString());
+        });
     }
 
     public void parents() {
-        try {
-            //ParentsController parentsController = new ParentsController(this.getId());
-            ControllerManager.getInstance().renderAddAdults(this);
-        } catch(Exception e) { e.printStackTrace(); }
-        //todo open popup of parent
+        ControllerManager.getInstance().renderAddAdults(this);
     }
 
     public void disorder() {
-        try {
-            ControllerManager.getInstance().renderAddEatingDisorders(this);
-        } catch(Exception e) {}
-        //todo open popup of disorder
-    }
-
-    @Override
-    protected JSONObject makeRequest() {
-        JSONObject request = new JSONObject();
-
-        if(getId() != 0) request.put("id", getId());
-        request.put("name", getStringName());
-        request.put("surname", getStringSurname());
-        request.put("birthDate", "2018-04-04");
-        request.put("fiscalCode", getStringFiscalCode());
-
-        return request;
+        ControllerManager.getInstance().renderAddEatingDisorders(this);
     }
 
     public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+        return Integer.parseInt((String) data.get("id"));
     }
 
     public TextField getName() {
         return name;
-    }
-
-    public String getStringName() {
-        return name.getText();
     }
 
     public void setName(TextField name) {
@@ -108,15 +86,15 @@ public class Children extends AbstractRowModel {
     }
 
     public void setName(String name) {
-        this.name.setText(name);
+        if (name != null) this.name.setText(name);
+    }
+
+    public String getStringName() {
+        return name.getText();
     }
 
     public TextField getSurname() {
         return surname;
-    }
-
-    public String getStringSurname() {
-        return surname.getText();
     }
 
     public void setSurname(TextField surname) {
@@ -124,35 +102,34 @@ public class Children extends AbstractRowModel {
     }
 
     public void setSurname(String surname) {
-        this.surname.setText(surname);
+        if (surname != null) this.surname.setText(surname);
+    }
+
+    public String getStringSurname() {
+        return surname.getText();
     }
 
     public TextField getFiscalCode() {
         return fiscalCode;
     }
 
-    public String getStringFiscalCode() {
-        return fiscalCode.getText();
-    }
-
     public void setFiscalCode(TextField fiscalCode) {
-        this.fiscalCode = fiscalCode;
+        if (fiscalCode != null) this.fiscalCode = fiscalCode;
     }
 
     public void setFiscalCode(String fiscalCode) {
         this.fiscalCode.setText(fiscalCode);
     }
 
+    public String getStringFiscalCode() {
+        return fiscalCode.getText();
+    }
+
     public DatePicker getBirthDate() {
         return birthDate;
     }
 
-    public Date getDateOnDatePicker() {
-        //return birthDate.getValue();
-        return new Date();
-    }
-
-    public void setBirthDate(DatePicker birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDate(CharSequence birthDate) {
+        if (birthDate != null) this.birthDate.setValue(LocalDate.parse(birthDate));
     }
 }

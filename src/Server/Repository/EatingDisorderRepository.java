@@ -4,14 +4,13 @@ import Server.Entity.Aliment;
 import Server.Entity.Child;
 import Server.Entity.EatingDisorder;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class EatingDisorderRepository extends AbstractRepository {
 
-    public EatingDisorderRepository() {super("EatingDisorder"); }
+    public EatingDisorderRepository() {
+        super("EatingDisorder");
+    }
 
     public EatingDisorder getEatingDisorderById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
@@ -21,10 +20,16 @@ public class EatingDisorderRepository extends AbstractRepository {
         return eatingDisorders != null && eatingDisorders.size() == 1 ? (EatingDisorder) eatingDisorders.get(0) : null;
     }
 
-    public Set<EatingDisorder> getEatingDisorderByAffectedChild(String childFiscalCode) {
+    public List<EatingDisorder> getEatingDisorderByAffectedChild(String childFiscalCode) {
         ChildRepository childRepository = new ChildRepository();
         Child children = childRepository.getChildByFiscalCode(childFiscalCode);
-        return children.getEatingDisorders();
+        return new ArrayList(children.getEatingDisorders());
+    }
+
+    public List<EatingDisorder> getEatingDisorderByAffectedChild(Integer childId) {
+        ChildRepository childRepository = new ChildRepository();
+        Child children = childRepository.getChildById(childId);
+        return new ArrayList(children.getEatingDisorders());
     }
 
     public Set<EatingDisorder> getEatingDisorderByAffectedAliment(String affectedAliment) {

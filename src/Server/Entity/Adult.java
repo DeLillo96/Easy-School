@@ -11,13 +11,13 @@ import java.util.Set;
 
 @Entity
 @FilterDefs({
-        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer" ) }),
-        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") }),
-        @FilterDef(name = "surname", parameters = { @ParamDef(name = "surname", type = "string") }),
-        @FilterDef(name = "fiscalCode", parameters = { @ParamDef(name = "fiscalCode", type = "string") }),
-        @FilterDef(name = "birthDate", parameters = { @ParamDef(name = "birthDate", type = "date") }),
-        @FilterDef(name = "telephone", parameters = { @ParamDef(name = "telephone", type = "string") }),
-        @FilterDef(name = "user_id", parameters = { @ParamDef(name = "user_id", type = "integer") })
+        @FilterDef(name = "id", parameters = {@ParamDef(name = "id", type = "integer")}),
+        @FilterDef(name = "name", parameters = {@ParamDef(name = "name", type = "string")}),
+        @FilterDef(name = "surname", parameters = {@ParamDef(name = "surname", type = "string")}),
+        @FilterDef(name = "fiscalCode", parameters = {@ParamDef(name = "fiscalCode", type = "string")}),
+        @FilterDef(name = "birthDate", parameters = {@ParamDef(name = "birthDate", type = "date")}),
+        @FilterDef(name = "telephone", parameters = {@ParamDef(name = "telephone", type = "string")}),
+        @FilterDef(name = "user_id", parameters = {@ParamDef(name = "user_id", type = "integer")})
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -58,7 +58,8 @@ public class Adult extends AbstractEntity {
     @Column(nullable = false, length = 10)
     private String telephone;
 
-    public Adult() { }
+    public Adult() {
+    }
 
     public Adult(String name, String surname, String fiscalCode, Date birthDate, String telephone) {
         this.name = name;
@@ -137,6 +138,6 @@ public class Adult extends AbstractEntity {
     }
 
     public void removeChild(Child child) {
-        if(children.contains(child)) children.remove(child);
+        if (children.contains(child)) children.remove(child);
     }
 }

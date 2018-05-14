@@ -6,10 +6,10 @@ import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.util.Date;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ChildTest {
     private static ChildRepository childRepository = new ChildRepository();
@@ -20,7 +20,13 @@ public class ChildTest {
         child.save();
     }
 
-    @Test void readChild() {
+    @AfterAll
+    static void deleteChild() {
+        child.delete();
+    }
+
+    @Test
+    void readChild() {
         Child readChild = childRepository.getChildByFiscalCode(child.getFiscalCode());
 
         String message = "Read error";
@@ -29,24 +35,21 @@ public class ChildTest {
         assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
     }
 
-    @Test void verifyConstraint() {
+    @Test
+    void verifyConstraint() {
         Child newChild = new Child("Impostor", "Impostor", child.getFiscalCode(), new Date());
         Result result = newChild.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
-        if(!result.isSuccess()) newChild.delete();
+        if (!result.isSuccess()) newChild.delete();
 
     }
 
-    @Test void modifyChild() {
+    @Test
+    void modifyChild() {
         child.setSurname("Targarien");
         Result result = child.save();
 
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteChild() {
-        child.delete();
     }
 }

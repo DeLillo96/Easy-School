@@ -1,6 +1,7 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.AbstractRowModel;
 import Client.Model.Children;
 import Client.Remote.RemoteManager;
 import javafx.collections.FXCollections;
@@ -8,28 +9,40 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ChildrenController extends AbstractTableController {
     /* FILTERS */
-    @FXML private TextField nameTextField;
-    @FXML private TextField surnameTextField;
-    @FXML private DatePicker birthDatePicker;
-    @FXML private TextField fiscalCodeTextField;
-    @FXML private Button searchButton;
-    @FXML private Button addButton;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField surnameTextField;
+    @FXML
+    private DatePicker birthDatePicker;
+    @FXML
+    private TextField fiscalCodeTextField;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button addButton;
 
     /* TABLE */
-    @FXML private TableView<Children> childTableView;
-    @FXML private TableColumn buttonsColumn;
-    @FXML private TableColumn nameColumn;
-    @FXML private TableColumn surnameColumn;
-    @FXML private TableColumn dateColumn;
-    @FXML private TableColumn fiscalCodeColumn;
+    @FXML
+    private TableView<Children> childTableView;
+    @FXML
+    private TableColumn buttonsColumn;
+    @FXML
+    private TableColumn nameColumn;
+    @FXML
+    private TableColumn surnameColumn;
+    @FXML
+    private TableColumn dateColumn;
+    @FXML
+    private TableColumn fiscalCodeColumn;
 
     public ChildrenController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getChildrenService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService());
     }
 
     @FXML
@@ -44,7 +57,7 @@ public class ChildrenController extends AbstractTableController {
             ArrayList<Children> list = search();
             ObservableList<Children> items = FXCollections.observableArrayList(list);
             childTableView.setItems(items);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
@@ -60,7 +73,7 @@ public class ChildrenController extends AbstractTableController {
 
         filters.put("name", nameTextField.getText());
         filters.put("surname", surnameTextField.getText());
-        //todo parse form datePicker
+        //filters.put("birthDate", birthDatePicker.getValue());
         filters.put("fiscalCode", fiscalCodeTextField.getText());
 
         return filters;
@@ -73,14 +86,14 @@ public class ChildrenController extends AbstractTableController {
         for (int i = 0; i < data.size(); i++) {
             JSONObject child = (JSONObject) data.get(i);
 
-            Integer id = Integer.parseInt((String) child.get("id"));
-            String name = (String) child.get("name");
-            String surname = (String) child.get("surname");
-            String fiscalCode = (String) child.get("fiscalCode");
-
-            list.add(new Children(this, id, name, surname, fiscalCode, new Date()));
+            list.add(new Children(this, child));
         }
 
         return list;
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        childTableView.getItems().remove(abstractRowModel);
     }
 }

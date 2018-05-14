@@ -4,6 +4,7 @@ import Client.Remote.Adapter.BaseServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
 import Shared.*;
 import org.json.simple.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,9 +12,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SocketServicesManager implements RemoteServicesManager {
-    private Socket socket;
     BufferedReader in;
     PrintWriter out;
+    private Socket socket;
 
     public SocketServicesManager() throws IOException {
         this.socket = new Socket("localhost", 9374);
@@ -87,6 +88,26 @@ public class SocketServicesManager implements RemoteServicesManager {
     public AssignService getRecipesService() throws Exception {
         //todo ERRORACCIO!
         return (AssignService) new BaseServiceAdapter("recipes", in, out);
+    }
+
+    @Override
+    public AssignService getParentService() throws Exception {
+        return (AssignService) new BaseServiceAdapter("parents", in, out);
+    }
+
+    @Override
+    public AssignService getBusStartingPlaceService() throws Exception {
+        return (AssignService) new BaseServiceAdapter("busstartplace", in, out);
+    }
+
+    @Override
+    public AssignService getBusArrivalPlaceService() throws Exception {
+        return (AssignService) new BaseServiceAdapter("busarrivalplace", in, out);
+    }
+
+    @Override
+    public AssignService getTripPlaceService() throws Exception {
+        return (AssignService) new BaseServiceAdapter("tripplace", in, out);
     }
 
     @Override

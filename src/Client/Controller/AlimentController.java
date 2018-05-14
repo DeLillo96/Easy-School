@@ -1,6 +1,7 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.AbstractRowModel;
 import Client.Model.Aliment;
 import Client.Model.Dish;
 import Client.Remote.RemoteManager;
@@ -17,17 +18,20 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class AlimentController extends AbstractTableController {
-    @FXML private Label dishName;
-    @FXML private Button searchButton;
-    @FXML private Button addButton;
-    @FXML private TextField nameTextField;
-
-    @FXML private TableView<Aliment> alimentTableView;
-
     protected Dish dish;
+    @FXML
+    private Label dishName;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button addButton;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TableView<Aliment> alimentTableView;
 
     public AlimentController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
     }
 
     @Override
@@ -44,7 +48,6 @@ public class AlimentController extends AbstractTableController {
         ArrayList<Aliment> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-
             Aliment aliment = new Aliment(this, (JSONObject) data.get(i));
             aliment.setDishId(dish.getId());
 
@@ -63,18 +66,22 @@ public class AlimentController extends AbstractTableController {
             JSONObject result = recipesService.rightRead(dish.getId());
             ArrayList<Aliment> recipes = parseIntoRows((JSONObject) result.get("data"));
 
-            for (Aliment aliment: recipes) {
+            for (Aliment aliment : recipes) {
                 list.removeIf(o -> aliment.getId() == o.getId());
                 aliment.getSelect().setSelected(true);
             }
-            list.addAll(recipes);
 
             ObservableList<Aliment> items = FXCollections.observableArrayList(list);
             alimentTableView.setItems(items);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        alimentTableView.getItems().remove(abstractRowModel);
     }
 
     public Dish getDish() {
@@ -85,7 +92,8 @@ public class AlimentController extends AbstractTableController {
         this.dish = dish;
     }
 
-    @FXML public void add() throws Exception {
+    @FXML
+    public void add() throws Exception {
         alimentTableView.getItems().add(new Aliment(this));
     }
 

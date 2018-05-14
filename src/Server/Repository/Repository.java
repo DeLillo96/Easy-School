@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface Repository {
     Result save(List<EntityInterface> list);
+
     List read();
+
     List read(HashMap<String, Object> filters);
 }

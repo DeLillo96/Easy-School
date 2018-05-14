@@ -7,14 +7,16 @@ import Server.Repository.PlaceRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import java.util.Set;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PlaceTest {
 
     private static PlaceRepository placeRepository = new PlaceRepository();
-    private static Bus busOne = new Bus("AA111BB","StarkTours");
-    private static Bus busTwo = new Bus("CC222DD","RenegadeTours");
+    private static Bus busOne = new Bus("AA111BB", "StarkTours");
+    private static Bus busTwo = new Bus("CC222DD", "RenegadeTours");
     private static DayTrip tripOne = new DayTrip("Northern Territories");
     private static DayTrip tripTwo = new DayTrip("Right to the Wall");
     private static Place placeOne = new Place("Winterfell", "Stark family's home", 60);
@@ -37,26 +39,6 @@ public class PlaceTest {
         tripTwo.save();
     }
 
-    @Test
-    void readSinglePlacesByCost() {
-        Set resultSingle = placeRepository.getPlaceByCost(40); //WTF!?
-        assertNotNull(resultSingle);
-    }
-
-    @Test
-    void readMultiplePlacesByCost() {
-        Set resultMultiple = placeRepository.getPlaceByCost(60); //WTF!?
-        assertNotNull(resultMultiple);
-    }
-
-    @Test
-    void readPlacesByTrip() {
-        Set result = placeRepository.getPlaceByDayTrip(tripOne.getId());
-        assertNotNull(result);
-    }
-
-    //todo test di modifica
-
     @AfterAll
     static void deletePlaces() {
         placeOne.delete();
@@ -65,5 +47,25 @@ public class PlaceTest {
         tripTwo.delete();
         busOne.delete();
         busTwo.delete();
+    }
+
+    @Test
+    void readSinglePlacesByCost() {
+        List resultSingle = placeRepository.getPlaceByCost(40); //WTF!?
+        assertNotNull(resultSingle);
+    }
+
+    @Test
+    void readMultiplePlacesByCost() {
+        List resultMultiple = placeRepository.getPlaceByCost(60); //WTF!?
+        assertNotNull(resultMultiple);
+    }
+
+    //todo test di modifica
+
+    @Test
+    void readPlacesByTrip() {
+        List result = placeRepository.getPlaceByDayTrip(tripOne.getId());
+        assertNotNull(result);
     }
 }

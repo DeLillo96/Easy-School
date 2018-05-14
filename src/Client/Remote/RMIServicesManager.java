@@ -75,9 +75,29 @@ public class RMIServicesManager implements RemoteServicesManager {
     @Override
     public AssignService getRecipesService() throws Exception {
         return (AssignService) registry.lookup("recipes");
-
     }
 
     @Override
-    public void closeConnection() throws Exception {}
+    public AssignService getParentService() throws Exception {
+        return (AssignService) registry.lookup("parents");
+    }
+
+    @Override
+    public AssignService getBusStartingPlaceService() throws Exception {
+        return (AssignService) registry.lookup("busstartingplace");
+    }
+
+    @Override
+    public AssignService getBusArrivalPlaceService() throws Exception {
+        return (AssignService) registry.lookup("busdestinationplace");
+    }
+
+    @Override
+    public AssignService getTripPlaceService() throws Exception {
+        return (AssignService) registry.lookup("tripplace");
+    }
+
+    @Override
+    public void closeConnection() throws Exception {
+    }
 }

@@ -1,28 +1,34 @@
 package Client.Controller;
 
 import Client.ControllerManager;
-import Client.Model.Children;
+import Client.Model.AbstractRowModel;
 import Client.Model.DayTrips;
 import Client.Remote.RemoteManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DayTripsController extends AbstractTableController {
     /* FILTERS */
-    @FXML private TextField nameTextField;
+    @FXML
+    private TextField nameTextField;
 
     /* TABLE */
-    @FXML private TableView<DayTrips> dayTripTableView;
-    @FXML private TableColumn buttonsColumn;
-    @FXML private TableColumn nameColumn;
+    @FXML
+    private TableView<DayTrips> dayTripTableView;
+    @FXML
+    private TableColumn buttonsColumn;
+    @FXML
+    private TableColumn nameColumn;
 
     public DayTripsController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getDayTripService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getDayTripService());
     }
 
     @FXML
@@ -37,7 +43,7 @@ public class DayTripsController extends AbstractTableController {
             ArrayList<DayTrips> list = search();
             ObservableList<DayTrips> items = FXCollections.observableArrayList(list);
             dayTripTableView.setItems(items);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
@@ -63,12 +69,14 @@ public class DayTripsController extends AbstractTableController {
         for (int i = 0; i < data.size(); i++) {
             JSONObject dayTrip = (JSONObject) data.get(i);
 
-            Integer id = Integer.parseInt((String) dayTrip.get("id"));
-            String name = (String) dayTrip.get("name");
-
-            list.add(new DayTrips(this, id, name));
+            list.add(new DayTrips(this, dayTrip));
         }
 
         return list;
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        dayTripTableView.getItems().remove(abstractRowModel);
     }
 }

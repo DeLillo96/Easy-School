@@ -7,9 +7,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class SessionManager {
 
+    private static final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("Server/hibernate.cfg.xml").build();
     private static SessionFactory sessionFactory = null;
     private static SessionManager instance = null;
-    private static final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("Server/hibernate.cfg.xml").build();
 
     private SessionManager() {
         try {
@@ -21,7 +21,7 @@ public class SessionManager {
     }
 
     public static SessionFactory getSessionFactory() throws Exception {
-        if (instance ==  null) {
+        if (instance == null) {
             instance = new SessionManager();
         }
         if (sessionFactory == null) {

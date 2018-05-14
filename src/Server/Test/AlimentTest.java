@@ -7,9 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AlimentTest {
 
@@ -21,7 +19,13 @@ public class AlimentTest {
         aliment.save();
     }
 
-    @Test void readAliment() {
+    @AfterAll
+    static void deleteAliment() {
+        aliment.delete();
+    }
+
+    @Test
+    void readAliment() {
         Aliment readAliment = alimentRepository.getAlimentByName(aliment.getName());
 
         String message = "Read error";
@@ -29,25 +33,22 @@ public class AlimentTest {
         assertEquals(aliment.getName(), readAliment.getName(), message);
     }
 
-    @Test void veryfyConstraint() {
+    @Test
+    void veryfyConstraint() {
         Aliment newAliment = new Aliment(aliment.getName());
         Result result = newAliment.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
 
-        if(!result.isSuccess()) newAliment.delete();
+        if (!result.isSuccess()) newAliment.delete();
     }
 
-    @Test void modifyAliment() {
+    @Test
+    void modifyAliment() {
         aliment.setName("Cheese");
         Result result = aliment.save();
 
-        assertTrue(result.isSuccess(),"Error: " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteAliment() {
-        aliment.delete();
+        assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
     }
 
 }

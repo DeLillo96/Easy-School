@@ -3,13 +3,16 @@ package Server.Repository;
 import Server.Entity.Aliment;
 import Server.Entity.Category;
 import Server.Entity.Dish;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class DishRepository extends AbstractRepository {
 
-    public DishRepository() {super("Dish"); }
+    public DishRepository() {
+        super("Dish");
+    }
 
     public Dish getDishById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();

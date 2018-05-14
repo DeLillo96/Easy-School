@@ -3,7 +3,10 @@ package Server.Test;
 import Server.Entity.Users;
 import Server.Repository.UsersRepository;
 import Server.Result;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UsersTest {
@@ -16,7 +19,13 @@ public class UsersTest {
         user.save();
     }
 
-    @Test void readUser() {
+    @AfterAll
+    static void deleteUser() {
+        user.delete();
+    }
+
+    @Test
+    void readUser() {
         Users readUser = usersRepository.getUserById(user.getId());
         String message = "Error during reading operation";
 
@@ -25,7 +34,8 @@ public class UsersTest {
         assertEquals(user.getEmail(), readUser.getEmail(), message);
     }
 
-    @Test void loginUser(){
+    @Test
+    void loginUser() {
         String message = "Login error";
 
         assertFalse(usersRepository.login("wrong username", "wrong password"), message);
@@ -34,23 +44,20 @@ public class UsersTest {
         assertTrue(usersRepository.login(user.getUsername(), password), message);
     }
 
-    @Test void verifyConstraint() {
+    @Test
+    void verifyConstraint() {
         Users newUser = new Users(user.getUsername(), "fake password");
         Result result = newUser.save();
 
         assertFalse(result.isSuccess(), "Violated constraints");
-        if(!result.isSuccess()) newUser.delete();
+        if (!result.isSuccess()) newUser.delete();
     }
 
-    @Test void modifyUser() {
+    @Test
+    void modifyUser() {
         user.setEmail("sophie.turner@winterfell.com");
         Result result = user.save();
 
         assertTrue(result.isSuccess(), "Error during saving operation + " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteUser() {
-        user.delete();
     }
 }

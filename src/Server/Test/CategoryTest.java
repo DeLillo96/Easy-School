@@ -7,9 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryTest {
 
@@ -21,6 +19,12 @@ public class CategoryTest {
     static void createCategory() {
         first.save();
         second.save();
+    }
+
+    @AfterAll
+    static void deleteCategory() {
+        first.delete();
+        second.delete();
     }
 
     @Test
@@ -38,7 +42,7 @@ public class CategoryTest {
 
         assertFalse(result.isSuccess(), "Duplication Error" + result.getMessages().toString());
 
-        if(!result.isSuccess()) constraint.delete();
+        if (!result.isSuccess()) constraint.delete();
     }
 
     @Test
@@ -47,12 +51,6 @@ public class CategoryTest {
         Result result = first.save();
 
         assertTrue(result.isSuccess(), "Modify Error");
-    }
-
-    @AfterAll
-    static void deleteCategory() {
-        first.delete();
-        second.delete();
     }
 
 }

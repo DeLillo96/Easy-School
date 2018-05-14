@@ -1,6 +1,7 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,8 +11,8 @@ import java.util.Set;
 @Entity
 
 @FilterDefs({
-        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer") }),
-        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") })
+        @FilterDef(name = "id", parameters = {@ParamDef(name = "id", type = "integer")}),
+        @FilterDef(name = "name", parameters = {@ParamDef(name = "name", type = "string")})
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -35,10 +36,11 @@ public class Aliment extends AbstractEntity {
     @OneToMany(mappedBy = "affectedAliment", fetch = FetchType.EAGER)
     private Set<EatingDisorder> eatingDisorders = new HashSet<>();
 
-    public Aliment() { }
+    public Aliment() {
+    }
 
     public Aliment(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     public Integer getId() {

@@ -1,34 +1,39 @@
 package Client.Controller;
 
 import Client.ControllerManager;
-import Client.Model.Adults;
+import Client.Model.AbstractRowModel;
 import Client.Model.Children;
 import Client.Model.EatingDisorder;
 import Client.Remote.RemoteManager;
+import Shared.AssignService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class EatingDisordersController extends AbstractTableController {
     /* FILTERS */
-    @FXML private Text childName;
-    @FXML private Text childSurname;
-    @FXML private Text childFiscalCode;
-    @FXML private TextField nameTextField;
+    @FXML
+    private Text childName;
+    @FXML
+    private Text childSurname;
+    @FXML
+    private Text childFiscalCode;
+    @FXML
+    private TextField nameTextField;
 
-    @FXML private TableView<EatingDisorder> eatingDisorderTableView;
+    @FXML
+    private TableView<EatingDisorder> eatingDisorderTableView;
 
     private Children child;
 
     public EatingDisordersController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getAlimentService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
     }
 
     public void setChild(Children child) {
@@ -36,47 +41,37 @@ public class EatingDisordersController extends AbstractTableController {
         childName.setText(child.getStringName());
         childSurname.setText(child.getStringSurname());
         childFiscalCode.setText(child.getStringFiscalCode());
-        filter();
     }
-
-    @FXML
-    public void initialize() { }
 
     @FXML
     @Override
     public void filter() {
         try {
-            ArrayList<EatingDisorder> aliments = search();
-            JSONObject disorders = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService().readDisorderByAffectedChild(child.getStringFiscalCode());
-            int maxLength = (int) disorders.get("maxLength");
-            int[] affectedAliments = new int[maxLength];
-            String[] disorderType = new String[maxLength];
-            if(maxLength>0)
-            {
-                for(int count=0; count<maxLength; count++) {
-                    affectedAliments[count] = (int) disorders.get("aliment"+(count+1));
-                    disorderType[count] = (String) disorders.get("disorder"+(count+1));
-                }
-                for (EatingDisorder o:aliments) {
-                    for(int count=0; count<maxLength; count++) {
-                        if(o.getId()==affectedAliments[count]) {
-                            o.getType().setValue(disorderType[count]);
-                        }
+            ArrayList<EatingDisorder> list = search();
+
+            AssignService eatingDisorderService = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
+            JSONObject result = eatingDisorderService.rightRead(child.getId());
+
+            ArrayList<EatingDisorder> eatingDisorders = parseEatingDisorderIntoRows((JSONObject) result.get("data"));
+            for (EatingDisorder eatingDisorder : list) {
+                eatingDisorders.forEach(o -> {
+                    if (o.getId().equals(eatingDisorder.getId())) {
+                        eatingDisorder.getType().setValue(o.getType().getValue());
                     }
-                }
+                });
             }
 
-            ObservableList<EatingDisorder> alimentList = FXCollections.observableArrayList(aliments);
-            eatingDisorderTableView.setItems(alimentList);
-
-        } catch (Exception e ) {
-            //todo render error
+            ObservableList<EatingDisorder> items = FXCollections.observableArrayList(list);
+            eatingDisorderTableView.setItems(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 
     @FXML
     public void add() throws Exception {
-        eatingDisorderTableView.getItems().add(new EatingDisorder(this, child.getId()));
+        eatingDisorderTableView.getItems().add(new EatingDisorder(this));
     }
 
     @Override
@@ -93,26 +88,33 @@ public class EatingDisordersController extends AbstractTableController {
         ArrayList<EatingDisorder> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            JSONObject eatingDisorder = (JSONObject) data.get(i);
+            JSONObject aliment = (JSONObject) data.get(i);
 
-            Integer id = Integer.parseInt((String) eatingDisorder.get("id"));
-            String name = (String) eatingDisorder.get("name");
-
-            list.add(new EatingDisorder(this, id, name, child.getId()));
+            EatingDisorder element = new EatingDisorder(this, aliment);
+            element.setChild(child);
+            list.add(element);
         }
         return list;
     }
 
-    protected JSONObject makeRequest(List<EatingDisorder> saveDisorders) {
-        JSONObject disordersJson = new JSONObject();
-        int count = 0;
-        disordersJson.put("0", child.getId());
-        for (EatingDisorder e:saveDisorders) {
-            disordersJson.put("aliment"+(count+1), e.getId());
-            count++;
+    protected ArrayList parseEatingDisorderIntoRows(JSONObject data) throws Exception {
+        ArrayList<EatingDisorder> list = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            JSONObject eatingDisorder = (JSONObject) data.get(i);
+            JSONObject aliment = (JSONObject) eatingDisorder.get("affectedAliment");
+
+            EatingDisorder element = new EatingDisorder(this, aliment);
+            element.setChild(child);
+            element.getType().setValue((String) eatingDisorder.get("type"));
+            list.add(element);
         }
-        disordersJson.put("max_length", saveDisorders.size());
-        return disordersJson;
+        return list;
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        eatingDisorderTableView.getItems().remove(abstractRowModel);
     }
 
     public void remove() {

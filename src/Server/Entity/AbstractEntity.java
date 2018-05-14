@@ -1,7 +1,7 @@
 package Server.Entity;
 
-import Server.SessionManager;
 import Server.Result;
+import Server.SessionManager;
 import org.hibernate.Session;
 
 public abstract class AbstractEntity implements EntityInterface {
@@ -70,8 +70,15 @@ public abstract class AbstractEntity implements EntityInterface {
         return result;
     }
 
-    protected void beforeSave() { }
-    protected void afterSave() { }
-    protected void beforeDelete() { }
-    protected void afterDelete() { }
+    protected void beforeSave() {
+    }
+
+    protected void afterSave() {
+    }
+
+    protected void beforeDelete() {
+    }
+
+    protected void afterDelete() {
+    }
 }

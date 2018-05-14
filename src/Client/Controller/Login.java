@@ -14,12 +14,17 @@ import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
 
 public class Login {
-    @FXML private Button loginButton;
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private ChoiceBox remoteChoiceBox;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private ChoiceBox remoteChoiceBox;
 
-    @FXML public void loginButtonAction() {
+    @FXML
+    public void loginButtonAction() {
         try {
             String username = usernameField.getText();
             String password = passwordField.getText();
@@ -29,7 +34,7 @@ public class Login {
             UserService userService = remoteServicesManager.getUserService();
             JSONObject response = userService.login(username, password);
 
-            if((boolean) response.get("success")) {
+            if ((boolean) response.get("success")) {
                 ControllerManager.getInstance().renderHome();
             } else throw new Exception(response.get("messages").toString());
         } catch (Exception e) {
@@ -39,7 +44,7 @@ public class Login {
 
     private void setRemoteService() throws Exception {
         Object value = remoteChoiceBox.getValue();
-        if(value.equals("RMI")) {
+        if (value.equals("RMI")) {
             RemoteManager.getInstance().setService(new RMIServicesManager());
         } else {
             RemoteManager.getInstance().setService(new SocketServicesManager());

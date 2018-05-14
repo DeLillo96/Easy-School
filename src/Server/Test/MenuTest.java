@@ -5,8 +5,6 @@ import Server.Entity.Category;
 import Server.Entity.Dish;
 import Server.Entity.Menu;
 import Server.Repository.CalendarRepository;
-import Server.Repository.CategoryRepository;
-import Server.Repository.DishRepository;
 import Server.Repository.MenuRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class MenuTest {
@@ -68,6 +65,23 @@ public class MenuTest {
         secondDay.save();
     }
 
+    @AfterAll
+    static void deleteMenus() {
+        firstDay.delete();
+        secondDay.delete();
+        menuOne.delete();
+        menuTwo.delete();
+        first.delete();
+        secondOptionOne.delete();
+        secondOptionTwo.delete();
+        side.delete();
+        sweet.delete();
+        firstCategory.delete();
+        secondCategory.delete();
+        sideCategory.delete();
+        sweetCategory.delete();
+    }
+
     @Test
     void readMenusByFirst() {
         Set result = menuRepository.getMenusByfirst(first.getName());
@@ -86,22 +100,5 @@ public class MenuTest {
     void readDailyMenuOne() {
         Set result = calendarRepository.getCalendarByMenuId(menuOne.getId());
         assertNotNull(result);
-    }
-
-    @AfterAll
-    static void deleteMenus() {
-        firstDay.delete();
-        secondDay.delete();
-        menuOne.delete();
-        menuTwo.delete();
-        first.delete();
-        secondOptionOne.delete();
-        secondOptionTwo.delete();
-        side.delete();
-        sweet.delete();
-        firstCategory.delete();
-        secondCategory.delete();
-        sideCategory.delete();
-        sweetCategory.delete();
     }
 }

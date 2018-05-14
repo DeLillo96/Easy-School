@@ -1,6 +1,7 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.AbstractRowModel;
 import Client.Model.Dish;
 import Client.Model.Menu;
 import Client.Remote.RemoteManager;
@@ -17,10 +18,14 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class DishController extends AbstractTableController {
-    @FXML private Button addButton;
-    @FXML public Label category;
-    @FXML public Label name;
-    @FXML private TableView<Dish> dishTableView;
+    @FXML
+    public Label category;
+    @FXML
+    public Label name;
+    @FXML
+    private Button addButton;
+    @FXML
+    private TableView<Dish> dishTableView;
 
     private JSONObject jsonCategory;
     private Menu menu;
@@ -47,7 +52,8 @@ public class DishController extends AbstractTableController {
         return list;
     }
 
-    @FXML public void add() throws Exception {
+    @FXML
+    public void add() throws Exception {
         Dish dish = new Dish(this);
         dish.setCategory(jsonCategory);
         dishTableView.getItems().add(dish);
@@ -59,7 +65,7 @@ public class DishController extends AbstractTableController {
             ArrayList<Dish> list = search();
             ObservableList<Dish> items = FXCollections.observableArrayList(list);
             dishTableView.setItems(items);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
@@ -67,14 +73,17 @@ public class DishController extends AbstractTableController {
     @Override
     protected ArrayList<Dish> search() throws Exception {
         DishService service = RemoteManager.getInstance().getRemoteServicesManager().getDishService();
-        JSONObject response = service.getDishesByCategoryName( this.getCategoryName() );
+        JSONObject response = service.getDishesByCategoryName(this.getCategoryName());
 
-        if((boolean) response.get("success")) {
-
+        if ((boolean) response.get("success")) {
             JSONObject data = (JSONObject) response.get("data");
             return parseIntoRows(data);
-
         } else throw new Exception("Read from server error");
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        dishTableView.getItems().remove(abstractRowModel);
     }
 
     public void remove() {
@@ -93,12 +102,12 @@ public class DishController extends AbstractTableController {
         return jsonCategory;
     }
 
-    public String getCategoryName() {
-        return (String) jsonCategory.get("name");
-    }
-
     public void setCategory(JSONObject jsonCategory) {
         this.jsonCategory = jsonCategory;
+    }
+
+    public String getCategoryName() {
+        return (String) jsonCategory.get("name");
     }
 
     public void setMenuDish(int id, String stringName) {

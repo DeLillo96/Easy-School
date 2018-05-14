@@ -3,95 +3,70 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.*;
-import javafx.scene.layout.Region;
+import Shared.EatingDisorderService;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
-import java.util.Date;
 
 public class EatingDisorder extends AbstractRowModel {
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
-    private TextField name = new TextField();
+    private Text name = new Text();
     private ChoiceBox<String> type = new ChoiceBox<>();
-    private int childId;
+    private Children child;
 
-    public EatingDisorder(AbstractTableController tableController, int childId) throws Exception {
-        this(tableController, 0, "", childId);
+    public EatingDisorder(AbstractTableController tableController) throws Exception {
+        this(tableController, new JSONObject());
     }
 
-    public EatingDisorder(AbstractTableController tableController, Integer id, String name, int childId) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController);
+    public EatingDisorder(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController, data);
 
-        setId(id);
-        setName(name);
+        setName((String) data.get("name"));
         getType().getItems().addAll(null, "Allergy", "Intolerance");
-        getType().setPrefSize(380,40);
+        getType().setPrefSize(380, 40);
         getType().setMinSize(380, 40);
-        getType().setMaxSize(380,40);
-        setChildId(childId);
+        getType().setMaxSize(380, 40);
+
+        events();
+        buttons.getChildren().remove(delete);
     }
 
-    @Override
-    protected void initializeButtons() {
-        super.initializeButtons();
+    public void events() {
+        type.setOnAction(event -> {
+            needToSave();
+            data.put("type", type.getValue());
+        });
     }
 
     @Override
     public void save() {
         try {
-            JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getAlimentService().save( makeRequest() );
-            if((boolean)result.get("success"))
-            {
-                JSONObject check = new JSONObject();
-                check.put("childId", childId);
-                check.put("alimentId", this.getId());
-                check.put("type", getType().getValue());
-                result = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService().setDisorderFromJSON(check);
-            }
-            save.getStyleClass().remove("red-button");
+            EatingDisorderService service = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
+            JSONObject result = service.assign(getId(), child.getId(), getType().getValue());
+            if ((boolean) result.get("success")) save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
-            e.printStackTrace();
         }
     }
 
-    @Override
-    protected JSONObject makeRequest() {
-        JSONObject request = new JSONObject();
-
-        if(getId() != 0) request.put("id", getId());
-        request.put("name", getStringName());
-
-        return request;
+    public Integer getId() {
+        return Integer.parseInt((String) data.get("id"));
     }
 
-    public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
-    }
-
-    public TextField getName() {
+    public Text getName() {
         return name;
     }
 
-    public String getStringName() {
-        return name.getText();
-    }
-
-    public void setName(TextField name) {
+    public void setName(Text name) {
         this.name = name;
     }
 
     public void setName(String name) {
         this.name.setText(name);
+    }
+
+    public String getStringName() {
+        return name.getText();
     }
 
     public ChoiceBox<String> getType() {
@@ -102,11 +77,11 @@ public class EatingDisorder extends AbstractRowModel {
         this.type = type;
     }
 
-    public int getChildId() {
-        return childId;
+    public Children getChild() {
+        return child;
     }
 
-    public void setChildId(int childId) {
-        this.childId = childId;
+    public void setChild(Children child) {
+        this.child = child;
     }
 }

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Calendar")
+@Table(name = "Calendar")
 public class Calendar extends AbstractEntity {
     @Id
     @GeneratedValue
@@ -16,11 +16,11 @@ public class Calendar extends AbstractEntity {
     @Column(unique = true)
     private Date date;
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "Present",
-            joinColumns = { @JoinColumn(name = "calendar_id") },
-            inverseJoinColumns = { @JoinColumn(name = "child_id") }
+            joinColumns = {@JoinColumn(name = "calendar_id")},
+            inverseJoinColumns = {@JoinColumn(name = "child_id")}
     )
     private Set<Child> presentChildren = new HashSet<>();
 

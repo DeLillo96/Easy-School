@@ -11,9 +11,9 @@ import java.util.Set;
 @Entity
 
 @FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
-        @FilterDef(name = "licensePlate", parameters = @ParamDef(name = "licensePlate", type = "string") ),
-        @FilterDef(name = "companyName", parameters = @ParamDef(name = "companyName", type = "string") )
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "licensePlate", parameters = @ParamDef(name = "licensePlate", type = "string")),
+        @FilterDef(name = "companyName", parameters = @ParamDef(name = "companyName", type = "string"))
 })
 
 @Filters({
@@ -29,7 +29,7 @@ public class Bus extends AbstractEntity {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
-    private int id;
+    private Integer id;
 
     @Column(unique = true, length = 7)
     private String licensePlate;
@@ -40,20 +40,21 @@ public class Bus extends AbstractEntity {
     @ManyToMany(mappedBy = "buses", fetch = FetchType.EAGER)
     private Set<DayTrip> trips = new HashSet<>();
 
-    @ManyToMany(mappedBy = "startBuses")
+    @ManyToMany(mappedBy = "startBuses", fetch = FetchType.EAGER)
     private Set<Place> startPlaces = new HashSet<>();
 
     @ManyToMany(mappedBy = "arrivalBuses", fetch = FetchType.EAGER)
     private Set<Place> destinationPlaces = new HashSet<>();
 
-    public Bus() { }
+    public Bus() {
+    }
 
     public Bus(String licensePlate, String companyName) {
         this.licensePlate = licensePlate;
         this.companyName = companyName;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

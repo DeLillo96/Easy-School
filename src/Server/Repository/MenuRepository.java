@@ -7,9 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class MenuRepository extends AbstractRepository{
+public class MenuRepository extends AbstractRepository {
 
-    public MenuRepository() {super("Menu"); }
+    public MenuRepository() {
+        super("Menu");
+    }
 
     public Menu getMenuById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();

@@ -1,16 +1,7 @@
 package Client;
 
 import Client.Controller.*;
-import Client.Controller.*;
-import Client.Controller.AdultsController;
-import Client.Controller.BusesController;
-import Client.Controller.EatingDisordersController;
-import Client.Model.Children;
-import Client.Model.Dish;
-import Client.Model.Menu;
-import Client.Controller.AbstractNotifyController;
-import Client.Model.DayTrips;
-import Client.Model.Places;
+import Client.Model.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,7 +41,7 @@ public class ControllerManager {
     }
 
     public void notifyError(String errorMessage) {
-        if(notify != null) removeNotify();
+        if (notify != null) removeNotify();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/error.fxml"));
             notify = loader.load();
@@ -62,7 +53,7 @@ public class ControllerManager {
     }
 
     public void notifySuccess(String successMessage) {
-        if(notify != null) removeNotify();
+        if (notify != null) removeNotify();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/success.fxml"));
             notify = loader.load();
@@ -91,10 +82,6 @@ public class ControllerManager {
         renderFXML("Views/home.fxml");
     }
 
-    public void renderChildren() throws IOException {
-        renderFXML("Views/children.fxml");
-    }
-
     public void renderAddAdults(Children child) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/adults.fxml"));
@@ -102,6 +89,8 @@ public class ControllerManager {
 
             AdultsController adultsController = loader.getController();
             adultsController.setChild(child);
+
+            adultsController.filter();
         } catch (IOException e) {
             notifyError(e.getMessage());
         }
@@ -114,18 +103,22 @@ public class ControllerManager {
 
             EatingDisordersController eatingDisordersController = loader.getController();
             eatingDisordersController.setChild(child);
+
+            eatingDisordersController.filter();
         } catch (IOException e) {
             notifyError(e.getMessage());
         }
     }
 
-    public void renderAddBuses(DayTrips trip) {
+    public void renderAddBuses(Places place) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/buses.fxml"));
             addPopup(loader.load());
 
             BusesController busesController = loader.getController();
-            busesController.setTrip(trip);
+            busesController.setPlace(place);
+
+            busesController.filter();
         } catch (IOException e) {
             notifyError(e.getMessage());
         }
@@ -169,30 +162,6 @@ public class ControllerManager {
 
             PlacesController placesController = loader.getController();
             placesController.setTrip(trip);
-        } catch (IOException e) {
-            notifyError(e.getMessage());
-        }
-    }
-
-    public void renderSetArrivalBuses(int tripId, Places place) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/arrivalBuses.fxml"));
-            addPopup(loader.load());
-
-            ArrivalBusesController arrivalBusesController = loader.getController();
-            arrivalBusesController.setValues(tripId, place);
-        } catch (IOException e) {
-            notifyError(e.getMessage());
-        }
-    }
-
-    public void renderSetStartBuses(int tripId, Places place) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/startBuses.fxml"));
-            addPopup(loader.load());
-
-            StartBusesController startBusesController = loader.getController();
-            startBusesController.setValues(tripId, place);
         } catch (IOException e) {
             notifyError(e.getMessage());
         }

@@ -1,6 +1,7 @@
 package Server.Remote.RMI;
 
 import Server.Remote.*;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -24,6 +25,10 @@ public class RMIManager {
         registry.rebind("eatingdisorder", new EatingDisorderServiceImplementation());
         registry.rebind("place", new PlaceServiceImplementation());
         registry.rebind("recipes", new RecipesServiceImplementation());
+        registry.rebind("parents", new ParentServiceImplementation());
+        registry.rebind("tripplace", new TripPlaceServiceImplementation());
+        registry.rebind("busstartingplace", new BusStartingPlaceServiceImplementation());
+        registry.rebind("busdestinationplace", new BusArrivalPlaceServiceImplementation());
     }
 
     public int getPort() {

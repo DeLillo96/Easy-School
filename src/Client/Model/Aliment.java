@@ -5,8 +5,6 @@ import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import Shared.AssignService;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
@@ -22,8 +20,7 @@ public class Aliment extends AbstractRowModel {
     }
 
     public Aliment(AbstractTableController tableController, JSONObject data) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController);
-        this.data = data;
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController, data);
         setName((String) data.get("name"));
         events();
     }
@@ -45,10 +42,6 @@ public class Aliment extends AbstractRowModel {
         return name;
     }
 
-    public String getStringName() {
-        return name.getText();
-    }
-
     public void setName(TextField name) {
         this.name = name;
     }
@@ -57,16 +50,20 @@ public class Aliment extends AbstractRowModel {
         this.name.setText(name);
     }
 
+    public String getStringName() {
+        return name.getText();
+    }
+
     public int getDishId() {
         return dishId.get();
     }
 
-    public SimpleIntegerProperty dishIdProperty() {
-        return dishId;
-    }
-
     public void setDishId(int dishId) {
         this.dishId.set(dishId);
+    }
+
+    public SimpleIntegerProperty dishIdProperty() {
+        return dishId;
     }
 
     public CheckBox getSelect() {
@@ -78,15 +75,10 @@ public class Aliment extends AbstractRowModel {
     }
 
     @Override
-    protected JSONObject makeRequest() {
-        return data;
-    }
-
-    @Override
     public void save() {
         try {
-            JSONObject result = service.save( makeRequest() );
-            if((boolean) result.get("success")) {
+            JSONObject result = service.save(getData());
+            if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
 
                 AssignService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
@@ -101,6 +93,5 @@ public class Aliment extends AbstractRowModel {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
-
     }
 }

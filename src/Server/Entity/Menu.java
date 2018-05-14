@@ -43,7 +43,8 @@ public class Menu extends AbstractEntity {
     @JoinColumn(name = "sweet")
     private Dish sweet;
 
-    public Menu() { }
+    public Menu() {
+    }
 
     public Integer getId() {
         return id;
@@ -95,11 +96,11 @@ public class Menu extends AbstractEntity {
 
     @Override
     protected void beforeSave() throws IllegalArgumentException {
-        if( !validDish(first, "first") ||
-            !validDish(second, "second") ||
-            !validDish(side, "side") ||
-            !validDish(sweet, "sweet")
-        ) throw new IllegalArgumentException();
+        if (!validDish(first, "first") ||
+                !validDish(second, "second") ||
+                !validDish(side, "side") ||
+                !validDish(sweet, "sweet")
+                ) throw new IllegalArgumentException();
     }
 
     protected boolean validDish(Dish dish, String categoryName) {

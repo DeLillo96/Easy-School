@@ -25,9 +25,9 @@ public class EatingDisorderTest {
     private static Child childTwo = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date());
     private static Aliment alimentOne = new Aliment("Flour");
     private static Aliment alimentTwo = new Aliment("Wolf");
-    private static EatingDisorder eatingDisorderOne = new EatingDisorder(childOne,alimentOne,"Allergy");
-    private static EatingDisorder eatingDisorderTwo = new EatingDisorder(childOne,alimentTwo,"Allergy");
-    private static EatingDisorder eatingDisorderThree = new EatingDisorder(childTwo,alimentOne,"Allergy");
+    private static EatingDisorder eatingDisorderOne = new EatingDisorder(childOne, alimentOne, "Allergy");
+    private static EatingDisorder eatingDisorderTwo = new EatingDisorder(childOne, alimentTwo, "Allergy");
+    private static EatingDisorder eatingDisorderThree = new EatingDisorder(childTwo, alimentOne, "Allergy");
 
     @BeforeAll
     static void createEatingDisorder() {
@@ -40,18 +40,6 @@ public class EatingDisorderTest {
         eatingDisorderThree.save();
     }
 
-    @Test
-    void readEatingDisorderByAffectedChild() {
-        Set result = eatingDisorderRepository.getEatingDisorderByAffectedChild(childOne.getFiscalCode());
-        assertNotNull(result);
-    }
-
-    @Test
-    void readEatingDisorderByAffectedAliment() {
-        Set result = eatingDisorderRepository.getEatingDisorderByAffectedAliment(alimentOne.getName());
-        assertNotNull(result);
-    }
-
     @AfterAll
     static void deleteEatingDisorder() {
         eatingDisorderOne.delete();
@@ -61,6 +49,18 @@ public class EatingDisorderTest {
         childTwo.delete();
         alimentOne.delete();
         alimentTwo.delete();
+    }
+
+    @Test
+    void readEatingDisorderByAffectedChild() {
+        List result = eatingDisorderRepository.getEatingDisorderByAffectedChild(childOne.getFiscalCode());
+        assertNotNull(result);
+    }
+
+    @Test
+    void readEatingDisorderByAffectedAliment() {
+        Set result = eatingDisorderRepository.getEatingDisorderByAffectedAliment(alimentOne.getName());
+        assertNotNull(result);
     }
 
 }

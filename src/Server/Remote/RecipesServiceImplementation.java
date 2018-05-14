@@ -7,6 +7,7 @@ import Server.Repository.DishRepository;
 import Server.Result;
 import Shared.AssignService;
 import org.json.simple.JSONObject;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -26,7 +27,7 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
         Aliment aliment = alimentRepository.getAlimentById(alimentId);
 
         for (Aliment recipe : dish.getIngredients()) {
-            if(recipe.getId().equals(alimentId)) {
+            if (recipe.getId().equals(alimentId)) {
                 Result result = new Result();
                 result.addData(dish);
                 return result.toJson();
@@ -41,7 +42,7 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
     public JSONObject deAssign(Integer dishId, Integer alimentId) throws Exception {
         Dish dish = dishRepository.getDishById(dishId);
 
-        for (Aliment recipe: dish.getIngredients()) {
+        for (Aliment recipe : dish.getIngredients()) {
             if (recipe.getId().equals(alimentId)) {
                 dish.getIngredients().remove(recipe);
                 return dish.save().toJson();

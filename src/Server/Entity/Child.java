@@ -1,8 +1,9 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-import javax.persistence.*;
+
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -11,11 +12,11 @@ import java.util.Set;
 
 @Entity
 @FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
-        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string") ),
-        @FilterDef(name = "surname", parameters = @ParamDef(name = "surname", type = "string") ),
-        @FilterDef(name = "fiscalCode", parameters = @ParamDef(name = "fiscalCode", type = "string") ),
-        @FilterDef(name = "birthDate", parameters = @ParamDef(name = "birthDate", type = "date") ),
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string")),
+        @FilterDef(name = "surname", parameters = @ParamDef(name = "surname", type = "string")),
+        @FilterDef(name = "fiscalCode", parameters = @ParamDef(name = "fiscalCode", type = "string")),
+        @FilterDef(name = "birthDate", parameters = @ParamDef(name = "birthDate", type = "date")),
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -25,7 +26,7 @@ import java.util.Set;
         @Filter(name = "birthDate", condition = "birthDate = :birthDate"),
 })
 @Table(name = "Child")
-public class Child extends AbstractEntity{
+public class Child extends AbstractEntity {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
@@ -43,21 +44,22 @@ public class Child extends AbstractEntity{
     @Column(nullable = false)
     private Date birthDate;
 
-    @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Set<EatingDisorder> eatingDisorders = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(
             name = "Parent",
-            joinColumns = { @JoinColumn(name = "child_id") },
-            inverseJoinColumns = { @JoinColumn(name = "adult_id") }
+            joinColumns = {@JoinColumn(name = "child_id")},
+            inverseJoinColumns = {@JoinColumn(name = "adult_id")}
     )
     private Set<Adult> parents = new HashSet<>();
 
     @ManyToMany(mappedBy = "presentChildren")
     private Set<Calendar> presences = new HashSet<>();
 
-    public Child() { }
+    public Child() {
+    }
 
     public Child(String name, String surname, Date birthDate) {
         this(name, surname, null, birthDate);

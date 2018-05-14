@@ -1,8 +1,9 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-import javax.persistence.*;
+
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -10,8 +11,8 @@ import java.util.Set;
 
 @Entity
 @FilterDefs({
-        @FilterDef(name = "id", parameters = { @ParamDef(name = "id", type = "integer") }),
-        @FilterDef(name = "name", parameters = { @ParamDef(name = "name", type = "string") }),
+        @FilterDef(name = "id", parameters = {@ParamDef(name = "id", type = "integer")}),
+        @FilterDef(name = "name", parameters = {@ParamDef(name = "name", type = "string")}),
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -33,11 +34,11 @@ public class Dish extends AbstractEntity {
     @JoinColumn(name = "category_id")
     private Category dishCategory;
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "Recipes",
-            joinColumns = { @JoinColumn(name = "dish_id") },
-            inverseJoinColumns = { @JoinColumn(name = "aliment_id") }
+            joinColumns = {@JoinColumn(name = "dish_id")},
+            inverseJoinColumns = {@JoinColumn(name = "aliment_id")}
     )
     private Set<Aliment> ingredients = new HashSet<>();
 
@@ -53,7 +54,8 @@ public class Dish extends AbstractEntity {
     @OneToMany(mappedBy = "sweet", fetch = FetchType.EAGER)
     private Set<Menu> sweet = new HashSet<>();
 
-    public Dish() { }
+    public Dish() {
+    }
 
     public Dish(String name) {
         this.name = name;

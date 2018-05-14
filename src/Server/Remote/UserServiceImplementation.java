@@ -7,6 +7,7 @@ import Server.Result;
 import Shared.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 
@@ -19,7 +20,7 @@ public class UserServiceImplementation extends AbstractBaseService implements Us
     public JSONObject login(String username, String password) {
         Result result = new Result();
 
-        if(!((new UsersRepository()).login(username, password))) {
+        if (!((new UsersRepository()).login(username, password))) {
             result.setSuccess(false);
             result.addMessage("Password or Username are invalid");
         }

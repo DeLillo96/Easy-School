@@ -7,7 +7,9 @@ import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AdultTest {
@@ -22,7 +24,14 @@ public class AdultTest {
         adult.save();
     }
 
-    @Test void readAdult() {
+    @AfterAll
+    static void deleteAdult() {
+        adult.delete();
+        user.delete();
+    }
+
+    @Test
+    void readAdult() {
         Adult readAdult = adultRepository.getAdultByFiscalCode(adult.getFiscalCode());
 
         String message = "Read error";
@@ -31,7 +40,8 @@ public class AdultTest {
         assertEquals(adult.getFiscalCode(), readAdult.getFiscalCode(), message);
     }
 
-    @Test void readAdultByUser() {
+    @Test
+    void readAdultByUser() {
         Adult readAdult = adultRepository.getAdultByReferencedUser(user);
 
         Users readUser = readAdult.getUser();
@@ -42,26 +52,22 @@ public class AdultTest {
         assertEquals(user.getEmail(), readUser.getEmail(), message);
     }
 
-    @Test void verifyConstraint() {
+    @Test
+    void verifyConstraint() {
         Adult newAdult = new Adult("Rory", "McCann", adult.getFiscalCode(), new Date(), "8273058105");
         Result result = newAdult.save();
 
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
 
-        if(!result.isSuccess()) newAdult.delete();
+        if (!result.isSuccess()) newAdult.delete();
     }
 
-    @Test void modifyAdult() {
+    @Test
+    void modifyAdult() {
         adult.setName("Rory");
         adult.setSurname("McCann");
         Result result = adult.save();
 
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteAdult() {
-        adult.delete();
-        user.delete();
     }
 }

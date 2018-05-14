@@ -17,12 +17,12 @@ public abstract class AbstractRowModel {
     protected HBox buttons = new HBox(save, delete);
 
     protected BaseService service;
-    protected static AbstractTableController controller;
+    protected AbstractTableController controller;
 
-    public AbstractRowModel(BaseService baseService, AbstractTableController tableController) {
+    public AbstractRowModel(BaseService baseService, AbstractTableController tableController, JSONObject data) {
         service = baseService;
         controller = tableController;
-
+        this.data = data;
         buttons.getStyleClass().add("row-HBox");
         initializeButtons();
     }
@@ -32,7 +32,7 @@ public abstract class AbstractRowModel {
     }
 
     public void setButtons(HBox buttons) {
-        this. buttons = buttons;
+        this.buttons = buttons;
     }
 
     protected void initializeButtons() {
@@ -47,7 +47,7 @@ public abstract class AbstractRowModel {
         ObservableList<String> classes = button.getStyleClass();
         classes.add("row-button");
         classes.add("radius-15");
-        ImageView imageView = new ImageView( urlImage );
+        ImageView imageView = new ImageView(urlImage);
 
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
@@ -57,17 +57,8 @@ public abstract class AbstractRowModel {
 
     public void save() {
         try {
-            JSONObject result = service.save( makeRequest() );
-            if((boolean) result.get("success")) save.getStyleClass().remove("red-button");
-            notifyResult(result);
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("500 Server Error");
-        }
-    }
-
-    public void delete() {
-        try {
-            JSONObject result = service.delete( makeRequest() );
+            JSONObject result = service.save(getData());
+            if ((boolean) result.get("success")) save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,21 +66,27 @@ public abstract class AbstractRowModel {
         }
     }
 
-    protected void notifyResult(JSONObject result) throws Exception {
-        if((boolean) result.get("success")) {
-            controller.filter(); //TODO remove filter & do single update.
+    public void delete() {
+        try {
+            JSONObject result = service.delete(getData());
+            if ((boolean) result.get("success")) controller.delete(this);
+            notifyResult(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void notifyResult(JSONObject result) {
+        if ((boolean) result.get("success")) {
             ControllerManager.getInstance().notifySuccess(result.get("messages").toString());
         } else {
-            String errorMessage = result.get("messages").toString();
-            throw new Exception(errorMessage);
+            ControllerManager.getInstance().notifyError(result.get("messages").toString());
         }
     }
 
     protected void needToSave() {
         save.getStyleClass().add("red-button");
     }
-
-    protected abstract JSONObject makeRequest();
 
     public JSONObject getData() {
         return data;

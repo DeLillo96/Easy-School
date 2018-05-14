@@ -7,6 +7,7 @@ import Shared.BaseService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -91,7 +92,8 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
     protected HashMap<String, Object> prepareReadParameter(JSONObject parameters) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(String.valueOf(parameters), new TypeReference<Map<String, Object>>() {});
+        return objectMapper.readValue(String.valueOf(parameters), new TypeReference<Map<String, Object>>() {
+        });
     }
 
     protected int getMaxLength(JSONObject jsonObject) {

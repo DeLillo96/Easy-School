@@ -1,7 +1,6 @@
 package Client;
 
 import Client.Remote.RemoteManager;
-import Server.Entity.Users;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -22,7 +21,8 @@ public class Client extends Application {
         primaryStage.setOnCloseRequest(event -> {
             try {
                 RemoteManager.getInstance().closeServices();
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         });
         primaryStage.show();
     }

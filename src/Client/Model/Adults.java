@@ -3,91 +3,90 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Button;
+import Shared.AssignService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Adults extends AbstractRowModel {
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private TextField name = new TextField();
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
     private TextField telephone = new TextField();
     private CheckBox select = new CheckBox();
-    private int childId;
+    private Children child;
 
-    public Adults(AbstractTableController tableController, int childId) throws Exception {
-        this(tableController, 0, "", "", "", new Date(), "", new CheckBox(), childId);
+    public Adults(AbstractTableController tableController) throws Exception {
+        this(tableController, new JSONObject());
     }
 
-    public Adults(AbstractTableController tableController, Integer id, String name, String surname, String fiscalCode, Date birthDate, String telephone, CheckBox checkBox, int childId) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController);
+    public Adults(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController, data);
 
-        setId(id);
-        setName(name);
-        setSurname(surname);
-        setFiscalCode(fiscalCode);
-        setTelephone(telephone);
-        setChildId(childId);
+        setName((String) data.get("name"));
+        setSurname((String) data.get("surname"));
+        setFiscalCode((String) data.get("fiscalCode"));
+        setTelephone((String) data.get("telephone"));
+        setBirthDate((CharSequence) data.get("birthDate"));
+
+        events();
+    }
+
+    public void events() {
+        name.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("name", newText);
+        });
+        surname.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("surname", newText);
+        });
+        fiscalCode.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("fiscalCode", newText);
+        });
+        telephone.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("telephone", newText);
+        });
+        birthDate.setOnAction(event -> {
+            needToSave();
+            data.put("birthDate", birthDate.getValue().toString());
+        });
+        select.setOnAction(event -> needToSave());
     }
 
     @Override
     public void save() {
         try {
-            JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().save( makeRequest() );
-            if((boolean)result.get("success"))
-            {
-                JSONObject check = new JSONObject();
-                check.put("childId", childId);
-                check.put("adultId", this.getId());
-                check.put("check", getSelect().isSelected());
-                result = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().setParentFromJSON(check);
+            JSONObject result = service.save(getData());
+            if ((boolean) result.get("success")) {
+                setData((JSONObject) ((JSONObject) result.get("data")).get(0));
+                AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
+                result = select.isSelected() ?
+                        parentService.assign(child.getId(), getId()) :
+                        parentService.deAssign(child.getId(), getId());
+
+                save.getStyleClass().remove("red-button");
             }
-            save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("500 Server Error");
             e.printStackTrace();
+            ControllerManager.getInstance().notifyError("500 Server Error");
         }
     }
 
-    @Override
-    protected JSONObject makeRequest() {
-        JSONObject request = new JSONObject();
-
-        if(getId() != 0) request.put("id", getId());
-        request.put("name", getStringName());
-        request.put("surname", getStringSurname());
-        request.put("birthDate", "2018-04-04");
-        request.put("fiscalCode", getStringFiscalCode());
-        request.put("telephone", getStringTelephone());
-
-        return request;
-    }
-
-    public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+    public Integer getId() {
+        return Integer.parseInt((String) data.get("id"));
     }
 
     public TextField getName() {
         return name;
-    }
-
-    public String getStringName() {
-        return name.getText();
     }
 
     public void setName(TextField name) {
@@ -98,12 +97,12 @@ public class Adults extends AbstractRowModel {
         this.name.setText(name);
     }
 
-    public TextField getSurname() {
-        return surname;
+    public String getStringName() {
+        return name.getText();
     }
 
-    public String getStringSurname() {
-        return surname.getText();
+    public TextField getSurname() {
+        return surname;
     }
 
     public void setSurname(TextField surname) {
@@ -114,12 +113,12 @@ public class Adults extends AbstractRowModel {
         this.surname.setText(surname);
     }
 
-    public TextField getFiscalCode() {
-        return fiscalCode;
+    public String getStringSurname() {
+        return surname.getText();
     }
 
-    public String getStringFiscalCode() {
-        return fiscalCode.getText();
+    public TextField getFiscalCode() {
+        return fiscalCode;
     }
 
     public void setFiscalCode(TextField fiscalCode) {
@@ -130,8 +129,16 @@ public class Adults extends AbstractRowModel {
         this.fiscalCode.setText(fiscalCode);
     }
 
+    public String getStringFiscalCode() {
+        return fiscalCode.getText();
+    }
+
     public DatePicker getBirthDate() {
         return birthDate;
+    }
+
+    public void setBirthDate(CharSequence birthDate) {
+        if (birthDate != null) this.birthDate.setValue(LocalDate.parse(birthDate));
     }
 
     public Date getDateOnDatePicker() {
@@ -139,16 +146,8 @@ public class Adults extends AbstractRowModel {
         return new Date();
     }
 
-    public void setBirthDate(DatePicker birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public TextField getTelephone() {
         return telephone;
-    }
-
-    public String getStringTelephone() {
-        return telephone.getText();
     }
 
     public void setTelephone(TextField telephone) {
@@ -159,6 +158,10 @@ public class Adults extends AbstractRowModel {
         this.telephone.setText(telephone);
     }
 
+    public String getStringTelephone() {
+        return telephone.getText();
+    }
+
     public CheckBox getSelect() {
         return select;
     }
@@ -167,11 +170,11 @@ public class Adults extends AbstractRowModel {
         this.select = select;
     }
 
-    public int getChildId() {
-        return childId;
+    public Children getChild() {
+        return child;
     }
 
-    public void setChildId(int childId) {
-        this.childId = childId;
+    public void setChild(Children child) {
+        this.child = child;
     }
 }

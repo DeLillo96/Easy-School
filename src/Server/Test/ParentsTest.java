@@ -7,6 +7,7 @@ import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,24 +27,26 @@ public class ParentsTest {
         child.save();
     }
 
-    @Test void readChildWithParents() {
+    @AfterAll
+    static void deleteParents() {
+        child.delete();
+        dad.delete();
+        mom.delete();
+    }
+
+    @Test
+    void readChildWithParents() {
         Child readChild = childRepository.getChildByFiscalCode(child.getFiscalCode());
 
         assertNotNull(readChild, "read child error");
         assertNotNull(readChild.getParents(), "Failed join");
     }
 
-    @Test void addParent() {
+    @Test
+    void addParent() {
         assertTrue(child.getParents().add(mom), "Failed add parent operation");
 
         Result result = child.save();
         assertTrue(result.isSuccess(), "Error during saving operation " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteParents() {
-        child.delete();
-        dad.delete();
-        mom.delete();
     }
 }

@@ -11,13 +11,15 @@ import java.util.Set;
 
 public class AdultRepository extends AbstractRepository {
 
-    public AdultRepository() { super("Adult"); }
+    public AdultRepository() {
+        super("Adult");
+    }
 
     public Adult getAdultById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
         List adults = read(params);
-        if(adults != null && adults.size() == 1)
+        if (adults != null && adults.size() == 1)
             return (Adult) adults.get(0);
         else
             return null;
@@ -27,7 +29,7 @@ public class AdultRepository extends AbstractRepository {
         HashMap<String, Object> params = new HashMap<>();
         params.put("fiscalCode", fiscalCode);
         List adults = read(params);
-        if(adults != null && adults.size() == 1)
+        if (adults != null && adults.size() == 1)
             return (Adult) adults.get(0);
         else
             return null;
@@ -37,7 +39,7 @@ public class AdultRepository extends AbstractRepository {
         HashMap<String, Object> params = new HashMap<>();
         params.put("user_id", user.getId());
         List adults = read(params);
-        if(adults != null && adults.size() == 1)
+        if (adults != null && adults.size() == 1)
             return (Adult) adults.get(0);
         else
             return null;
@@ -48,5 +50,12 @@ public class AdultRepository extends AbstractRepository {
         Child child = childRepository.getChildByFiscalCode(childFiscalCode);
 
         return child.getParents();
+    }
+
+    public List getAdultByChild(Integer childId) {
+        ChildRepository childRepository = new ChildRepository();
+        Child child = childRepository.getChildById(childId);
+
+        return new ArrayList(child.getParents());
     }
 }

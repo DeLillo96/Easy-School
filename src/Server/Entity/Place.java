@@ -1,8 +1,9 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-import javax.persistence.*;
+
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -11,10 +12,10 @@ import java.util.Set;
 @Entity
 
 @FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
-        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string") ),
-        @FilterDef(name = "address", parameters = @ParamDef(name = "address", type = "string") ),
-        @FilterDef(name = "cost", parameters = @ParamDef(name = "cost", type = "integer") )
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string")),
+        @FilterDef(name = "address", parameters = @ParamDef(name = "address", type = "string")),
+        @FilterDef(name = "cost", parameters = @ParamDef(name = "cost", type = "integer"))
 })
 
 @Filters({
@@ -31,7 +32,7 @@ public class Place extends AbstractEntity {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -45,23 +46,24 @@ public class Place extends AbstractEntity {
     @ManyToMany(mappedBy = "places", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Set<DayTrip> trips = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "StartingBuses",
-            joinColumns = { @JoinColumn(name = "place_id") },
-            inverseJoinColumns = { @JoinColumn(name = "bus_id") }
+            joinColumns = {@JoinColumn(name = "place_id")},
+            inverseJoinColumns = {@JoinColumn(name = "bus_id")}
     )
     private Set<Bus> startBuses = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "ArrivingBuses",
-            joinColumns = { @JoinColumn(name = "place_id") },
-            inverseJoinColumns = { @JoinColumn(name = "bus_id") }
+            joinColumns = {@JoinColumn(name = "place_id")},
+            inverseJoinColumns = {@JoinColumn(name = "bus_id")}
     )
     private Set<Bus> arrivalBuses = new HashSet<>();
 
-    public Place() { }
+    public Place() {
+    }
 
     public Place(String name, String address, double cost) {
         this.name = name;
@@ -69,7 +71,7 @@ public class Place extends AbstractEntity {
         this.cost = cost;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

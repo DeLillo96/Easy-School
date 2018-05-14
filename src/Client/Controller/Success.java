@@ -10,18 +10,19 @@ import java.util.TimerTask;
 
 
 public class Success extends AbstractNotifyController {
-    @FXML private TextArea successTextArea;
+    @FXML
+    private TextArea successTextArea;
 
     @FXML
     public void initialize() {
         new Timer().schedule(
-            new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> ControllerManager.getInstance().removeNotify());
-                }
-            },
-            4500
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(() -> ControllerManager.getInstance().removeNotify());
+                    }
+                },
+                4500
         );
     }
 

@@ -3,6 +3,7 @@ package Client.Remote.Adapter;
 import Shared.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 

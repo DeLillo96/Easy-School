@@ -1,6 +1,7 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.AbstractRowModel;
 import Shared.BaseService;
 import org.json.simple.JSONObject;
 
@@ -15,9 +16,9 @@ public abstract class AbstractTableController {
     }
 
     protected ArrayList search() throws Exception {
-        JSONObject response = service.read( takeFilters() );
+        JSONObject response = service.read(takeFilters());
 
-        if((boolean) response.get("success")) {
+        if ((boolean) response.get("success")) {
 
             JSONObject data = (JSONObject) response.get("data");
             return parseIntoRows(data);
@@ -26,7 +27,7 @@ public abstract class AbstractTableController {
     }
 
     protected void notifyResult(JSONObject result) throws Exception {
-        if((boolean) result.get("success")) {
+        if ((boolean) result.get("success")) {
             this.filter(); //TODO remove filter & do single update.
             ControllerManager.getInstance().notifySuccess(result.get("messages").toString());
         } else {
@@ -36,6 +37,10 @@ public abstract class AbstractTableController {
     }
 
     protected abstract JSONObject takeFilters();
+
     protected abstract ArrayList parseIntoRows(JSONObject data) throws Exception;
+
     public abstract void filter();
+
+    public abstract void delete(AbstractRowModel abstractRowModel);
 }

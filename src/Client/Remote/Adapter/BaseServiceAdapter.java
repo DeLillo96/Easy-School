@@ -3,6 +3,7 @@ package Client.Remote.Adapter;
 import Shared.BaseService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
@@ -50,7 +51,7 @@ public class BaseServiceAdapter implements BaseService {
         return null;
     }
 
-    protected void submitRequest(String function,JSONObject data) {
+    protected void submitRequest(String function, JSONObject data) {
         JSONObject request = new JSONObject();
         request.put("service", service);
         request.put("function", function);

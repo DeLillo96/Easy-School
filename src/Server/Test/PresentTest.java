@@ -21,16 +21,17 @@ public class PresentTest {
         calendar.save();
     }
 
-    @Test void signPresent() {
-        calendar.getPresentChilds().add(child);
-        Result result = calendar.save();
-
-        assertTrue(result.isSuccess(), "Error during saving operation + " + result.getMessages().toString());
-    }
-
     @AfterAll
     private static void deleteData() {
         calendar.delete();
         child.delete();
+    }
+
+    @Test
+    void signPresent() {
+        calendar.getPresentChilds().add(child);
+        Result result = calendar.save();
+
+        assertTrue(result.isSuccess(), "Error during saving operation + " + result.getMessages().toString());
     }
 }

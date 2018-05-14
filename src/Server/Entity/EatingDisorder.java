@@ -9,8 +9,8 @@ import javax.persistence.Table;
 @Entity
 
 @FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
-        @FilterDef(name = "type", parameters = @ParamDef(name = "type", type = "string") ),
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "type", parameters = @ParamDef(name = "type", type = "string")),
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -36,7 +36,8 @@ public class EatingDisorder extends AbstractEntity {
     @Column(nullable = false)
     private String type;
 
-    public EatingDisorder() { }
+    public EatingDisorder() {
+    }
 
     public EatingDisorder(Child affectedChild, Aliment affectedAliment, String type) {
         this.affectedChild = affectedChild;
@@ -52,12 +53,20 @@ public class EatingDisorder extends AbstractEntity {
         this.id = id;
     }
 
+    public Integer getAffectedChildId() {
+        return affectedChild.getId();
+    }
+
     public Child getAffectedChild() {
         return affectedChild;
     }
 
     public void setAffectedChild(Child affectedChild) {
         this.affectedChild = affectedChild;
+    }
+
+    public Integer getAffectedAlimentId() {
+        return affectedAliment.getId();
     }
 
     public Aliment getAffectedAliment() {

@@ -8,8 +8,10 @@ import Server.Repository.DayTripRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DayTripTest {
@@ -17,8 +19,8 @@ public class DayTripTest {
     private static Calendar calendarOne = new Calendar(new Date());
     private static Place placeOne = new Place("Winterfell", "Stark family's home", 60);
     private static Place placeTwo = new Place("The Wall", "Extreme north", 15);
-    private static Bus busOne = new Bus("AA111BB","StarkTours");
-    private static Bus busTwo = new Bus("CC222DD","RenegadeTours");
+    private static Bus busOne = new Bus("AA111BB", "StarkTours");
+    private static Bus busTwo = new Bus("CC222DD", "RenegadeTours");
     private static DayTrip tripOne = new DayTrip("Northern Territories");
     private static DayTrip tripTwo = new DayTrip("Right to the Wall");
 
@@ -40,30 +42,6 @@ public class DayTripTest {
         tripTwo.save();
     }
 
-    @Test
-    void readTripByDay() {
-        Set result = dayTripRepository.getDayTripByDate(calendarOne.getId());
-        assertNotNull(result);
-    }
-
-    @Test
-    void readTripByPlace() {
-        Set resultSingle = dayTripRepository.getDayTripByPlace(placeOne.getId());
-        assertNotNull(resultSingle);
-    }
-
-    @Test
-    void readMultipleTripByPlace() {
-        Set resultMultiple = dayTripRepository.getDayTripByPlace(placeTwo.getId());
-        assertNotNull(resultMultiple);
-    }
-
-    @Test
-    void readTripByBus() {
-        Set result = dayTripRepository.getDayTripByBus(busTwo.getId());
-        assertNotNull(result);
-    }
-
     @AfterAll
     static void deleteTrips() {
         tripOne.delete();
@@ -73,6 +51,30 @@ public class DayTripTest {
         placeOne.delete();
         placeTwo.delete();
         calendarOne.delete();
+    }
+
+    @Test
+    void readTripByDay() {
+        List result = dayTripRepository.getDayTripByDate(calendarOne.getId());
+        assertNotNull(result);
+    }
+
+    @Test
+    void readTripByPlace() {
+        List resultSingle = dayTripRepository.getDayTripByPlace(placeOne.getId());
+        assertNotNull(resultSingle);
+    }
+
+    @Test
+    void readMultipleTripByPlace() {
+        List resultMultiple = dayTripRepository.getDayTripByPlace(placeTwo.getId());
+        assertNotNull(resultMultiple);
+    }
+
+    @Test
+    void readTripByBus() {
+        List result = dayTripRepository.getDayTripByBus(busTwo.getId());
+        assertNotNull(result);
     }
 
 }

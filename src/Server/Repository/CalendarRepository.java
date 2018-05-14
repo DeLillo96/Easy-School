@@ -9,7 +9,9 @@ import java.util.Set;
 
 public class CalendarRepository extends AbstractRepository {
 
-    public CalendarRepository() {super("Calendar");}
+    public CalendarRepository() {
+        super("Calendar");
+    }
 
     public Calendar getCalendarById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();

@@ -1,35 +1,46 @@
 package Client.Controller;
 
 import Client.ControllerManager;
-import Client.Model.*;
+import Client.Model.AbstractRowModel;
+import Client.Model.DayTrips;
+import Client.Model.Places;
 import Client.Remote.RemoteManager;
-//import com.sun.javafx.scene.control.DoubleField;
+import Shared.AssignService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+//import com.sun.javafx.scene.control.DoubleField;
 
 public class PlacesController extends AbstractTableController {
     /* FILTERS */
-    @FXML private Text tripName;
-    @FXML private TextField nameTextField;
-    @FXML private TextField addressTextField;
-    @FXML private TextField maxCostTextField;
-    @FXML private Button searchButton;
-    @FXML private Button addButton;
+    @FXML
+    private Text tripName;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField addressTextField;
+    @FXML
+    private TextField maxCostTextField;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button addButton;
 
-    @FXML private TableView<Places> placesTableView;
+    @FXML
+    private TableView<Places> placesTableView;
 
     private DayTrips trip;
 
     public PlacesController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getPlaceService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getPlaceService());
     }
 
     public void setTrip(DayTrips trip) {
@@ -39,42 +50,46 @@ public class PlacesController extends AbstractTableController {
     }
 
     @FXML
-    public void initialize() { }
+    public void initialize() {
+    }
 
     @FXML
     @Override
     public void filter() {
         try {
-            ArrayList<Places> allPlaces = search();
-            ArrayList<Places> selectedPlaces;
+            ArrayList<Places> list = search();
 
-            JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getPlaceService().readVisitedPlaceByTripId(trip.getId());
-            if((boolean) response.get("success")) {
+            AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
+            JSONObject result = parentService.rightRead(trip.getId());
 
-                JSONObject data = (JSONObject) response.get("data");
-                selectedPlaces = parseIntoRows(data);
-
-            } else throw new Exception("Read from server error");
-
-            for (Places a:allPlaces) {
-                for (Places s:selectedPlaces) {
-                    if (a.getId()==(s.getId())) {
-                        a.getSelect().setSelected(true);
+            ArrayList<Places> visitedPlaces = parseIntoRows((JSONObject) result.get("data"));
+            for (Places visitedPlace : list) {
+                visitedPlaces.forEach(o -> {
+                    if (o.getId().equals(visitedPlace.getId())) {
+                        visitedPlace.getSelect().setSelected(true);
                     }
-                }
+                });
             }
 
-            ObservableList<Places> items = FXCollections.observableArrayList(allPlaces);
+            ObservableList<Places> items = FXCollections.observableArrayList(list);
             placesTableView.setItems(items);
 
-        } catch (Exception e ) {
-            //todo render error
+        } catch (Exception e) {
+            e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        placesTableView.getItems().remove(abstractRowModel);
     }
 
     @FXML
     public void add() throws Exception {
-        placesTableView.getItems().add(new Places(this, trip.getId()));
+        Places place = new Places(this);
+        place.setTrip(trip);
+        placesTableView.getItems().add(place);
     }
 
     @Override
@@ -83,9 +98,12 @@ public class PlacesController extends AbstractTableController {
 
         filters.put("name", nameTextField.getText());
         filters.put("address", addressTextField.getText());
-        /*if(!(maxCostTextField.getValue()==0)) {
-            filters.put("cost", maxCostTextField.getValue());
-        }*/
+        try {
+            if (!maxCostTextField.getText().equals(""))
+                filters.put("cost", Integer.parseInt(maxCostTextField.getText()));
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("Insert a number in 'cost' text field");
+        }
 
         return filters;
     }
@@ -97,12 +115,9 @@ public class PlacesController extends AbstractTableController {
         for (int i = 0; i < data.size(); i++) {
             JSONObject places = (JSONObject) data.get(i);
 
-            Integer id = Integer.parseInt((String) places.get("id"));
-            String name = (String) places.get("name");
-            String address = (String) places.get("address");
-            String cost = (String) places.get("cost");
-
-            list.add(new Places(this, id, name, address, cost, new CheckBox(), trip.getId()));
+            Places item = new Places(this, places);
+            item.setTrip(trip);
+            list.add(item);
         }
         return list;
     }

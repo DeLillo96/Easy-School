@@ -5,6 +5,7 @@ import Server.Result;
 import Server.SessionManager;
 import org.hibernate.Filter;
 import org.hibernate.Session;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +45,9 @@ public abstract class AbstractRepository implements Repository {
             e.printStackTrace();
         }
 
-        if(filters != null) { prepareFilter(filters, session); }
+        if (filters != null) {
+            prepareFilter(filters, session);
+        }
 
         session.beginTransaction();
         List list = null;
@@ -66,7 +69,7 @@ public abstract class AbstractRepository implements Repository {
         Result probe;
         for (EntityInterface entity : list) {
             probe = entity.save();
-            if( !probe.isSuccess() ) {
+            if (!probe.isSuccess()) {
                 result.setSuccess(false);
                 result.addMessages(probe.getMessages());
             }
@@ -76,8 +79,8 @@ public abstract class AbstractRepository implements Repository {
 
     protected void prepareFilter(HashMap<String, Object> filters, Session session) {
         Iterator it = filters.entrySet().iterator();
-        while (it.hasNext()){
-            Map.Entry param = (Map.Entry)it.next();
+        while (it.hasNext()) {
+            Map.Entry param = (Map.Entry) it.next();
 
             Filter filter = session.enableFilter((String) param.getKey());
             filter.setParameter((String) param.getKey(), param.getValue());

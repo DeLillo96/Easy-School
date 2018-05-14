@@ -1,40 +1,56 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.AbstractRowModel;
 import Client.Model.Adults;
 import Client.Model.Children;
 import Client.Remote.RemoteManager;
+import Shared.AssignService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class AdultsController extends AbstractTableController {
     /* FILTERS */
-    @FXML private Text childName;
-    @FXML private Text childSurname;
-    @FXML private Text childFiscalCode;
-    @FXML private TextField nameTextField;
-    @FXML private TextField surnameTextField;
-    @FXML private DatePicker birthDatePicker;
-    @FXML private TextField fiscalCodeTextField;
-    @FXML private TextField telephoneTextField;
-    @FXML private Button searchButton;
-    @FXML private Button addButton;
-    @FXML private Parent parent;
+    @FXML
+    private Text childName;
+    @FXML
+    private Text childSurname;
+    @FXML
+    private Text childFiscalCode;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField surnameTextField;
+    @FXML
+    private DatePicker birthDatePicker;
+    @FXML
+    private TextField fiscalCodeTextField;
+    @FXML
+    private TextField telephoneTextField;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Parent parent;
 
-    @FXML private TableView<Adults> adultTableView;
+    @FXML
+    private TableView<Adults> adultTableView;
 
     private Children child;
 
     public AdultsController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getAdultService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService());
     }
 
     public void setChild(Children child) {
@@ -42,47 +58,44 @@ public class AdultsController extends AbstractTableController {
         childName.setText(child.getStringName());
         childSurname.setText(child.getStringSurname());
         childFiscalCode.setText(child.getStringFiscalCode());
-        filter();
     }
-
-    @FXML
-    public void initialize() { }
 
     @FXML
     @Override
     public void filter() {
         try {
             ArrayList<Adults> list = search();
-            ArrayList<Adults> listTwo;
 
-            //TODO VERY VERY VERY VERY VERY VERY VERY VERY VERY VERY UGLY SERVICE DECLARATION --> FIX IT
-            JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getAdultService().readParentsByChild(child.getStringFiscalCode());
-            if((boolean) response.get("success")) {
+            AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
+            JSONObject result = parentService.rightRead(child.getId());
 
-                JSONObject data = (JSONObject) response.get("data");
-                listTwo = parseIntoRows(data);
-
-            } else throw new Exception("Read from server error");
-
-            for (Adults a:list) {
-                for (Adults p:listTwo) {
-                    if (a.getStringFiscalCode().equals(p.getStringFiscalCode())) {
-                        a.getSelect().setSelected(true);
+            ArrayList<Adults> parent = parseIntoRows((JSONObject) result.get("data"));
+            for (Adults adult : list) {
+                parent.forEach(o -> {
+                    if (o.getId().equals(adult.getId())) {
+                        adult.getSelect().setSelected(true);
                     }
-                }
+                });
             }
 
             ObservableList<Adults> items = FXCollections.observableArrayList(list);
             adultTableView.setItems(items);
-
-        } catch (Exception e ) {
-            //todo render error
+        } catch (Exception e) {
+            e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        adultTableView.getItems().remove(abstractRowModel);
     }
 
     @FXML
     public void add() throws Exception {
-        adultTableView.getItems().add(new Adults(this,child.getId()));
+        Adults adult = new Adults(this);
+        adult.setChild(child);
+        adultTableView.getItems().add(adult);
     }
 
     @Override
@@ -104,27 +117,11 @@ public class AdultsController extends AbstractTableController {
         for (int i = 0; i < data.size(); i++) {
             JSONObject adult = (JSONObject) data.get(i);
 
-            Integer id = Integer.parseInt((String) adult.get("id"));
-            String name = (String) adult.get("name");
-            String surname = (String) adult.get("surname");
-            String fiscalCode = (String) adult.get("fiscalCode");
-            String telephone = (String) adult.get("telephone");
-
-            list.add(new Adults(this, id, name, surname, fiscalCode, new Date(), telephone, new CheckBox(), child.getId()));
+            Adults item = new Adults(this, adult);
+            item.setChild(child);
+            list.add(item);
         }
         return list;
-    }
-
-    protected JSONObject makeRequest(List<Adults> saveAdults) {
-        JSONObject adultsJson = new JSONObject();
-        int count = 0;
-        adultsJson.put("0", child.getId());
-        for (Adults a:saveAdults) {
-            adultsJson.put("" + (count + 1), a.getId());
-            count++;
-        }
-        adultsJson.put("max_length", saveAdults.size());
-        return adultsJson;
     }
 
     public void remove() {

@@ -2,6 +2,7 @@ package Server;
 
 import Server.Entity.AbstractEntity;
 import org.json.simple.JSONObject;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +14,8 @@ public class Result {
     private boolean success = true;
     private List<Object> data = new ArrayList<Object>();
 
-    public Result(){ }
+    public Result() {
+    }
 
     public Result(boolean success) {
         this(new ArrayList<String>(), success, new ArrayList<Object>());
@@ -94,13 +96,13 @@ public class Result {
         Field[] declaredFields = targetClass.getDeclaredFields();
         JSONObject jsonObject = new JSONObject();
 
-        for(Field field : declaredFields) {
-            if(field.getType() != Set.class) {
+        for (Field field : declaredFields) {
+            if (field.getType() != Set.class) {
                 try {
                     field.setAccessible(true);
                     Object obj = field.get(o);
 
-                    if(obj != null) {
+                    if (obj != null) {
                         jsonObject.put(field.getName(), parseObject(obj, field.getType()));
                     }
                 } catch (IllegalAccessException e) {
@@ -113,13 +115,13 @@ public class Result {
     }
 
     private Object parseObject(Object object, Class objectClass) {
-        if(objectClass.getSuperclass() == AbstractEntity.class) {
+        if (objectClass.getSuperclass() == AbstractEntity.class) {
             return classToJson(object);
         } else {
             String item = object.toString();
 
             if (objectClass == Date.class) {
-                item = item.replace(' ','T');
+                item = item.substring(0, 10);
             }
             return item;
         }

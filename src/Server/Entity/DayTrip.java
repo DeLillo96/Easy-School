@@ -1,8 +1,9 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
-import javax.persistence.*;
+
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -11,8 +12,8 @@ import java.util.Set;
 @Entity
 
 @FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer") ),
-        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string") )
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string"))
 })
 
 @Filters({
@@ -27,7 +28,7 @@ public class DayTrip extends AbstractEntity {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -36,29 +37,30 @@ public class DayTrip extends AbstractEntity {
     @JoinColumn(name = "date")
     private Calendar day;
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "VisitedPlace",
-            joinColumns = { @JoinColumn(name = "trip_id") },
-            inverseJoinColumns = { @JoinColumn(name = "place_id") }
+            joinColumns = {@JoinColumn(name = "trip_id")},
+            inverseJoinColumns = {@JoinColumn(name = "place_id")}
     )
     private Set<Place> places = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.DETACH }, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "UsedBuses",
-            joinColumns = { @JoinColumn(name = "trip_id") },
-            inverseJoinColumns = { @JoinColumn(name = "bus_id") }
+            joinColumns = {@JoinColumn(name = "trip_id")},
+            inverseJoinColumns = {@JoinColumn(name = "bus_id")}
     )
     private Set<Bus> buses = new HashSet<>();
 
-    public DayTrip() { }
+    public DayTrip() {
+    }
 
     public DayTrip(String name) {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

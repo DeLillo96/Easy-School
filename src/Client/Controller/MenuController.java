@@ -1,6 +1,7 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.AbstractRowModel;
 import Client.Model.Menu;
 import Client.Remote.RemoteManager;
 import javafx.collections.FXCollections;
@@ -8,15 +9,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 
 public class MenuController extends AbstractTableController {
 
     /* TABLE */
-    @FXML private TableView<Menu> menuTableView;
+    @FXML
+    private TableView<Menu> menuTableView;
 
     public MenuController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getMenuService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getMenuService());
     }
 
     @FXML
@@ -49,8 +52,13 @@ public class MenuController extends AbstractTableController {
             ArrayList<Menu> list = search();
             ObservableList<Menu> items = FXCollections.observableArrayList(list);
             menuTableView.setItems(items);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        menuTableView.getItems().remove(abstractRowModel);
     }
 }

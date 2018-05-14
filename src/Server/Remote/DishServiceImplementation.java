@@ -8,6 +8,7 @@ import Server.Result;
 import Shared.DishService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -21,9 +22,9 @@ public class DishServiceImplementation extends AbstractBaseService implements Di
     protected EntityInterface castJsonIntoEntity(JSONObject jsonDish) throws IOException {
         Dish dish = new Dish();
 
-        if(jsonDish.get("id") != null) dish.setId(Integer.parseInt((String) jsonDish.get("id")));
-        if(jsonDish.get("name") != null) dish.setName((String) jsonDish.get("name"));
-        if(jsonDish.get("dishCategory") != null) {
+        if (jsonDish.get("id") != null) dish.setId(Integer.parseInt((String) jsonDish.get("id")));
+        if (jsonDish.get("name") != null) dish.setName((String) jsonDish.get("name"));
+        if (jsonDish.get("dishCategory") != null) {
             ObjectMapper objectMapper = new ObjectMapper();
             dish.setCategory(objectMapper.readValue(jsonDish.get("dishCategory").toString(), Category.class));
         }
@@ -36,7 +37,7 @@ public class DishServiceImplementation extends AbstractBaseService implements Di
         Result result = new Result();
 
         List response = (new DishRepository()).getDishByCategory(categoryName);
-        if(response != null) {
+        if (response != null) {
             result.setData(response);
         } else {
             result.setSuccess(false);

@@ -17,8 +17,7 @@ public class Menu extends AbstractRowModel {
     }
 
     public Menu(AbstractTableController tableController, JSONObject menu) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getMenuService(), tableController);
-        data = menu;
+        super(RemoteManager.getInstance().getRemoteServicesManager().getMenuService(), tableController, menu);
         refreshButtonsRow();
     }
 
@@ -80,10 +79,5 @@ public class Menu extends AbstractRowModel {
 
     public void setSweet(String sweet) {
         this.sweet.setText(sweet);
-    }
-
-    @Override
-    protected JSONObject makeRequest() {
-        return data;
     }
 }

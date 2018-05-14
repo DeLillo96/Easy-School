@@ -1,81 +1,84 @@
 package Client.Controller;
 
 import Client.ControllerManager;
-import Client.Model.Adults;
+import Client.Model.AbstractRowModel;
 import Client.Model.Buses;
-import Client.Model.Children;
-import Client.Model.DayTrips;
+import Client.Model.Places;
 import Client.Remote.RemoteManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class BusesController extends AbstractTableController {
     /* FILTERS */
-    @FXML private Text tripName;
-    @FXML private TextField licensePlateTextField;
-    @FXML private TextField companyNameTextField;
-    @FXML private Button searchButton;
-    @FXML private Button addButton;
+    @FXML
+    private Text placeName;
+    @FXML
+    private TextField licensePlateTextField;
+    @FXML
+    private TextField companyNameTextField;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button addButton;
+    @FXML
+    private TableView<Buses> busesTableView;
 
-    @FXML private TableView<Buses> busesTableView;
-
-    private DayTrips trip;
+    private Places place;
 
     public BusesController() throws Exception {
-        super( RemoteManager.getInstance().getRemoteServicesManager().getBusService() );
+        super(RemoteManager.getInstance().getRemoteServicesManager().getBusService());
     }
 
-    public void setTrip(DayTrips trip) {
-        this.trip = trip;
-        tripName.setText(trip.getStringName());
-        filter();
+    public void setPlace(Places place) {
+        this.place = place;
+        placeName.setText(place.getStringName());
     }
-
-    @FXML
-    public void initialize() { }
 
     @FXML
     @Override
     public void filter() {
         try {
             ArrayList<Buses> allBuses = search();
-            ArrayList<Buses> selectedBuses;
+            JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService().leftRead(place.getId());
+            ArrayList<Buses> arrivalBuses = parseIntoRows((JSONObject) response.get("data"));
 
-            JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getBusService().readUsedBusesByDayTrip(trip.getId());
-            if((boolean) response.get("success")) {
+            response = RemoteManager.getInstance().getRemoteServicesManager().getBusStartingPlaceService().leftRead(place.getId());
+            ArrayList<Buses> startingBuses = parseIntoRows((JSONObject) response.get("data"));
 
-                JSONObject data = (JSONObject) response.get("data");
-                selectedBuses = parseIntoRows(data);
-
-            } else throw new Exception("Read from server error");
-
-            for (Buses a:allBuses) {
-                for (Buses s:selectedBuses) {
-                    if (a.getId()==(s.getId())) {
-                        a.getSelect().setSelected(true);
+            for (Buses bus : allBuses) {
+                arrivalBuses.forEach(o -> {
+                    if (o.getId().equals(bus.getId())) {
+                        bus.getArrivalSelect().setSelected(true);
                     }
-                }
+                });
+                startingBuses.forEach(o -> {
+                    if (o.getId().equals(bus.getId())) {
+                        bus.getStartSelect().setSelected(true);
+                    }
+                });
             }
 
             ObservableList<Buses> items = FXCollections.observableArrayList(allBuses);
             busesTableView.setItems(items);
 
-        } catch (Exception e ) {
+        } catch (Exception e) {
             //todo render error
         }
     }
 
     @FXML
     public void add() throws Exception {
-        busesTableView.getItems().add(new Buses(this, trip.getId()));
+        Buses bus = new Buses(this);
+        bus.setPlace(place);
+        busesTableView.getItems().add(bus);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class BusesController extends AbstractTableController {
         JSONObject filters = new JSONObject();
 
         filters.put("licensePlate", licensePlateTextField.getText());
-        filters.put("surname", companyNameTextField.getText());
+        filters.put("companyName", companyNameTextField.getText());
 
         return filters;
     }
@@ -93,18 +96,20 @@ public class BusesController extends AbstractTableController {
         ArrayList<Buses> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            JSONObject buses = (JSONObject) data.get(i);
-
-            Integer id = Integer.parseInt((String) buses.get("id"));
-            String licensePlate = (String) buses.get("licensePlate");
-            String companyName = (String) buses.get("companyName");
-
-            list.add(new Buses(this, id, licensePlate, companyName, new CheckBox(), trip.getId()));
+            JSONObject bus = (JSONObject) data.get(i);
+            Buses item = new Buses(this, bus);
+            item.setPlace(place);
+            list.add(item);
         }
         return list;
     }
 
     public void remove() {
         ControllerManager.getInstance().removePopup();
+    }
+
+    @Override
+    public void delete(AbstractRowModel abstractRowModel) {
+        busesTableView.getItems().remove(abstractRowModel);
     }
 }

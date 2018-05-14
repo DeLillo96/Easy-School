@@ -1,6 +1,7 @@
 package Server.Entity;
 
 import org.hibernate.annotations.*;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,10 +10,10 @@ import java.security.NoSuchAlgorithmException;
 
 @Entity
 @FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer" ) ),
-        @FilterDef(name = "username", parameters = @ParamDef(name = "username", type = "string" ) ),
-        @FilterDef(name = "password", parameters = @ParamDef(name = "password", type = "string" ) ),
-        @FilterDef(name = "email", parameters = @ParamDef(name = "email", type = "string" ) )
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "username", parameters = @ParamDef(name = "username", type = "string")),
+        @FilterDef(name = "password", parameters = @ParamDef(name = "password", type = "string")),
+        @FilterDef(name = "email", parameters = @ParamDef(name = "email", type = "string"))
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
@@ -38,7 +39,7 @@ public class Users extends AbstractEntity {
     private String email;
 
     public Users() {
-        this("","",null);
+        this("", "", null);
     }
 
     public Users(String username, String password, String email) {
@@ -49,6 +50,19 @@ public class Users extends AbstractEntity {
 
     public Users(String username, String password) {
         this(username, password, null);
+    }
+
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
     }
 
     public Integer getId() {
@@ -86,22 +100,9 @@ public class Users extends AbstractEntity {
     @Override
     protected void beforeSave() {
         try {
-            if(password.length() < 16) password = hashPassword(password);
+            if (password.length() < 16) password = hashPassword(password);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(password.getBytes());
-
-        byte[] bytes = md.digest();
-        StringBuilder sb = new StringBuilder();
-        for (byte aByte : bytes) {
-            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
-        }
-
-        return sb.toString();
     }
 }

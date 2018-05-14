@@ -1,7 +1,6 @@
 package Server.Repository;
 
 import Server.Entity.Users;
-import org.osgi.service.useradmin.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -9,14 +8,16 @@ import java.util.List;
 
 public class UsersRepository extends AbstractRepository {
 
-    public UsersRepository() { super("Users"); }
+    public UsersRepository() {
+        super("Users");
+    }
 
     public Users getUserById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
         List users = read(params);
 
-        return users!= null && users.size() == 1 ? (Users) users.get(0) : null;
+        return users != null && users.size() == 1 ? (Users) users.get(0) : null;
     }
 
     public Users getUserByUsername(String username) {
@@ -24,7 +25,7 @@ public class UsersRepository extends AbstractRepository {
         params.put("username", username);
         List users = read(params);
 
-        return users!= null && users.size() == 1 ? (Users) users.get(0) : null;
+        return users != null && users.size() == 1 ? (Users) users.get(0) : null;
     }
 
     public boolean login(String username, String password) {

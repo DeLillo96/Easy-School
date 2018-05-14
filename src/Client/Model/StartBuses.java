@@ -4,32 +4,26 @@ import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
-import java.util.Date;
 
 public class StartBuses extends AbstractRowModel {
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private Text licensePlate = new Text();
     private Text companyName = new Text();
     private CheckBox select = new CheckBox();
-    private int placeId;
+    private Places place;
 
-    public StartBuses(AbstractTableController tableController, int placeId) throws Exception {
-        this(tableController, 0, "", "", new CheckBox(), placeId);
+    public StartBuses(AbstractTableController tableController) throws Exception {
+        this(tableController, new JSONObject());
     }
 
-    public StartBuses(AbstractTableController tableController, Integer id, String licensePlate, String companyName, CheckBox checkBox, int placeId) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController);
+    public StartBuses(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController, data);
 
-        setId(id);
         setLicensePlate(licensePlate);
         setCompanyName(companyName);
-        setPlaceId(placeId);
     }
 
     @Override
@@ -43,7 +37,7 @@ public class StartBuses extends AbstractRowModel {
         try {
             JSONObject result;
             JSONObject check = new JSONObject();
-            check.put("placeId", placeId);
+            check.put("placeId", place.getId());
             check.put("busId", this.getId());
             check.put("check", getSelect().isSelected());
             result = RemoteManager.getInstance().getRemoteServicesManager().getBusService().setStartBusesFromJSON(check);
@@ -55,35 +49,12 @@ public class StartBuses extends AbstractRowModel {
         }
     }
 
-    @Override
-    protected JSONObject makeRequest() {
-        JSONObject request = new JSONObject();
-
-        if(getId() != 0) request.put("id", getId());
-        request.put("licensePlate", getStringLicensePlate());
-        request.put("companyName", getStringCompanyName());
-
-        return request;
-    }
-
     public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+        return Integer.parseInt((String) data.get("id"));
     }
 
     public Text getLicensePlate() {
         return licensePlate;
-    }
-
-    public String getStringLicensePlate() {
-        return licensePlate.getText();
     }
 
     public void setLicensePlate(Text licensePlate) {
@@ -94,12 +65,12 @@ public class StartBuses extends AbstractRowModel {
         this.licensePlate.setText(licensePlate);
     }
 
-    public Text getCompanyName() {
-        return companyName;
+    public String getStringLicensePlate() {
+        return licensePlate.getText();
     }
 
-    public String getStringCompanyName() {
-        return companyName.getText();
+    public Text getCompanyName() {
+        return companyName;
     }
 
     public void setCompanyName(Text companyName) {
@@ -110,6 +81,10 @@ public class StartBuses extends AbstractRowModel {
         this.companyName.setText(companyName);
     }
 
+    public String getStringCompanyName() {
+        return companyName.getText();
+    }
+
     public CheckBox getSelect() {
         return select;
     }
@@ -118,11 +93,11 @@ public class StartBuses extends AbstractRowModel {
         this.select = select;
     }
 
-    public int getPlaceId() {
-        return placeId;
+    public Places getPlace() {
+        return place;
     }
 
-    public void setPlaceId(int placeId) {
-        this.placeId = placeId;
+    public void setPlace(Places place) {
+        this.place = place;
     }
 }

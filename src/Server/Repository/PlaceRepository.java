@@ -1,16 +1,19 @@
 package Server.Repository;
 
+import Server.Entity.Bus;
 import Server.Entity.DayTrip;
 import Server.Entity.Place;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class PlaceRepository extends AbstractRepository {
 
-    public PlaceRepository() { super("Place"); }
+    public PlaceRepository() {
+        super("Place");
+    }
 
     public Place getPlaceById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
@@ -19,19 +22,33 @@ public class PlaceRepository extends AbstractRepository {
         return places != null && places.size() == 1 ? (Place) places.get(0) : null;
     }
 
-    public Set<Place> getPlaceByCost(Integer cost) {
+    public List<Place> getPlaceByCost(Integer cost) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("cost", cost);
         List places = read(params);
-        return new HashSet<Place>(places);
+        return places;
     }
 
-    public Set<Place> getPlaceByDayTrip(Integer trip_id) {
+    public List<Place> getPlaceByDayTrip(Integer tripId) {
         DayTripRepository dayTripRepository = new DayTripRepository();
-        DayTrip trips = dayTripRepository.getDayTripById(trip_id);
+        DayTrip trips = dayTripRepository.getDayTripById(tripId);
         Set<Place> places = trips.getPlaces();
-        return places;
+        return new ArrayList<Place>(places);
 
+    }
+
+    public List<Place> getPlacebyStartingBuses(Integer busId) {
+        BusRepository busRepository = new BusRepository();
+        Bus bus = busRepository.getBusById(busId);
+
+        return new ArrayList<Place>(bus.getStartPlaces());
+    }
+
+    public List<Place> getPlacebyDestinationBuses(Integer busId) {
+        BusRepository busRepository = new BusRepository();
+        Bus bus = busRepository.getBusById(busId);
+
+        return new ArrayList<Place>(bus.getDestinationPlaces());
     }
 
 }

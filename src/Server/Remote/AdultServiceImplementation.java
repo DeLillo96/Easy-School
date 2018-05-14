@@ -7,12 +7,15 @@ import Server.Repository.AdultRepository;
 import Server.Repository.ChildRepository;
 import Server.Result;
 import Shared.AdultService;
-import Shared.BaseService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class AdultServiceImplementation extends AbstractBaseService implements AdultService {
     public AdultServiceImplementation() throws RemoteException {
@@ -24,7 +27,7 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
         Result result = new Result();
 
         List response = new ArrayList((new AdultRepository()).getAdultByChildFiscalCode(childFiscalCode));
-        if(response != null) {
+        if (response != null) {
             result.setData(response);
         } else {
             result.setSuccess(false);
@@ -44,25 +47,24 @@ public class AdultServiceImplementation extends AbstractBaseService implements A
         boolean check = (boolean) data.get("check");
         Set<Adult> actualParents = (new AdultRepository()).getAdultByChildFiscalCode(mainChild.getFiscalCode());
         Set<Adult> adultsToRemove = new HashSet<>();
-        for(Adult a:actualParents) {
-            if(a.getId().equals(adultToAdd.getId())) {
-                if(check) {
+        for (Adult a : actualParents) {
+            if (a.getId().equals(adultToAdd.getId())) {
+                if (check) {
                     result.setSuccess(true);
                     result.addMessage("DB was already updated");
                     return result.toJson();
-                }else {
+                } else {
                     flag = true;
                     adultsToRemove.add(a);
                 }
             }
         }
-        if(flag) {
+        if (flag) {
             actualParents.removeAll(adultsToRemove);
             mainChild.setParents(actualParents);
             result = mainChild.save();
             return result.toJson();
-        }else if(check)
-        {
+        } else if (check) {
             actualParents.add(adultToAdd);
             mainChild.setParents(actualParents);
             result = mainChild.save();

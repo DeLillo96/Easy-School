@@ -7,15 +7,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AlimentRepository extends AbstractRepository{
-    public AlimentRepository() { super("Aliment"); }
+public class AlimentRepository extends AbstractRepository {
+    public AlimentRepository() {
+        super("Aliment");
+    }
 
     public Aliment getAlimentById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
         List aliment = read(params);
 
-        return aliment!= null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
+        return aliment != null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
     }
 
     public Aliment getAlimentByName(String name) {
@@ -23,7 +25,7 @@ public class AlimentRepository extends AbstractRepository{
         params.put("name", name);
         List aliment = read(params);
 
-        return aliment!= null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
+        return aliment != null && aliment.size() == 1 ? (Aliment) aliment.get(0) : null;
     }
 
     public List getAlimentByDish(Integer dishId) {

@@ -3,50 +3,59 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Button;
+import Shared.AssignService;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
-import java.util.Date;
 
 public class Buses extends AbstractRowModel {
-    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private TextField licensePlate = new TextField();
     private TextField companyName = new TextField();
-    private CheckBox select = new CheckBox();
-    private int tripId;
+    private CheckBox startSelect = new CheckBox();
+    private CheckBox arrivalSelect = new CheckBox();
+    private Places place;
 
-    public Buses(AbstractTableController tableController, int tripId) throws Exception {
-        this(tableController, 0, "", "", new CheckBox(), tripId);
+    public Buses(AbstractTableController tableController) throws Exception {
+        this(tableController, new JSONObject());
     }
 
-    public Buses(AbstractTableController tableController, Integer id, String licensePlate, String companyName, CheckBox checkBox, int tripId) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController);
+    public Buses(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController, data);
 
-        setId(id);
-        setLicensePlate(licensePlate);
-        setCompanyName(companyName);
-        setTripId(tripId);
+        setLicensePlate((String) data.get("licensePlate"));
+        setCompanyName((String) data.get("companyName"));
+        events();
     }
 
-    @Override
-    protected void initializeButtons() {
-        super.initializeButtons();
+    public void events() {
+        companyName.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("companyName", newText);
+        });
+        licensePlate.textProperty().addListener((obs, oldText, newText) -> {
+            needToSave();
+            data.put("licensePlate", newText);
+        });
+        arrivalSelect.setOnAction(event -> needToSave());
+        startSelect.setOnAction(event -> needToSave());
     }
 
     @Override
     public void save() {
         try {
-            JSONObject result = RemoteManager.getInstance().getRemoteServicesManager().getBusService().save( makeRequest() );
-            if((boolean)result.get("success"))
-            {
-                JSONObject check = new JSONObject();
-                check.put("tripId", tripId);
-                check.put("busId", this.getId());
-                check.put("check", getSelect().isSelected());
-                result = RemoteManager.getInstance().getRemoteServicesManager().getBusService().setUsedBusesFromJSON(check);
+            JSONObject result = service.save(data);
+            if ((boolean) result.get("success")) {
+                setData((JSONObject) ((JSONObject) result.get("data")).get(0));
+                AssignService busArrivalPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService();
+                result = arrivalSelect.isSelected() ?
+                        busArrivalPlaceService.assign(getId(), place.getId()) :
+                        busArrivalPlaceService.deAssign(getId(), place.getId());
+
+                AssignService busStartingPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusStartingPlaceService();
+                result = startSelect.isSelected() ?
+                        busStartingPlaceService.assign(getId(), place.getId()) :
+                        busStartingPlaceService.deAssign(getId(), place.getId());
+
             }
             save.getStyleClass().remove("red-button");
             notifyResult(result);
@@ -56,35 +65,12 @@ public class Buses extends AbstractRowModel {
         }
     }
 
-    @Override
-    protected JSONObject makeRequest() {
-        JSONObject request = new JSONObject();
-
-        if(getId() != 0) request.put("id", getId());
-        request.put("licensePlate", getStringLicensePlate());
-        request.put("companyName", getStringCompanyName());
-
-        return request;
-    }
-
-    public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+    public Integer getId() {
+        return Integer.parseInt((String) data.get("id"));
     }
 
     public TextField getLicensePlate() {
         return licensePlate;
-    }
-
-    public String getStringLicensePlate() {
-        return licensePlate.getText();
     }
 
     public void setLicensePlate(TextField licensePlate) {
@@ -95,12 +81,12 @@ public class Buses extends AbstractRowModel {
         this.licensePlate.setText(licensePlate);
     }
 
-    public TextField getCompanyName() {
-        return companyName;
+    public String getStringLicensePlate() {
+        return licensePlate.getText();
     }
 
-    public String getStringCompanyName() {
-        return companyName.getText();
+    public TextField getCompanyName() {
+        return companyName;
     }
 
     public void setCompanyName(TextField companyName) {
@@ -111,19 +97,31 @@ public class Buses extends AbstractRowModel {
         this.companyName.setText(companyName);
     }
 
-    public CheckBox getSelect() {
-        return select;
+    public String getStringCompanyName() {
+        return companyName.getText();
     }
 
-    public void setSelect(CheckBox select) {
-        this.select = select;
+    public CheckBox getStartSelect() {
+        return startSelect;
     }
 
-    public int getTripId() {
-        return tripId;
+    public void setStartSelect(CheckBox startSelect) {
+        this.startSelect = startSelect;
     }
 
-    public void setTripId(int tripId) {
-        this.tripId = tripId;
+    public CheckBox getArrivalSelect() {
+        return arrivalSelect;
+    }
+
+    public void setArrivalSelect(CheckBox arrivalSelect) {
+        this.arrivalSelect = arrivalSelect;
+    }
+
+    public Places getPlace() {
+        return place;
+    }
+
+    public void setPlace(Places place) {
+        this.place = place;
     }
 }

@@ -4,6 +4,13 @@ public class RemoteManager {
     private static RemoteManager instance;
     private static RemoteServicesManager remoteServicesManager;
 
+    public static RemoteManager getInstance() {
+        if (instance == null) {
+            instance = new RemoteManager();
+        }
+        return instance;
+    }
+
     public RemoteServicesManager getRemoteServicesManager() {
         return remoteServicesManager;
     }
@@ -12,16 +19,10 @@ public class RemoteManager {
         RemoteManager.remoteServicesManager = remoteServicesManager;
     }
 
-    public static RemoteManager getInstance() {
-        if(instance == null) {
-            instance = new RemoteManager();
-        }
-        return instance;
-    }
-
     public void closeServices() {
         try {
             remoteServicesManager.closeConnection();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 }

@@ -26,6 +26,13 @@ public class RecipesTest {
         dish.save();
     }
 
+    @AfterAll
+    static void deleteParents() {
+        dish.delete();
+        firstAlim.delete();
+        secondAlim.delete();
+    }
+
     @Test
     void readRecipe() {
         Dish readDish = dishRepository.getDishByName(dish.getName());
@@ -40,12 +47,5 @@ public class RecipesTest {
 
         Result result = dish.save();
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());
-    }
-
-    @AfterAll
-    static void deleteParents() {
-        dish.delete();
-        firstAlim.delete();
-        secondAlim.delete();
     }
 }
