@@ -45,14 +45,6 @@ public class DayTrip extends AbstractEntity {
     )
     private Set<Place> places = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "UsedBuses",
-            joinColumns = {@JoinColumn(name = "trip_id")},
-            inverseJoinColumns = {@JoinColumn(name = "bus_id")}
-    )
-    private Set<Bus> buses = new HashSet<>();
-
     public DayTrip() {
     }
 
@@ -90,13 +82,5 @@ public class DayTrip extends AbstractEntity {
 
     public void setPlaces(Set<Place> places) {
         this.places = places;
-    }
-
-    public Set<Bus> getBuses() {
-        return buses;
-    }
-
-    public void setBuses(Set<Bus> buses) {
-        this.buses = buses;
     }
 }

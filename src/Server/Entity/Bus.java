@@ -37,9 +37,6 @@ public class Bus extends AbstractEntity {
     @Column(nullable = false)
     private String companyName;
 
-    @ManyToMany(mappedBy = "buses", fetch = FetchType.EAGER)
-    private Set<DayTrip> trips = new HashSet<>();
-
     @ManyToMany(mappedBy = "startBuses", fetch = FetchType.EAGER)
     private Set<Place> startPlaces = new HashSet<>();
 
@@ -76,14 +73,6 @@ public class Bus extends AbstractEntity {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public Set<DayTrip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(Set<DayTrip> trips) {
-        this.trips = trips;
     }
 
     public Set<Place> getStartPlaces() {

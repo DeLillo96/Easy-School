@@ -28,12 +28,6 @@ public class BusRepository extends AbstractRepository {
         return buses != null && buses.size() == 1 ? (Bus) buses.get(0) : null;
     }
 
-    public List<Bus> getBusByDayTrip(Integer trip_id) {
-        DayTripRepository dayTripRepository = new DayTripRepository();
-        DayTrip trips = dayTripRepository.getDayTripById(trip_id);
-        return new ArrayList(trips.getBuses());
-    }
-
     public List<Bus> getArrivalBusesByPlace(Integer placeId) {
         PlaceRepository placeRepository = new PlaceRepository();
         Place place = placeRepository.getPlaceById(placeId);
