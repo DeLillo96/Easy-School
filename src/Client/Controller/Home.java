@@ -6,13 +6,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Home {
     private Stage stage;
     @FXML
     private TabPane mainTabPane;
+    @FXML
+    private Tab homeTab;
     @FXML
     private Tab childrenTab;
     @FXML
@@ -22,6 +23,9 @@ public class Home {
 
     @FXML
     public void initialize() throws IOException {
+        AnchorPane homePane = FXMLLoader.load(getClass().getResource("../Views/calendar.fxml"));
+        homeTab.setContent(homePane);
+
         AnchorPane childrenPane = FXMLLoader.load(getClass().getResource("../Views/children.fxml"));
         childrenTab.setContent(childrenPane);
 
