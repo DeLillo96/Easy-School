@@ -58,6 +58,9 @@ public class Child extends AbstractEntity {
     @ManyToMany(mappedBy = "presentChildren")
     private Set<Calendar> presences = new HashSet<>();
 
+    @OneToMany(mappedBy = "child", fetch = FetchType.EAGER)
+    private Set<BusPresence> busPresences = new HashSet<>();
+
     public Child() {
     }
 
@@ -134,5 +137,13 @@ public class Child extends AbstractEntity {
 
     public void setEatingDisorders(Set<EatingDisorder> eatingDisorders) {
         this.eatingDisorders = eatingDisorders;
+    }
+
+    public Set<BusPresence> getBusPresences() {
+        return busPresences;
+    }
+
+    public void setBusPresences(Set<BusPresence> busPresences) {
+        this.busPresences = busPresences;
     }
 }

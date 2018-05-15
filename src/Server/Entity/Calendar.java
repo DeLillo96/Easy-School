@@ -31,6 +31,9 @@ public class Calendar extends AbstractEntity {
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
     private Set<DayTrip> trips = new HashSet<>();
 
+    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
+    private Set<BusPresence> busPresences = new HashSet<>();
+
     public Calendar() {
         this.date = new Date();
     }
@@ -77,5 +80,21 @@ public class Calendar extends AbstractEntity {
 
     public void setTrips(Set<DayTrip> trips) {
         this.trips = trips;
+    }
+
+    public Set<Child> getPresentChildren() {
+        return presentChildren;
+    }
+
+    public void setPresentChildren(Set<Child> presentChildren) {
+        this.presentChildren = presentChildren;
+    }
+
+    public Set<BusPresence> getBusPresences() {
+        return busPresences;
+    }
+
+    public void setBusPresences(Set<BusPresence> busPresences) {
+        this.busPresences = busPresences;
     }
 }

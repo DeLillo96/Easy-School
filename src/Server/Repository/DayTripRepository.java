@@ -34,10 +34,4 @@ public class DayTripRepository extends AbstractRepository {
         return new ArrayList(place.getTrips());
     }
 
-    public List<DayTrip> getDayTripByBus(Integer bus_id) {
-        BusRepository busRepository = new BusRepository();
-        Bus bus = busRepository.getBusById(bus_id);
-        return new ArrayList(bus.getTrips());
-    }
-
 }
