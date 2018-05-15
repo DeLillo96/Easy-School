@@ -1,5 +1,6 @@
 package Client.Controller;
 
+import Client.ControllerManager;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -16,14 +17,20 @@ public class CalendarController {
     @FXML private TextField yearSelect;
     @FXML private Button changeCalendar;
     @FXML private DatePicker calendarDatePicker;
+    @FXML private Button renderDatePopup;
     @FXML private HBox weekdayHeader;
     @FXML private GridPane calendarGrid;
     @FXML private AnchorPane rootPane;
 
     private int selectedMonth;
     private int selectedYear;
+    private boolean refreshView;
+    private String errorMessage;
 
     private void loadCalendarLabels(int month, int year) {
+
+        yearSelect.setPromptText(""+selectedYear);
+
         GregorianCalendar gc = new GregorianCalendar(year, month, 1);
         int firstDay = gc.get(Calendar.DAY_OF_WEEK);
         int daysInMonth = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -48,40 +55,64 @@ public class CalendarController {
                     lbl.setPadding(new Insets(5));
                     lbl.setStyle("-fx-text-fill:darkslategray");
                     day.getChildren().add(lbl);
-                    int lblCount1 = lblCount;
+                    /*int lblCount1 = lblCount;
                     node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
                         System.out.println(lblCount1);
-                    });
+                    });*/
                 }
                 lblCount++;
             }
         }
     }
 
-    private void initializeMonthSelector(){
+    private void initializeMonthSelector() {
 
         changeCalendar.setOnAction(actionEvent -> {
-            if(monthSelect.getSelectionModel().getSelectedIndex()>0) {
-                selectedMonth = monthSelect.getSelectionModel().getSelectedIndex()-1;
-            }
+            refreshView=true;
+            errorMessage="";
             try {
-                int actualYear = Integer.parseInt(yearSelect.getText());
-                selectedYear = actualYear;
-            }catch(Exception e) {}
-            loadCalendarLabels(selectedMonth, selectedYear);
-        });
+                if(monthSelect.getSelectionModel().getSelectedIndex()>0) {
+                    selectedMonth = monthSelect.getSelectionModel().getSelectedIndex()-1;
+                }else throw new Exception();
+            }catch(Exception e) {
+                refreshView=false;
+                errorMessage = errorMessage + "Please select a month\n";
+            }
 
-        loadCalendarLabels(selectedMonth, selectedYear);
+            try {
+                if(!yearSelect.getText().equals("")) {
+                    int actualYear = Integer.parseInt(yearSelect.getText());
+                    selectedYear = actualYear;
+                }
+            }catch(Exception e) {
+                refreshView=false;
+                errorMessage = errorMessage + "Please insert a valid year";
+            }
+
+            if(refreshView) {
+                loadCalendarLabels(selectedMonth, selectedYear);
+            }else {
+                ControllerManager.getInstance().notifyError(errorMessage);
+            }
+        });
+    }
+
+    private void initializeCalendarDatePicker() {
+        renderDatePopup.setOnAction(actionEvent -> {
+            try {
+                System.out.println(calendarDatePicker.getValue().toString());
+            }catch(Exception e) {
+                ControllerManager.getInstance().notifyError("Please select a data from the Date Picker");
+            }
+        });
     }
 
     public void initializeCalendarGrid(){
         int rows = 6;
         int cols = 7;
-        int count = 0;
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++) {
                 VBox vPane = new VBox();
-                //vPane.getStyleClass().add("calendar_pane");
                 vPane.setMinWidth(40);
 
                 vPane.setMinWidth(weekdayHeader.getPrefWidth()/7);
@@ -120,6 +151,8 @@ public class CalendarController {
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
         initializeMonthSelector();
+        initializeCalendarDatePicker();
+        loadCalendarLabels(selectedMonth,selectedYear);
     }
 
 }

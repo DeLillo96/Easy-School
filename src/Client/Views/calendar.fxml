@@ -58,6 +58,11 @@
                             <Insets left="30.0" />
                         </HBox.margin>
                     </DatePicker>
+                    <Button fx:id="renderDatePopup" text="POPUP!">
+                        <HBox.margin>
+                            <Insets left="30.0" />
+                        </HBox.margin>
+                    </Button>
                 </HBox>
                 <HBox fx:id="weekdayHeader" minHeight="-Infinity" prefHeight="80.0" prefWidth="873.0" />
                 <GridPane fx:id="calendarGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="863.0" styleClass="calendar_pane" VBox.vgrow="ALWAYS">
