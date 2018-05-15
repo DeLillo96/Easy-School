@@ -1,14 +1,15 @@
 package Client.Controller;
 
 import Client.ControllerManager;
+import Client.Model.CalendarDay;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class CalendarController {
 
@@ -33,6 +34,7 @@ public class CalendarController {
     private int selectedYear;
     private boolean refreshView;
     private String errorMessage;
+    private List<CalendarDay> dayList = new ArrayList<>();
 
     private void loadCalendarLabels(int month, int year) {
 
@@ -46,71 +48,56 @@ public class CalendarController {
         int gridCount = 1;
         Integer lblCount = 1;
 
-        for (Node node : calendarGrid.getChildren()) {
-            VBox day = (VBox) node;
-            day.getChildren().clear();
-            day.setStyle("-fx-backgroud-color: white");
-            day.setStyle("-fx-font: 14px \"System\" ");
+        for (CalendarDay day : dayList) {
+            day.clearContainer();
             if (gridCount < offset) {
                 gridCount++;
-                day.setStyle("-fx-background-color: #E9F2F5");
+                day.setUnusedDay();
             } else {
                 if (lblCount > daysInMonth) {
-                    day.setStyle("-fx-background-color: #E9F2F5");
+                    day.setUnusedDay();
                 } else {
-                    Label lbl = new Label(lblCount.toString());
-                    lbl.setPadding(new Insets(5));
-                    lbl.setStyle("-fx-text-fill:darkslategray");
-                    day.getChildren().add(lbl);
-                    /*int lblCount1 = lblCount;
-                    node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
-                        System.out.println(lblCount1);
-                    });*/
+                    day.setDay(lblCount);
                 }
                 lblCount++;
             }
         }
     }
 
-    private void initializeMonthSelector() {
+    private void checkMonthSelectorConstraints() {
+        refreshView = true;
+        errorMessage = "";
+        try {
+            if (monthSelect.getSelectionModel().getSelectedIndex() > 0) {
+                selectedMonth = monthSelect.getSelectionModel().getSelectedIndex() - 1;
+            } else throw new Exception();
+        } catch (Exception e) {
+            refreshView = false;
+            errorMessage = errorMessage + "Please select a month\n";
+        }
 
-        changeCalendar.setOnAction(actionEvent -> {
-            refreshView = true;
-            errorMessage = "";
-            try {
-                if (monthSelect.getSelectionModel().getSelectedIndex() > 0) {
-                    selectedMonth = monthSelect.getSelectionModel().getSelectedIndex() - 1;
-                } else throw new Exception();
-            } catch (Exception e) {
-                refreshView = false;
-                errorMessage = errorMessage + "Please select a month\n";
+        try {
+            if (!yearSelect.getText().equals("")) {
+                selectedYear = Integer.parseInt(yearSelect.getText());
             }
+        } catch (Exception e) {
+            refreshView = false;
+            errorMessage = errorMessage + "Please insert a valid year";
+        }
 
-            try {
-                if (!yearSelect.getText().equals("")) {
-                    selectedYear = Integer.parseInt(yearSelect.getText());
-                }
-            } catch (Exception e) {
-                refreshView = false;
-                errorMessage = errorMessage + "Please insert a valid year";
-            }
-
-            if (refreshView) {
-                loadCalendarLabels(selectedMonth, selectedYear);
-            } else {
-                ControllerManager.getInstance().notifyError(errorMessage);
-            }
-        });
+        if (refreshView) {
+            loadCalendarLabels(selectedMonth, selectedYear);
+        } else {
+            ControllerManager.getInstance().notifyError(errorMessage);
+        }
     }
 
-    private void initializeCalendarDatePicker() {
-        renderDatePopup.setOnAction(actionEvent -> {
-            try {
-                System.out.println(calendarDatePicker.getValue().toString());
-            } catch (Exception e) {
-                ControllerManager.getInstance().notifyError("Please select a data from the Date Picker");
-            }
-        });
+    private void checkDatePickerConstraints() {
+        try {
+            ControllerManager.getInstance().renderCalendarPopup(calendarDatePicker.getValue().toString());
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("Please select a data from the Date Picker");
+        }
     }
 
     public void initializeCalendarGrid() {
@@ -118,13 +105,12 @@ public class CalendarController {
         int cols = 7;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                VBox vPane = new VBox();
-                vPane.setMinWidth(40);
+                CalendarDay calendarDay = new CalendarDay(this);
 
-                vPane.setMinWidth(weekdayHeader.getPrefWidth() / 7);
-                GridPane.setVgrow(vPane, Priority.ALWAYS);
+                GridPane.setVgrow(calendarDay.getContainer(), Priority.ALWAYS);
 
-                calendarGrid.add(vPane, j, i);
+                dayList.add(calendarDay);
+                calendarGrid.add(calendarDay.getContainer(), j, i);
             }
         }
 
@@ -154,11 +140,35 @@ public class CalendarController {
     public void initialize() {
         selectedMonth = Calendar.getInstance().get(Calendar.MONTH);
         selectedYear = Calendar.getInstance().get(Calendar.YEAR);
+        monthSelect.getSelectionModel().select(selectedMonth+1);
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
-        initializeMonthSelector();
-        initializeCalendarDatePicker();
+        changeCalendar.setOnAction(actionEvent -> checkMonthSelectorConstraints());
+        renderDatePopup.setOnAction(actionEvent -> checkDatePickerConstraints());
         loadCalendarLabels(selectedMonth, selectedYear);
     }
 
+    public int getSelectedMonth() {
+        return selectedMonth;
+    }
+
+    public void setSelectedMonth(int selectedMonth) {
+        this.selectedMonth = selectedMonth;
+    }
+
+    public int getSelectedYear() {
+        return selectedYear;
+    }
+
+    public void setSelectedYear(int selectedYear) {
+        this.selectedYear = selectedYear;
+    }
+
+    public HBox getWeekdayHeader() {
+        return weekdayHeader;
+    }
+
+    public void setWeekdayHeader(HBox weekdayHeader) {
+        this.weekdayHeader = weekdayHeader;
+    }
 }

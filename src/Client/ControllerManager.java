@@ -82,6 +82,18 @@ public class ControllerManager {
         renderFXML("Views/home.fxml");
     }
 
+    public void renderCalendarPopup(String date) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/popupTab.fxml"));
+            addPopup(loader.load());
+
+            PopupTabController popupTabController = loader.getController();
+            popupTabController.setDate(date);
+        }catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
     public void renderAddAdults(Children child) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/adults.fxml"));
