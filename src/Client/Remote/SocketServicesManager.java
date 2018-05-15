@@ -55,7 +55,7 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BusService getBusService() {
+    public BaseService getBusService() {
         return (BusService) new BaseServiceAdapter("bus", in, out);
     }
 

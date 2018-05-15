@@ -57,12 +57,12 @@ public class EatingDisorder extends AbstractRowModel {
         return name;
     }
 
-    public void setName(Text name) {
-        this.name = name;
-    }
-
     public void setName(String name) {
         this.name.setText(name);
+    }
+
+    public void setName(Text name) {
+        this.name = name;
     }
 
     public String getStringName() {

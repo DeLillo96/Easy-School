@@ -111,6 +111,8 @@ public class DishController extends AbstractTableController {
     }
 
     public void setMenuDish(int id, String stringName) {
+        name.setText(stringName);
         menu.setDishData(id, stringName, getCategoryName());
+        ControllerManager.getInstance().notifySuccess("Dish set correctly");
     }
 }

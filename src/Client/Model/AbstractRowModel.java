@@ -58,10 +58,12 @@ public abstract class AbstractRowModel {
     public void save() {
         try {
             JSONObject result = service.save(getData());
-            if ((boolean) result.get("success")) save.getStyleClass().remove("red-button");
+            if ((boolean) result.get("success")) {
+                data = (JSONObject) ((JSONObject) result.get("data")).get(0);
+                save.getStyleClass().remove("red-button");
+            }
             notifyResult(result);
         } catch (Exception e) {
-            e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
     }

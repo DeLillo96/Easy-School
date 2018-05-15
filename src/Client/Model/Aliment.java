@@ -42,12 +42,12 @@ public class Aliment extends AbstractRowModel {
         return name;
     }
 
-    public void setName(TextField name) {
-        this.name = name;
-    }
-
     public void setName(String name) {
         this.name.setText(name);
+    }
+
+    public void setName(TextField name) {
+        this.name = name;
     }
 
     public String getStringName() {

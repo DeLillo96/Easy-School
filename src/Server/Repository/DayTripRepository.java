@@ -1,6 +1,5 @@
 package Server.Repository;
 
-import Server.Entity.Bus;
 import Server.Entity.Calendar;
 import Server.Entity.DayTrip;
 import Server.Entity.Place;

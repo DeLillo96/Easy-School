@@ -104,6 +104,6 @@ public class Menu extends AbstractEntity {
     }
 
     protected boolean validDish(Dish dish, String categoryName) {
-        return dish.getCategory() == null || dish.getCategory().getName().equals(categoryName);
+        return dish == null || dish.getCategory() == null || dish.getCategory().getName().equals(categoryName);
     }
 }

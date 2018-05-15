@@ -8,8 +8,8 @@ import java.util.List;
 public class BusPresenceRepository extends AbstractRepository {
 
     public BusPresenceRepository() {
-    super("BusPresence");
-}
+        super("BusPresence");
+    }
 
     public BusPresence getBusPresenceById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();

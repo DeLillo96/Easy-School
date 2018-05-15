@@ -120,6 +120,7 @@ public class ControllerManager {
 
             busesController.filter();
         } catch (IOException e) {
+            e.printStackTrace();
             notifyError(e.getMessage());
         }
     }

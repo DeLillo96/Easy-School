@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
+<?import java.lang.String?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" styleClass="anchor-pane-popup"
             stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/9"
             fx:controller="Client.Controller.EatingDisordersController">

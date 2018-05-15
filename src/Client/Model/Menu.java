@@ -43,8 +43,8 @@ public class Menu extends AbstractRowModel {
 
     public void setDishData(Integer dishId, String dishName, String dishCategory) {
         JSONObject dish = (JSONObject) data.get(dishCategory);
-        dish.replace("id", dishId);
-        dish.replace("name", dishName);
+        dish.put("id", dishId);
+        dish.put("name", dishName);
         refreshButtonsRow();
         needToSave();
     }

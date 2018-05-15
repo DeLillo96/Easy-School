@@ -73,12 +73,12 @@ public class Buses extends AbstractRowModel {
         return licensePlate;
     }
 
-    public void setLicensePlate(TextField licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
     public void setLicensePlate(String licensePlate) {
         this.licensePlate.setText(licensePlate);
+    }
+
+    public void setLicensePlate(TextField licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public String getStringLicensePlate() {
@@ -89,12 +89,12 @@ public class Buses extends AbstractRowModel {
         return companyName;
     }
 
-    public void setCompanyName(TextField companyName) {
-        this.companyName = companyName;
-    }
-
     public void setCompanyName(String companyName) {
         this.companyName.setText(companyName);
+    }
+
+    public void setCompanyName(TextField companyName) {
+        this.companyName = companyName;
     }
 
     public String getStringCompanyName() {

@@ -89,12 +89,12 @@ public class Places extends AbstractRowModel {
         return name;
     }
 
-    public void setName(TextField name) {
-        this.name = name;
-    }
-
     public void setName(String name) {
         this.name.setText(name);
+    }
+
+    public void setName(TextField name) {
+        this.name = name;
     }
 
     public String getStringName() {
@@ -105,12 +105,12 @@ public class Places extends AbstractRowModel {
         return address;
     }
 
-    public void setAddress(TextField address) {
-        this.address = address;
-    }
-
     public void setAddress(String address) {
         this.address.setText(address);
+    }
+
+    public void setAddress(TextField address) {
+        this.address = address;
     }
 
     public String getStringAddress() {
@@ -121,12 +121,12 @@ public class Places extends AbstractRowModel {
         return cost;
     }
 
-    public void setCost(TextField cost) {
-        this.cost = cost;
-    }
-
     public void setCost(String cost) {
         this.cost.setText(cost);
+    }
+
+    public void setCost(TextField cost) {
+        this.cost = cost;
     }
 
     public String getStringCost() {

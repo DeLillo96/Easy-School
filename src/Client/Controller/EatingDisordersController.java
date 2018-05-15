@@ -69,11 +69,6 @@ public class EatingDisordersController extends AbstractTableController {
         }
     }
 
-    @FXML
-    public void add() throws Exception {
-        eatingDisorderTableView.getItems().add(new EatingDisorder(this));
-    }
-
     @Override
     protected JSONObject takeFilters() {
         JSONObject filters = new JSONObject();

@@ -11,7 +11,7 @@ public interface RemoteServicesManager {
 
     BaseService getAlimentService() throws Exception;
 
-    BusService getBusService() throws Exception;
+    BaseService getBusService() throws Exception;
 
     BaseService getCalendarService() throws Exception;
 
