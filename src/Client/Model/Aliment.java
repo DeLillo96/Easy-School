@@ -34,7 +34,7 @@ public class Aliment extends AbstractRowModel {
         select.setOnAction(event -> needToSave());
     }
 
-    public int getId() {
+    public Integer getId() {
         return Integer.parseInt((String) data.get("id"));
     }
 

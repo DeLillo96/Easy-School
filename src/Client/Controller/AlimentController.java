@@ -66,9 +66,12 @@ public class AlimentController extends AbstractTableController {
             JSONObject result = recipesService.rightRead(dish.getId());
             ArrayList<Aliment> recipes = parseIntoRows((JSONObject) result.get("data"));
 
-            for (Aliment aliment : recipes) {
-                list.removeIf(o -> aliment.getId() == o.getId());
-                aliment.getSelect().setSelected(true);
+            for (Aliment aliment : list) {
+                recipes.forEach(o -> {
+                    if (o.getId().equals(aliment.getId())) {
+                        aliment.getSelect().setSelected(true);
+                    }
+                });
             }
 
             ObservableList<Aliment> items = FXCollections.observableArrayList(list);
