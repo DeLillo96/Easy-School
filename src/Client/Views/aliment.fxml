@@ -56,7 +56,7 @@
                             <graphic>
                                 <ImageView fitHeight="40.0" fitWidth="40.0">
                                     <image>
-                                        <Image url="@../Resources/Images/add.png"/>
+                                        <Image url="@../Resources/Images/addaliment.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
