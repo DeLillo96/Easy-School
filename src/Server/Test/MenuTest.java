@@ -8,8 +8,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class MenuTest {
@@ -43,8 +45,8 @@ public class MenuTest {
         menuTwo.setSweet(sweet);
         menuOne.save();
         menuTwo.save();
-        firstDay.setDailyMenu(menuOne);
-        secondDay.setDailyMenu(menuTwo);
+        firstDay.getDailyMenus().add(menuOne);
+        secondDay.getDailyMenus().add(menuTwo);
         firstDay.save();
         secondDay.save();
     }
@@ -77,8 +79,26 @@ public class MenuTest {
     }
 
     @Test
-    void readDailyMenuOne() {
-        Set result = calendarRepository.getCalendarByMenuId(menuOne.getId());
-        assertNotNull(result);
+    void readCalendarById() {
+        Calendar calendar = calendarRepository.getCalendarById(firstDay.getId());
+        String message = "Read error";
+        assertEquals(firstDay.getId(), calendar.getId(), message);
+        assertEquals(firstDay.getDate(), calendar.getDate(), message);
     }
+
+    @Test
+    void readCalendarByDate() {
+        Date dateA = firstDay.getDate();
+        Calendar calendar = calendarRepository.getCalendarByDate(dateA);
+        String message = "Read error";
+        assertEquals(firstDay.getId(), calendar.getId(), message);
+        assertEquals(firstDay.getDate(), calendar.getDate(), message);
+    }
+
+
+    /*@Test
+    void readDailyMenuOne() {
+        List result = calendarRepository.getCalendarByMenuId(menuOne.getId());
+        assertNotNull(result);
+    }*/
 }

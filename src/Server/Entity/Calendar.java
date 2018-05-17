@@ -1,11 +1,26 @@
 package Server.Entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@FilterDefs({
+        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
+        @FilterDef(name = "date", parameters = @ParamDef(name = "date", type = "date")),
+})
+@Filters({
+        @Filter(name = "id", condition = "id = :id"),
+        @Filter(name = "date", condition = "date like :date"),
+})
 @Table(name = "Calendar")
 public class Calendar extends AbstractEntity {
     @Id
@@ -13,6 +28,7 @@ public class Calendar extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
+    @Temporal(TemporalType.DATE)
     @Column(unique = true)
     private Date date;
 
@@ -24,9 +40,13 @@ public class Calendar extends AbstractEntity {
     )
     private Set<Child> presentChildren = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "daily_menu")
-    private Menu dailyMenu;
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "DailyMenus",
+            joinColumns = {@JoinColumn(name = "calendar_id")},
+            inverseJoinColumns = {@JoinColumn(name = "menu_id")}
+    )
+    private Set<Menu> dailyMenus = new HashSet<>();
 
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
     private Set<DayTrip> trips = new HashSet<>();
@@ -39,7 +59,7 @@ public class Calendar extends AbstractEntity {
     }
 
     public Calendar(Date date) {
-        this.date = date;
+        setDate(date);
     }
 
     public Integer getId() {
@@ -51,11 +71,23 @@ public class Calendar extends AbstractEntity {
     }
 
     public Date getDate() {
-        return date;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        cal.set(java.util.Calendar.MINUTE, 0);
+        cal.set(java.util.Calendar.SECOND, 0);
+        cal.set(java.util.Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        cal.set(java.util.Calendar.MINUTE, 0);
+        cal.set(java.util.Calendar.SECOND, 0);
+        cal.set(java.util.Calendar.MILLISECOND, 0);
+        this.date=cal.getTime();
     }
 
     public Set<Child> getPresentChilds() {
@@ -66,12 +98,12 @@ public class Calendar extends AbstractEntity {
         this.presentChildren = presentChilds;
     }
 
-    public Menu getDailyMenu() {
-        return dailyMenu;
+    public Set<Menu> getDailyMenus() {
+        return dailyMenus;
     }
 
-    public void setDailyMenu(Menu dailyMenu) {
-        this.dailyMenu = dailyMenu;
+    public void setDailyMenus(Set<Menu> dailyMenus) {
+        this.dailyMenus = dailyMenus;
     }
 
     public Set<DayTrip> getTrips() {

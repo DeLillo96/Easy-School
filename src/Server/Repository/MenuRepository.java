@@ -1,7 +1,11 @@
 package Server.Repository;
 
+import Server.Entity.Calendar;
+import Server.Entity.Dish;
+import Server.Entity.Menu;
 import Server.Entity.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -42,5 +46,11 @@ public class MenuRepository extends AbstractRepository {
         DishRepository dishRepository = new DishRepository();
         Sweet sweets = (Sweet) dishRepository.getDishByName(sweet);
         return sweets.getSweetMenu();
+    }
+
+    public List getMenuByCalendar(Integer calendarId) {
+        CalendarRepository calendarRepository = new CalendarRepository();
+        Calendar calendar = calendarRepository.getCalendarById(calendarId);
+        return new ArrayList(calendar.getDailyMenus());
     }
 }
