@@ -2,7 +2,7 @@ package Server.Remote;
 
 import Server.Entity.Aliment;
 import Server.Entity.Child;
-import Server.Entity.EatingDisorder;
+import Server.Entity.Intolerance;
 import Server.Repository.AlimentRepository;
 import Server.Repository.ChildRepository;
 import Server.Repository.EatingDisorderRepository;
@@ -27,26 +27,31 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
     }
 
     @Override
-    public JSONObject assign(Integer alimentId, Integer childId, String type) throws Exception {
+    public JSONObject assignAllergy(Integer rightId, Integer leftId) throws Exception {
+        //todo
+        return null;
+    }
+
+    @Override
+    public JSONObject assignIntolerance(Integer alimentId, Integer childId) throws Exception {
         Child child = (new ChildRepository()).getChildById(childId);
         Aliment aliment = (new AlimentRepository()).getAlimentById(alimentId);
-        List<EatingDisorder> list = eatingDisorderRepository.read();
+        List<Intolerance> list = eatingDisorderRepository.read();
 
-        for (EatingDisorder eatingDisorder : list) {
-            if (eatingDisorder.getAffectedAlimentId().equals(alimentId) &&
-                    eatingDisorder.getAffectedChildId().equals(childId)
+        for (Intolerance intolerance : list) {
+            if (intolerance.getAffectedAlimentId().equals(alimentId) &&
+                    intolerance.getAffectedChildId().equals(childId)
                     ) {
-                eatingDisorder.setType(type);
-                return eatingDisorder.save().toJson();
+                return intolerance.save().toJson();
             }
         }
 
-        EatingDisorder newEatingDisorder = new EatingDisorder();
-        newEatingDisorder.setAffectedAliment(aliment);
-        newEatingDisorder.setAffectedChild(child);
-        newEatingDisorder.setType(type);
 
-        return newEatingDisorder.save().toJson();
+        Intolerance newIntolerance = new Intolerance();
+        newIntolerance.setAffectedAliment(aliment);
+        newIntolerance.setAffectedChild(child);
+
+        return newIntolerance.save().toJson();
     }
 
     @Override

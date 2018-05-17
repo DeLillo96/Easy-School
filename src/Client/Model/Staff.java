@@ -1,9 +1,7 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
-import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
@@ -68,12 +66,12 @@ public class Staff extends AbstractRowModel {
         return name;
     }
 
-    public void setName(String name) {
-        if (name != null) this.name.setText(name);
-    }
-
     public void setName(TextField name) {
         this.name = name;
+    }
+
+    public void setName(String name) {
+        if (name != null) this.name.setText(name);
     }
 
     public String getStringName() {
@@ -84,12 +82,12 @@ public class Staff extends AbstractRowModel {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        if (surname != null) this.surname.setText(surname);
-    }
-
     public void setSurname(TextField surname) {
         this.surname = surname;
+    }
+
+    public void setSurname(String surname) {
+        if (surname != null) this.surname.setText(surname);
     }
 
     public String getStringSurname() {
@@ -100,12 +98,12 @@ public class Staff extends AbstractRowModel {
         return fiscalCode;
     }
 
-    public void setFiscalCode(String fiscalCode) {
-        this.fiscalCode.setText(fiscalCode);
-    }
-
     public void setFiscalCode(TextField fiscalCode) {
         if (fiscalCode != null) this.fiscalCode = fiscalCode;
+    }
+
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode.setText(fiscalCode);
     }
 
     public String getStringFiscalCode() {
@@ -124,12 +122,12 @@ public class Staff extends AbstractRowModel {
         return telephone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone.setText(telephone);
-    }
-
     public void setTelephone(TextField telephone) {
         this.telephone = telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone.setText(telephone);
     }
 
     public String getStringTelephone() {

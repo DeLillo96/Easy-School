@@ -2,6 +2,7 @@ package Server.Entity;
 
 import org.hibernate.annotations.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -35,6 +36,9 @@ public class Aliment extends AbstractEntity {
 
     @OneToMany(mappedBy = "affectedAliment", fetch = FetchType.EAGER)
     private Set<EatingDisorder> eatingDisorders = new HashSet<>();
+
+    @ManyToMany(mappedBy = "supply", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    private Set<Supplier> suppliers = new HashSet<>();
 
     public Aliment() {
     }
@@ -78,5 +82,13 @@ public class Aliment extends AbstractEntity {
     @Override
     protected void beforeDelete() {
         super.beforeDelete();
+    }
+
+    public Set<Supplier> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Set<Supplier> suppliers) {
+        this.suppliers = suppliers;
     }
 }

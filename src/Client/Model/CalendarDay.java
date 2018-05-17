@@ -39,9 +39,8 @@ public class CalendarDay {
     }
 
     public void openPopup() {
-        if(getDay()!=0)
-        {
-            ControllerManager.getInstance().renderCalendarPopup(""+controller.getSelectedYear()+"-"+(controller.getSelectedMonth()+1)+"-"+getDay());
+        if (getDay() != 0) {
+            ControllerManager.getInstance().renderCalendarPopup("" + controller.getSelectedYear() + "-" + (controller.getSelectedMonth() + 1) + "-" + getDay());
         }
     }
 

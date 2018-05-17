@@ -20,7 +20,6 @@ public class RMIManager {
         registry.rebind("aliment", new AlimentServiceImplementation());
         registry.rebind("bus", new BusServiceImplementation());
         registry.rebind("calendar", new CalendarServiceImplementation());
-        registry.rebind("category", new CategoryServiceImplementation());
         registry.rebind("daytrip", new DayTripServiceImplementation());
         registry.rebind("eatingdisorder", new EatingDisorderServiceImplementation());
         registry.rebind("place", new PlaceServiceImplementation());

@@ -2,6 +2,8 @@ package Client;
 
 import Client.Controller.*;
 import Client.Model.*;
+import Client.Remote.RemoteManager;
+import Shared.BaseService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Stack;
 
 public class ControllerManager {
@@ -89,7 +92,7 @@ public class ControllerManager {
 
             PopupTabController popupTabController = loader.getController();
             popupTabController.setDate(date);
-        }catch (IOException e) {
+        } catch (IOException e) {
             notifyError(e.getMessage());
         }
     }
@@ -137,18 +140,46 @@ public class ControllerManager {
         }
     }
 
-    public void renderDishes(Menu menu, String dishName, JSONObject jsonCategory) {
+    public void renderDishes(Menu menu, String dishName, BaseService service, String category) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/dish.fxml"));
+        addPopup(loader.load());
+
+        DishController dishController = loader.getController();
+        dishController.setService(service);
+        dishController.setMenu(menu);
+        dishController.name.setText(dishName);
+        dishController.category.setText(category);
+
+        dishController.filter();
+    }
+
+    public void renderFirstDishes(Menu menu, String dishName) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/dish.fxml"));
-            addPopup(loader.load());
+            renderDishes(menu, dishName, RemoteManager.getInstance().getRemoteServicesManager().getFirstDishService(), "First");
+        } catch (Exception e) {
+            notifyError(e.getMessage());
+        }
+    }
 
-            DishController dishController = loader.getController();
-            dishController.setMenu(menu);
-            dishController.setCategory(jsonCategory);
-            dishController.name.setText(dishName);
-            dishController.category.setText((String) jsonCategory.get("name"));
+    public void renderSecondDishes(Menu menu, String dishName) {
+        try {
+            renderDishes(menu, dishName, RemoteManager.getInstance().getRemoteServicesManager().getSecondDishService(), "Second");
+        } catch (Exception e) {
+            notifyError(e.getMessage());
+        }
+    }
 
-            dishController.filter();
+    public void renderSideDishes(Menu menu, String dishName) {
+        try {
+            renderDishes(menu, dishName, RemoteManager.getInstance().getRemoteServicesManager().getSideDishService(), "Side");
+        } catch (Exception e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    public void renderSweetDishes(Menu menu, String dishName) {
+        try {
+            renderDishes(menu, dishName, RemoteManager.getInstance().getRemoteServicesManager().getSweetDishService(), "Sweet");
         } catch (Exception e) {
             notifyError(e.getMessage());
         }

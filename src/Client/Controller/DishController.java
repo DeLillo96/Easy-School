@@ -4,9 +4,6 @@ import Client.ControllerManager;
 import Client.Model.AbstractRowModel;
 import Client.Model.Dish;
 import Client.Model.Menu;
-import Client.Remote.RemoteManager;
-import Shared.BaseService;
-import Shared.DishService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,11 +24,10 @@ public class DishController extends AbstractTableController {
     @FXML
     private TableView<Dish> dishTableView;
 
-    private JSONObject jsonCategory;
     private Menu menu;
 
     public DishController() throws Exception {
-        super((BaseService) RemoteManager.getInstance().getRemoteServicesManager().getDishService());
+        super(null);
     }
 
     @Override
@@ -55,7 +51,6 @@ public class DishController extends AbstractTableController {
     @FXML
     public void add() throws Exception {
         Dish dish = new Dish(this);
-        dish.setCategory(jsonCategory);
         dishTableView.getItems().add(dish);
     }
 
@@ -68,17 +63,6 @@ public class DishController extends AbstractTableController {
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
-    }
-
-    @Override
-    protected ArrayList<Dish> search() throws Exception {
-        DishService service = RemoteManager.getInstance().getRemoteServicesManager().getDishService();
-        JSONObject response = service.getDishesByCategoryName(this.getCategoryName());
-
-        if ((boolean) response.get("success")) {
-            JSONObject data = (JSONObject) response.get("data");
-            return parseIntoRows(data);
-        } else throw new Exception("Read from server error");
     }
 
     @Override
@@ -98,21 +82,9 @@ public class DishController extends AbstractTableController {
         this.menu = menu;
     }
 
-    public JSONObject getCategory() {
-        return jsonCategory;
-    }
-
-    public void setCategory(JSONObject jsonCategory) {
-        this.jsonCategory = jsonCategory;
-    }
-
-    public String getCategoryName() {
-        return (String) jsonCategory.get("name");
-    }
-
     public void setMenuDish(int id, String stringName) {
         name.setText(stringName);
-        menu.setDishData(id, stringName, getCategoryName());
+        menu.setDishData(id, stringName, category.getText());
         ControllerManager.getInstance().notifySuccess("Dish set correctly");
     }
 }

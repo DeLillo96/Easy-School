@@ -33,6 +33,7 @@ public class ChildTest {
         assertEquals(child.getName(), readChild.getName(), message);
         assertEquals(child.getSurname(), readChild.getSurname(), message);
         assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
+        assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
     }
 
     @Test

@@ -1,8 +1,6 @@
 package Server.Repository;
 
-import Server.Entity.Aliment;
-import Server.Entity.Category;
-import Server.Entity.Dish;
+import Server.Entity.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,18 +28,32 @@ public class DishRepository extends AbstractRepository {
         return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
     }
 
-    public List getDishByCategory(String categoryName) {
-        CategoryRepository categoryRepository = new CategoryRepository();
-        Category category = categoryRepository.getCategoryByName(categoryName);
-
-        return new ArrayList(category.getDishes());
+    public List getFirst() {
+        setTableName("First");
+        List result = read();
+        setTableName("Dish");
+        return result;
     }
 
-    public List getDishByCategory(Integer categoryId) {
-        CategoryRepository categoryRepository = new CategoryRepository();
-        Category category = categoryRepository.getCategoryById(categoryId);
+    public List getSecond() {
+        setTableName("Second");
+        List result = read();
+        setTableName("Dish");
+        return result;
+    }
 
-        return new ArrayList(category.getDishes());
+    public List getSide() {
+        setTableName("Side");
+        List result = read();
+        setTableName("Dish");
+        return result;
+    }
+
+    public List getSweet() {
+        setTableName("Sweet");
+        List result = read();
+        setTableName("Dish");
+        return result;
     }
 
     public List getDishByAliment(Integer alimentId) {

@@ -38,15 +38,8 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public DishService getDishService() throws Exception {
-        //TODO DishServiceAdapter
-        return (DishService) new BaseServiceAdapter("dish", in, out);
-    }
-
-    @Override
-    public AdultService getAdultService() throws Exception {
-        //TODO AdultServiceAdapter
-        return (AdultService) new BaseServiceAdapter("adult", in, out);
+    public BaseService getAdultService() throws Exception {
+        return new BaseServiceAdapter("adult", in, out);
     }
 
     @Override
@@ -56,7 +49,7 @@ public class SocketServicesManager implements RemoteServicesManager {
 
     @Override
     public BaseService getBusService() {
-        return (BusService) new BaseServiceAdapter("bus", in, out);
+        return new BaseServiceAdapter("bus", in, out);
     }
 
     @Override
@@ -70,18 +63,13 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getCategoryService() {
-        return new BaseServiceAdapter("category", in, out);
-    }
-
-    @Override
     public BaseService getDayTripService() {
         return new BaseServiceAdapter("daytrip", in, out);
     }
 
     @Override
-    public PlaceService getPlaceService() {
-        return (PlaceService) new BaseServiceAdapter("places", in, out);
+    public BaseService getPlaceService() {
+        return new BaseServiceAdapter("places", in, out);
     }
 
     @Override
@@ -108,6 +96,26 @@ public class SocketServicesManager implements RemoteServicesManager {
     @Override
     public AssignService getTripPlaceService() throws Exception {
         return (AssignService) new BaseServiceAdapter("tripplace", in, out);
+    }
+
+    @Override
+    public BaseService getFirstDishService() throws Exception {
+        return new BaseServiceAdapter("firstdish", in, out);
+    }
+
+    @Override
+    public BaseService getSecondDishService() throws Exception {
+        return new BaseServiceAdapter("seconddish", in, out);
+    }
+
+    @Override
+    public BaseService getSideDishService() throws Exception {
+        return new BaseServiceAdapter("sidedish", in, out);
+    }
+
+    @Override
+    public BaseService getSweetDishService() throws Exception {
+        return new BaseServiceAdapter("sweetdish", in, out);
     }
 
     @Override

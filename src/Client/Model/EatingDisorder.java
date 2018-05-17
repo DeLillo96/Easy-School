@@ -41,7 +41,8 @@ public class EatingDisorder extends AbstractRowModel {
     public void save() {
         try {
             EatingDisorderService service = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
-            JSONObject result = service.assign(getId(), child.getId(), getType().getValue());
+            //todo split assignment
+            JSONObject result = service.assign(getId(), child.getId());
             if ((boolean) result.get("success")) save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
@@ -57,12 +58,12 @@ public class EatingDisorder extends AbstractRowModel {
         return name;
     }
 
-    public void setName(String name) {
-        this.name.setText(name);
-    }
-
     public void setName(Text name) {
         this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name.setText(name);
     }
 
     public String getStringName() {

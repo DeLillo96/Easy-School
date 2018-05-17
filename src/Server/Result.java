@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Result {
     private List<String> messages = new ArrayList<String>();
@@ -94,6 +95,12 @@ public class Result {
     private JSONObject classToJson(Object o) {
         Class targetClass = o.getClass();
         Field[] declaredFields = targetClass.getDeclaredFields();
+
+        Class extendedClass = targetClass.getSuperclass();
+        if (extendedClass != null) {
+            declaredFields = Stream.of(declaredFields, extendedClass.getDeclaredFields()).flatMap(Stream::of).toArray(Field[]::new);
+        }
+
         JSONObject jsonObject = new JSONObject();
 
         for (Field field : declaredFields) {

@@ -81,12 +81,12 @@ public class Children extends AbstractRowModel {
         return name;
     }
 
-    public void setName(String name) {
-        if (name != null) this.name.setText(name);
-    }
-
     public void setName(TextField name) {
         this.name = name;
+    }
+
+    public void setName(String name) {
+        if (name != null) this.name.setText(name);
     }
 
     public String getStringName() {
@@ -97,12 +97,12 @@ public class Children extends AbstractRowModel {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        if (surname != null) this.surname.setText(surname);
-    }
-
     public void setSurname(TextField surname) {
         this.surname = surname;
+    }
+
+    public void setSurname(String surname) {
+        if (surname != null) this.surname.setText(surname);
     }
 
     public String getStringSurname() {
@@ -113,12 +113,12 @@ public class Children extends AbstractRowModel {
         return fiscalCode;
     }
 
-    public void setFiscalCode(String fiscalCode) {
-        this.fiscalCode.setText(fiscalCode);
-    }
-
     public void setFiscalCode(TextField fiscalCode) {
         if (fiscalCode != null) this.fiscalCode = fiscalCode;
+    }
+
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode.setText(fiscalCode);
     }
 
     public String getStringFiscalCode() {

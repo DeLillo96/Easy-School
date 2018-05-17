@@ -7,7 +7,7 @@ public interface RemoteServicesManager {
 
     BaseService getChildrenService() throws Exception;
 
-    AdultService getAdultService() throws Exception;
+    BaseService getAdultService() throws Exception;
 
     BaseService getAlimentService() throws Exception;
 
@@ -15,11 +15,7 @@ public interface RemoteServicesManager {
 
     BaseService getCalendarService() throws Exception;
 
-    BaseService getCategoryService() throws Exception;
-
     BaseService getDayTripService() throws Exception;
-
-    DishService getDishService() throws Exception;
 
     EatingDisorderService getEatingDisorderService() throws Exception;
 
@@ -27,7 +23,7 @@ public interface RemoteServicesManager {
 
     AssignService getRecipesService() throws Exception;
 
-    PlaceService getPlaceService() throws Exception;
+    BaseService getPlaceService() throws Exception;
 
     AssignService getParentService() throws Exception;
 
@@ -36,6 +32,14 @@ public interface RemoteServicesManager {
     AssignService getBusArrivalPlaceService() throws Exception;
 
     AssignService getTripPlaceService() throws Exception;
+
+    BaseService getFirstDishService() throws Exception;
+
+    BaseService getSecondDishService() throws Exception;
+
+    BaseService getSideDishService() throws Exception;
+
+    BaseService getSweetDishService() throws Exception;
 
     void closeConnection() throws Exception;
 }

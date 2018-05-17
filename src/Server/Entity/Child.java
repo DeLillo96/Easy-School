@@ -1,64 +1,27 @@
 package Server.Entity;
 
-import org.hibernate.annotations.*;
-
-import javax.persistence.CascadeType;
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@FilterDefs({
-        @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
-        @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string")),
-        @FilterDef(name = "surname", parameters = @ParamDef(name = "surname", type = "string")),
-        @FilterDef(name = "fiscalCode", parameters = @ParamDef(name = "fiscalCode", type = "string")),
-        @FilterDef(name = "birthDate", parameters = @ParamDef(name = "birthDate", type = "date")),
-})
-@Filters({
-        @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "name", condition = "name like '%' || :name || '%'"),
-        @Filter(name = "surname", condition = "surname like '%' || :surname || '%'"),
-        @Filter(name = "fiscalCode", condition = "fiscalCode like '%' || :fiscalCode || '%'"),
-        @Filter(name = "birthDate", condition = "birthDate = :birthDate"),
-})
 @Table(name = "Child")
-public class Child extends AbstractEntity {
-    @Id
-    @GeneratedValue
-    @PrimaryKeyJoinColumn
-    private Integer id;
+public class Child extends Person {
 
-    @Column(nullable = false, length = 32)
-    private String name;
-
-    @Column(nullable = false, length = 32)
-    private String surname;
-
-    @Column(unique = true, length = 16)
-    private String fiscalCode;
-
-    @Column(nullable = false)
-    private Date birthDate;
-
-    @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "affectedChild", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<EatingDisorder> eatingDisorders = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "Parent",
-            joinColumns = {@JoinColumn(name = "child_id")},
-            inverseJoinColumns = {@JoinColumn(name = "adult_id")}
-    )
+    @ManyToMany(mappedBy = "children", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Set<Adult> parents = new HashSet<>();
 
-    @ManyToMany(mappedBy = "presentChildren")
+    @ManyToMany(mappedBy = "follow", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    private Set<Pediatrician> pediatrician = new HashSet<>();
+
+    @ManyToMany(mappedBy = "presentChildren", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Calendar> presences = new HashSet<>();
 
-    @OneToMany(mappedBy = "child", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "child", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<BusPresence> busPresences = new HashSet<>();
 
     public Child() {
@@ -69,50 +32,10 @@ public class Child extends AbstractEntity {
     }
 
     public Child(String name, String surname, String fiscalCode, Date birthDate) {
-        this.name = name;
-        this.surname = surname;
-        this.fiscalCode = fiscalCode;
-        this.birthDate = birthDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getFiscalCode() {
-        return fiscalCode;
-    }
-
-    public void setFiscalCode(String fiscalCode) {
-        this.fiscalCode = fiscalCode;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+        setName(name);
+        setSurname(surname);
+        setFiscalCode(fiscalCode);
+        setBirthDate(birthDate);
     }
 
     public Set<Adult> getParents() {

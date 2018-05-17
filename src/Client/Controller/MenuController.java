@@ -47,24 +47,7 @@ public class MenuController extends AbstractTableController {
 
     @FXML
     public void add() throws Exception {
-        JSONObject startingData = new JSONObject();
-        JSONObject defaultDish = new JSONObject();
-        JSONObject categoryDish = (JSONObject) RemoteManager.getInstance().getRemoteServicesManager().getCategoryService().readAll().get("data");
-        defaultDish.put("name", "");
-
-        defaultDish.put("dishCategory", categoryDish.get(0));
-        startingData.put("first", new JSONObject(defaultDish));
-
-        defaultDish.put("dishCategory", categoryDish.get(1));
-        startingData.put("second", new JSONObject(defaultDish));
-
-        defaultDish.put("dishCategory", categoryDish.get(2));
-        startingData.put("side", new JSONObject(defaultDish));
-
-        defaultDish.put("dishCategory", categoryDish.get(3));
-        startingData.put("sweet", new JSONObject(defaultDish));
-
-        menuTableView.getItems().add(new Menu(this, startingData));
+        menuTableView.getItems().add(new Menu(this));
     }
 
     @FXML

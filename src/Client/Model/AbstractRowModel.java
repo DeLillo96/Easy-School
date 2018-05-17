@@ -5,6 +5,7 @@ import Client.ControllerManager;
 import Shared.BaseService;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import org.json.simple.JSONObject;
@@ -38,6 +39,7 @@ public abstract class AbstractRowModel {
     protected void initializeButtons() {
         defineImageButton(save, "Client/Resources/Images/save.png");
         save.setOnAction(actionEvent -> save());
+        save.setTooltip(new Tooltip("Save"));
 
         defineImageButton(delete, "Client/Resources/Images/delete.png");
         delete.setOnAction(actionEvent -> delete());

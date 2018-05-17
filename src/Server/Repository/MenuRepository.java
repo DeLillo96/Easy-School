@@ -1,7 +1,6 @@
 package Server.Repository;
 
-import Server.Entity.Dish;
-import Server.Entity.Menu;
+import Server.Entity.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,25 +22,25 @@ public class MenuRepository extends AbstractRepository {
 
     public Set<Menu> getMenusByfirst(String first) {
         DishRepository dishRepository = new DishRepository();
-        Dish firstes = dishRepository.getDishByName(first);
+        First firstes = (First) dishRepository.getDishByName(first);
         return firstes.getFirstMenu();
     }
 
     public Set<Menu> getMenusBysecond(String second) {
         DishRepository dishRepository = new DishRepository();
-        Dish secondes = dishRepository.getDishByName(second);
+        Second secondes = (Second) dishRepository.getDishByName(second);
         return secondes.getSecondMenu();
     }
 
     public Set<Menu> getMenusByside(String side) {
         DishRepository dishRepository = new DishRepository();
-        Dish sidees = dishRepository.getDishByName(side);
-        return sidees.getSideMenu();
+        Side sides = (Side) dishRepository.getDishByName(side);
+        return sides.getSideMenu();
     }
 
     public Set<Menu> getMenuBySweet(String sweet) {
         DishRepository dishRepository = new DishRepository();
-        Dish sweets = dishRepository.getDishByName(sweet);
-        return sweets.getSweet();
+        Sweet sweets = (Sweet) dishRepository.getDishByName(sweet);
+        return sweets.getSweetMenu();
     }
 }

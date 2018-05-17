@@ -17,9 +17,10 @@ import javax.persistence.Table;
         @Filter(name = "type", condition = "type like :type"),
 })
 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 @Table(name = "EatingDisorder")
-
-public class EatingDisorder extends AbstractEntity {
+public abstract class EatingDisorder extends AbstractEntity {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
@@ -33,16 +34,12 @@ public class EatingDisorder extends AbstractEntity {
     @JoinColumn(name = "affectedAliment")
     private Aliment affectedAliment;
 
-    @Column(nullable = false)
-    private String type;
-
     public EatingDisorder() {
     }
 
-    public EatingDisorder(Child affectedChild, Aliment affectedAliment, String type) {
+    public EatingDisorder(Child affectedChild, Aliment affectedAliment) {
         this.affectedChild = affectedChild;
         this.affectedAliment = affectedAliment;
-        this.type = type;
     }
 
     public Integer getId() {
@@ -77,11 +74,4 @@ public class EatingDisorder extends AbstractEntity {
         this.affectedAliment = affectedAliment;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

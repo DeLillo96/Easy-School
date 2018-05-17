@@ -28,13 +28,8 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public DishService getDishService() throws Exception {
-        return (DishService) registry.lookup("dish");
-    }
-
-    @Override
-    public AdultService getAdultService() throws Exception {
-        return (AdultService) registry.lookup("adult");
+    public BaseService getAdultService() throws Exception {
+        return (BaseService) registry.lookup("adult");
     }
 
     @Override
@@ -58,18 +53,13 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public BaseService getCategoryService() throws Exception {
-        return (BaseService) registry.lookup("category");
-    }
-
-    @Override
     public BaseService getDayTripService() throws Exception {
         return (BaseService) registry.lookup("daytrip");
     }
 
     @Override
-    public PlaceService getPlaceService() throws Exception {
-        return (PlaceService) registry.lookup("place");
+    public BaseService getPlaceService() throws Exception {
+        return (BaseService) registry.lookup("place");
     }
 
     @Override
@@ -95,6 +85,26 @@ public class RMIServicesManager implements RemoteServicesManager {
     @Override
     public AssignService getTripPlaceService() throws Exception {
         return (AssignService) registry.lookup("tripplace");
+    }
+
+    @Override
+    public BaseService getFirstDishService() throws Exception {
+        return (BaseService) registry.lookup("firstdish");
+    }
+
+    @Override
+    public BaseService getSecondDishService() throws Exception {
+        return (BaseService) registry.lookup("seconddish");
+    }
+
+    @Override
+    public BaseService getSideDishService() throws Exception {
+        return (BaseService) registry.lookup("sidedish");
+    }
+
+    @Override
+    public BaseService getSweetDishService() throws Exception {
+        return (BaseService) registry.lookup("sweetdish");
     }
 
     @Override

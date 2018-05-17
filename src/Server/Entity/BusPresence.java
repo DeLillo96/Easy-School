@@ -16,7 +16,7 @@ import javax.persistence.Table;
 })
 
 @Table(name = "BusPresence")
-public class BusPresence {
+public class BusPresence extends AbstractEntity {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn

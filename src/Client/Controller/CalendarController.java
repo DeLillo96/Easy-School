@@ -140,7 +140,7 @@ public class CalendarController {
     public void initialize() {
         selectedMonth = Calendar.getInstance().get(Calendar.MONTH);
         selectedYear = Calendar.getInstance().get(Calendar.YEAR);
-        monthSelect.getSelectionModel().select(selectedMonth+1);
+        monthSelect.getSelectionModel().select(selectedMonth + 1);
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
         changeCalendar.setOnAction(actionEvent -> checkMonthSelectorConstraints());

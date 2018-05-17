@@ -13,12 +13,13 @@ public class PopupTabController {
 
     private String date;
 
+    public PopupTabController() {
+    }
+
     public void setDate(String date) {
         this.date = date;
         setStringDateText(date);
     }
-
-    public PopupTabController() { }
 
     @FXML
     public void initialize() throws IOException {

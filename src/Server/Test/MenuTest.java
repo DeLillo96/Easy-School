@@ -1,9 +1,6 @@
 package Server.Test;
 
-import Server.Entity.Calendar;
-import Server.Entity.Category;
-import Server.Entity.Dish;
-import Server.Entity.Menu;
+import Server.Entity.*;
 import Server.Repository.CalendarRepository;
 import Server.Repository.MenuRepository;
 import org.junit.jupiter.api.AfterAll;
@@ -19,31 +16,18 @@ public class MenuTest {
 
     private static MenuRepository menuRepository = new MenuRepository();
     private static CalendarRepository calendarRepository = new CalendarRepository();
-    private static Category firstCategory = new Category("first");
-    private static Category secondCategory = new Category("second");
-    private static Category sideCategory = new Category("side");
-    private static Category sweetCategory = new Category("sweet");
     private static Calendar firstDay = new Calendar(new Date());
     private static Calendar secondDay = new Calendar(new Date());
-    private static Dish first = new Dish("Pidgeon Pie");
-    private static Dish secondOptionOne = new Dish("Wolf's Left Leg");
-    private static Dish secondOptionTwo = new Dish("Wolf's Right Leg");
-    private static Dish side = new Dish("Wall's Potatoes");
-    private static Dish sweet = new Dish("Revenge");
+    private static First first = new First("Pidgeon Pie");
+    private static Second secondOptionOne = new Second("Wolf's Left Leg");
+    private static Second secondOptionTwo = new Second("Wolf's Right Leg");
+    private static Side side = new Side("Wall's Potatoes");
+    private static Sweet sweet = new Sweet("Revenge");
     private static Menu menuOne = new Menu();
     private static Menu menuTwo = new Menu();
 
     @BeforeAll
     static void createMenus() {
-        firstCategory.save();
-        secondCategory.save();
-        sideCategory.save();
-        sweetCategory.save();
-        first.setCategory(firstCategory);
-        secondOptionOne.setCategory(secondCategory);
-        secondOptionTwo.setCategory(secondCategory);
-        side.setCategory(sideCategory);
-        sweet.setCategory(sweetCategory);
         first.save();
         secondOptionOne.save();
         secondOptionTwo.save();
@@ -76,10 +60,6 @@ public class MenuTest {
         secondOptionTwo.delete();
         side.delete();
         sweet.delete();
-        firstCategory.delete();
-        secondCategory.delete();
-        sideCategory.delete();
-        sweetCategory.delete();
     }
 
     @Test

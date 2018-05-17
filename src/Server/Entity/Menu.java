@@ -29,19 +29,19 @@ public class Menu extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "first")
-    private Dish first;
+    private First first;
 
     @ManyToOne
     @JoinColumn(name = "second")
-    private Dish second;
+    private Second second;
 
     @ManyToOne
     @JoinColumn(name = "side")
-    private Dish side;
+    private Side side;
 
     @ManyToOne
     @JoinColumn(name = "sweet")
-    private Dish sweet;
+    private Sweet sweet;
 
     public Menu() {
     }
@@ -66,7 +66,7 @@ public class Menu extends AbstractEntity {
         return first;
     }
 
-    public void setfirst(Dish first) {
+    public void setfirst(First first) {
         this.first = first;
     }
 
@@ -74,7 +74,7 @@ public class Menu extends AbstractEntity {
         return second;
     }
 
-    public void setsecond(Dish second) {
+    public void setsecond(Second second) {
         this.second = second;
     }
 
@@ -82,7 +82,7 @@ public class Menu extends AbstractEntity {
         return side;
     }
 
-    public void setside(Dish side) {
+    public void setside(Side side) {
         this.side = side;
     }
 
@@ -90,20 +90,8 @@ public class Menu extends AbstractEntity {
         return sweet;
     }
 
-    public void setSweet(Dish sweet) {
+    public void setSweet(Sweet sweet) {
         this.sweet = sweet;
     }
 
-    @Override
-    protected void beforeSave() throws IllegalArgumentException {
-        if (!validDish(first, "first") ||
-                !validDish(second, "second") ||
-                !validDish(side, "side") ||
-                !validDish(sweet, "sweet")
-                ) throw new IllegalArgumentException();
-    }
-
-    protected boolean validDish(Dish dish, String categoryName) {
-        return dish == null || dish.getCategory() == null || dish.getCategory().getName().equals(categoryName);
-    }
 }

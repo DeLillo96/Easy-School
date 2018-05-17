@@ -29,28 +29,28 @@ public class ParentServiceImplementation extends UnicastRemoteObject implements 
         for (Adult parent : child.getParents()) {
             if (parent.getId().equals(adultId)) {
                 Result result = new Result();
-                result.addData(child);
+                result.addData(adult);
                 return result.toJson();
             }
         }
 
-        child.getParents().add(adult);
+        adult.getChildren().add(child);
         return child.save().toJson();
     }
 
     @Override
     public JSONObject deAssign(Integer childId, Integer adultId) throws Exception {
-        Child child = childRepository.getChildById(childId);
+        Adult adult = adultRepository.getAdultById(adultId);
 
-        for (Adult parent : child.getParents()) {
-            if (parent.getId().equals(adultId)) {
-                child.getParents().remove(parent);
-                return child.save().toJson();
+        for (Child child : adult.getChildren()) {
+            if (child.getId().equals(childId)) {
+                adult.getChildren().remove(child);
+                return adult.save().toJson();
             }
         }
 
         Result result = new Result();
-        result.addData(child);
+        result.addData(adult);
         return result.toJson();
     }
 

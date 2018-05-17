@@ -1,8 +1,6 @@
 package Server.Test;
 
-import Server.Entity.Aliment;
-import Server.Entity.Child;
-import Server.Entity.EatingDisorder;
+import Server.Entity.*;
 import Server.Repository.AlimentRepository;
 import Server.Repository.ChildRepository;
 import Server.Repository.EatingDisorderRepository;
@@ -25,9 +23,9 @@ public class EatingDisorderTest {
     private static Child childTwo = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date());
     private static Aliment alimentOne = new Aliment("Flour");
     private static Aliment alimentTwo = new Aliment("Wolf");
-    private static EatingDisorder eatingDisorderOne = new EatingDisorder(childOne, alimentOne, "Allergy");
-    private static EatingDisorder eatingDisorderTwo = new EatingDisorder(childOne, alimentTwo, "Allergy");
-    private static EatingDisorder eatingDisorderThree = new EatingDisorder(childTwo, alimentOne, "Allergy");
+    private static EatingDisorder eatingDisorderOne = new Allergy(childOne, alimentOne);
+    private static EatingDisorder eatingDisorderTwo = new Allergy(childOne, alimentTwo);
+    private static EatingDisorder eatingDisorderThree = new Intolerance(childTwo, alimentOne);
 
     @BeforeAll
     static void createEatingDisorder() {

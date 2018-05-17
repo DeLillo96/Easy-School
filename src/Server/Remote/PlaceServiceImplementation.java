@@ -4,7 +4,7 @@ import Server.Entity.EntityInterface;
 import Server.Entity.Place;
 import Server.Repository.PlaceRepository;
 import Server.Result;
-import Shared.PlaceService;
+import Shared.BaseService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 
@@ -13,12 +13,11 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceServiceImplementation extends AbstractBaseService implements PlaceService {
+public class PlaceServiceImplementation extends AbstractBaseService implements BaseService {
     public PlaceServiceImplementation() throws RemoteException {
         super(new PlaceRepository());
     }
 
-    @Override
     public JSONObject readVisitedPlaceByTripId(Integer dayTripId) throws Exception {
         Result result = new Result();
 
@@ -31,11 +30,6 @@ public class PlaceServiceImplementation extends AbstractBaseService implements P
         }
 
         return result.toJson();
-    }
-
-    @Override
-    public JSONObject setVisitedPlaceFromJSON(JSONObject data) throws Exception {
-        return null;
     }
 
     @Override

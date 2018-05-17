@@ -43,4 +43,12 @@ public abstract class AbstractTableController {
     public abstract void filter();
 
     public abstract void delete(AbstractRowModel abstractRowModel);
+
+    public BaseService getService() {
+        return service;
+    }
+
+    public void setService(BaseService service) {
+        this.service = service;
+    }
 }

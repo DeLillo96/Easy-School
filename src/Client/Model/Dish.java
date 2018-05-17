@@ -19,7 +19,7 @@ public class Dish extends AbstractRowModel {
     }
 
     public Dish(AbstractTableController tableController, JSONObject data) throws Exception {
-        super((BaseService) RemoteManager.getInstance().getRemoteServicesManager().getDishService(), tableController, data);
+        super(null, tableController, data);
 
         controller = (DishController) tableController;
         setName((String) data.get("name"));
@@ -60,12 +60,12 @@ public class Dish extends AbstractRowModel {
         return name;
     }
 
-    public void setName(String name) {
-        this.name.setText(name);
-    }
-
     public void setName(TextField name) {
         this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name.setText(name);
     }
 
     public String getStringName() {

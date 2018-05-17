@@ -97,17 +97,6 @@ public class SocketParser extends Thread {
                     }
                 }
 
-                if (json.get("service").equals("category")) {
-                    CategoryServiceImplementation categoryService = new CategoryServiceImplementation();
-
-                    if (json.get("function").equals("read")) {
-                        JSONObject data = (JSONObject) json.get("data");
-                        result = categoryService.read(data);
-
-                        out.println(result.toString());
-                    }
-                }
-
                 if (json.get("service").equals("daytrips")) {
                     DayTripServiceImplementation dayTripService = new DayTripServiceImplementation();
 

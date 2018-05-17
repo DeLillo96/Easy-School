@@ -2,11 +2,8 @@ package Client.Controller;
 
 import Client.ControllerManager;
 import Client.Model.AbstractRowModel;
-import Client.Model.Adults;
-import Client.Model.Children;
 import Client.Model.Staff;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
