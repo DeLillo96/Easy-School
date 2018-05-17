@@ -85,6 +85,9 @@
                             <cellValueFactory>
                                 <PropertyValueFactory property="select"/>
                             </cellValueFactory>
+                            <styleClass>
+                                <String fx:value="table-cell"/>
+                            </styleClass>
                         </TableColumn>
                         <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
                             <cellValueFactory>

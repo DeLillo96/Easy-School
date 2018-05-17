@@ -131,12 +131,18 @@
                             <cellValueFactory>
                                 <PropertyValueFactory property="startSelect"/>
                             </cellValueFactory>
+                            <styleClass>
+                                <String fx:value="table-cell"/>
+                            </styleClass>
                         </TableColumn>
                         <TableColumn fx:id="checkArrivalBusColumn" maxWidth="3000.0" minWidth="-Infinity"
                                      prefWidth="0.0" text="arrivals">
                             <cellValueFactory>
                                 <PropertyValueFactory property="arrivalSelect"/>
                             </cellValueFactory>
+                            <styleClass>
+                                <String fx:value="table-cell"/>
+                            </styleClass>
                         </TableColumn>
                         <TableColumn fx:id="licensePlateColumn" minWidth="-Infinity" prefWidth="-1.0"
                                      text="License Plate">
