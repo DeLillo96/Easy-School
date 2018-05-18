@@ -8,14 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StaffController extends AbstractTableController {
     /* FILTERS */
@@ -30,11 +31,13 @@ public class StaffController extends AbstractTableController {
     @FXML
     private TextField surnameTextField;
     @FXML
-    private DatePicker birthDatePicker;
+    private DatePicker birthDatePickerFrom;
+    @FXML
+    private DatePicker birthDatePickerTo;
     @FXML
     private TextField fiscalCodeTextField;
     @FXML
-    private TextField telephoneTextField;
+    private TextField mansionTextField;
     @FXML
     private Button searchButton;
     @FXML
@@ -46,7 +49,12 @@ public class StaffController extends AbstractTableController {
     private TableView<Staff> staffTableView;
 
     public StaffController() throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService());
+        super(RemoteManager.getInstance().getRemoteServicesManager().getStaffService());
+    }
+
+    @FXML
+    public void initialize() {
+        filter();
     }
 
     @FXML
@@ -81,7 +89,21 @@ public class StaffController extends AbstractTableController {
         filters.put("name", nameTextField.getText());
         filters.put("surname", surnameTextField.getText());
         filters.put("fiscalCode", fiscalCodeTextField.getText());
-        filters.put("telephone", telephoneTextField.getText());
+        if((birthDatePickerFrom.getValue() != null)||(birthDatePickerTo.getValue() != null)) {
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                if(birthDatePickerFrom.getValue() != null) {
+                    Date fromDate = dateFormat.parse(birthDatePickerFrom.getValue().toString());
+                    filters.put("birthDateFrom", fromDate);
+                }
+                if(birthDatePickerTo.getValue() != null) {
+                    Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
+                    filters.put("birthDateTo", toDate);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         return filters;
     }
@@ -102,4 +124,14 @@ public class StaffController extends AbstractTableController {
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
+
+    /*@Override
+    public void refreshModel(AbstractRowModel abstractRowModel, JSONObject data) throws Exception{
+        int index = staffTableView.getItems().indexOf(abstractRowModel);
+        staffTableView.getItems().remove(abstractRowModel);
+        ArrayList<Staff> elementToAdd = new ArrayList<>();
+        elementToAdd.add(new Staff(this, data));
+        ObservableList<Staff> newElement= FXCollections.observableArrayList(elementToAdd);
+        staffTableView.getItems().addAll(index, newElement);
+    }*/
 }

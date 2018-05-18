@@ -33,6 +33,8 @@ public interface RemoteServicesManager {
 
     AssignService getTripPlaceService() throws Exception;
 
+    AssignService getDailyMenuService() throws Exception;
+
     BaseService getFirstDishService() throws Exception;
 
     BaseService getSecondDishService() throws Exception;
@@ -40,6 +42,8 @@ public interface RemoteServicesManager {
     BaseService getSideDishService() throws Exception;
 
     BaseService getSweetDishService() throws Exception;
+
+    BaseService getStaffService() throws Exception;
 
     void closeConnection() throws Exception;
 }

@@ -4,6 +4,7 @@ import Server.Entity.Adult;
 import Server.Entity.Child;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,14 @@ public class ChildRepository extends AbstractRepository {
     public Child getChildById(Integer id) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", id);
+        List childs = read(params);
+
+        return childs != null && childs.size() == 1 ? (Child) childs.get(0) : null;
+    }
+
+    public Child getChildByBirthDate(Date birthDate) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("birthDate", birthDate);
         List childs = read(params);
 
         return childs != null && childs.size() == 1 ? (Child) childs.get(0) : null;

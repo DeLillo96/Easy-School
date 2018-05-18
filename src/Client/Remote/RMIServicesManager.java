@@ -88,6 +88,11 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public AssignService getDailyMenuService() throws Exception {
+        return (AssignService) registry.lookup("dailymenu");
+    }
+
+    @Override
     public BaseService getFirstDishService() throws Exception {
         return (BaseService) registry.lookup("firstdish");
     }
@@ -106,6 +111,12 @@ public class RMIServicesManager implements RemoteServicesManager {
     public BaseService getSweetDishService() throws Exception {
         return (BaseService) registry.lookup("sweetdish");
     }
+
+    @Override
+    public BaseService getStaffService() throws Exception {
+        return (BaseService) registry.lookup("staff");
+    }
+
 
     @Override
     public void closeConnection() throws Exception {
