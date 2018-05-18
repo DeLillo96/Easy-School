@@ -26,13 +26,7 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
 
     @Override
     public JSONObject read(JSONObject parameters) {
-        HashMap<String, Object> params;
-        try {
-            params = prepareReadParameter(parameters);
-        } catch (IOException e) {
-            return (new Result(e.getMessage(), false)).toJson();
-        }
-        List list = repository.read(params);
+        List list = repository.read(prepareReadParameter(parameters));
         return (new Result(true, list)).toJson();
     }
 
@@ -87,15 +81,12 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
         return null;
     }
 
-    protected HashMap<String, Object> prepareReadParameter(JSONObject parameters) throws IOException {
+    protected HashMap<String, Object> prepareReadParameter(JSONObject parameters) {
         HashMap<String, Object> parser = new HashMap<>();
         Set keys = parameters.keySet();
 
         for (Object key : keys) {
-            Class targetClass = parameters.get(key).getClass();
-            if(targetClass == Integer.class) parser.put((String) key, parameters.get(key));
-            if(targetClass == String.class) parser.put((String) key, parameters.get(key));
-            if(targetClass == Date.class) parser.put((String) key, parameters.get(key));
+            parser.put((String) key, parameters.get(key));
         }
 
         return parser;
