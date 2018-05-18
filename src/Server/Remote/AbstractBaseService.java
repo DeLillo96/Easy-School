@@ -4,8 +4,6 @@ import Server.Entity.EntityInterface;
 import Server.Repository.Repository;
 import Server.Result;
 import Shared.BaseService;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -90,10 +88,17 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
     }
 
     protected HashMap<String, Object> prepareReadParameter(JSONObject parameters) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
+        HashMap<String, Object> parser = new HashMap<>();
+        Set keys = parameters.keySet();
 
-        return objectMapper.readValue(String.valueOf(parameters), new TypeReference<Map<String, Object>>() {
-        });
+        for (Object key : keys) {
+            Class targetClass = parameters.get(key).getClass();
+            if(targetClass == Integer.class) parser.put((String) key, parameters.get(key));
+            if(targetClass == String.class) parser.put((String) key, parameters.get(key));
+            if(targetClass == Date.class) parser.put((String) key, parameters.get(key));
+        }
+
+        return parser;
     }
 
     protected int getMaxLength(JSONObject jsonObject) {

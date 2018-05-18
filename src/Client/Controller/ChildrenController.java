@@ -8,9 +8,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChildrenController extends AbstractTableController {
     /* FILTERS */
@@ -58,6 +69,7 @@ public class ChildrenController extends AbstractTableController {
             ObservableList<Children> items = FXCollections.observableArrayList(list);
             childTableView.setItems(items);
         } catch (Exception e) {
+            e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
@@ -73,7 +85,15 @@ public class ChildrenController extends AbstractTableController {
 
         filters.put("name", nameTextField.getText());
         filters.put("surname", surnameTextField.getText());
-        //filters.put("birthDate", birthDatePicker.getValue());
+        if(birthDatePicker.getValue() != null) {
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date inputDate = dateFormat.parse(birthDatePicker.getValue().toString());
+                filters.put("birthDate", inputDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         filters.put("fiscalCode", fiscalCodeTextField.getText());
 
         return filters;
