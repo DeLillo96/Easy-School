@@ -43,14 +43,12 @@ public class CalendarController {
         GregorianCalendar gc = new GregorianCalendar(year, month, 1);
         int firstDay = gc.get(Calendar.DAY_OF_WEEK);
         int daysInMonth = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        int offset = firstDay;
         int gridCount = 1;
         Integer lblCount = 1;
 
         for (CalendarDay day : dayList) {
             day.clearContainer();
-            if (gridCount < offset) {
+            if (gridCount < firstDay) {
                 gridCount++;
                 day.setUnusedDay();
             } else {
@@ -67,28 +65,15 @@ public class CalendarController {
     private void checkMonthSelectorConstraints() {
         refreshView = true;
         errorMessage = "";
-        try {
-            if (monthSelect.getSelectionModel().getSelectedIndex() > 0) {
-                selectedMonth = monthSelect.getSelectionModel().getSelectedIndex() - 1;
-            } else throw new Exception();
-        } catch (Exception e) {
-            refreshView = false;
-            errorMessage = errorMessage + "Please select a month\n";
-        }
+        selectedMonth = monthSelect.getSelectionModel().getSelectedIndex();
 
         try {
             if (!yearSelect.getText().equals("")) {
                 selectedYear = Integer.parseInt(yearSelect.getText());
             }
-        } catch (Exception e) {
-            refreshView = false;
-            errorMessage = errorMessage + "Please insert a valid year";
-        }
-
-        if (refreshView) {
             loadCalendarLabels(selectedMonth, selectedYear);
-        } else {
-            ControllerManager.getInstance().notifyError(errorMessage);
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("Please insert a valid year");
         }
     }
 
@@ -140,7 +125,7 @@ public class CalendarController {
     public void initialize() {
         selectedMonth = Calendar.getInstance().get(Calendar.MONTH);
         selectedYear = Calendar.getInstance().get(Calendar.YEAR);
-        monthSelect.getSelectionModel().select(selectedMonth + 1);
+        monthSelect.getSelectionModel().select(selectedMonth);
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
         changeCalendar.setOnAction(actionEvent -> checkMonthSelectorConstraints());

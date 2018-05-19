@@ -18,7 +18,6 @@
                                snapToPixel="false" value="">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value=""/>
                                 <String fx:value="January"/>
                                 <String fx:value="February"/>
                                 <String fx:value="March"/>
