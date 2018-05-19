@@ -24,8 +24,8 @@
 }
 
 .row-button {
-    -fx-pref-width: 35;
-    -fx-pref-height: 35;
+    -fx-pref-width: 38;
+    -fx-pref-height: 38;
 
     -fx-min-width: 0;
     -fx-min-height: 0;
@@ -125,4 +125,10 @@
 .unactive-box:hover {
     -fx-background-color: #dbd925;
     -fx-border-color: #b9b71e;
+}
+
+.filter-box {
+    -fx-border-color: #00f2f3;
+    -fx-border-width: 5;
+    -fx-border-radius: 15;
 }
