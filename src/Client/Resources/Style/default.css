@@ -10,7 +10,7 @@
     -fx-cursor: hand;
 }
 
-.button:hover, .choice-box:hover {
+.button:hover, .choice-box:hover, .calendar-box:hover {
     -fx-background-color: #fffd00;
     -fx-border-color: #dbd925;
 }
@@ -109,4 +109,20 @@
 
 .table-cell {
     -fx-alignment: baseline-center;
+}
+
+.calendar-box {
+    -fx-backgroud-color: white;
+    -fx-font-size: 15;
+    -fx-font-family: Monospaced;
+    -fx-text-fill: darkslategray
+}
+
+.unactive-box {
+    -fx-background-color: #E9F2F5;
+}
+
+.unactive-box:hover {
+    -fx-background-color: #dbd925;
+    -fx-border-color: #b9b71e;
 }

@@ -14,24 +14,21 @@ public class CalendarDay {
 
     public CalendarDay(CalendarController calendarController) {
         this.setController(calendarController);
-        VBox vBox = new VBox();
-        vBox.setMinWidth(40);
-        vBox.setMinWidth(this.getController().getWeekdayHeader().getPrefWidth() / 7);
-        setContainer(vBox);
+        setContainer(new VBox());
+        container.setMinWidth(40);
+        container.setMinWidth(this.getController().getWeekdayHeader().getPrefWidth() / 7);
+        container.getStyleClass().add("calendar-box");
         events();
     }
 
     public void clearContainer() {
         setDay(0);
-        this.container.getChildren().clear();
-        this.container.setStyle("-fx-backgroud-color: white");
-        this.container.setStyle("-fx-font: 14px \"System\" ");
+        container.getChildren().clear();
+        container.getStyleClass().remove("unactive-box");
     }
 
     public void setUnusedDay() {
-
-        this.container.setStyle("-fx-background-color: #E9F2F5");
-
+        container.getStyleClass().add("unactive-box");
     }
 
     public void events() {
@@ -52,7 +49,6 @@ public class CalendarDay {
         this.day = day;
         Label lbl = new Label(day.toString());
         lbl.setPadding(new Insets(5));
-        lbl.setStyle("-fx-text-fill:darkslategray");
         this.container.getChildren().add(lbl);
     }
 
