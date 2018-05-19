@@ -89,7 +89,8 @@ public abstract class AbstractRowModel {
     }
 
     protected void needToSave() {
-        save.getStyleClass().add("red-button");
+        ObservableList styleClasses = save.getStyleClass();
+        if(!styleClasses.contains("red-button")) styleClasses.add("red-button");
     }
 
     public JSONObject getData() {
