@@ -15,7 +15,7 @@
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="110.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+                      minWidth="-Infinity" prefHeight="110.0" prefWidth="1136.0">
                     <children>
                         <VBox alignment="CENTER" prefHeight="313.0" prefWidth="155.0">
                             <children>
@@ -45,7 +45,7 @@
                                 </TextField>
                             </children>
                         </VBox>
-                        <VBox alignment="CENTER" layoutX="165.0" layoutY="10.0" prefHeight="200.0" prefWidth="155.0">
+                        <VBox alignment="CENTER" layoutX="165.0" layoutY="10.0">
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date">
                                     <font>
