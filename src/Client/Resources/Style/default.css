@@ -23,6 +23,20 @@
     -fx-min-height: 0;
 }
 
+.tooltip {
+    -fx-font-size: 25;
+    -fx-border-color: rgba(0, 140, 240, 0.8);
+    -fx-background-color: rgba(0, 100, 205, 0.8);
+
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+
+    -webkit-animation-delay: 500ms;
+    -moz-animation-delay: 500ms;
+    -o-animation-delay: 500ms;
+    animation-delay: 500ms;
+}
+
 .row-button {
     -fx-pref-width: 38;
     -fx-pref-height: 38;
