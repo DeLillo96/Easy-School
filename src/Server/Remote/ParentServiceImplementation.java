@@ -35,7 +35,7 @@ public class ParentServiceImplementation extends UnicastRemoteObject implements 
         }
 
         adult.getChildren().add(child);
-        return child.save().toJson();
+        return adult.save().toJson();
     }
 
     @Override

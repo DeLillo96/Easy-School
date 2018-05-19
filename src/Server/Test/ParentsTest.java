@@ -2,6 +2,7 @@ package Server.Test;
 
 import Server.Entity.Adult;
 import Server.Entity.Child;
+import Server.Repository.AdultRepository;
 import Server.Repository.ChildRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
@@ -14,32 +15,29 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParentsTest {
-    private static Adult dad = new Adult("Eddard", "Stark", "EDDSTK93H57V379L", new Date(), "7395061038");
     private static Adult mom = new Adult("Catelyn", "Tully", "CRLTLL93D65L153G", new Date(), "7263017233");
     private static Child child = new Child("Arya", "Stark", "RYSTRK83F57K058V", new Date());
-    private ChildRepository childRepository = new ChildRepository();
+    private AdultRepository adultRepository = new AdultRepository();
 
     @BeforeAll
     static void createParents() {
-        mom.save();
-        dad.save();
-        child.getParents().add(dad);
         child.save();
+        mom.getChildren().add(child);
+        mom.save();
     }
 
     @AfterAll
     static void deleteParents() {
-        child.delete();
-        dad.delete();
         mom.delete();
+        child.delete();
     }
 
     @Test
     void readChildWithParents() {
-        Child readChild = childRepository.getChildByFiscalCode(child.getFiscalCode());
+        Adult readAdult = adultRepository.getAdultByFiscalCode(mom.getFiscalCode());
 
-        assertNotNull(readChild, "read child error");
-        assertNotNull(readChild.getParents(), "Failed join");
+        assertNotNull(readAdult, "read child error");
+        assertTrue(readAdult.getChildren().size() >= 1, "Failed join");
     }
 
     @Test

@@ -3,11 +3,13 @@ package Server.Test;
 import Server.Entity.Child;
 import Server.Repository.ChildRepository;
 import Server.Result;
+import org.geolatte.geom.LineSegment;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +36,14 @@ public class ChildTest {
         assertEquals(child.getSurname(), readChild.getSurname(), message);
         assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
         assertEquals(child.getBirthDate(), readChild.getBirthDate(), message);
+    }
+
+    @Test
+    void readChildByDate() {
+        List readChildren = childRepository.getChildByBirthDate(child.getBirthDate());
+
+        String message = "Read error";
+        assertTrue(readChildren.size() >= 1, message);
     }
 
     @Test
