@@ -99,6 +99,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public AssignService getDailyMenuService() throws Exception {
+        return (AssignService) new BaseServiceAdapter("dailymenu", in, out);
+    }
+
+    @Override
     public BaseService getFirstDishService() throws Exception {
         return new BaseServiceAdapter("firstdish", in, out);
     }
@@ -116,6 +121,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     @Override
     public BaseService getSweetDishService() throws Exception {
         return new BaseServiceAdapter("sweetdish", in, out);
+    }
+
+    @Override
+    public BaseService getStaffService() throws Exception {
+        return new BaseServiceAdapter("staff", in, out);
     }
 
     @Override

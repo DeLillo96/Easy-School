@@ -17,7 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AdultsController extends AbstractTableController {
     /* FILTERS */
@@ -32,7 +36,9 @@ public class AdultsController extends AbstractTableController {
     @FXML
     private TextField surnameTextField;
     @FXML
-    private DatePicker birthDatePicker;
+    private DatePicker birthDatePickerFrom;
+    @FXML
+    private DatePicker birthDatePickerTo;
     @FXML
     private TextField fiscalCodeTextField;
     @FXML
@@ -106,6 +112,21 @@ public class AdultsController extends AbstractTableController {
         filters.put("surname", surnameTextField.getText());
         filters.put("fiscalCode", fiscalCodeTextField.getText());
         filters.put("telephone", telephoneTextField.getText());
+        if((birthDatePickerFrom.getValue() != null)||(birthDatePickerTo.getValue() != null)) {
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                if(birthDatePickerFrom.getValue() != null) {
+                    Date fromDate = dateFormat.parse(birthDatePickerFrom.getValue().toString());
+                    filters.put("birthDateFrom", fromDate);
+                }
+                if(birthDatePickerTo.getValue() != null) {
+                    Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
+                    filters.put("birthDateTo", toDate);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         return filters;
     }
@@ -127,4 +148,14 @@ public class AdultsController extends AbstractTableController {
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
+
+    /*@Override
+    public void refreshModel(AbstractRowModel abstractRowModel, JSONObject data) throws Exception{
+        int index = adultTableView.getItems().indexOf(abstractRowModel);
+        adultTableView.getItems().remove(abstractRowModel);
+        ArrayList<Adults> elementToAdd = new ArrayList<>();
+        elementToAdd.add(new Adults(this, data));
+        ObservableList<Adults> newElement= FXCollections.observableArrayList(elementToAdd);
+        adultTableView.getItems().addAll(index, newElement);
+    }*/
 }

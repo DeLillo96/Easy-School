@@ -28,6 +28,8 @@ public class RMIManager {
         registry.rebind("tripplace", new TripPlaceServiceImplementation());
         registry.rebind("busstartingplace", new BusStartingPlaceServiceImplementation());
         registry.rebind("busdestinationplace", new BusArrivalPlaceServiceImplementation());
+        registry.rebind("dailymenu", new DailyMenuServiceImplementation());
+        registry.rebind("staff", new StaffServiceImplementation());
     }
 
     public int getPort() {

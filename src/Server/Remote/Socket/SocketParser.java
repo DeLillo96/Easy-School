@@ -152,6 +152,17 @@ public class SocketParser extends Thread {
                     }
                 }
 
+                if (json.get("service").equals("staff")) {
+                    StaffServiceImplementation staffService = new StaffServiceImplementation();
+
+                    if (json.get("function").equals("read")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = staffService.read(data);
+
+                        out.println(result.toString());
+                    }
+                }
+
                 if (json.get("service").equals("main")) {
                     if (json.get("function").equals("exit")) {
                         socket.close();

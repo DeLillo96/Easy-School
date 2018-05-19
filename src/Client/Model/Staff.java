@@ -13,19 +13,21 @@ public class Staff extends AbstractRowModel {
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
-    private TextField telephone = new TextField();
+    private TextField mansion = new TextField();
 
     public Staff(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
     }
 
     public Staff(AbstractTableController tableController, JSONObject data) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController, data);
+        super(RemoteManager.getInstance().getRemoteServicesManager().getStaffService(), tableController, data);
 
+        getMansion().setMaxHeight(40);
         setName((String) data.get("name"));
         setSurname((String) data.get("surname"));
         setFiscalCode((String) data.get("fiscalCode"));
         setBirthDate((CharSequence) data.get("birthDate"));
+        setMansion((String) data.get("mansion"));
 
         events();
     }
@@ -48,9 +50,9 @@ public class Staff extends AbstractRowModel {
             needToSave();
             data.put("fiscalCode", newText);
         });
-        telephone.textProperty().addListener((obs, oldText, newText) -> {
+        mansion.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();
-            data.put("telephone", newText);
+            data.put("mansion", newText);
         });
         birthDate.setOnAction(event -> {
             needToSave();
@@ -118,19 +120,19 @@ public class Staff extends AbstractRowModel {
         if (birthDate != null) this.birthDate.setValue(LocalDate.parse(birthDate));
     }
 
-    public TextField getTelephone() {
-        return telephone;
+    public TextField getMansion() {
+        return mansion;
     }
 
-    public void setTelephone(TextField telephone) {
-        this.telephone = telephone;
+    public void setMansion(TextField mansion) {
+        this.mansion = mansion;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone.setText(telephone);
+    public void setMansion(String mansion) {
+        this.mansion.setText(mansion);
     }
 
-    public String getStringTelephone() {
-        return telephone.getText();
+    public String getStringMansion() {
+        return mansion.getText();
     }
 }
