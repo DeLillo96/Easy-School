@@ -4,6 +4,7 @@ import Server.Entity.AbstractEntity;
 import org.json.simple.JSONObject;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -128,7 +129,7 @@ public class Result {
             String item = object.toString();
 
             if (objectClass == Date.class) {
-                item = item.substring(0, 10);
+                item = new SimpleDateFormat("yyyy-MM-dd").format(object);
             }
             return item;
         }
