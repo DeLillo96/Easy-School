@@ -133,29 +133,29 @@
                   </HBox>
          </children>
       </AnchorPane>
-          <TableView fx:id="childTableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
+          <TableView fx:id="tableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
               <columns>
-                  <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="-1.0">
+                  <TableColumn minWidth="-Infinity" prefWidth="-1.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="buttons" />
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
+                  <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Name">
                       <cellValueFactory>
                           <PropertyValueFactory property="name" />
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="surnameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Surname">
+                  <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Surname">
                       <cellValueFactory>
                           <PropertyValueFactory property="surname" />
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="dateColumn" minWidth="-Infinity" prefWidth="-1.0" text="Birth Date">
+                  <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Birth Date">
                       <cellValueFactory>
                           <PropertyValueFactory property="birthDate" />
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="fiscalCodeColumn" minWidth="-Infinity" prefWidth="-1.0" text="Fiscal Code">
+                  <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Fiscal Code">
                       <cellValueFactory>
                           <PropertyValueFactory property="fiscalCode" />
                       </cellValueFactory>

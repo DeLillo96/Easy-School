@@ -61,7 +61,7 @@ public class StaffController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Staff> list = search();
+            ArrayList<Staff> list = search(takeFilters());
 
             ObservableList<Staff> items = FXCollections.observableArrayList(list);
             staffTableView.setItems(items);

@@ -57,7 +57,7 @@ public class PlacesController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Places> list = search();
+            ArrayList<Places> list = search(takeFilters());
 
             AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
             JSONObject result = parentService.rightRead(trip.getId());

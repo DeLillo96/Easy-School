@@ -4,6 +4,7 @@ import Client.ControllerManager;
 import Client.Model.AbstractRowModel;
 import Client.Model.DayTrips;
 import Client.Remote.RemoteManager;
+import Server.Entity.DayTrip;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class DayTripsController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<DayTrips> list = search();
+            ArrayList<DayTrips> list = search(takeFilters());
             ObservableList<DayTrips> items = FXCollections.observableArrayList(list);
             dayTripTableView.setItems(items);
         } catch (Exception e) {
@@ -50,7 +51,9 @@ public class DayTripsController extends AbstractTableController {
 
     @FXML
     public void add() throws Exception {
-        dayTripTableView.getItems().add(new DayTrips(this));
+        DayTrips dayTrips = new DayTrips(this);
+        dayTripTableView.getItems().add(dayTrips);
+        dayTripTableView.scrollTo(dayTrips);
     }
 
     @Override

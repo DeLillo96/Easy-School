@@ -57,7 +57,7 @@ public class DishController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Dish> list = search();
+            ArrayList<Dish> list = search(takeFilters());
             ObservableList<Dish> items = FXCollections.observableArrayList(list);
             dishTableView.setItems(items);
         } catch (Exception e) {

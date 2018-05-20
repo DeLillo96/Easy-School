@@ -54,7 +54,7 @@ public class MenuController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Menu> list = search();
+            ArrayList<Menu> list = search(takeFilters());
             ObservableList<Menu> items = FXCollections.observableArrayList(list);
             menuTableView.setItems(items);
         } catch (Exception e) {

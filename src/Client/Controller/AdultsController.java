@@ -70,7 +70,7 @@ public class AdultsController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Adults> list = search();
+            ArrayList<Adults> list = search(takeFilters());
 
             AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
             JSONObject result = parentService.rightRead(child.getId());

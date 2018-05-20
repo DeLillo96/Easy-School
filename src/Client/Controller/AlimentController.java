@@ -60,7 +60,7 @@ public class AlimentController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Aliment> list = search();
+            ArrayList<Aliment> list = search(takeFilters());
 
             AssignService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
             JSONObject result = recipesService.rightRead(dish.getId());

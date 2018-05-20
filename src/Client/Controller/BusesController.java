@@ -46,7 +46,7 @@ public class BusesController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<Buses> allBuses = search();
+            ArrayList<Buses> allBuses = search(takeFilters());
             JSONObject response = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService().leftRead(place.getId());
             ArrayList<Buses> arrivalBuses = parseIntoRows((JSONObject) response.get("data"));
 

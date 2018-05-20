@@ -47,7 +47,7 @@ public class EatingDisordersController extends AbstractTableController {
     @Override
     public void filter() {
         try {
-            ArrayList<EatingDisorder> list = search();
+            ArrayList<EatingDisorder> list = search(takeFilters());
 
             AssignService eatingDisorderService = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
             JSONObject result = eatingDisorderService.rightRead(child.getId());
