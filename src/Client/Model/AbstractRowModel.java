@@ -4,6 +4,7 @@ import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Shared.BaseService;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -63,6 +64,7 @@ public abstract class AbstractRowModel {
             if ((boolean) result.get("success")) {
                 data = (JSONObject) ((JSONObject) result.get("data")).get(0);
                 save.getStyleClass().remove("red-button");
+                enableButtons();
             }
             notifyResult(result);
         } catch (Exception e) {
@@ -91,6 +93,7 @@ public abstract class AbstractRowModel {
     protected void needToSave() {
         ObservableList styleClasses = save.getStyleClass();
         if(!styleClasses.contains("red-button")) styleClasses.add("red-button");
+        if(controller.isNewRowFlag()) controller.setNewRowFlag(false);
     }
 
     public JSONObject getData() {
@@ -99,5 +102,11 @@ public abstract class AbstractRowModel {
 
     public void setData(JSONObject data) {
         this.data = data;
+    }
+
+    protected void enableButtons(){
+        for (Node button :buttons.getChildren()) {
+            button.setVisible(true);
+        }
     }
 }

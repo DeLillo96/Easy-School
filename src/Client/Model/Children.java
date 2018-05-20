@@ -15,6 +15,8 @@ public class Children extends AbstractRowModel {
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
+    private Button parents;
+    private Button disorder;
 
     public Children(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
@@ -35,14 +37,18 @@ public class Children extends AbstractRowModel {
     protected void initializeButtons() {
         super.initializeButtons();
 
-        Button parents = new Button();
+        parents = new Button();
         defineImageButton(parents, "Client/Resources/Images/parents.png");
         parents.setOnAction(actionEvent -> parents());
 
-        Button disorder = new Button();
+        disorder = new Button();
         defineImageButton(disorder, "Client/Resources/Images/eating.png");
         disorder.setOnAction(actionEvent -> disorder());
 
+        if(data.size() == 0) {
+            parents.setVisible(false);
+            disorder.setVisible(false);
+        }
         getButtons().getChildren().addAll(parents, disorder);
     }
 
