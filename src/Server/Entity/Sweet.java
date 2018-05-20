@@ -17,6 +17,9 @@ public class Sweet extends Dish {
         super(name);
     }
 
+    public Sweet() {
+    }
+
     public Set<Menu> getSweetMenu() {
         return sweetMenu;
     }
