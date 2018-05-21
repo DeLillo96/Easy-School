@@ -2,14 +2,17 @@ package Client.Controller;
 
 import Client.ControllerManager;
 import Client.Model.CalendarDay;
+import Client.Remote.RemoteManager;
+import Shared.BaseService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.rmi.RemoteException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class CalendarController {
 
@@ -32,19 +35,54 @@ public class CalendarController {
 
     private int selectedMonth;
     private int selectedYear;
+    private boolean foundCalendars;
     private boolean refreshView;
     private String errorMessage;
     private List<CalendarDay> dayList = new ArrayList<>();
+    private BaseService calendarServices;
+
+    public String dateStringConstructor(int dayNumber) {
+        String returnString = ""+selectedYear+"-";
+        if(selectedMonth<10) returnString = returnString+"0";
+        returnString = returnString+""+(selectedMonth+1)+"-";
+        if(dayNumber<10) returnString = returnString+"0";
+        returnString = returnString+""+dayNumber;
+        return returnString;
+    }
 
     private void loadCalendarLabels(int month, int year) {
 
         yearSelect.setPromptText("" + selectedYear);
+        foundCalendars=false;
 
         GregorianCalendar gc = new GregorianCalendar(year, month, 1);
         int firstDay = gc.get(Calendar.DAY_OF_WEEK);
         int daysInMonth = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
         int gridCount = 1;
         Integer lblCount = 1;
+
+        JSONObject data = new JSONObject();
+        JSONObject result = new JSONObject();
+        JSONObject filters = new JSONObject();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String lowerDateString = dateStringConstructor(1);
+        String upperDateString = dateStringConstructor(daysInMonth);
+
+        try {
+            Date fromDate = dateFormat.parse(lowerDateString);
+            Date toDate = dateFormat.parse(upperDateString);
+            filters.put("dateFrom", fromDate);
+            filters.put("dateTo", toDate);
+            result = calendarServices.read(filters);
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError("Server communication error");
+        }
+
+        if((result!=null) && ((boolean) result.get("success"))) {
+            data = (JSONObject) result.get("data");
+            if(!data.isEmpty()) foundCalendars=true;
+        }
+
 
         for (CalendarDay day : dayList) {
             day.clearContainer();
@@ -56,6 +94,17 @@ public class CalendarController {
                     day.setUnusedDay();
                 } else {
                     day.setDay(lblCount);
+                    day.setCalendarId(null);
+                    if(foundCalendars) {
+                        String actualCalendar = dateStringConstructor(lblCount);
+                        for (int i = 0; i < data.size(); i++) {
+                            JSONObject singleJsonDay = (JSONObject) data.get(i);
+                            if(actualCalendar.equals((String) singleJsonDay.get("date"))) {
+                                day.setCalendarId(Integer.parseInt((String) singleJsonDay.get("id")));
+                                break;
+                            }
+                        }
+                    }
                 }
                 lblCount++;
             }
@@ -79,9 +128,34 @@ public class CalendarController {
 
     private void checkDatePickerConstraints() {
         try {
-            ControllerManager.getInstance().renderCalendarPopup(calendarDatePicker.getValue().toString());
+            JSONObject dataFilter = new JSONObject();
+            JSONObject dataCreateParams = new JSONObject();
+            JSONObject data;
+            JSONObject day;
+            Integer calendarId = 1;
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date calendarDay = dateFormat.parse(calendarDatePicker.getValue().toString());
+            dataFilter.put("date", calendarDay);
+            JSONObject response = calendarServices.read(dataFilter);
+            if((boolean) response.get("success")) {
+                data = (JSONObject) response.get("data");
+                if(!(data.isEmpty())) {
+                    day = (JSONObject) data.get(0);
+                    calendarId = Integer.parseInt((String) day.get("id"));
+                }else {
+                    dataCreateParams.put("date", calendarDatePicker.getValue().toString());
+                    JSONObject result = calendarServices.save(dataCreateParams);
+                    if ((boolean) result.get("success")) {
+                        data = (JSONObject) ((JSONObject) result.get("data")).get(0);
+                        calendarId = Integer.parseInt((String) data.get("id"));
+                        System.out.println(calendarId);
+                    }
+                }
+            }
+            ControllerManager.getInstance().renderCalendarPopup(calendarId, calendarDatePicker.getValue().toString());
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("Please select a data from the Date Picker");
+            e.printStackTrace();
         }
     }
 
@@ -123,6 +197,9 @@ public class CalendarController {
     }
 
     public void initialize() {
+        try {
+            calendarServices = RemoteManager.getInstance().getRemoteServicesManager().getCalendarService();
+        } catch (Exception e) {}
         selectedMonth = Calendar.getInstance().get(Calendar.MONTH);
         selectedYear = Calendar.getInstance().get(Calendar.YEAR);
         monthSelect.getSelectionModel().select(selectedMonth);
@@ -155,5 +232,13 @@ public class CalendarController {
 
     public void setWeekdayHeader(HBox weekdayHeader) {
         this.weekdayHeader = weekdayHeader;
+    }
+
+    public BaseService getCalendarServices() {
+        return calendarServices;
+    }
+
+    public void setCalendarServices(BaseService calendarServices) {
+        this.calendarServices = calendarServices;
     }
 }

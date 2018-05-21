@@ -1,9 +1,6 @@
 package Client.Remote;
 
-import Shared.AssignService;
-import Shared.BaseService;
-import Shared.EatingDisorderService;
-import Shared.UserService;
+import Shared.*;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -91,8 +88,13 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public AssignService getDailyMenuService() throws Exception {
-        return (AssignService) registry.lookup("dailymenu");
+    public DailyMenuAssignService getDailyMenuService() throws Exception {
+        return (DailyMenuAssignService) registry.lookup("dailymenu");
+    }
+
+    @Override
+    public AssignService getDailyTripService() throws Exception {
+        return (AssignService) registry.lookup("dailytrip");
     }
 
     @Override

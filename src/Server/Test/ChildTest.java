@@ -55,6 +55,13 @@ public class ChildTest {
 
     }
 
+    /*@Test
+    void getChildByDate() {
+        Child readChild = childRepository.getChildByBirthDate(child.getBirthDate());
+        String message = "Read error";
+        assertEquals(child.getName(), readChild.getName(), message);
+    }*/
+
     @Test
     void modifyChild() {
         child.setSurname("Targarien");

@@ -33,9 +33,8 @@ public class DayTrip extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "date")
-    private Calendar day;
+    @ManyToMany(mappedBy = "dailyTrips")
+    private Set<Calendar> date = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
@@ -68,12 +67,12 @@ public class DayTrip extends AbstractEntity {
         this.name = name;
     }
 
-    public Calendar getDay() {
-        return day;
+    public Set<Calendar> getDate() {
+        return date;
     }
 
-    public void setDay(Calendar day) {
-        this.day = day;
+    public void setDate(Set<Calendar> date) {
+        this.date = date;
     }
 
     public Set<Place> getPlaces() {

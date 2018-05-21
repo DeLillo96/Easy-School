@@ -8,6 +8,7 @@ import Server.Result;
 import Shared.AssignService;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -48,7 +49,6 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
                 return dish.save().toJson();
             }
         }
-
         Result result = new Result();
         result.addData(dish);
         return result.toJson();

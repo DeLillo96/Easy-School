@@ -28,6 +28,7 @@ public class RMIManager {
         registry.rebind("busstartingplace", new BusStartingPlaceServiceImplementation());
         registry.rebind("busdestinationplace", new BusArrivalPlaceServiceImplementation());
         registry.rebind("dailymenu", new DailyMenuServiceImplementation());
+        registry.rebind("dailytrip", new DailyTripServiceImplementation());
         registry.rebind("staff", new StaffServiceImplementation());
         registry.rebind("firstdish", new FirstDishServiceImplementation());
         registry.rebind("seconddish", new SecondDishServiceImplementation());

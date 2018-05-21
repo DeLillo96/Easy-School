@@ -2,10 +2,7 @@ package Client.Remote;
 
 import Client.Remote.Adapter.BaseServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
-import Shared.AssignService;
-import Shared.BaseService;
-import Shared.EatingDisorderService;
-import Shared.UserService;
+import Shared.*;
 import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
@@ -102,8 +99,13 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public AssignService getDailyMenuService() throws Exception {
-        return (AssignService) new BaseServiceAdapter("dailymenu", in, out);
+    public DailyMenuAssignService getDailyMenuService() throws Exception {
+        return (DailyMenuAssignService) new BaseServiceAdapter("dailymenu", in, out);
+    }
+
+    @Override
+    public AssignService getDailyTripService() throws Exception {
+        return (AssignService) new BaseServiceAdapter("dailytrip", in, out);
     }
 
     @Override

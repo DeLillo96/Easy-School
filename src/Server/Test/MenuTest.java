@@ -87,8 +87,7 @@ public class MenuTest {
 
     @Test
     void readCalendarByDate() {
-        Date dateA = firstDay.getDate();
-        Calendar calendar = calendarRepository.getCalendarByDate(dateA);
+        Calendar calendar = calendarRepository.getCalendarByDate(firstDay.getDate());
         String message = "Read error";
         assertEquals(firstDay.getId(), calendar.getId(), message);
         assertEquals(firstDay.getDate(), calendar.getDate(), message);

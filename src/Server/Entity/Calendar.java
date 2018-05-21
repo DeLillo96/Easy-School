@@ -1,11 +1,14 @@
 package Server.Entity;
 
+import Client.Model.DayTrips;
 import org.hibernate.annotations.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,10 +17,14 @@ import java.util.Set;
 @FilterDefs({
         @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
         @FilterDef(name = "date", parameters = @ParamDef(name = "date", type = "date")),
+        @FilterDef(name = "dateFrom", parameters = {@ParamDef(name = "dateFrom", type = "date")}),
+        @FilterDef(name = "dateTo", parameters = {@ParamDef(name = "dateTo", type = "date")}),
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "date", condition = "date like :date"),
+        @Filter(name = "date", condition = "date = :date"),
+        @Filter(name = "dateFrom", condition = "date >= :dateFrom"),
+        @Filter(name = "dateTo", condition = "date <= :dateTo")
 })
 @Table(name = "Calendar")
 public class Calendar extends AbstractEntity {
@@ -26,8 +33,8 @@ public class Calendar extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     @Temporal(TemporalType.DATE)
-    @Column(unique = true)
     private Date date;
 
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
@@ -46,8 +53,13 @@ public class Calendar extends AbstractEntity {
     )
     private Set<Menu> dailyMenus = new HashSet<>();
 
-    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
-    private Set<DayTrip> trips = new HashSet<>();
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "DailyTrips",
+            joinColumns = {@JoinColumn(name = "calendar_id")},
+            inverseJoinColumns = {@JoinColumn(name = "trip_id")}
+    )
+    private Set<DayTrip> dailyTrips = new HashSet<>();
 
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
     private Set<BusPresence> busPresences = new HashSet<>();
@@ -57,7 +69,7 @@ public class Calendar extends AbstractEntity {
     }
 
     public Calendar(Date date) {
-        setDate(date);
+        this.date = date;
     }
 
     public Integer getId() {
@@ -71,10 +83,12 @@ public class Calendar extends AbstractEntity {
     public Date getDate() {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTime(date);
+
         cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
         cal.set(java.util.Calendar.MINUTE, 0);
         cal.set(java.util.Calendar.SECOND, 0);
         cal.set(java.util.Calendar.MILLISECOND, 0);
+
         return cal.getTime();
     }
 
@@ -85,7 +99,7 @@ public class Calendar extends AbstractEntity {
         cal.set(java.util.Calendar.MINUTE, 0);
         cal.set(java.util.Calendar.SECOND, 0);
         cal.set(java.util.Calendar.MILLISECOND, 0);
-        this.date = cal.getTime();
+        this.date=cal.getTime();
     }
 
     public Set<Child> getPresentChilds() {
@@ -104,12 +118,12 @@ public class Calendar extends AbstractEntity {
         this.dailyMenus = dailyMenus;
     }
 
-    public Set<DayTrip> getTrips() {
-        return trips;
+    public Set<DayTrip> getDailyTrips() {
+        return dailyTrips;
     }
 
-    public void setTrips(Set<DayTrip> trips) {
-        this.trips = trips;
+    public void setDailyTrips(Set<DayTrip> dailyTrips) {
+        this.dailyTrips = dailyTrips;
     }
 
     public Set<Child> getPresentChildren() {
