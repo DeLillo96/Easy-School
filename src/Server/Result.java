@@ -123,7 +123,7 @@ public class Result {
     }
 
     private Object parseObject(Object object, Class objectClass) {
-        if (objectClass.getSuperclass() == AbstractEntity.class) {
+        if (object instanceof AbstractEntity) {
             return classToJson(object);
         } else {
             String item = object.toString();
