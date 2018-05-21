@@ -41,7 +41,7 @@
                     <Insets left="3.0"/>
                 </padding>
             </HBox>
-            <TableView fx:id="menuTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            <TableView fx:id="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                        AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0">
                 <columns>
                     <TableColumn minWidth="-Infinity" prefWidth="-1.0">

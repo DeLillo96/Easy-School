@@ -1,6 +1,9 @@
 package Client.Remote;
 
-import Shared.*;
+import Shared.AssignService;
+import Shared.BaseService;
+import Shared.EatingDisorderService;
+import Shared.UserService;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

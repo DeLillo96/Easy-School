@@ -1,6 +1,9 @@
 package Client.Remote;
 
-import Shared.*;
+import Shared.AssignService;
+import Shared.BaseService;
+import Shared.EatingDisorderService;
+import Shared.UserService;
 
 public interface RemoteServicesManager {
     UserService getUserService() throws Exception;

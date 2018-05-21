@@ -1,12 +1,16 @@
 package Server.Test;
 
-import Server.Entity.*;
+import Server.Entity.Dish;
+import Server.Entity.First;
+import Server.Entity.Second;
+import Server.Entity.Side;
 import Server.Repository.DishRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,7 +45,7 @@ public class DishTest {
 
     @Test
     void readDishByCategory() {
-        List readDishes = dishRepository.getSecond();
+        List readDishes = dishRepository.getSecond(new HashMap<>());
         assertTrue(2 <= readDishes.size(), "Id Error on Dish N.1");
     }
 

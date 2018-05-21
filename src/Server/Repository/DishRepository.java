@@ -1,6 +1,7 @@
 package Server.Repository;
 
-import Server.Entity.*;
+import Server.Entity.Aliment;
+import Server.Entity.Dish;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,30 +29,30 @@ public class DishRepository extends AbstractRepository {
         return dishes != null && dishes.size() == 1 ? (Dish) dishes.get(0) : null;
     }
 
-    public List getFirst() {
+    public List getFirst(HashMap<String, Object> params) {
         setTableName("First");
-        List result = read();
+        List result = read(params);
         setTableName("Dish");
         return result;
     }
 
-    public List getSecond() {
+    public List getSecond(HashMap<String, Object> params) {
         setTableName("Second");
-        List result = read();
+        List result = read(params);
         setTableName("Dish");
         return result;
     }
 
-    public List getSide() {
+    public List getSide(HashMap<String, Object> params) {
         setTableName("Side");
-        List result = read();
+        List result = read(params);
         setTableName("Dish");
         return result;
     }
 
-    public List getSweet() {
+    public List getSweet(HashMap<String, Object> params) {
         setTableName("Sweet");
-        List result = read();
+        List result = read(params);
         setTableName("Dish");
         return result;
     }

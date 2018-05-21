@@ -15,7 +15,6 @@ public class RMIManager {
         registry.rebind("user", new UserServiceImplementation());
         registry.rebind("child", new ChildrenServiceImplementation());
         registry.rebind("menu", new MenuServiceImplementation());
-        registry.rebind("dish", new DishServiceImplementation());
         registry.rebind("adult", new AdultServiceImplementation());
         registry.rebind("aliment", new AlimentServiceImplementation());
         registry.rebind("bus", new BusServiceImplementation());
@@ -30,6 +29,10 @@ public class RMIManager {
         registry.rebind("busdestinationplace", new BusArrivalPlaceServiceImplementation());
         registry.rebind("dailymenu", new DailyMenuServiceImplementation());
         registry.rebind("staff", new StaffServiceImplementation());
+        registry.rebind("firstdish", new FirstDishServiceImplementation());
+        registry.rebind("seconddish", new SecondDishServiceImplementation());
+        registry.rebind("sidedish", new SideDishServiceImplementation());
+        registry.rebind("sweetdish", new SweetDishServiceImplementation());
     }
 
     public int getPort() {

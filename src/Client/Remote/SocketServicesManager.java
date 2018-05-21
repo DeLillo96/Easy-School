@@ -2,7 +2,10 @@ package Client.Remote;
 
 import Client.Remote.Adapter.BaseServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
-import Shared.*;
+import Shared.AssignService;
+import Shared.BaseService;
+import Shared.EatingDisorderService;
+import Shared.UserService;
 import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;

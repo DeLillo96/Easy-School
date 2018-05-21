@@ -68,6 +68,7 @@ public abstract class AbstractRowModel {
             }
             notifyResult(result);
         } catch (Exception e) {
+            e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
     }
@@ -92,8 +93,8 @@ public abstract class AbstractRowModel {
 
     protected void needToSave() {
         ObservableList styleClasses = save.getStyleClass();
-        if(!styleClasses.contains("red-button")) styleClasses.add("red-button");
-        if(controller.isNewRowFlag()) controller.setNewRowFlag(false);
+        if (!styleClasses.contains("red-button")) styleClasses.add("red-button");
+        if (controller.isNewRowFlag()) controller.setNewRowFlag(false);
     }
 
     public JSONObject getData() {
@@ -104,8 +105,8 @@ public abstract class AbstractRowModel {
         this.data = data;
     }
 
-    protected void enableButtons(){
-        for (Node button :buttons.getChildren()) {
+    protected void enableButtons() {
+        for (Node button : buttons.getChildren()) {
             button.setVisible(true);
         }
     }

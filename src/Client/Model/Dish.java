@@ -3,7 +3,6 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.Controller.DishController;
 import Client.ControllerManager;
-import Client.Remote.RemoteManager;
 import Shared.BaseService;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,12 +13,17 @@ public class Dish extends AbstractRowModel {
 
     private TextField name = new TextField();
 
+    @Deprecated
     public Dish(AbstractTableController tableController) throws Exception {
-        this(tableController, new JSONObject());
+        this(null, tableController, new JSONObject());
     }
 
-    public Dish(AbstractTableController tableController, JSONObject data) throws Exception {
-        super(null, tableController, data);
+    public Dish(BaseService service, AbstractTableController tableController) throws Exception {
+        this(service, tableController, new JSONObject());
+    }
+
+    public Dish(BaseService service, AbstractTableController tableController, JSONObject data) throws Exception {
+        super(service, tableController, data);
 
         controller = (DishController) tableController;
         setName((String) data.get("name"));
@@ -60,12 +64,12 @@ public class Dish extends AbstractRowModel {
         return name;
     }
 
-    public void setName(TextField name) {
-        this.name = name;
-    }
-
     public void setName(String name) {
         this.name.setText(name);
+    }
+
+    public void setName(TextField name) {
+        this.name = name;
     }
 
     public String getStringName() {

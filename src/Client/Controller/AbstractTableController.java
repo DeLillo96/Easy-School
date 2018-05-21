@@ -14,10 +14,9 @@ import java.util.ArrayList;
 public abstract class AbstractTableController {
 
     protected BaseService service;
-    private boolean newRowFlag = true;
-
     @FXML
     protected TableView tableView;
+    private boolean newRowFlag = true;
 
     public AbstractTableController(BaseService baseService) {
         service = baseService;
@@ -56,7 +55,7 @@ public abstract class AbstractTableController {
     }
 
     protected void addIntoTable(Object item) {
-        if(isNewRowFlag()) {
+        if (isNewRowFlag()) {
             tableView.getItems().add(item);
             tableView.scrollTo(item);
             setNewRowFlag(false);
