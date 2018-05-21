@@ -8,7 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
@@ -89,14 +92,14 @@ public class StaffController extends AbstractTableController {
         filters.put("name", nameTextField.getText());
         filters.put("surname", surnameTextField.getText());
         filters.put("fiscalCode", fiscalCodeTextField.getText());
-        if((birthDatePickerFrom.getValue() != null)||(birthDatePickerTo.getValue() != null)) {
+        if ((birthDatePickerFrom.getValue() != null) || (birthDatePickerTo.getValue() != null)) {
             try {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                if(birthDatePickerFrom.getValue() != null) {
+                if (birthDatePickerFrom.getValue() != null) {
                     Date fromDate = dateFormat.parse(birthDatePickerFrom.getValue().toString());
                     filters.put("birthDateFrom", fromDate);
                 }
-                if(birthDatePickerTo.getValue() != null) {
+                if (birthDatePickerTo.getValue() != null) {
                     Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
                     filters.put("birthDateTo", toDate);
                 }

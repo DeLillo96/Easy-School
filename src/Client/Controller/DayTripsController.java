@@ -4,7 +4,6 @@ import Client.ControllerManager;
 import Client.Model.AbstractRowModel;
 import Client.Model.DayTrips;
 import Client.Remote.RemoteManager;
-import Server.Entity.DayTrip;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

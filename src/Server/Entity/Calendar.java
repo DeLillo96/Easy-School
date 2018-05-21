@@ -2,12 +2,10 @@ package Server.Entity;
 
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -87,7 +85,7 @@ public class Calendar extends AbstractEntity {
         cal.set(java.util.Calendar.MINUTE, 0);
         cal.set(java.util.Calendar.SECOND, 0);
         cal.set(java.util.Calendar.MILLISECOND, 0);
-        this.date=cal.getTime();
+        this.date = cal.getTime();
     }
 
     public Set<Child> getPresentChilds() {

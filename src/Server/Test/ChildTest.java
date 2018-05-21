@@ -3,7 +3,6 @@ package Server.Test;
 import Server.Entity.Child;
 import Server.Repository.ChildRepository;
 import Server.Result;
-import org.geolatte.geom.LineSegment;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

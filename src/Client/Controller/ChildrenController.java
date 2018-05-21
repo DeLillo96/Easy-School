@@ -3,8 +3,10 @@ package Client.Controller;
 import Client.Model.Children;
 import Client.Remote.RemoteManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,15 +47,16 @@ public class ChildrenController extends AbstractTableController {
         filters.put("surname", surnameTextField.getText());
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            if(birthDatePickerFrom.getValue() != null) {
+            if (birthDatePickerFrom.getValue() != null) {
                 Date fromDate = dateFormat.parse(birthDatePickerFrom.getValue().toString());
                 filters.put("birthDateFrom", fromDate);
             }
-            if(birthDatePickerTo.getValue() != null) {
+            if (birthDatePickerTo.getValue() != null) {
                 Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
                 filters.put("birthDateTo", toDate);
             }
-        } catch (ParseException ignored) {}
+        } catch (ParseException ignored) {
+        }
         filters.put("fiscalCode", fiscalCodeTextField.getText());
 
         return filters;

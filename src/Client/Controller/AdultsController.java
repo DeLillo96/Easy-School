@@ -112,14 +112,14 @@ public class AdultsController extends AbstractTableController {
         filters.put("surname", surnameTextField.getText());
         filters.put("fiscalCode", fiscalCodeTextField.getText());
         filters.put("telephone", telephoneTextField.getText());
-        if((birthDatePickerFrom.getValue() != null)||(birthDatePickerTo.getValue() != null)) {
+        if ((birthDatePickerFrom.getValue() != null) || (birthDatePickerTo.getValue() != null)) {
             try {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                if(birthDatePickerFrom.getValue() != null) {
+                if (birthDatePickerFrom.getValue() != null) {
                     Date fromDate = dateFormat.parse(birthDatePickerFrom.getValue().toString());
                     filters.put("birthDateFrom", fromDate);
                 }
-                if(birthDatePickerTo.getValue() != null) {
+                if (birthDatePickerTo.getValue() != null) {
                     Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
                     filters.put("birthDateTo", toDate);
                 }

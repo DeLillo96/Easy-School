@@ -45,7 +45,7 @@ public class Children extends AbstractRowModel {
         defineImageButton(disorder, "Client/Resources/Images/eating.png");
         disorder.setOnAction(actionEvent -> disorder());
 
-        if(data.size() == 0) {
+        if (data.size() == 0) {
             parents.setVisible(false);
             disorder.setVisible(false);
         }

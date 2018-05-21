@@ -1,14 +1,9 @@
 package Server.Repository;
 
-import Server.Entity.Adult;
-import Server.Entity.Child;
 import Server.Entity.Staff;
-import Server.Entity.Users;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class StaffRepository extends AbstractRepository {
 

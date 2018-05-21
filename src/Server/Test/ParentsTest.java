@@ -3,7 +3,6 @@ package Server.Test;
 import Server.Entity.Adult;
 import Server.Entity.Child;
 import Server.Repository.AdultRepository;
-import Server.Repository.ChildRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
