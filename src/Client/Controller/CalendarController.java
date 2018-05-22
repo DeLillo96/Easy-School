@@ -148,7 +148,6 @@ public class CalendarController {
                     if ((boolean) result.get("success")) {
                         data = (JSONObject) ((JSONObject) result.get("data")).get(0);
                         calendarId = Integer.parseInt((String) data.get("id"));
-                        System.out.println(calendarId);
                     }
                 }
             }
