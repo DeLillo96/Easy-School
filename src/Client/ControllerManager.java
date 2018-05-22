@@ -173,10 +173,11 @@ public class ControllerManager {
     }
 
     public void addPopup(Parent parent) {
-        AnchorPane.setTopAnchor(parent, 20d);
-        AnchorPane.setBottomAnchor(parent, 20d);
-        AnchorPane.setLeftAnchor(parent, 10d);
-        AnchorPane.setRightAnchor(parent, 10d);
+        int offset = popup.size() * 10;
+        AnchorPane.setTopAnchor(parent, 20d + offset);
+        AnchorPane.setBottomAnchor(parent, 20d + offset);
+        AnchorPane.setLeftAnchor(parent, 10d + offset);
+        AnchorPane.setRightAnchor(parent, 10d + offset);
 
         Pane mainRoot = (Pane) getScene().getRoot();
         mainRoot.getChildren().add(popup.push(parent));
