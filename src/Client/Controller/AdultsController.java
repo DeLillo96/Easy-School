@@ -148,14 +148,4 @@ public class AdultsController extends AbstractTableController {
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
-
-    /*@Override
-    public void refreshModel(AbstractRowModel abstractRowModel, JSONObject data) throws Exception{
-        int index = adultTableView.getItems().indexOf(abstractRowModel);
-        adultTableView.getItems().remove(abstractRowModel);
-        ArrayList<Adults> elementToAdd = new ArrayList<>();
-        elementToAdd.add(new Adults(this, data));
-        ObservableList<Adults> newElement= FXCollections.observableArrayList(elementToAdd);
-        adultTableView.getItems().addAll(index, newElement);
-    }*/
 }
