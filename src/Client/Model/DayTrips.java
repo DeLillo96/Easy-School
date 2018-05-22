@@ -16,7 +16,8 @@ public class DayTrips extends AbstractRowModel {
 
     public DayTrips(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getDayTripService(), tableController, data);
-        setName((String) data.get("name"));
+
+        refreshModel();
         events();
     }
 
@@ -29,6 +30,11 @@ public class DayTrips extends AbstractRowModel {
         places.setOnAction(actionEvent -> places());
 
         getButtons().getChildren().addAll(places);
+    }
+
+    @Override
+    protected void refreshModel() {
+        setName((String) data.get("name"));
     }
 
     public void events() {

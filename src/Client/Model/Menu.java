@@ -52,7 +52,8 @@ public class Menu extends AbstractRowModel {
         }
     }
 
-    public void refreshRow() {
+    @Override
+    protected void refreshModel() {
         first.setText("first baresh");
         second.setText("second baresh");
         side.setText("side baresh");
@@ -63,7 +64,7 @@ public class Menu extends AbstractRowModel {
         JSONObject dish = (JSONObject) data.get(dishCategory);
         dish.put("id", dishId);
         dish.put("name", dishName);
-        refreshRow();
+        refreshModel();
         needToSave();
     }
 

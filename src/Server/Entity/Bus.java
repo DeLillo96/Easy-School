@@ -31,7 +31,7 @@ public class Bus extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @Column(unique = true, length = 7)
+    @Column(unique = true)
     private String licensePlate;
 
     @Column(nullable = false)
@@ -101,4 +101,17 @@ public class Bus extends AbstractEntity {
     public void setBusPresences(Set<BusPresence> busPresences) {
         this.busPresences = busPresences;
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctLicensePlate = this.getLicensePlate();
+        if(!validateString(getLicensePlate(), "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException();
+        this.setLicensePlate(correctLicensePlate.toUpperCase());
+
+        String correctCompanyName = this.getCompanyName();
+        this.setCompanyName(nameCorrector(companyName));
+    }
+
 }

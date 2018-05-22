@@ -26,7 +26,7 @@ public class Dish extends AbstractRowModel {
         super(service, tableController, data);
 
         controller = (DishController) tableController;
-        setName((String) data.get("name"));
+        refreshModel();
         events();
     }
 
@@ -43,6 +43,11 @@ public class Dish extends AbstractRowModel {
         recipes.setOnAction(actionEvent -> openRecipesPopup());
 
         getButtons().getChildren().addAll(set, recipes);
+    }
+
+    @Override
+    protected void refreshModel() {
+        setName((String) data.get("name"));
     }
 
     public void events() {

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "Pediatrician")
@@ -32,5 +33,17 @@ public class Pediatrician extends Person {
 
     public void setChildren(Set<Child> children) {
         this.follow = children;
+    }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        Date birthDate = this.getBirthDate();
+        java.util.Calendar today = java.util.Calendar.getInstance();
+        today.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        Date actualDate = today.getTime();
+        long diff = actualDate.getTime() - birthDate.getTime();
+        if((TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/(365.25))<28) throw new IllegalArgumentException();
     }
 }

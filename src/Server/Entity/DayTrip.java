@@ -82,4 +82,12 @@ public class DayTrip extends AbstractEntity {
     public void setPlaces(Set<Place> places) {
         this.places = places;
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctName = this.getName();
+        this.setName(nameCorrector(correctName));
+    }
 }

@@ -48,12 +48,18 @@ public class DailyMenu extends AbstractRowModel {
             result = select.isSelected() ?
                     dailyMenuService.assign(getCalendarId(), getId()) :
                     dailyMenuService.deAssign(getCalendarId(), getId());
+            refreshModel();
             save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
+    }
+
+    @Override
+    protected void refreshModel() {
+
     }
 
     public Integer getId() {

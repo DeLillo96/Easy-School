@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @FilterDefs({
@@ -79,4 +80,20 @@ public class Adult extends Person {
     public void removeChild(Child child) {
         if (children.contains(child)) children.remove(child);
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctTelephone = this.getTelephone();
+        if(!validateString(correctTelephone, "^[0-9]*$")) throw new IllegalArgumentException();
+
+        Date birthDate = this.getBirthDate();
+        java.util.Calendar today = java.util.Calendar.getInstance();
+        today.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        Date actualDate = today.getTime();
+        long diff = actualDate.getTime() - birthDate.getTime();
+        if((TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/(365.25))<18) throw new IllegalArgumentException();
+    }
+
 }

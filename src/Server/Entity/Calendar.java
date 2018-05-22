@@ -141,4 +141,9 @@ public class Calendar extends AbstractEntity {
     public void setBusPresences(Set<BusPresence> busPresences) {
         this.busPresences = busPresences;
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+    }
 }

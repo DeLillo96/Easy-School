@@ -25,11 +25,7 @@ public class Children extends AbstractRowModel {
     public Children(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService(), tableController, data);
 
-        setName((String) data.get("name"));
-        setSurname((String) data.get("surname"));
-        setFiscalCode((String) data.get("fiscalCode"));
-        setBirthDate((CharSequence) data.get("birthDate"));
-
+        refreshModel();
         events();
     }
 
@@ -69,6 +65,14 @@ public class Children extends AbstractRowModel {
             needToSave();
             data.put("birthDate", birthDate.getValue().toString());
         });
+    }
+
+    @Override
+    protected void refreshModel() {
+        setName((String) data.get("name"));
+        setSurname((String) data.get("surname"));
+        setFiscalCode((String) data.get("fiscalCode"));
+        setBirthDate((CharSequence) data.get("birthDate"));
     }
 
     public void parents() {

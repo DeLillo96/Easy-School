@@ -91,4 +91,13 @@ public class Aliment extends AbstractEntity {
     public void setSuppliers(Set<Supplier> suppliers) {
         this.suppliers = suppliers;
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctName = this.getName();
+        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        this.setName(nameCorrector(correctName));
+    }
 }

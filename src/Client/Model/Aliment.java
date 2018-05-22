@@ -21,7 +21,8 @@ public class Aliment extends AbstractRowModel {
 
     public Aliment(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController, data);
-        setName((String) data.get("name"));
+
+        refreshModel();
         events();
     }
 
@@ -80,18 +81,22 @@ public class Aliment extends AbstractRowModel {
             JSONObject result = service.save(getData());
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
-
+                refreshModel();
                 AssignService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
+                save.getStyleClass().remove("red-button");
                 result = select.isSelected() ?
                         recipesService.assign(getDishId(), getId()) :
                         recipesService.deAssign(getDishId(), getId());
-
-                save.getStyleClass().remove("red-button");
             }
             notifyResult(result);
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
+    }
+
+    @Override
+    protected void refreshModel() {
+        setName((String) data.get("name"));
     }
 }

@@ -70,4 +70,13 @@ public abstract class Dish extends AbstractEntity {
     public void setIngredients(Set<Aliment> ingredients) {
         this.ingredients = ingredients;
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctName = this.getName();
+        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        this.setName(nameCorrector(correctName));
+    }
 }

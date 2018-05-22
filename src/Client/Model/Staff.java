@@ -22,13 +22,7 @@ public class Staff extends AbstractRowModel {
     public Staff(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getStaffService(), tableController, data);
 
-        getMansion().setMaxHeight(40);
-        setName((String) data.get("name"));
-        setSurname((String) data.get("surname"));
-        setFiscalCode((String) data.get("fiscalCode"));
-        setBirthDate((CharSequence) data.get("birthDate"));
-        setMansion((String) data.get("mansion"));
-
+        refreshModel();
         events();
     }
 
@@ -58,6 +52,16 @@ public class Staff extends AbstractRowModel {
             needToSave();
             data.put("birthDate", birthDate.getValue().toString());
         });
+    }
+
+    @Override
+    protected void refreshModel() {
+        getMansion().setMaxHeight(40);
+        setName((String) data.get("name"));
+        setSurname((String) data.get("surname"));
+        setFiscalCode((String) data.get("fiscalCode"));
+        setBirthDate((CharSequence) data.get("birthDate"));
+        setMansion((String) data.get("mansion"));
     }
 
     public int getId() {

@@ -6,6 +6,9 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -102,4 +105,21 @@ public abstract class Person extends AbstractEntity {
         this.birthDate = birthDate;
     }
 
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctName = this.getName();
+        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        this.setName(nameCorrector(correctName));
+
+        String correctSurname = this.getSurname();
+        if(!validateString(correctSurname, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        this.setSurname(nameCorrector(correctSurname));
+
+        String correctFiscalCode = this.getFiscalCode();
+        if(!validateString(correctFiscalCode, "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException();
+        if(this.getFiscalCode().length()!=16) throw new IllegalArgumentException();
+        this.setFiscalCode(correctFiscalCode.toUpperCase());
+    }
 }

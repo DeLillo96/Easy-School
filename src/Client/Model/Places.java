@@ -24,9 +24,7 @@ public class Places extends AbstractRowModel {
     public Places(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getPlaceService(), tableController, data);
 
-        setName((String) data.get("name"));
-        setAddress((String) data.get("address"));
-        setCost((String) data.get("cost"));
+        refreshModel();
         events();
     }
 
@@ -71,14 +69,23 @@ public class Places extends AbstractRowModel {
                 result = select.isSelected() ?
                         tripPlaceService.assign(trip.getId(), getId()) :
                         tripPlaceService.deAssign(trip.getId(), getId());
+                refreshModel();
 
                 save.getStyleClass().remove("red-button");
+                //controller.refreshModel(this, data);
             }
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void refreshModel() {
+        setName((String) data.get("name"));
+        setAddress((String) data.get("address"));
+        setCost((String) data.get("cost"));
     }
 
     public Integer getId() {

@@ -126,4 +126,19 @@ public class Place extends AbstractEntity {
     public void setArrivalBuses(Set<Bus> arrivalBuses) {
         this.arrivalBuses = arrivalBuses;
     }
+
+    @Override
+    protected void beforeSave() {
+        super.beforeSave();
+
+        String correctName = this.getName();
+        this.setName(nameCorrector(correctName));
+
+        String correctAddress = this.getAddress();
+        this.setAddress(nameCorrector(correctAddress));
+
+        Double correctCost = this.getCost();
+        if(correctCost<0) throw new IllegalArgumentException();
+
+    }
 }

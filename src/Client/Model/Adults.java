@@ -4,9 +4,11 @@ import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import Shared.AssignService;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
@@ -28,12 +30,7 @@ public class Adults extends AbstractRowModel {
     public Adults(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController, data);
 
-        setName((String) data.get("name"));
-        setSurname((String) data.get("surname"));
-        setFiscalCode((String) data.get("fiscalCode"));
-        setTelephone((String) data.get("telephone"));
-        setBirthDate((CharSequence) data.get("birthDate"));
-
+        refreshModel();
         events();
     }
 
@@ -67,18 +64,27 @@ public class Adults extends AbstractRowModel {
             JSONObject result = service.save(getData());
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
+                refreshModel();
+                save.getStyleClass().remove("red-button");
                 AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
                 result = select.isSelected() ?
                         parentService.assign(child.getId(), getId()) :
                         parentService.deAssign(child.getId(), getId());
-
-                save.getStyleClass().remove("red-button");
             }
             notifyResult(result);
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError("500 Server Error");
         }
+    }
+
+    @Override
+    protected void refreshModel() {
+        setName((String) data.get("name"));
+        setSurname((String) data.get("surname"));
+        setFiscalCode((String) data.get("fiscalCode"));
+        setTelephone((String) data.get("telephone"));
+        setBirthDate((CharSequence) data.get("birthDate"));
     }
 
     public Integer getId() {

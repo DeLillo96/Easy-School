@@ -22,8 +22,7 @@ public class Buses extends AbstractRowModel {
     public Buses(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController, data);
 
-        setLicensePlate((String) data.get("licensePlate"));
-        setCompanyName((String) data.get("companyName"));
+        refreshModel();
         events();
     }
 
@@ -46,6 +45,7 @@ public class Buses extends AbstractRowModel {
             JSONObject result = service.save(data);
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
+                refreshModel();
                 AssignService busArrivalPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService();
                 result = arrivalSelect.isSelected() ?
                         busArrivalPlaceService.assign(getId(), place.getId()) :
@@ -55,14 +55,20 @@ public class Buses extends AbstractRowModel {
                 result = startSelect.isSelected() ?
                         busStartingPlaceService.assign(getId(), place.getId()) :
                         busStartingPlaceService.deAssign(getId(), place.getId());
-
             }
             save.getStyleClass().remove("red-button");
+            //controller.refreshModel(this, data);
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void refreshModel() {
+        setLicensePlate((String) data.get("licensePlate"));
+        setCompanyName((String) data.get("companyName"));
     }
 
     public Integer getId() {

@@ -20,14 +20,18 @@ public class EatingDisorder extends AbstractRowModel {
     public EatingDisorder(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController, data);
 
+        refreshModel();
+        events();
+        buttons.getChildren().remove(delete);
+    }
+
+    @Override
+    protected void refreshModel() {
         setName((String) data.get("name"));
         getType().getItems().addAll(null, "Allergy", "Intolerance");
         getType().setPrefSize(380, 40);
         getType().setMinSize(380, 40);
         getType().setMaxSize(380, 40);
-
-        events();
-        buttons.getChildren().remove(delete);
     }
 
     public void events() {
@@ -43,7 +47,11 @@ public class EatingDisorder extends AbstractRowModel {
             EatingDisorderService service = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
             //todo split assignment
             JSONObject result = service.assign(getId(), child.getId());
-            if ((boolean) result.get("success")) save.getStyleClass().remove("red-button");
+            if ((boolean) result.get("success")) {
+                refreshModel();
+                save.getStyleClass().remove("red-button");
+                //controller.refreshModel(this, data);
+            }
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError("500 Server Error");
