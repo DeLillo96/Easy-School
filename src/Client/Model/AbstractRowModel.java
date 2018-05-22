@@ -94,7 +94,7 @@ public abstract class AbstractRowModel {
     protected void needToSave() {
         ObservableList styleClasses = save.getStyleClass();
         if (!styleClasses.contains("red-button")) styleClasses.add("red-button");
-        if (controller.isNewRowFlag()) controller.setNewRowFlag(false);
+        if (!controller.isNewRowFlag()) controller.setNewRowFlag(true);
     }
 
     public JSONObject getData() {
