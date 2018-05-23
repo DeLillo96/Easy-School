@@ -24,8 +24,7 @@ public class DishesController {
                     renderDishTable(menu, RemoteManager.getInstance().getRemoteServicesManager().getSweetDishService())
             );
         } catch (Exception e) {
-            //todo render error
-            e.printStackTrace();
+            ControllerManager.getInstance().notifyError("Communication error (Can't call dish services)");
         }
     }
 

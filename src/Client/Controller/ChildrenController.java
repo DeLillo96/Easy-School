@@ -1,5 +1,6 @@
 package Client.Controller;
 
+import Client.ControllerManager;
 import Client.Model.Children;
 import Client.Remote.RemoteManager;
 import javafx.fxml.FXML;
@@ -55,7 +56,8 @@ public class ChildrenController extends AbstractTableController {
                 Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
                 filters.put("birthDateTo", toDate);
             }
-        } catch (ParseException ignored) {
+        } catch (ParseException e) {
+            ControllerManager.getInstance().notifyError("Invalid dates (Required format: yyyy-MM-dd");
         }
         filters.put("fiscalCode", fiscalCodeTextField.getText());
 

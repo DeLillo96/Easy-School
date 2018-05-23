@@ -24,12 +24,6 @@ public class BusesController extends AbstractTableController {
     private TextField licensePlateTextField;
     @FXML
     private TextField companyNameTextField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button addButton;
-    @FXML
-    private TableView<Buses> busesTableView;
 
     private Places place;
 
@@ -67,10 +61,11 @@ public class BusesController extends AbstractTableController {
             }
 
             ObservableList<Buses> items = FXCollections.observableArrayList(allBuses);
-            busesTableView.setItems(items);
+            tableView.setItems(items);
 
         } catch (Exception e) {
-            //todo render error
+            e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 
@@ -78,7 +73,7 @@ public class BusesController extends AbstractTableController {
     public void add() throws Exception {
         Buses bus = new Buses(this);
         bus.setPlace(place);
-        busesTableView.getItems().add(bus);
+        addIntoTable(bus);
     }
 
     @Override
@@ -108,8 +103,4 @@ public class BusesController extends AbstractTableController {
         ControllerManager.getInstance().removePopup();
     }
 
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        busesTableView.getItems().remove(abstractRowModel);
-    }
 }

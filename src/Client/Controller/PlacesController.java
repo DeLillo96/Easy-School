@@ -29,13 +29,6 @@ public class PlacesController extends AbstractTableController {
     private TextField addressTextField;
     @FXML
     private TextField maxCostTextField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private TableView<Places> placesTableView;
 
     private DayTrips trip;
 
@@ -47,10 +40,6 @@ public class PlacesController extends AbstractTableController {
         this.trip = trip;
         tripName.setText(trip.getStringName());
         filter();
-    }
-
-    @FXML
-    public void initialize() {
     }
 
     @FXML
@@ -72,24 +61,18 @@ public class PlacesController extends AbstractTableController {
             }
 
             ObservableList<Places> items = FXCollections.observableArrayList(list);
-            placesTableView.setItems(items);
+            tableView.setItems(items);
 
         } catch (Exception e) {
-            e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
-    }
-
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        placesTableView.getItems().remove(abstractRowModel);
     }
 
     @FXML
     public void add() throws Exception {
         Places place = new Places(this);
         place.setTrip(trip);
-        placesTableView.getItems().add(place);
+        addIntoTable(place);
     }
 
     @Override
@@ -125,4 +108,5 @@ public class PlacesController extends AbstractTableController {
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
+
 }

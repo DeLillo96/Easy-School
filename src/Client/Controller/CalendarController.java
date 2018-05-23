@@ -198,7 +198,10 @@ public class CalendarController {
     public void initialize() {
         try {
             calendarServices = RemoteManager.getInstance().getRemoteServicesManager().getCalendarService();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+            ControllerManager.getInstance().notifyError("Server communication error (Can't call calendar services)");
+        }
         selectedMonth = Calendar.getInstance().get(Calendar.MONTH);
         selectedYear = Calendar.getInstance().get(Calendar.YEAR);
         monthSelect.getSelectionModel().select(selectedMonth);

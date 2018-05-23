@@ -44,6 +44,7 @@ public abstract class AbstractRowModel {
 
         defineImageButton(delete, "Client/Resources/Images/delete.png");
         delete.setOnAction(actionEvent -> delete());
+        delete.setTooltip(new Tooltip("Delete"));
     }
 
     protected void defineImageButton(Button button, String urlImage) {
@@ -69,8 +70,7 @@ public abstract class AbstractRowModel {
             }
             notifyResult(result);
         } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError("500 Server Error");
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public abstract class AbstractRowModel {
             if ((boolean) result.get("success")) controller.delete(this);
             notifyResult(result);
         } catch (Exception e) {
-            e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 

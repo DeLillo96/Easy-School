@@ -22,13 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class StaffController extends AbstractTableController {
-    /* FILTERS */
-    @FXML
-    private Text childName;
-    @FXML
-    private Text childSurname;
-    @FXML
-    private Text childFiscalCode;
+
     @FXML
     private TextField nameTextField;
     @FXML
@@ -41,15 +35,6 @@ public class StaffController extends AbstractTableController {
     private TextField fiscalCodeTextField;
     @FXML
     private TextField mansionTextField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Parent parent;
-
-    @FXML
-    private TableView<Staff> staffTableView;
 
     public StaffController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getStaffService());
@@ -61,28 +46,8 @@ public class StaffController extends AbstractTableController {
     }
 
     @FXML
-    @Override
-    public void filter() {
-        try {
-            ArrayList<Staff> list = search(takeFilters());
-
-            ObservableList<Staff> items = FXCollections.observableArrayList(list);
-            staffTableView.setItems(items);
-        } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
-    }
-
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        staffTableView.getItems().remove(abstractRowModel);
-    }
-
-    @FXML
     public void add() throws Exception {
-        Staff staff = new Staff(this);
-        staffTableView.getItems().add(staff);
+        addIntoTable(new Staff(this));
     }
 
     @Override
@@ -92,6 +57,7 @@ public class StaffController extends AbstractTableController {
         filters.put("name", nameTextField.getText());
         filters.put("surname", surnameTextField.getText());
         filters.put("fiscalCode", fiscalCodeTextField.getText());
+        filters.put("mansion", mansionTextField.getText());
         if ((birthDatePickerFrom.getValue() != null) || (birthDatePickerTo.getValue() != null)) {
             try {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -104,7 +70,7 @@ public class StaffController extends AbstractTableController {
                     filters.put("birthDateTo", toDate);
                 }
             } catch (ParseException e) {
-                e.printStackTrace();
+                ControllerManager.getInstance().notifyError("Invalid dates (Required format: yyyy-MM-dd");
             }
         }
 
@@ -124,17 +90,4 @@ public class StaffController extends AbstractTableController {
         return list;
     }
 
-    public void remove() {
-        ControllerManager.getInstance().removePopup();
-    }
-
-    /*@Override
-    public void refreshModel(AbstractRowModel abstractRowModel, JSONObject data) throws Exception{
-        int index = staffTableView.getItems().indexOf(abstractRowModel);
-        staffTableView.getItems().remove(abstractRowModel);
-        ArrayList<Staff> elementToAdd = new ArrayList<>();
-        elementToAdd.add(new Staff(this, data));
-        ObservableList<Staff> newElement= FXCollections.observableArrayList(elementToAdd);
-        staffTableView.getItems().addAll(index, newElement);
-    }*/
 }

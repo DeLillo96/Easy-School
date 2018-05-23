@@ -48,6 +48,9 @@
                     </styleClass>
                 </Button>
                 <Button fx:id="addButton" alignment="CENTER" onAction="#add">
+                    <tooltip>
+                        <Tooltip text="Add new dish"/>
+                    </tooltip>
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0">
                             <image>

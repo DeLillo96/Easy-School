@@ -19,16 +19,9 @@ import java.util.ArrayList;
 
 public class AlimentController extends AbstractTableController {
     protected Dish dish;
-    @FXML
-    private Label dishName;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button addButton;
+
     @FXML
     private TextField nameTextField;
-    @FXML
-    private TableView<Aliment> alimentTableView;
 
     public AlimentController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
@@ -75,16 +68,11 @@ public class AlimentController extends AbstractTableController {
             }
 
             ObservableList<Aliment> items = FXCollections.observableArrayList(list);
-            alimentTableView.setItems(items);
+            tableView.setItems(items);
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
-    }
-
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        alimentTableView.getItems().remove(abstractRowModel);
     }
 
     public Dish getDish() {
@@ -97,11 +85,11 @@ public class AlimentController extends AbstractTableController {
 
     @FXML
     public void add() throws Exception {
-        alimentTableView.getItems().add(new Aliment(this));
+        addIntoTable(new Aliment(this));
     }
 
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
-
+    
 }

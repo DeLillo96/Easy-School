@@ -97,7 +97,7 @@ public class Aliment extends AbstractEntity {
         super.beforeSave();
 
         String correctName = this.getName();
-        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException("Violated constraints on name field (No symbols allowed, no numbers allowed, max length = 32)");
         this.setName(nameCorrector(correctName));
     }
 }

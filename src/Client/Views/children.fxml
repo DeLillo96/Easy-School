@@ -87,6 +87,9 @@
                             </children>
                         </VBox>
                         <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
+                            <tooltip>
+                                <Tooltip text="Search"/>
+                            </tooltip>
                             <graphic>
                                 <ImageView fitHeight="40.0" fitWidth="40.0">
                                     <image>

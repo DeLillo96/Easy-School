@@ -76,7 +76,7 @@ public abstract class Dish extends AbstractEntity {
         super.beforeSave();
 
         String correctName = this.getName();
-        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException("Violated constraints on name field (No symbols allowed, no numbers allowed)");
         this.setName(nameCorrector(correctName));
     }
 }

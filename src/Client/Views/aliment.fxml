@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
@@ -14,14 +14,11 @@
             styleClass="anchor-pane-popup" stylesheets="@../Resources/Style/default.css"
             xmlns="http://javafx.com/javafx/8.0.121" fx:controller="Client.Controller.AlimentController">
     <children>
-        <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
             <children>
-                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="110.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0"
+                      AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label fx:id="dishName"/>
-
                         <VBox alignment="CENTER">
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
@@ -37,6 +34,9 @@
                             </children>
                         </VBox>
                         <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
+                            <tooltip>
+                                <Tooltip text="Search"/>
+                            </tooltip>
                             <graphic>
                                 <ImageView fitHeight="40.0" fitWidth="40.0">
                                     <image>
@@ -44,15 +44,20 @@
                                     </image>
                                 </ImageView>
                             </graphic>
-                            <HBox.margin>
-                                <Insets left="5.0"/>
-                            </HBox.margin>
                             <styleClass>
                                 <String fx:value="alone-button"/>
                                 <String fx:value="radius-15"/>
                             </styleClass>
                         </Button>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0"
+                      AnchorPane.topAnchor="0.0">
+                    <children>
                         <Button fx:id="addButton" alignment="CENTER" onAction="#add">
+                            <tooltip>
+                                <Tooltip text="Add new aliment"/>
+                            </tooltip>
                             <graphic>
                                 <ImageView fitHeight="40.0" fitWidth="40.0">
                                     <image>
@@ -69,43 +74,44 @@
                             </styleClass>
                         </Button>
                     </children>
-                    <VBox.margin>
-                        <Insets left="10.0"/>
-                    </VBox.margin>
                 </HBox>
-                <TableView fx:id="alimentTableView" layoutY="131.0" prefWidth="1136.0">
-                    <columns>
-                        <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="-1.0">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="buttons"/>
-                            </cellValueFactory>
-                        </TableColumn>
-                        <TableColumn fx:id="checkParentColumn" maxWidth="3000.0" minWidth="-Infinity" prefWidth="0.0"
-                                     text="Recipe">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="select"/>
-                            </cellValueFactory>
-                            <styleClass>
-                                <String fx:value="table-cell"/>
-                            </styleClass>
-                        </TableColumn>
-                        <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="name"/>
-                            </cellValueFactory>
-                        </TableColumn>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0"/>
-                    </VBox.margin>
-                </TableView>
             </children>
-        </VBox>
+        </AnchorPane>
+        <TableView fx:id="tableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                   AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
+            <columns>
+                <TableColumn fx:id="buttonsColumn" minWidth="-Infinity" prefWidth="-1.0">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="buttons"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="checkIngredientColumn" maxWidth="3000.0" minWidth="-Infinity" prefWidth="0.0"
+                             text="Recipe">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="select"/>
+                    </cellValueFactory>
+                    <styleClass>
+                        <String fx:value="table-cell"/>
+                    </styleClass>
+                </TableColumn>
+                <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="-1.0" text="Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0"/>
+            </VBox.margin>
+        </TableView>
         <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#remove" text="X" AnchorPane.rightAnchor="3.0"
                 AnchorPane.topAnchor="3.0">
+            <tooltip>
+                <Tooltip text="Remove current popup"/>
+            </tooltip>
             <styleClass>
                 <String fx:value="circle-button"/>
                 <String fx:value="exit-button"/>

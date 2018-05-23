@@ -19,14 +19,6 @@ public class DayTripsController extends AbstractTableController {
     @FXML
     private TextField nameTextField;
 
-    /* TABLE */
-    @FXML
-    private TableView<DayTrips> dayTripTableView;
-    @FXML
-    private TableColumn buttonsColumn;
-    @FXML
-    private TableColumn nameColumn;
-
     public DayTripsController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getDayTripService());
     }
@@ -37,22 +29,8 @@ public class DayTripsController extends AbstractTableController {
     }
 
     @FXML
-    @Override
-    public void filter() {
-        try {
-            ArrayList<DayTrips> list = search(takeFilters());
-            ObservableList<DayTrips> items = FXCollections.observableArrayList(list);
-            dayTripTableView.setItems(items);
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
-    }
-
-    @FXML
     public void add() throws Exception {
-        DayTrips dayTrips = new DayTrips(this);
-        dayTripTableView.getItems().add(dayTrips);
-        dayTripTableView.scrollTo(dayTrips);
+        addIntoTable(new DayTrips(this));
     }
 
     @Override
@@ -77,8 +55,4 @@ public class DayTripsController extends AbstractTableController {
         return list;
     }
 
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        dayTripTableView.getItems().remove(abstractRowModel);
-    }
 }

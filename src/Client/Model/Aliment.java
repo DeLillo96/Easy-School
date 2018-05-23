@@ -7,6 +7,7 @@ import Shared.AssignService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 public class Aliment extends AbstractRowModel {
@@ -21,6 +22,8 @@ public class Aliment extends AbstractRowModel {
 
     public Aliment(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController, data);
+
+        select.setTooltip(new Tooltip("Add/remove ingredient"));
 
         refreshModel();
         events();
@@ -90,8 +93,7 @@ public class Aliment extends AbstractRowModel {
             }
             notifyResult(result);
         } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError("500 Server Error");
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 

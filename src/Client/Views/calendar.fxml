@@ -42,6 +42,9 @@
                         </HBox.margin>
                     </TextField>
                     <Button fx:id="changeCalendar" text="CHANGE!">
+                        <tooltip>
+                            <Tooltip text="Refresh calendar"/>
+                        </tooltip>
                         <HBox.margin>
                             <Insets left="30.0"/>
                         </HBox.margin>
@@ -52,6 +55,9 @@
                         </HBox.margin>
                     </DatePicker>
                     <Button fx:id="renderDatePopup" text="POPUP!">
+                        <tooltip>
+                            <Tooltip text="Add events"/>
+                        </tooltip>
                         <HBox.margin>
                             <Insets left="30.0"/>
                         </HBox.margin>

@@ -4,6 +4,7 @@ import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
@@ -39,6 +40,7 @@ public class Menu extends AbstractRowModel {
         modify = new Button();
         defineImageButton(modify, "Client/Resources/Images/modify.png");
         modify.setOnAction(actionEvent -> modify());
+        modify.setTooltip(new Tooltip("Modify menu composition"));
 
         getButtons().getChildren().add(modify);
         getButtons().getChildren().remove(save);
@@ -48,7 +50,7 @@ public class Menu extends AbstractRowModel {
         try {
             ControllerManager.getInstance().renderDishes(this);
         } catch (IOException e) {
-            ControllerManager.getInstance().notifyError("Rendering Dishes Error.7");
+            ControllerManager.getInstance().notifyError("Rendering error");
         }
     }
 

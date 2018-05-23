@@ -6,6 +6,7 @@ import Client.Remote.RemoteManager;
 import Shared.AssignService;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
@@ -32,6 +33,8 @@ public class DailyMenu extends AbstractRowModel {
             sweet.setText((String) ((JSONObject) data.get("sweet")).get("name"));
         }
 
+        select.setTooltip(new Tooltip("Add/remove daily menu"));
+
         events();
         buttons.getChildren().remove(delete);
     }
@@ -52,8 +55,7 @@ public class DailyMenu extends AbstractRowModel {
             save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError("500 Server Error");
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 

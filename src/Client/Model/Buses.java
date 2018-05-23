@@ -6,6 +6,7 @@ import Client.Remote.RemoteManager;
 import Shared.AssignService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 public class Buses extends AbstractRowModel {
@@ -21,6 +22,9 @@ public class Buses extends AbstractRowModel {
 
     public Buses(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController, data);
+
+        startSelect.setTooltip(new Tooltip("Add/remove start bus"));
+        arrivalSelect.setTooltip(new Tooltip("Add/remove arrival bus"));
 
         refreshModel();
         events();
@@ -57,10 +61,9 @@ public class Buses extends AbstractRowModel {
                         busStartingPlaceService.deAssign(getId(), place.getId());
             }
             save.getStyleClass().remove("red-button");
-            //controller.refreshModel(this, data);
             notifyResult(result);
         } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("500 Server Error");
+            ControllerManager.getInstance().notifyError(e.getMessage());
             e.printStackTrace();
         }
     }

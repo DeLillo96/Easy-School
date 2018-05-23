@@ -1,6 +1,7 @@
 package Server.Remote;
 
 import Server.Entity.Aliment;
+import Server.Entity.Allergy;
 import Server.Entity.Child;
 import Server.Entity.Intolerance;
 import Server.Repository.AlimentRepository;
@@ -27,9 +28,25 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
     }
 
     @Override
-    public JSONObject assignAllergy(Integer rightId, Integer leftId) throws Exception {
-        //todo
-        return null;
+    public JSONObject assignAllergy(Integer alimentId, Integer childId) throws Exception {
+        Child child = (new ChildRepository()).getChildById(childId);
+        Aliment aliment = (new AlimentRepository()).getAlimentById(alimentId);
+        List<Allergy> list = eatingDisorderRepository.read();
+
+        for (Allergy allergy : list) {
+            if (allergy.getAffectedAlimentId().equals(alimentId) &&
+                    allergy.getAffectedChildId().equals(childId)
+                    ) {
+                return allergy.save().toJson();
+            }
+        }
+
+
+        Allergy newAllergy = new Allergy();
+        newAllergy.setAffectedAliment(aliment);
+        newAllergy.setAffectedChild(child);
+
+        return newAllergy.save().toJson();
     }
 
     @Override

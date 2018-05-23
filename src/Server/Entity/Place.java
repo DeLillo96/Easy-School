@@ -138,7 +138,7 @@ public class Place extends AbstractEntity {
         this.setAddress(nameCorrector(correctAddress));
 
         Double correctCost = this.getCost();
-        if(correctCost<0) throw new IllegalArgumentException();
+        if(correctCost<0) throw new IllegalArgumentException("Violated constraints on cost field (Negative cost)");
 
     }
 }

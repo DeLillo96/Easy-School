@@ -43,15 +43,6 @@ public class AdultsController extends AbstractTableController {
     private TextField fiscalCodeTextField;
     @FXML
     private TextField telephoneTextField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Parent parent;
-
-    @FXML
-    private TableView<Adults> adultTableView;
 
     private Children child;
 
@@ -85,23 +76,18 @@ public class AdultsController extends AbstractTableController {
             }
 
             ObservableList<Adults> items = FXCollections.observableArrayList(list);
-            adultTableView.setItems(items);
+            tableView.setItems(items);
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        adultTableView.getItems().remove(abstractRowModel);
-    }
-
     @FXML
     public void add() throws Exception {
         Adults adult = new Adults(this);
         adult.setChild(child);
-        adultTableView.getItems().add(adult);
+        addIntoTable(adult);
     }
 
     @Override
@@ -124,7 +110,7 @@ public class AdultsController extends AbstractTableController {
                     filters.put("birthDateTo", toDate);
                 }
             } catch (ParseException e) {
-                e.printStackTrace();
+                ControllerManager.getInstance().notifyError("Invalid dates (Required format: yyyy-MM-dd");
             }
         }
 

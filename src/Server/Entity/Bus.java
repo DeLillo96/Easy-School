@@ -107,7 +107,7 @@ public class Bus extends AbstractEntity {
         super.beforeSave();
 
         String correctLicensePlate = this.getLicensePlate();
-        if(!validateString(getLicensePlate(), "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException();
+        if(!validateString(getLicensePlate(), "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException("Violated constraints on code/license plate field (Only numbers and letters are allowed, no spaces)");
         this.setLicensePlate(correctLicensePlate.toUpperCase());
 
         String correctCompanyName = this.getCompanyName();

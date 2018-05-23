@@ -110,16 +110,16 @@ public abstract class Person extends AbstractEntity {
         super.beforeSave();
 
         String correctName = this.getName();
-        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException("Violated constraints on name field (No symbols allowed, no numbers allowed, max length = 32)");
         this.setName(nameCorrector(correctName));
 
         String correctSurname = this.getSurname();
-        if(!validateString(correctSurname, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException();
+        if(!validateString(correctSurname, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException("Violated constraints on surname field (No symbols allowed, no numbers allowed, max length = 32)");
         this.setSurname(nameCorrector(correctSurname));
 
         String correctFiscalCode = this.getFiscalCode();
-        if(!validateString(correctFiscalCode, "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException();
-        if(this.getFiscalCode().length()!=16) throw new IllegalArgumentException();
+        if(!validateString(correctFiscalCode, "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException("Violated constraints on fiscal code field (Only numbers and letters are allowed, no spaces)");
+        if(this.getFiscalCode().length()!=16) throw new IllegalArgumentException("Violated constraints on fidcal code field (This field has to be filled with a combination of 16 letters or numbers in any combination)");
         this.setFiscalCode(correctFiscalCode.toUpperCase());
     }
 }

@@ -86,14 +86,14 @@ public class Adult extends Person {
         super.beforeSave();
 
         String correctTelephone = this.getTelephone();
-        if(!validateString(correctTelephone, "^[0-9]*$")) throw new IllegalArgumentException();
+        if(!validateString(correctTelephone, "^[0-9]*$")) throw new IllegalArgumentException("Violated constraints on telephone field (No spaces, only numbers required, up to 10 numbers)");
 
         Date birthDate = this.getBirthDate();
         java.util.Calendar today = java.util.Calendar.getInstance();
         today.set(java.util.Calendar.HOUR_OF_DAY, 0);
         Date actualDate = today.getTime();
         long diff = actualDate.getTime() - birthDate.getTime();
-        if((TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/(365.25))<18) throw new IllegalArgumentException();
+        if((TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/(365.25))<18) throw new IllegalArgumentException("Violated constraints on birth date field (The person is too much young to be identified as an adult)");
     }
 
 }

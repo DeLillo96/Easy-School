@@ -55,11 +55,13 @@ public class CalendarDay {
                 try {
                     Date calendarDay = dateFormat.parse(actualDateString);
                     filters.put("date", calendarDay);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                    ControllerManager.getInstance().notifyError("Invalid dates (Required format: yyyy-MM-dd");
+                }
                 try {
                     result = controller.getCalendarServices().read(filters);
                 } catch (Exception e) {
-                    ControllerManager.getInstance().notifyError("Read error from server");
+                    ControllerManager.getInstance().notifyError("Communication error (Can't call calendar services)");
                 }
                 if ((result != null) && (result.size()>0) && ((boolean) result.get("success")) && !(((JSONObject) result.get("data")).isEmpty() )) {
                     data = (JSONObject) result.get("data");
@@ -75,7 +77,7 @@ public class CalendarDay {
                     try {
                         result = controller.getCalendarServices().save(dataCreateParams);
                     } catch (Exception e) {
-                        ControllerManager.getInstance().notifyError("Save error from server");
+                        ControllerManager.getInstance().notifyError("Communication error: (Can't call calendar services)");
                     }
                     if ((boolean) result.get("success")) {
                         data = (JSONObject) ((JSONObject) result.get("data")).get(0);

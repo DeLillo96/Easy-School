@@ -44,6 +44,6 @@ public class Pediatrician extends Person {
         today.set(java.util.Calendar.HOUR_OF_DAY, 0);
         Date actualDate = today.getTime();
         long diff = actualDate.getTime() - birthDate.getTime();
-        if((TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/(365.25))<28) throw new IllegalArgumentException();
+        if((TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/(365.25))<28) throw new IllegalArgumentException("Violated constraints on birth date field (The person is too much young to be identified as a pediatrician)");
     }
 }

@@ -56,7 +56,6 @@ public class DailyMenusController extends AbstractTableController {
             ObservableList<DailyMenu> items = FXCollections.observableArrayList(list);
             tableView.setItems(items);
         } catch (Exception e) {
-            e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
@@ -91,7 +90,9 @@ public class DailyMenusController extends AbstractTableController {
         }
         try {
             RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService().saveAll(calendarId,addMenus);
-        } catch(Exception e) {}
+        } catch(Exception e) {
+            ControllerManager.getInstance().notifyError("Communication error (Can't call menu services)");
+        }
     }
 
     public PopupTabController getPopupTabController() {

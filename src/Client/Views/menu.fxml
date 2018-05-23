@@ -7,14 +7,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="783.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="783.0" stylesheets="@../Resources/Style/default.css"
             xmlns="http://javafx.com/javafx/8.0.121" fx:controller="Client.Controller.MenuController">
-    <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <children>
+    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
         <children>
-            <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0"
+                  AnchorPane.topAnchor="0.0">
                 <children>
                     <Button fx:id="addButton" alignment="CENTER" onAction="#add">
+                        <tooltip>
+                            <Tooltip text="Add new menu"/>
+                        </tooltip>
                         <graphic>
                             <ImageView fitHeight="40.0" fitWidth="40.0">
                                 <image>
@@ -31,18 +35,11 @@
                         </styleClass>
                     </Button>
                 </children>
-                <opaqueInsets>
-                    <Insets/>
-                </opaqueInsets>
-                <VBox.margin>
-                    <Insets/>
-                </VBox.margin>
-                <padding>
-                    <Insets left="3.0"/>
-                </padding>
             </HBox>
-            <TableView fx:id="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0">
+        </children>
+    </AnchorPane>
+        <TableView fx:id="tableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                   AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
                 <columns>
                     <TableColumn minWidth="-Infinity" prefWidth="-1.0">
                         <cellValueFactory>
@@ -74,6 +71,5 @@
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                 </columnResizePolicy>
             </TableView>
-        </children>
-    </VBox>
+    </children>
 </AnchorPane>

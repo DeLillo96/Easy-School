@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity"
             styleClass="anchor-pane-popup" stylesheets="@../Resources/Style/default.css"
             xmlns="http://javafx.com/javafx/8.0.121" fx:controller="Client.Controller.DishesController">
@@ -11,6 +12,9 @@
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#remove" text="X" AnchorPane.rightAnchor="3.0"
                 AnchorPane.topAnchor="3.0">
+            <tooltip>
+                <Tooltip text="Remove current popup"/>
+            </tooltip>
             <styleClass>
                 <String fx:value="circle-button"/>
                 <String fx:value="exit-button"/>

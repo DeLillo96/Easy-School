@@ -6,6 +6,7 @@ import Client.Remote.RemoteManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
@@ -36,10 +37,12 @@ public class Children extends AbstractRowModel {
         parents = new Button();
         defineImageButton(parents, "Client/Resources/Images/parents.png");
         parents.setOnAction(actionEvent -> parents());
+        parents.setTooltip(new Tooltip("Show parents"));
 
         disorder = new Button();
         defineImageButton(disorder, "Client/Resources/Images/eating.png");
         disorder.setOnAction(actionEvent -> disorder());
+        disorder.setTooltip(new Tooltip("Set eating disorders"));
 
         if (data.size() == 0) {
             parents.setVisible(false);

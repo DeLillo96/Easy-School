@@ -27,9 +27,6 @@ public class EatingDisordersController extends AbstractTableController {
     @FXML
     private TextField nameTextField;
 
-    @FXML
-    private TableView<EatingDisorder> eatingDisorderTableView;
-
     private Children child;
 
     public EatingDisordersController() throws Exception {
@@ -62,9 +59,8 @@ public class EatingDisordersController extends AbstractTableController {
             }
 
             ObservableList<EatingDisorder> items = FXCollections.observableArrayList(list);
-            eatingDisorderTableView.setItems(items);
+            tableView.setItems(items);
         } catch (Exception e) {
-            e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
@@ -80,16 +76,7 @@ public class EatingDisordersController extends AbstractTableController {
 
     @Override
     protected ArrayList parseIntoRows(JSONObject data) throws Exception {
-        ArrayList<EatingDisorder> list = new ArrayList<>();
-
-        for (int i = 0; i < data.size(); i++) {
-            JSONObject aliment = (JSONObject) data.get(i);
-
-            EatingDisorder element = new EatingDisorder(this, aliment);
-            element.setChild(child);
-            list.add(element);
-        }
-        return list;
+        return null;
     }
 
     protected ArrayList parseEatingDisorderIntoRows(JSONObject data) throws Exception {
@@ -107,12 +94,8 @@ public class EatingDisordersController extends AbstractTableController {
         return list;
     }
 
-    @Override
-    public void delete(AbstractRowModel abstractRowModel) {
-        eatingDisorderTableView.getItems().remove(abstractRowModel);
-    }
-
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
+
 }

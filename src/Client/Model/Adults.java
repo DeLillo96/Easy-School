@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import org.json.simple.JSONObject;
 
@@ -29,6 +30,8 @@ public class Adults extends AbstractRowModel {
 
     public Adults(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService(), tableController, data);
+
+        select.setTooltip(new Tooltip("Add/remove parent"));
 
         refreshModel();
         events();
@@ -70,11 +73,11 @@ public class Adults extends AbstractRowModel {
                 result = select.isSelected() ?
                         parentService.assign(child.getId(), getId()) :
                         parentService.deAssign(child.getId(), getId());
+                enableButtons();
             }
             notifyResult(result);
         } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError("500 Server Error");
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 

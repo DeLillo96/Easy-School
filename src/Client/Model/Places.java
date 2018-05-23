@@ -7,6 +7,7 @@ import Shared.AssignService;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 public class Places extends AbstractRowModel {
@@ -24,6 +25,8 @@ public class Places extends AbstractRowModel {
     public Places(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getPlaceService(), tableController, data);
 
+        select.setTooltip(new Tooltip("Add/remove visited place"));
+
         refreshModel();
         events();
     }
@@ -35,6 +38,11 @@ public class Places extends AbstractRowModel {
         Button buses = new Button();
         defineImageButton(buses, "Client/Resources/Images/bus.png");
         buses.setOnAction(actionEvent -> buses());
+        buses.setTooltip(new Tooltip("Show buses"));
+
+        if (data.size() == 0) {
+            buses.setVisible(false);
+        }
 
         getButtons().getChildren().addAll(buses);
     }
@@ -72,12 +80,11 @@ public class Places extends AbstractRowModel {
                 refreshModel();
 
                 save.getStyleClass().remove("red-button");
-                //controller.refreshModel(this, data);
+                enableButtons();
             }
             notifyResult(result);
         } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("500 Server Error");
-            e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 

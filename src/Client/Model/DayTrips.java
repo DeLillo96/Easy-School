@@ -5,6 +5,7 @@ import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 public class DayTrips extends AbstractRowModel {
@@ -28,6 +29,11 @@ public class DayTrips extends AbstractRowModel {
         Button places = new Button();
         defineImageButton(places, "Client/Resources/Images/place.png");
         places.setOnAction(actionEvent -> places());
+        places.setTooltip(new Tooltip("Show places"));
+
+        if (data.size() == 0) {
+            places.setVisible(false);
+        }
 
         getButtons().getChildren().addAll(places);
     }
