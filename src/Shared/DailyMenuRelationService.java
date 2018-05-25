@@ -4,6 +4,6 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 
-public interface DailyMenuAssignService extends AssignService{
+public interface DailyMenuRelationService extends RelationService {
     JSONObject saveAll(Integer calendarId, List<Integer> selectedMenuId) throws Exception;
 }
