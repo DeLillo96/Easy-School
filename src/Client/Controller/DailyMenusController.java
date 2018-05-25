@@ -53,7 +53,7 @@ public class DailyMenusController extends AbstractTableController {
                 });
             }
 
-            ObservableList<DailyMenu> items = FXCollections.observableArrayList(list);
+            ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(list);
             tableView.setItems(items);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());

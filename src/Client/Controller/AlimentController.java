@@ -67,7 +67,7 @@ public class AlimentController extends AbstractTableController {
                 });
             }
 
-            ObservableList<Aliment> items = FXCollections.observableArrayList(list);
+            ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(list);
             tableView.setItems(items);
         } catch (Exception e) {
             e.printStackTrace();

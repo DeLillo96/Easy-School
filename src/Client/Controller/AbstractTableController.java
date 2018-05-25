@@ -15,7 +15,7 @@ public abstract class AbstractTableController {
 
     protected BaseService service;
     @FXML
-    protected TableView tableView;
+    protected TableView<AbstractRowModel> tableView;
     private boolean newRowFlag = true;
 
     public AbstractTableController(BaseService baseService) {
@@ -54,7 +54,7 @@ public abstract class AbstractTableController {
         }
     }
 
-    protected void addIntoTable(Object item) {
+    protected void addIntoTable(AbstractRowModel item) {
         if (isNewRowFlag()) {
             tableView.getItems().add(item);
             tableView.scrollTo(item);

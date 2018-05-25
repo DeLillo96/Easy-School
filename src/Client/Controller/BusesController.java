@@ -60,7 +60,7 @@ public class BusesController extends AbstractTableController {
                 });
             }
 
-            ObservableList<Buses> items = FXCollections.observableArrayList(allBuses);
+            ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(allBuses);
             tableView.setItems(items);
 
         } catch (Exception e) {

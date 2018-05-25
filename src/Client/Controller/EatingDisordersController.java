@@ -58,7 +58,7 @@ public class EatingDisordersController extends AbstractTableController {
                 });
             }
 
-            ObservableList<EatingDisorder> items = FXCollections.observableArrayList(list);
+            ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(list);
             tableView.setItems(items);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
