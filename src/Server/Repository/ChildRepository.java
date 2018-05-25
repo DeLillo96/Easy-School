@@ -2,6 +2,7 @@ package Server.Repository;
 
 import Server.Entity.Adult;
 import Server.Entity.Child;
+import Server.Entity.Trip;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,5 +41,20 @@ public class ChildRepository extends AbstractRepository {
         Adult adult = adultRepository.getAdultById(adultId);
 
         return new ArrayList(adult.getChildren());
+    }
+
+    public List getChildInTrip(Integer dailyTripId) {
+        return read(
+                "select\n" +
+                    "  CH,\n" +
+                    "  case when\n" +
+                    "    CH.id in (" +
+                    "       select CHT.id from " +
+                    "           Trip CIT join CIT.childInTrip CHT " +
+                    "               where CIT.id = " + dailyTripId +
+                    "       ) then true\n" +
+                    "  else false\n" +
+                    "    end\n" +
+                    "from Child CH", null);
     }
 }

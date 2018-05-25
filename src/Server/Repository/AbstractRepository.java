@@ -37,6 +37,11 @@ public abstract class AbstractRepository implements Repository {
 
     @Override
     public List read(HashMap<String, Object> filters) {
+        return read("FROM " + tableName, filters);
+    }
+
+    @Override
+    public List read(String sql, HashMap<String, Object> filters) {
         Session session = null;
 
         try {
@@ -52,7 +57,7 @@ public abstract class AbstractRepository implements Repository {
         session.beginTransaction();
         List list = null;
         try {
-            list = session.createQuery("FROM " + tableName).list();
+            list = session.createQuery(sql).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

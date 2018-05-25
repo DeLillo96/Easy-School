@@ -5,10 +5,7 @@ import org.json.simple.JSONObject;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Result {
@@ -86,11 +83,29 @@ public class Result {
 
         JSONObject jsonData = new JSONObject();
         for (int i = 0; i < data.size(); i++) {
-            jsonData.put(i, classToJson(data.get(i)));
+            jsonData.put(i, dataToJson(data.get(i)));
         }
         result.put("data", jsonData);
 
         return result;
+    }
+
+    private JSONObject dataToJson(Object o) {
+        if (o instanceof Object[]){
+            return objectsToJson((Object[]) o);
+        } else {
+            return classToJson(o);
+        }
+    }
+
+    private JSONObject objectsToJson(Object[] objects) {
+        JSONObject jsonObject = new JSONObject();
+        for (int i = 0; i < objects.length; i++) {
+            if(objects[i] != null) {
+                jsonObject.put(i, parseObject(objects[i], objects[i].getClass()));
+            }
+        }
+        return jsonObject;
     }
 
     private JSONObject classToJson(Object o) {
@@ -128,6 +143,9 @@ public class Result {
         } else {
             String item = object.toString();
 
+            if(objectClass == Boolean.class) {
+                item = Boolean.toString((Boolean) object);
+            }
             if (objectClass == Date.class) {
                 item = new SimpleDateFormat("yyyy-MM-dd").format(object);
             }
