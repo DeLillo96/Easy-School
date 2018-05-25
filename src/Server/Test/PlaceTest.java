@@ -1,7 +1,7 @@
 package Server.Test;
 
 import Server.Entity.Bus;
-import Server.Entity.DayTrip;
+import Server.Entity.Trip;
 import Server.Entity.Place;
 import Server.Repository.PlaceRepository;
 import org.junit.jupiter.api.AfterAll;
@@ -17,8 +17,8 @@ public class PlaceTest {
     private static PlaceRepository placeRepository = new PlaceRepository();
     private static Bus busOne = new Bus("AA111BB", "StarkTours");
     private static Bus busTwo = new Bus("CC222DD", "RenegadeTours");
-    private static DayTrip tripOne = new DayTrip("Northern Territories");
-    private static DayTrip tripTwo = new DayTrip("Right to the Wall");
+    private static Trip tripOne = new Trip("Northern Territories");
+    private static Trip tripTwo = new Trip("Right to the Wall");
     private static Place placeOne = new Place("Winterfell", "Stark family's home", 60);
     private static Place placeTwo = new Place("The Wall", "Extreme north", 15);
 
@@ -65,7 +65,7 @@ public class PlaceTest {
 
     @Test
     void readPlacesByTrip() {
-        List result = placeRepository.getPlaceByDayTrip(tripOne.getId());
+        List result = placeRepository.getPlaceByTrip(tripOne.getId());
         assertNotNull(result);
     }
 }

@@ -26,10 +26,9 @@
         <mapping class="Server.Entity.Dish"/>
         <mapping class="Server.Entity.EatingDisorder"/>
         <mapping class="Server.Entity.Menu"/>
-        <mapping class="Server.Entity.DayTrip"/>
         <mapping class="Server.Entity.Place"/>
         <mapping class="Server.Entity.Bus"/>
-        <mapping class="Server.Entity.BusPresence"/>
+        <mapping class="Server.Entity.Trip"/>
         <mapping class="Server.Entity.First"/>
         <mapping class="Server.Entity.Second"/>
         <mapping class="Server.Entity.Side"/>

@@ -53,16 +53,8 @@ public class Calendar extends AbstractEntity {
     )
     private Set<Menu> dailyMenus = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "DailyTrips",
-            joinColumns = {@JoinColumn(name = "calendar_id")},
-            inverseJoinColumns = {@JoinColumn(name = "trip_id")}
-    )
-    private Set<DayTrip> dailyTrips = new HashSet<>();
-
-    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
-    private Set<BusPresence> busPresences = new HashSet<>();
+    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<Trip> dailyTrip = new HashSet<>();
 
     public Calendar() {
         this.date = new Date();
@@ -118,14 +110,6 @@ public class Calendar extends AbstractEntity {
         this.dailyMenus = dailyMenus;
     }
 
-    public Set<DayTrip> getDailyTrips() {
-        return dailyTrips;
-    }
-
-    public void setDailyTrips(Set<DayTrip> dailyTrips) {
-        this.dailyTrips = dailyTrips;
-    }
-
     public Set<Child> getPresentChildren() {
         return presentChildren;
     }
@@ -134,12 +118,12 @@ public class Calendar extends AbstractEntity {
         this.presentChildren = presentChildren;
     }
 
-    public Set<BusPresence> getBusPresences() {
-        return busPresences;
+    public Set<Trip> getTrip() {
+        return dailyTrip;
     }
 
-    public void setBusPresences(Set<BusPresence> busPresences) {
-        this.busPresences = busPresences;
+    public void setTrip(Set<Trip> dailyTrip) {
+        this.dailyTrip = dailyTrip;
     }
 
     @Override

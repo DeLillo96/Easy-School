@@ -1,7 +1,7 @@
 package Server.Repository;
 
 import Server.Entity.Bus;
-import Server.Entity.DayTrip;
+import Server.Entity.Trip;
 import Server.Entity.Place;
 
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class PlaceRepository extends AbstractRepository {
         return places;
     }
 
-    public List<Place> getPlaceByDayTrip(Integer tripId) {
-        DayTripRepository dayTripRepository = new DayTripRepository();
-        DayTrip trips = dayTripRepository.getDayTripById(tripId);
+    public List<Place> getPlaceByTrip(Integer tripId) {
+        TripRepository dayTripRepository = new TripRepository();
+        Trip trips = dayTripRepository.getTripById(tripId);
         Set<Place> places = trips.getPlaces();
         return new ArrayList<Place>(places);
 

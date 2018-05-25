@@ -43,8 +43,8 @@ public class Bus extends AbstractEntity {
     @ManyToMany(mappedBy = "arrivalBuses", fetch = FetchType.EAGER)
     private Set<Place> destinationPlaces = new HashSet<>();
 
-    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
-    private Set<BusPresence> busPresences = new HashSet<>();
+    @ManyToMany(mappedBy = "vehicles", fetch = FetchType.EAGER)
+    private Set<Trip> trips = new HashSet<>();
 
     public Bus() {
     }
@@ -94,14 +94,6 @@ public class Bus extends AbstractEntity {
         this.destinationPlaces = destinationPlaces;
     }
 
-    public Set<BusPresence> getBusPresences() {
-        return busPresences;
-    }
-
-    public void setBusPresences(Set<BusPresence> busPresences) {
-        this.busPresences = busPresences;
-    }
-
     @Override
     protected void beforeSave() {
         super.beforeSave();
@@ -113,5 +105,4 @@ public class Bus extends AbstractEntity {
         String correctCompanyName = this.getCompanyName();
         this.setCompanyName(nameCorrector(companyName));
     }
-
 }

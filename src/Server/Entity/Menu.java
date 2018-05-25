@@ -94,4 +94,5 @@ public class Menu extends AbstractEntity {
         this.sweet = sweet;
     }
 
+
 }

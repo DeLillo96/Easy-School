@@ -18,12 +18,12 @@ public class ChildTest {
 
     @BeforeAll
     static void createChild() {
-        child.save();
+        //child.save();
     }
 
     @AfterAll
     static void deleteChild() {
-        child.delete();
+        //child.delete();
     }
 
     @Test
@@ -61,6 +61,12 @@ public class ChildTest {
         String message = "Read error";
         assertEquals(child.getName(), readChild.getName(), message);
     }*/
+
+    @Test
+    void readChildInTrip(){
+        List result = childRepository.getChildInTrip(1);
+        assertTrue(result.size() > 0);
+    }
 
     @Test
     void modifyChild() {

@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-
 @FilterDefs({
         @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
         @FilterDef(name = "name", parameters = @ParamDef(name = "name", type = "string")),
@@ -44,7 +43,7 @@ public class Place extends AbstractEntity {
     private double cost;
 
     @ManyToMany(mappedBy = "places", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
-    private Set<DayTrip> trips = new HashSet<>();
+    private Set<Trip> trips = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
@@ -103,11 +102,11 @@ public class Place extends AbstractEntity {
         this.cost = cost;
     }
 
-    public Set<DayTrip> getTrips() {
+    public Set<Trip> getTrips() {
         return trips;
     }
 
-    public void setTrips(Set<DayTrip> trips) {
+    public void setTrips(Set<Trip> trips) {
         this.trips = trips;
     }
 
@@ -138,7 +137,7 @@ public class Place extends AbstractEntity {
         this.setAddress(nameCorrector(correctAddress));
 
         Double correctCost = this.getCost();
-        if(correctCost<0) throw new IllegalArgumentException("Violated constraints on cost field (Negative cost)");
+        if(correctCost < 0) throw new IllegalArgumentException("Violated constraints on cost field (Negative cost)");
 
     }
 }

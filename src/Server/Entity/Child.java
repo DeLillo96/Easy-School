@@ -22,8 +22,8 @@ public class Child extends Person {
     @ManyToMany(mappedBy = "presentChildren", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Calendar> presences = new HashSet<>();
 
-    @OneToMany(mappedBy = "child", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Set<BusPresence> busPresences = new HashSet<>();
+    @ManyToMany(mappedBy = "childInTrip")
+    private Set<Trip> trips = new HashSet<>();
 
     public Child() {
     }
@@ -63,12 +63,12 @@ public class Child extends Person {
         this.eatingDisorders = eatingDisorders;
     }
 
-    public Set<BusPresence> getBusPresences() {
-        return busPresences;
+    public Set<Trip> getTrips() {
+        return trips;
     }
 
-    public void setBusPresences(Set<BusPresence> busPresences) {
-        this.busPresences = busPresences;
+    public void setTrips(Set<Trip> trips) {
+        this.trips = trips;
     }
 
     @Override

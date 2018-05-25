@@ -98,7 +98,7 @@ public class SocketParser extends Thread {
                 }
 
                 if (json.get("service").equals("daytrips")) {
-                    DayTripServiceImplementation dayTripService = new DayTripServiceImplementation();
+                    TripServiceImplementation dayTripService = new TripServiceImplementation();
 
                     if (json.get("function").equals("read")) {
                         JSONObject data = (JSONObject) json.get("data");

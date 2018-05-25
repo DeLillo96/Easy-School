@@ -19,7 +19,7 @@ public class RMIManager {
         registry.rebind("aliment", new AlimentServiceImplementation());
         registry.rebind("bus", new BusServiceImplementation());
         registry.rebind("calendar", new CalendarServiceImplementation());
-        registry.rebind("daytrip", new DayTripServiceImplementation());
+        registry.rebind("daytrip", new TripServiceImplementation());
         registry.rebind("eatingdisorder", new EatingDisorderServiceImplementation());
         registry.rebind("place", new PlaceServiceImplementation());
         registry.rebind("recipes", new RecipesServiceImplementation());
@@ -29,6 +29,7 @@ public class RMIManager {
         registry.rebind("busdestinationplace", new BusArrivalPlaceServiceImplementation());
         registry.rebind("dailymenu", new DailyMenuServiceImplementation());
         registry.rebind("dailytrip", new DailyTripServiceImplementation());
+        registry.rebind("childintrip", new ChildrenInTripServiceImplementation());
         registry.rebind("staff", new StaffServiceImplementation());
         registry.rebind("firstdish", new FirstDishServiceImplementation());
         registry.rebind("seconddish", new SecondDishServiceImplementation());
