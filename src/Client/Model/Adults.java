@@ -3,8 +3,7 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
-import javafx.geometry.Pos;
+import Shared.RelationService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -69,7 +68,7 @@ public class Adults extends AbstractRowModel {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
                 refreshModel();
                 save.getStyleClass().remove("red-button");
-                AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
+                RelationService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
                 result = select.isSelected() ?
                         parentService.assign(child.getId(), getId()) :
                         parentService.deAssign(child.getId(), getId());

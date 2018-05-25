@@ -3,8 +3,7 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
-import javafx.scene.control.Button;
+import Shared.RelationService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
@@ -47,7 +46,7 @@ public class DailyMenu extends AbstractRowModel {
     public void save() {
         try {
             JSONObject result;
-            AssignService dailyMenuService = RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService();
+            RelationService dailyMenuService = RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService();
             result = select.isSelected() ?
                     dailyMenuService.assign(getCalendarId(), getId()) :
                     dailyMenuService.deAssign(getCalendarId(), getId());

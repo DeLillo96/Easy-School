@@ -2,65 +2,21 @@ package Server.Remote;
 
 import Server.Entity.*;
 import Server.Repository.*;
-import Server.Result;
-import Shared.AssignService;
+import Shared.BaseService;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
 
-public class DailyTripServiceImplementation extends UnicastRemoteObject implements AssignService {
-    protected DayTripRepository dayTripRepository;
-    protected CalendarRepository calendarRepository;
-
+public class DailyTripServiceImplementation extends AbstractBaseService implements BaseService {
     public DailyTripServiceImplementation() throws RemoteException {
-        dayTripRepository = new DayTripRepository();
-        calendarRepository = new CalendarRepository();
+        super(new TripRepository());
     }
 
     @Override
-    public JSONObject assign(Integer calendarId, Integer tripId) throws Exception {
-        Calendar calendar = calendarRepository.getCalendarById(calendarId);
-        DayTrip dayTrip = dayTripRepository.getDayTripById(tripId);
-
-        for (DayTrip dailyTrip : calendar.getDailyTrips()) {
-            if (dailyTrip.getId().equals(tripId)) {
-                Result result = new Result();
-                result.addData(calendar);
-                return result.toJson();
-            }
-        }
-
-        calendar.getDailyTrips().add(dayTrip);
-        return calendar.save().toJson();
-    }
-
-    @Override
-    public JSONObject deAssign(Integer calendarId, Integer tripId) throws Exception {
-        Calendar calendar = calendarRepository.getCalendarById(calendarId);
-
-        for (DayTrip dailyTrip : calendar.getDailyTrips()) {
-            if (dailyTrip.getId().equals(tripId)) {
-                calendar.getDailyTrips().remove(dailyTrip);
-                return calendar.save().toJson();
-            }
-        }
-
-        Result result = new Result();
-        result.addData(calendar);
-        return result.toJson();
-    }
-
-    @Override
-    public JSONObject leftRead(Integer tripId) throws Exception {
-        List list = calendarRepository.getCalendarByTripId(tripId);
-        return new Result(true, list).toJson();
-    }
-
-    @Override
-    public JSONObject rightRead(Integer calendarId) throws Exception {
-        List list = dayTripRepository.getDailyTripByCalendar(calendarId);
-        return new Result(true, list).toJson();
+    protected EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(jsonObject.toString(), Trip.class);
     }
 }

@@ -21,7 +21,7 @@ public class PlaceServiceImplementation extends AbstractBaseService implements B
     public JSONObject readVisitedPlaceByTripId(Integer dayTripId) throws Exception {
         Result result = new Result();
 
-        List response = new ArrayList((new PlaceRepository()).getPlaceByDayTrip(dayTripId));
+        List response = new ArrayList((new PlaceRepository()).getPlaceByTrip(dayTripId));
         if (response != null) {
             result.setData(response);
         } else {

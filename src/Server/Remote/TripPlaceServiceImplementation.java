@@ -1,68 +1,79 @@
 package Server.Remote;
 
-import Server.Entity.DayTrip;
+import Server.Entity.Trip;
 import Server.Entity.Place;
-import Server.Repository.DayTripRepository;
+import Server.Repository.TripRepository;
 import Server.Repository.PlaceRepository;
 import Server.Result;
-import Shared.AssignService;
+import Shared.RelationService;
 import org.json.simple.JSONObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class TripPlaceServiceImplementation extends UnicastRemoteObject implements AssignService {
+public class TripPlaceServiceImplementation extends UnicastRemoteObject implements RelationService {
     protected PlaceRepository placeRepository;
-    protected DayTripRepository dayTripRepository;
+    protected TripRepository tripRepository;
 
     public TripPlaceServiceImplementation() throws RemoteException {
         placeRepository = new PlaceRepository();
-        dayTripRepository = new DayTripRepository();
+        tripRepository = new TripRepository();
     }
 
     @Override
-    public JSONObject assign(Integer dayTripId, Integer placeId) throws Exception {
-        DayTrip dayTrip = dayTripRepository.getDayTripById(dayTripId);
+    public JSONObject assign(Integer tripId, Integer placeId) throws Exception {
+        Trip trip = tripRepository.getTripById(tripId);
         Place place = placeRepository.getPlaceById(placeId);
 
-        for (Place starting : dayTrip.getPlaces()) {
+        for (Place starting : trip.getPlaces()) {
             if (starting.getId().equals(placeId)) {
                 Result result = new Result();
-                result.addData(dayTrip);
+                result.addData(trip);
                 return result.toJson();
             }
         }
 
-        dayTrip.getPlaces().add(place);
-        return dayTrip.save().toJson();
+        trip.getPlaces().add(place);
+        return trip.save().toJson();
     }
 
     @Override
-    public JSONObject deAssign(Integer dayTripId, Integer placeId) throws Exception {
-        DayTrip dayTrip = dayTripRepository.getDayTripById(dayTripId);
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
+        return null;
+    }
 
-        for (Place place : dayTrip.getPlaces()) {
+    @Override
+    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public JSONObject deAssign(Integer tripId, Integer placeId) throws Exception {
+        Trip trip = tripRepository.getTripById(tripId);
+
+        for (Place place : trip.getPlaces()) {
             if (place.getId().equals(placeId)) {
-                dayTrip.getPlaces().remove(place);
-                return dayTrip.save().toJson();
+                trip.getPlaces().remove(place);
+                return trip.save().toJson();
             }
         }
 
         Result result = new Result();
-        result.addData(dayTrip);
+        result.addData(trip);
         return result.toJson();
     }
 
     @Override
     public JSONObject leftRead(Integer placeId) throws Exception {
-        List list = dayTripRepository.getDayTripByPlace(placeId);
-        return new Result(true, list).toJson();
+        //List list = tripRepository.getTripByPlace(placeId);
+        //return new Result(true, list).toJson();
+        return null;
     }
 
     @Override
-    public JSONObject rightRead(Integer dayTripId) throws Exception {
-        List list = placeRepository.getPlaceByDayTrip(dayTripId);
+    public JSONObject rightRead(Integer tripId) throws Exception {
+        List list = placeRepository.getPlaceByTrip(tripId);
         return new Result(true, list).toJson();
     }
 }

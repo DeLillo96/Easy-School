@@ -63,38 +63,43 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public AssignService getRecipesService() throws Exception {
-        return (AssignService) registry.lookup("recipes");
+    public RelationService getRecipesService() throws Exception {
+        return (RelationService) registry.lookup("recipes");
     }
 
     @Override
-    public AssignService getParentService() throws Exception {
-        return (AssignService) registry.lookup("parents");
+    public RelationService getParentService() throws Exception {
+        return (RelationService) registry.lookup("parents");
     }
 
     @Override
-    public AssignService getBusStartingPlaceService() throws Exception {
-        return (AssignService) registry.lookup("busstartingplace");
+    public RelationService getBusStartingPlaceService() throws Exception {
+        return (RelationService) registry.lookup("busstartingplace");
     }
 
     @Override
-    public AssignService getBusArrivalPlaceService() throws Exception {
-        return (AssignService) registry.lookup("busdestinationplace");
+    public RelationService getBusArrivalPlaceService() throws Exception {
+        return (RelationService) registry.lookup("busdestinationplace");
     }
 
     @Override
-    public AssignService getTripPlaceService() throws Exception {
-        return (AssignService) registry.lookup("tripplace");
+    public RelationService getTripPlaceService() throws Exception {
+        return (RelationService) registry.lookup("tripplace");
     }
 
     @Override
-    public DailyMenuAssignService getDailyMenuService() throws Exception {
-        return (DailyMenuAssignService) registry.lookup("dailymenu");
+    public DailyMenuRelationService getDailyMenuService() throws Exception {
+        return (DailyMenuRelationService) registry.lookup("dailymenu");
     }
 
     @Override
-    public AssignService getDailyTripService() throws Exception {
-        return (AssignService) registry.lookup("dailytrip");
+    public BaseService getDailyTripService() throws Exception {
+        return (BaseService) registry.lookup("dailytrip");
+    }
+
+    @Override
+    public RelationService getChildInTripService() throws Exception {
+        return (RelationService) registry.lookup("childintrip");
     }
 
     @Override

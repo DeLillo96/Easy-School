@@ -21,21 +21,23 @@ public interface RemoteServicesManager {
 
     BaseService getMenuService() throws Exception;
 
-    AssignService getRecipesService() throws Exception;
+    RelationService getRecipesService() throws Exception;
 
     BaseService getPlaceService() throws Exception;
 
-    AssignService getParentService() throws Exception;
+    RelationService getParentService() throws Exception;
 
-    AssignService getBusStartingPlaceService() throws Exception;
+    RelationService getBusStartingPlaceService() throws Exception;
 
-    AssignService getBusArrivalPlaceService() throws Exception;
+    RelationService getBusArrivalPlaceService() throws Exception;
 
-    AssignService getTripPlaceService() throws Exception;
+    RelationService getTripPlaceService() throws Exception;
 
-    DailyMenuAssignService getDailyMenuService() throws Exception;
+    DailyMenuRelationService getDailyMenuService() throws Exception;
 
-    AssignService getDailyTripService() throws Exception;
+    BaseService getDailyTripService() throws Exception;
+
+    RelationService getChildInTripService() throws Exception;
 
     BaseService getFirstDishService() throws Exception;
 

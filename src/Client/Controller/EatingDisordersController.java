@@ -5,7 +5,7 @@ import Client.Model.AbstractRowModel;
 import Client.Model.Children;
 import Client.Model.EatingDisorder;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,7 +46,7 @@ public class EatingDisordersController extends AbstractTableController {
         try {
             ArrayList<EatingDisorder> list = search(takeFilters());
 
-            AssignService eatingDisorderService = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
+            RelationService eatingDisorderService = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
             JSONObject result = eatingDisorderService.rightRead(child.getId());
 
             ArrayList<EatingDisorder> eatingDisorders = parseEatingDisorderIntoRows((JSONObject) result.get("data"));

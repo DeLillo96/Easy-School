@@ -73,39 +73,44 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public AssignService getRecipesService() throws Exception {
+    public RelationService getRecipesService() throws Exception {
         //todo ERRORACCIO!
-        return (AssignService) new BaseServiceAdapter("recipes", in, out);
+        return (RelationService) new BaseServiceAdapter("recipes", in, out);
     }
 
     @Override
-    public AssignService getParentService() throws Exception {
-        return (AssignService) new BaseServiceAdapter("parents", in, out);
+    public RelationService getParentService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("parents", in, out);
     }
 
     @Override
-    public AssignService getBusStartingPlaceService() throws Exception {
-        return (AssignService) new BaseServiceAdapter("busstartplace", in, out);
+    public RelationService getBusStartingPlaceService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("busstartplace", in, out);
     }
 
     @Override
-    public AssignService getBusArrivalPlaceService() throws Exception {
-        return (AssignService) new BaseServiceAdapter("busarrivalplace", in, out);
+    public RelationService getBusArrivalPlaceService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("busarrivalplace", in, out);
     }
 
     @Override
-    public AssignService getTripPlaceService() throws Exception {
-        return (AssignService) new BaseServiceAdapter("tripplace", in, out);
+    public RelationService getTripPlaceService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("tripplace", in, out);
     }
 
     @Override
-    public DailyMenuAssignService getDailyMenuService() throws Exception {
-        return (DailyMenuAssignService) new BaseServiceAdapter("dailymenu", in, out);
+    public DailyMenuRelationService getDailyMenuService() throws Exception {
+        return (DailyMenuRelationService) new BaseServiceAdapter("dailymenu", in, out);
     }
 
     @Override
-    public AssignService getDailyTripService() throws Exception {
-        return (AssignService) new BaseServiceAdapter("dailytrip", in, out);
+    public BaseService getDailyTripService() throws Exception {
+        return new BaseServiceAdapter("dailytrip", in, out);
+    }
+
+    @Override
+    public RelationService getChildInTripService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("childintrip", in, out);
     }
 
     @Override

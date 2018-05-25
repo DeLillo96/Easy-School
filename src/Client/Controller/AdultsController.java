@@ -5,14 +5,11 @@ import Client.Model.AbstractRowModel;
 import Client.Model.Adults;
 import Client.Model.Children;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
@@ -63,7 +60,7 @@ public class AdultsController extends AbstractTableController {
         try {
             ArrayList<Adults> list = search(takeFilters());
 
-            AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
+            RelationService parentService = RemoteManager.getInstance().getRemoteServicesManager().getParentService();
             JSONObject result = parentService.rightRead(child.getId());
 
             ArrayList<Adults> parent = parseIntoRows((JSONObject) result.get("data"));

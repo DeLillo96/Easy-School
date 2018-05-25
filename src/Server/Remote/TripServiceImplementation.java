@@ -1,8 +1,8 @@
 package Server.Remote;
 
-import Server.Entity.DayTrip;
+import Server.Entity.Trip;
 import Server.Entity.EntityInterface;
-import Server.Repository.DayTripRepository;
+import Server.Repository.TripRepository;
 import Shared.BaseService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
@@ -10,14 +10,14 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-public class DayTripServiceImplementation extends AbstractBaseService implements BaseService {
-    public DayTripServiceImplementation() throws RemoteException {
-        super(new DayTripRepository());
+public class TripServiceImplementation extends AbstractBaseService implements BaseService {
+    public TripServiceImplementation() throws RemoteException {
+        super(new TripRepository());
     }
 
     @Override
     protected EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonObject.toString(), DayTrip.class);
+        return objectMapper.readValue(jsonObject.toString(), Trip.class);
     }
 }

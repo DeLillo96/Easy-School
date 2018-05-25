@@ -3,7 +3,7 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -85,7 +85,7 @@ public class Aliment extends AbstractRowModel {
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
                 refreshModel();
-                AssignService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
+                RelationService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
                 save.getStyleClass().remove("red-button");
                 result = select.isSelected() ?
                         recipesService.assign(getDishId(), getId()) :

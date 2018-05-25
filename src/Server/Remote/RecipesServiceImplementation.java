@@ -5,15 +5,14 @@ import Server.Entity.Dish;
 import Server.Repository.AlimentRepository;
 import Server.Repository.DishRepository;
 import Server.Result;
-import Shared.AssignService;
+import Shared.RelationService;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class RecipesServiceImplementation extends UnicastRemoteObject implements AssignService {
+public class RecipesServiceImplementation extends UnicastRemoteObject implements RelationService {
     protected DishRepository dishRepository;
     protected AlimentRepository alimentRepository;
 
@@ -37,6 +36,16 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
 
         dish.getIngredients().add(aliment);
         return dish.save().toJson();
+    }
+
+    @Override
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
+        return null;
+    }
+
+    @Override
+    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
+        return null;
     }
 
     @Override

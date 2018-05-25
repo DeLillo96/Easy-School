@@ -5,14 +5,14 @@ import Server.Entity.Child;
 import Server.Repository.AdultRepository;
 import Server.Repository.ChildRepository;
 import Server.Result;
-import Shared.AssignService;
+import Shared.RelationService;
 import org.json.simple.JSONObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class ParentServiceImplementation extends UnicastRemoteObject implements AssignService {
+public class ParentServiceImplementation extends UnicastRemoteObject implements RelationService {
     protected AdultRepository adultRepository;
     protected ChildRepository childRepository;
 
@@ -36,6 +36,16 @@ public class ParentServiceImplementation extends UnicastRemoteObject implements 
 
         adult.getChildren().add(child);
         return adult.save().toJson();
+    }
+
+    @Override
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
+        return null;
+    }
+
+    @Override
+    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
+        return null;
     }
 
     @Override

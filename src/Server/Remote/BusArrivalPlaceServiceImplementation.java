@@ -5,14 +5,14 @@ import Server.Entity.Place;
 import Server.Repository.BusRepository;
 import Server.Repository.PlaceRepository;
 import Server.Result;
-import Shared.AssignService;
+import Shared.RelationService;
 import org.json.simple.JSONObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class BusArrivalPlaceServiceImplementation extends UnicastRemoteObject implements AssignService {
+public class BusArrivalPlaceServiceImplementation extends UnicastRemoteObject implements RelationService {
     protected PlaceRepository placeRepository;
     protected BusRepository busRepository;
 
@@ -36,6 +36,16 @@ public class BusArrivalPlaceServiceImplementation extends UnicastRemoteObject im
 
         place.getArrivalBuses().add(bus);
         return place.save().toJson();
+    }
+
+    @Override
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
+        return null;
+    }
+
+    @Override
+    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
+        return null;
     }
 
     @Override

@@ -3,7 +3,7 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -50,12 +50,12 @@ public class Buses extends AbstractRowModel {
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
                 refreshModel();
-                AssignService busArrivalPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService();
+                RelationService busArrivalPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService();
                 result = arrivalSelect.isSelected() ?
                         busArrivalPlaceService.assign(getId(), place.getId()) :
                         busArrivalPlaceService.deAssign(getId(), place.getId());
 
-                AssignService busStartingPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusStartingPlaceService();
+                RelationService busStartingPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusStartingPlaceService();
                 result = startSelect.isSelected() ?
                         busStartingPlaceService.assign(getId(), place.getId()) :
                         busStartingPlaceService.deAssign(getId(), place.getId());

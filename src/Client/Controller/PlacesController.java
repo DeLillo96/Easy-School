@@ -5,12 +5,10 @@ import Client.Model.AbstractRowModel;
 import Client.Model.DayTrips;
 import Client.Model.Places;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
@@ -48,7 +46,7 @@ public class PlacesController extends AbstractTableController {
         try {
             ArrayList<Places> list = search(takeFilters());
 
-            AssignService parentService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
+            RelationService parentService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
             JSONObject result = parentService.rightRead(trip.getId());
 
             ArrayList<Places> visitedPlaces = parseIntoRows((JSONObject) result.get("data"));

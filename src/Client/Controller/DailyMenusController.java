@@ -2,21 +2,12 @@ package Client.Controller;
 
 import Client.ControllerManager;
 import Client.Model.AbstractRowModel;
-import Client.Model.Adults;
-import Client.Model.Children;
 import Client.Model.DailyMenu;
 import Client.Remote.RemoteManager;
-import Server.Entity.Calendar;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -41,7 +32,7 @@ public class DailyMenusController extends AbstractTableController {
         try {
             ArrayList<DailyMenu> list = search(takeFilters());
 
-            AssignService dailyMenuService = RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService();
+            RelationService dailyMenuService = RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService();
             JSONObject result = dailyMenuService.rightRead(calendarId);
 
             ArrayList<DailyMenu> dailyMenu = parseIntoRows((JSONObject) result.get("data"));
@@ -81,6 +72,7 @@ public class DailyMenusController extends AbstractTableController {
 
     @FXML
     protected void saveAll() {
+        /*
         ObservableList<DailyMenu> allMenus = tableView.getItems();
         ArrayList<Integer> addMenus = new ArrayList<>();
         for (DailyMenu d:allMenus) {
@@ -93,6 +85,7 @@ public class DailyMenusController extends AbstractTableController {
         } catch(Exception e) {
             ControllerManager.getInstance().notifyError("Communication error (Can't call menu services)");
         }
+        */
     }
 
     public PopupTabController getPopupTabController() {

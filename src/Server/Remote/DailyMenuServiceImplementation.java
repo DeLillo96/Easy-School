@@ -1,23 +1,18 @@
 package Server.Remote;
 
-import Server.Entity.Adult;
 import Server.Entity.Calendar;
-import Server.Entity.Child;
 import Server.Entity.Menu;
-import Server.Repository.AdultRepository;
 import Server.Repository.CalendarRepository;
-import Server.Repository.ChildRepository;
 import Server.Repository.MenuRepository;
 import Server.Result;
-import Shared.AssignService;
-import Shared.DailyMenuAssignService;
+import Shared.DailyMenuRelationService;
 import org.json.simple.JSONObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class DailyMenuServiceImplementation extends UnicastRemoteObject implements DailyMenuAssignService {
+public class DailyMenuServiceImplementation extends UnicastRemoteObject implements DailyMenuRelationService {
     protected MenuRepository menuRepository;
     protected CalendarRepository calendarRepository;
 
@@ -46,6 +41,16 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
         calendar.getDailyMenus().add(menu);
         List<String> affectedAliments = checkEatingDisorders(calendarId);
         return calendar.save().toJson();
+    }
+
+    @Override
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
+        return null;
+    }
+
+    @Override
+    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
+        return null;
     }
 
     @Override

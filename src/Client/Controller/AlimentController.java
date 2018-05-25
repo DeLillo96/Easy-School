@@ -5,13 +5,10 @@ import Client.Model.AbstractRowModel;
 import Client.Model.Aliment;
 import Client.Model.Dish;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
 
@@ -55,7 +52,7 @@ public class AlimentController extends AbstractTableController {
         try {
             ArrayList<Aliment> list = search(takeFilters());
 
-            AssignService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
+            RelationService recipesService = RemoteManager.getInstance().getRemoteServicesManager().getRecipesService();
             JSONObject result = recipesService.rightRead(dish.getId());
             ArrayList<Aliment> recipes = parseIntoRows((JSONObject) result.get("data"));
 

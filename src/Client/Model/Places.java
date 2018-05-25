@@ -3,7 +3,7 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.AssignService;
+import Shared.RelationService;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -73,7 +73,7 @@ public class Places extends AbstractRowModel {
             JSONObject result = service.save(getData());
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
-                AssignService tripPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
+                RelationService tripPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
                 result = select.isSelected() ?
                         tripPlaceService.assign(trip.getId(), getId()) :
                         tripPlaceService.deAssign(trip.getId(), getId());

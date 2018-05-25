@@ -28,6 +28,16 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
     }
 
     @Override
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
+        return null;
+    }
+
+    @Override
+    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
+        return null;
+    }
+
+    @Override
     public JSONObject assignAllergy(Integer alimentId, Integer childId) throws Exception {
         Child child = (new ChildRepository()).getChildById(childId);
         Aliment aliment = (new AlimentRepository()).getAlimentById(alimentId);
