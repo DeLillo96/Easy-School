@@ -4,10 +4,13 @@ import Client.ControllerManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
 public class PopupTabController {
 
@@ -15,9 +18,10 @@ public class PopupTabController {
 
     @FXML
     private Text dateText;
-
     @FXML
     private Tab setMenuTab;
+    @FXML
+    private Tab setTripTab;
 
     private String date;
 
@@ -36,6 +40,27 @@ public class PopupTabController {
         DailyMenusController dailyMenusController = loader.getController();
         dailyMenusController.setCalendarId(calendarId);
         dailyMenusController.filter();
+
+        try {
+            GregorianCalendar today = new GregorianCalendar();
+            GregorianCalendar selected = new GregorianCalendar();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            selected.setTime(df.parse(date));
+
+            if (today.get(GregorianCalendar.YEAR) == selected.get(GregorianCalendar.YEAR) &&
+                    (today.get(GregorianCalendar.DAY_OF_YEAR) - 2) <= selected.get(GregorianCalendar.DAY_OF_YEAR)) {
+
+            } else {
+                loader = new FXMLLoader(getClass().getResource("../Views/dailyTrips.fxml"));
+                setTripTab.setContent(loader.load());
+                DailyTripsController dailyTripsController = loader.getController();
+                dailyTripsController.setCalendarId(calendarId);
+                dailyTripsController.filter();
+            }
+
+        } catch (ParseException e) {
+            ControllerManager.getInstance().notifyError("Parse error, the day string is not supported");
+        }
     }
 
     public void remove() {

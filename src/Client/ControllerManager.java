@@ -172,6 +172,19 @@ public class ControllerManager {
         }
     }
 
+    public void renderChildInTrip(DailyTrips dailyTrips) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/childrenInTrip.fxml"));
+            addPopup(loader.load());
+
+            ChildrenInTripController childrenInTripController = loader.getController();
+            childrenInTripController.setDailyTripId(dailyTrips.getId());
+            childrenInTripController.filter();
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
     public void addPopup(Parent parent) {
         int offset = popup.size() * 10;
         AnchorPane.setTopAnchor(parent, 20d + offset);

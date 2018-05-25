@@ -6,8 +6,8 @@ import Client.Remote.RemoteManager;
 import Shared.BaseService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -28,9 +28,9 @@ public class DishesController {
         }
     }
 
-    private VBox renderDishTable(Menu menu, BaseService service) throws IOException {
+    private AnchorPane renderDishTable(Menu menu, BaseService service) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/dish.fxml"));
-        VBox table = loader.load();
+        AnchorPane table = loader.load();
 
         DishController dishController = loader.getController();
         dishController.setService(service);

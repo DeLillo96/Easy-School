@@ -35,22 +35,16 @@ public class Dish extends AbstractRowModel {
     protected void initializeButtons() {
         super.initializeButtons();
 
-        Button set = new Button();
-        defineImageButton(set, "Client/Resources/Images/set.png");
-        set.setOnAction(actionEvent -> controller.setMenuDish(getId(), getStringName()));
-        set.setTooltip(new Tooltip("Set dish for this menu"));
-
         Button recipes = new Button();
         defineImageButton(recipes, "Client/Resources/Images/recipes.png");
         recipes.setOnAction(actionEvent -> openRecipesPopup());
         recipes.setTooltip(new Tooltip("Show ingredients"));
 
         if (data.size() == 0) {
-            set.setVisible(false);
             recipes.setVisible(false);
         }
 
-        getButtons().getChildren().addAll(set, recipes);
+        getButtons().getChildren().addAll(recipes);
     }
 
     @Override
