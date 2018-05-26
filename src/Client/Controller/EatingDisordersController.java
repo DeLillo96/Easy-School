@@ -17,7 +17,6 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class EatingDisordersController extends AbstractTableController {
-    /* FILTERS */
     @FXML
     private Text childName;
     @FXML
@@ -33,6 +32,10 @@ public class EatingDisordersController extends AbstractTableController {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
     }
 
+    /**
+     * Set a Child element to the controller, used for assignations
+     * @param child
+     */
     public void setChild(Children child) {
         this.child = child;
         childName.setText(child.getStringName());
@@ -79,6 +82,12 @@ public class EatingDisordersController extends AbstractTableController {
         return null;
     }
 
+    /**
+     * Method which parses an input JSONObject and generates an ArrayList of EatingDisorder row models
+     * @param data (Parsed JSONObject)
+     * @return (ArrayList of elements that will be insert into a tableView)
+     * @throws Exception ParseException
+     */
     protected ArrayList parseEatingDisorderIntoRows(JSONObject data) throws Exception {
         ArrayList<EatingDisorder> list = new ArrayList<>();
 
@@ -94,6 +103,9 @@ public class EatingDisordersController extends AbstractTableController {
         return list;
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }

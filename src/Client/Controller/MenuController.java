@@ -18,6 +18,10 @@ public class MenuController extends AbstractTableController {
         filter();
     }
 
+    /**
+     * Generates a new Menu model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         addIntoTable(new Menu(this));

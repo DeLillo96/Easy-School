@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import org.json.simple.JSONObject;
 
+/**
+ * Abstract class, represents a generic DB object parsed to be inserted into a tableView
+ */
 public abstract class AbstractRowModel {
     protected JSONObject data;
 
@@ -37,6 +40,9 @@ public abstract class AbstractRowModel {
         this.buttons = buttons;
     }
 
+    /**
+     * Method used to initialize the buttons displayed in the tableView's button column
+     */
     protected void initializeButtons() {
         defineImageButton(save, "Client/Resources/Images/save.png");
         save.setOnAction(actionEvent -> save());
@@ -47,6 +53,11 @@ public abstract class AbstractRowModel {
         delete.setTooltip(new Tooltip("Delete"));
     }
 
+    /**
+     * This method is used to assign image, dimensions and styles to every button in the tableView's button column
+     * @param button (Selected button)
+     * @param urlImage (Image to assign to the button)
+     */
     protected void defineImageButton(Button button, String urlImage) {
         ObservableList<String> classes = button.getStyleClass();
         classes.add("row-button");
@@ -59,6 +70,10 @@ public abstract class AbstractRowModel {
         button.setGraphic(imageView);
     }
 
+    /**
+     * Method used to send a JSONObject to the server for saving operations and to refresh the related row after a
+     * correct saving
+     */
     public void save() {
         try {
             JSONObject result = service.save(getData());
@@ -74,6 +89,10 @@ public abstract class AbstractRowModel {
         }
     }
 
+    /**
+     * Method used to send a JSONObject to the server for deleting operations and to delete the related row after a
+     * correct deleting
+     */
     public void delete() {
         try {
             JSONObject result = service.delete(getData());
@@ -84,6 +103,10 @@ public abstract class AbstractRowModel {
         }
     }
 
+    /**
+     * Method used to render a success or error notify popup after basic DB's operations
+     * @param result (Result of the last operation made on DB, can be true/false and contain a message)
+     */
     protected void notifyResult(JSONObject result) {
         if ((boolean) result.get("success")) {
             ControllerManager.getInstance().notifySuccess(result.get("messages").toString());
@@ -92,6 +115,9 @@ public abstract class AbstractRowModel {
         }
     }
 
+    /**
+     * Changes buttons' style on modified and unsaved rows
+     */
     protected void needToSave() {
         ObservableList styleClasses = save.getStyleClass();
         if (!styleClasses.contains("red-button")) styleClasses.add("red-button");
@@ -106,11 +132,17 @@ public abstract class AbstractRowModel {
         this.data = data;
     }
 
+    /**
+     * Shows hidden buttons
+     */
     protected void enableButtons() {
         for (Node button : buttons.getChildren()) {
             button.setVisible(true);
         }
     }
 
+    /**
+     * Method used to refresh current row, typically after a saving action
+     */
     protected abstract void refreshModel();
 }

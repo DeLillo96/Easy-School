@@ -1,8 +1,12 @@
 package Server;
 
+import Server.Entity.Users;
 import Server.Remote.RMI.RMIManager;
 import Server.Remote.Socket.SocketManager;
 
+/**
+ * Instantiate server object, generating a new RMIManager and a new SocketManager
+ */
 public class Server {
     public static void main(String[] args) throws Exception {
         @SuppressWarnings("unused")

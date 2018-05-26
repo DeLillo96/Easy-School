@@ -20,6 +20,10 @@ public class CalendarDay {
     private VBox container;
     private CalendarController controller;
 
+    /**
+     * Generates a new object with a linked container containing all the daily news
+     * @param calendarController (Main calendar controller)
+     */
     public CalendarDay(CalendarController calendarController) {
         this.setController(calendarController);
         setContainer(new VBox());
@@ -29,20 +33,32 @@ public class CalendarDay {
         events();
     }
 
+    /**
+     * Method called on calendar refresh, clears cell's style in order to a successive assignment
+     */
     public void clearContainer() {
         setDay(0);
         container.getChildren().clear();
         container.getStyleClass().remove("unactive-box");
     }
 
+    /**
+     * Method used to set a calendar cell as unused (darker colour and no day label)
+     */
     public void setUnusedDay() {
         container.getStyleClass().add("unactive-box");
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         container.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openPopup());
     }
 
+    /**
+     * Method used to render a calendar day popup referred to actual clicked calendar cell
+     */
     public void openPopup() {
         JSONObject filters = new JSONObject();
         JSONObject result = new JSONObject();
@@ -94,6 +110,10 @@ public class CalendarDay {
         return day;
     }
 
+    /**
+     * Method used to set a day to a calendar cell through a specific label
+     * @param day (Day of the current month)
+     */
     public void setDay(Integer day) {
         this.day = day;
         Label lbl = new Label(day.toString());

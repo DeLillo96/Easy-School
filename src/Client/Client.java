@@ -10,6 +10,11 @@ public class Client extends Application {
         launch(args);
     }
 
+    /**
+     * Method which launches the client
+     * @param primaryStage (Main window)
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         ControllerManager main = ControllerManager.getInstance();

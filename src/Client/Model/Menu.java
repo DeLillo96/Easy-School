@@ -46,6 +46,9 @@ public class Menu extends AbstractRowModel {
         getButtons().getChildren().remove(save);
     }
 
+    /**
+     * Method which opens a new dish popup referred to current menu, in order to show or modify assigned dishes
+     */
     public void modify() {
         try {
             ControllerManager.getInstance().renderDishes(this);

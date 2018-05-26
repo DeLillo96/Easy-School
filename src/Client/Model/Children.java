@@ -51,6 +51,9 @@ public class Children extends AbstractRowModel {
         getButtons().getChildren().addAll(parents, disorder);
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         name.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();

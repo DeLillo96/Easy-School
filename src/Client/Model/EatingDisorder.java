@@ -34,6 +34,9 @@ public class EatingDisorder extends AbstractRowModel {
         getType().setMaxSize(380, 40);
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         type.setOnAction(event -> {
             needToSave();

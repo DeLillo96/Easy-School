@@ -2,6 +2,10 @@ package Client.Remote;
 
 import Shared.*;
 
+/**
+ * Interface with methods implemented by ServicesManagers, used to associate a specific service when it's get() function
+ * is invoked
+ */
 public interface RemoteServicesManager {
     UserService getUserService() throws Exception;
 

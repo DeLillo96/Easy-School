@@ -30,6 +30,9 @@ public class Buses extends AbstractRowModel {
         events();
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         companyName.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();

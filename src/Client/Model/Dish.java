@@ -14,11 +14,6 @@ public class Dish extends AbstractRowModel {
 
     private TextField name = new TextField();
 
-    @Deprecated
-    public Dish(AbstractTableController tableController) throws Exception {
-        this(null, tableController, new JSONObject());
-    }
-
     public Dish(BaseService service, AbstractTableController tableController) throws Exception {
         this(service, tableController, new JSONObject());
     }
@@ -52,6 +47,9 @@ public class Dish extends AbstractRowModel {
         setName((String) data.get("name"));
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         name.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();
@@ -59,6 +57,9 @@ public class Dish extends AbstractRowModel {
         });
     }
 
+    /**
+     * Method which opens a new recipe popup referred to current dish
+     */
     private void openRecipesPopup() {
         ControllerManager.getInstance().renderRecipes(this);
     }

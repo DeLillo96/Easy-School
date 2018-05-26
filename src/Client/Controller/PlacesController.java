@@ -34,6 +34,10 @@ public class PlacesController extends AbstractTableController {
         super(RemoteManager.getInstance().getRemoteServicesManager().getPlaceService());
     }
 
+    /**
+     * Set a Trip element to the controller, used for assignations
+     * @param trip
+     */
     public void setTrip(DayTrips trip) {
         this.trip = trip;
         tripName.setText(trip.getStringName());
@@ -66,6 +70,10 @@ public class PlacesController extends AbstractTableController {
         }
     }
 
+    /**
+     * Generates a new Place model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         Places place = new Places(this);
@@ -103,6 +111,9 @@ public class PlacesController extends AbstractTableController {
         return list;
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }

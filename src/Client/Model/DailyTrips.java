@@ -22,6 +22,9 @@ public class DailyTrips extends AbstractRowModel {
         refreshModel();
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         code.textProperty().addListener((obj, oldText, newText) -> {
             needToSave();
@@ -73,6 +76,10 @@ public class DailyTrips extends AbstractRowModel {
         return Integer.parseInt((String) ((JSONObject) data.get("day")).get("id"));
     }
 
+    /**
+     * Method used to link this dailyTrip object to a specific Calendar entity
+     * @param calendarId (Id of the specific Calendar entity to link to)
+     */
     public void setCalendarId(Integer calendarId) {
         JSONObject day = (JSONObject) data.get("day");
         if(day == null) {

@@ -29,6 +29,9 @@ public class Aliment extends AbstractRowModel {
         events();
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         name.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();

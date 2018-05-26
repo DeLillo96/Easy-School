@@ -47,10 +47,16 @@ public class Places extends AbstractRowModel {
         getButtons().getChildren().addAll(buses);
     }
 
+    /**
+     * Method which opens a new buses popup referred to current place, in order to show or modify assigned buses
+     */
     public void buses() {
         ControllerManager.getInstance().renderAddBuses(this);
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         name.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();

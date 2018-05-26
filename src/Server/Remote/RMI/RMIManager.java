@@ -6,6 +6,10 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+/**
+ * Class used for RMI services, replaces the binding for the specified name contained in registry with an implementation
+ * of the required services interface
+ */
 public class RMIManager {
     final private int port = 3692;
 

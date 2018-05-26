@@ -35,6 +35,10 @@ public class ChildrenController extends AbstractTableController {
         filter();
     }
 
+    /**
+     * Generates a new Child model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         addIntoTable(new Children(this));

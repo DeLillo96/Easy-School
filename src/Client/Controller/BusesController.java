@@ -30,7 +30,10 @@ public class BusesController extends AbstractTableController {
     public BusesController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getBusService());
     }
-
+    /**
+     * Set a Place element to the controller, used for assignations
+     * @param place
+     */
     public void setPlace(Places place) {
         this.place = place;
         placeName.setText(place.getStringName());
@@ -69,6 +72,10 @@ public class BusesController extends AbstractTableController {
         }
     }
 
+    /**
+     * Generates a new Buses model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         Buses bus = new Buses(this);
@@ -99,6 +106,9 @@ public class BusesController extends AbstractTableController {
         return list;
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }

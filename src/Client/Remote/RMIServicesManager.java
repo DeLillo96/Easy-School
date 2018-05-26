@@ -6,9 +6,17 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+/**
+ * Implements RemoteServicesManager using RMI services
+ * Each method returns a specific shared interface through the lookup() method
+ */
 public class RMIServicesManager implements RemoteServicesManager {
     private static Registry registry = null;
 
+    /**
+     * Return a reference to registry for the localhost on assigned port 3692
+     * @throws RemoteException
+     */
     public RMIServicesManager() throws RemoteException {
         registry = LocateRegistry.getRegistry("localhost", 3692);
     }

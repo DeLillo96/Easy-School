@@ -80,11 +80,18 @@ public class AlimentController extends AbstractTableController {
         this.dish = dish;
     }
 
+    /**
+     * Generates a new Aliment model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         addIntoTable(new Aliment(this));
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }

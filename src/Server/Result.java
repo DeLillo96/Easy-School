@@ -8,6 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * Object used to communicate DB operations' results.
+ * Contains the result (true or false), a list of messages linked to the result and a list of data used in read
+ * operations
+ */
 public class Result {
     private List<String> messages = new ArrayList<String>();
     private boolean success = true;
@@ -75,6 +80,10 @@ public class Result {
         this.data = data;
     }
 
+    /**
+     * Method which transforms a result into a JSONObject in order to be transferred to the client
+     * @return (JSONObject containing current result)
+     */
     public JSONObject toJson() {
         JSONObject result = new JSONObject();
         result.put("success", success);
@@ -90,6 +99,11 @@ public class Result {
         return result;
     }
 
+    /**
+     * Method which transforms result's data into a JSONObject
+     * @param o (Data contained into current result)
+     * @return (JSONObject containing parsed data)
+     */
     private JSONObject dataToJson(Object o) {
         if (o instanceof Object[]){
             return objectsToJson((Object[]) o);
@@ -98,6 +112,11 @@ public class Result {
         }
     }
 
+    /**
+     * Method which transforms data's objects into a JSONObject
+     * @param objects (Objects contained into current result's data)
+     * @return (JSONObject containing parsed objects)
+     */
     private JSONObject objectsToJson(Object[] objects) {
         JSONObject jsonObject = new JSONObject();
         for (int i = 0; i < objects.length; i++) {
@@ -108,6 +127,11 @@ public class Result {
         return jsonObject;
     }
 
+    /**
+     * Method which transforms data class into a JSONObject
+     * @param o (Data class contained into current result)
+     * @return (JSONObject containing parsed data)
+     */
     private JSONObject classToJson(Object o) {
         Class targetClass = o.getClass();
         Field[] declaredFields = targetClass.getDeclaredFields();
@@ -137,6 +161,12 @@ public class Result {
         return jsonObject;
     }
 
+    /**
+     * Method which parse a generic object into a specific class object
+     * @param object (Object to parse)
+     * @param objectClass (Type of class to parse to)
+     * @return (Parsed obect)
+     */
     private Object parseObject(Object object, Class objectClass) {
         if (object instanceof AbstractEntity) {
             return classToJson(object);

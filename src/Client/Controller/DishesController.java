@@ -11,10 +11,18 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
+/**
+ * Controller which generates four different tableViews for dish creation and assignation
+ */
 public class DishesController {
     @FXML
     private HBox container;
 
+
+    /**
+     * Renders four differents dish tables, one for each ish type
+     * @param menu (Menu used for assignation)
+     */
     public void render(Menu menu) {
         try {
             container.getChildren().addAll(
@@ -29,6 +37,13 @@ public class DishesController {
     }
 
     private AnchorPane renderDishTable(Menu menu, BaseService service) throws IOException {
+    /**
+     * Render a single dish table
+     * @param menu (Menu used for assignation)
+     * @param service (Services called for dish creation and assignation)
+     * @return
+     * @throws IOException
+     */
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/dish.fxml"));
         AnchorPane table = loader.load();
 

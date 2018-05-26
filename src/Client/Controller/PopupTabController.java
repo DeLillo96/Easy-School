@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+/**
+ * Class used to handle popups related to calendar days
+ */
 public class PopupTabController {
 
     private Integer calendarId;
@@ -28,11 +31,19 @@ public class PopupTabController {
     public PopupTabController() {
     }
 
+    /**
+     * Prints a string containing the selected day's date in "yyyy-MM-dd" format in the upper section of the popup
+     * @param date DateString
+     */
     public void setDate(String date) {
         this.date = date;
         setStringDateText(date);
     }
 
+    /**
+     * For each tab in the tabPane, this methos loads an FXML file resource and set it to a specific tab
+     * @throws IOException
+     */
     public void render() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/dailyMenus.fxml"));
@@ -63,6 +74,9 @@ public class PopupTabController {
         }
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
