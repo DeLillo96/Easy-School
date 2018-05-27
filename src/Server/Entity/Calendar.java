@@ -45,12 +45,7 @@ public class Calendar extends AbstractEntity {
     )
     private Set<Child> presentChildren = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "DailyMenus",
-            joinColumns = {@JoinColumn(name = "calendar_id")},
-            inverseJoinColumns = {@JoinColumn(name = "menu_id")}
-    )
+    @ManyToMany(mappedBy = "date", fetch = FetchType.EAGER)
     private Set<Menu> dailyMenus = new HashSet<>();
 
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)

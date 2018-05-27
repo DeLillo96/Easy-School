@@ -72,20 +72,15 @@ public class DailyMenusController extends AbstractTableController {
 
     @FXML
     protected void saveAll() {
-        /*
-        ObservableList<DailyMenu> allMenus = tableView.getItems();
-        ArrayList<Integer> addMenus = new ArrayList<>();
-        for (DailyMenu d:allMenus) {
-            if(d.getSelect().isSelected()) {
-                addMenus.add(d.getId());
-            }
-        }
         try {
-            RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService().saveAll(calendarId,addMenus);
-        } catch(Exception e) {
-            ControllerManager.getInstance().notifyError("Communication error (Can't call menu services)");
+            ArrayList<Integer> menuIds = new ArrayList<>();
+            tableView.getItems().forEach(item -> menuIds.add(Integer.parseInt((String) item.getData().get("id"))));
+
+            RelationService service = RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService();
+            notifyResult(service.assign(calendarId, menuIds));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        */
     }
 
     public PopupTabController getPopupTabController() {

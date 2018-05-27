@@ -1,9 +1,7 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
-import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import Shared.RelationService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
@@ -25,45 +23,20 @@ public class DailyMenu extends AbstractRowModel {
 
         super(RemoteManager.getInstance().getRemoteServicesManager().getMenuService(), tableController, menu);
 
+        select.setTooltip(new Tooltip("Add/remove daily menu"));
+
+        refreshModel();
+        buttons.getChildren().removeAll(delete, save);
+    }
+
+    @Override
+    protected void refreshModel() {
         if (data.size() > 0) {
             first.setText((String) ((JSONObject) data.get("first")).get("name"));
             second.setText((String) ((JSONObject) data.get("second")).get("name"));
             side.setText((String) ((JSONObject) data.get("side")).get("name"));
             sweet.setText((String) ((JSONObject) data.get("sweet")).get("name"));
         }
-
-        select.setTooltip(new Tooltip("Add/remove daily menu"));
-
-        events();
-        buttons.getChildren().remove(delete);
-    }
-
-    /**
-     * Method used to set listeners and related events to trigger
-     */
-    public void events() {
-        select.setOnAction(event -> needToSave());
-    }
-
-    @Override
-    public void save() {
-        try {
-            JSONObject result;
-            RelationService dailyMenuService = RemoteManager.getInstance().getRemoteServicesManager().getDailyMenuService();
-            result = select.isSelected() ?
-                    dailyMenuService.assign(getCalendarId(), getId()) :
-                    dailyMenuService.deAssign(getCalendarId(), getId());
-            refreshModel();
-            save.getStyleClass().remove("red-button");
-            notifyResult(result);
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
-    }
-
-    @Override
-    protected void refreshModel() {
-
     }
 
     public Integer getId() {

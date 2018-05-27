@@ -24,7 +24,12 @@ public class Menu extends AbstractEntity {
     @PrimaryKeyJoinColumn
     private Integer id;
 
-    @ManyToMany(mappedBy = "dailyMenus")
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "DailyMenus",
+            joinColumns = {@JoinColumn(name = "menu_id")},
+            inverseJoinColumns = {@JoinColumn(name = "calendar_id")}
+    )
     private Set<Calendar> date = new HashSet<>();
 
     @ManyToOne

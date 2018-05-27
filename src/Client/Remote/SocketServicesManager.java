@@ -105,8 +105,8 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public DailyMenuRelationService getDailyMenuService() throws Exception {
-        return (DailyMenuRelationService) new BaseServiceAdapter("dailymenu", in, out);
+    public RelationService getDailyMenuService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("dailymenu", in, out);
     }
 
     @Override
@@ -142,11 +142,6 @@ public class SocketServicesManager implements RemoteServicesManager {
     @Override
     public BaseService getStaffService() throws Exception {
         return new BaseServiceAdapter("staff", in, out);
-    }
-
-    @Override
-    public PlaceToPlaceService getPlaceToPlaceService() throws Exception {
-        return (PlaceToPlaceService) new BaseServiceAdapter("placetoplace", in, out);
     }
 
     @Override

@@ -5,14 +5,14 @@ import Server.Entity.Menu;
 import Server.Repository.CalendarRepository;
 import Server.Repository.MenuRepository;
 import Server.Result;
-import Shared.DailyMenuRelationService;
+import Shared.RelationService;
 import org.json.simple.JSONObject;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
-public class DailyMenuServiceImplementation extends UnicastRemoteObject implements DailyMenuRelationService {
+public class DailyMenuServiceImplementation extends UnicastRemoteObject implements RelationService {
     protected MenuRepository menuRepository;
     protected CalendarRepository calendarRepository;
 
@@ -21,31 +21,42 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
         calendarRepository = new CalendarRepository();
     }
 
-    private List checkEatingDisorders(Integer calendarId) {
-        return null;
+    private List<String> checkEatingDisorders(Integer calendarId) {
+        List<String> list = new ArrayList<>();
+
+
+
+        return list;
     }
 
     @Override
     public JSONObject assign(Integer calendarId, Integer menuId) throws Exception {
-        Calendar calendar = calendarRepository.getCalendarById(calendarId);
         Menu menu = menuRepository.getMenuById(menuId);
 
-        for (Menu dailyMenu : calendar.getDailyMenus()) {
-            if (dailyMenu.getId().equals(menuId)) {
+        for (Calendar calendar : menu.getDate()) {
+            if (calendar.getId().equals(calendarId)) {
                 Result result = new Result();
-                result.addData(calendar);
+                result.addData(menu);
                 return result.toJson();
             }
         }
 
-        calendar.getDailyMenus().add(menu);
-        List<String> affectedAliments = checkEatingDisorders(calendarId);
-        return calendar.save().toJson();
+        menu.getDate().add(calendarRepository.getCalendarById(calendarId));
+        return menu.save().toJson();
     }
 
     @Override
-    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
-        return null;
+    public JSONObject assign(Integer rightId, List<Integer> leftIds) throws Exception {
+        Result response = new Result();
+        for (Integer leftId : leftIds) {
+            JSONObject result = assign(rightId, leftId);
+            if(!(Boolean) result.get("success")) {
+                response.setSuccess(false);
+                response.addMessage(result.get("messages").toString());
+            }
+        }
+        response.addMessages(checkEatingDisorders(rightId));
+        return response.toJson();
     }
 
     @Override
@@ -89,19 +100,5 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
     public JSONObject rightRead(Integer calendarId) throws Exception {
         List list = menuRepository.getMenuByCalendar(calendarId);
         return new Result(true, list).toJson();
-    }
-
-    @Override
-    public JSONObject saveAll(Integer calendarId, List<Integer> selectedMenuId) {
-        Result returnObject = new Result();
-        for (Integer menuId:selectedMenuId) {
-            try {
-                assign(calendarId, menuId);
-            } catch (Exception e) {
-                returnObject.setSuccess(false);
-            }
-        }
-        returnObject.setSuccess(true);
-        return returnObject.toJson();
     }
 }

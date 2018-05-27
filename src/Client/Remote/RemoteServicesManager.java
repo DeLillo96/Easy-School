@@ -37,7 +37,7 @@ public interface RemoteServicesManager {
 
     RelationService getTripPlaceService() throws Exception;
 
-    DailyMenuRelationService getDailyMenuService() throws Exception;
+    RelationService getDailyMenuService() throws Exception;
 
     BaseService getDailyTripService() throws Exception;
 
@@ -52,8 +52,6 @@ public interface RemoteServicesManager {
     BaseService getSweetDishService() throws Exception;
 
     BaseService getStaffService() throws Exception;
-
-    PlaceToPlaceService getPlaceToPlaceService() throws Exception;
 
     RelationService getBusTripService() throws Exception;
 

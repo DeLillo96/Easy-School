@@ -96,8 +96,8 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public DailyMenuRelationService getDailyMenuService() throws Exception {
-        return (DailyMenuRelationService) registry.lookup("dailymenu");
+    public RelationService getDailyMenuService() throws Exception {
+        return (RelationService) registry.lookup("dailymenu");
     }
 
     @Override
@@ -133,11 +133,6 @@ public class RMIServicesManager implements RemoteServicesManager {
     @Override
     public BaseService getStaffService() throws Exception {
         return (BaseService) registry.lookup("staff");
-    }
-
-    @Override
-    public PlaceToPlaceService getPlaceToPlaceService() throws Exception {
-        return (PlaceToPlaceService) registry.lookup("placetoplace");
     }
 
     @Override

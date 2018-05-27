@@ -53,11 +53,20 @@ public class EatingDisorderRepository extends AbstractRepository {
         return aliments.getEatingDisorders();
     }
 
-    public Set<EatingDisorder> getEatingDisorderByType(String type) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("type", type);
-        List eatingDisorders = read(params);
-        return new HashSet<EatingDisorder>(eatingDisorders);
+    public List getEatingDisorderInADay(Integer calendarId) {
+        return read(
+                "select\n" +
+                "  A,\n" +
+                "  case when\n" +
+                "    A.id in (" +
+                "       select AL.affectedAliment.id from " +
+                "           Allergy AL join AL.affectedChild CH " +
+                "       where CH.id = " + calendarId +
+                "   ) then 'allergy'\n" +
+                "   when\n" +
+                "   else null\n" +
+                "   end\n" +
+                "from Aliment A", null);
     }
 
 }
