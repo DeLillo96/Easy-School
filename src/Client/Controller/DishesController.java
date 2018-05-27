@@ -32,11 +32,11 @@ public class DishesController {
                     renderDishTable(menu, RemoteManager.getInstance().getRemoteServicesManager().getSweetDishService())
             );
         } catch (Exception e) {
+            e.printStackTrace();
             ControllerManager.getInstance().notifyError("Communication error (Can't call dish services)");
         }
     }
 
-    private AnchorPane renderDishTable(Menu menu, BaseService service) throws IOException {
     /**
      * Render a single dish table
      * @param menu (Menu used for assignation)
@@ -44,6 +44,7 @@ public class DishesController {
      * @return
      * @throws IOException
      */
+    private AnchorPane renderDishTable(Menu menu, BaseService service) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/dish.fxml"));
         AnchorPane table = loader.load();
 

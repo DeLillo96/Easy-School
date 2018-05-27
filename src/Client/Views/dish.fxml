@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Text?>
 
 
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.DishController">
    <children>
         <HBox alignment="CENTER_LEFT" layoutX="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
