@@ -27,31 +27,15 @@ public class EatingDisorderTest {
     private static EatingDisorder eatingDisorderTwo = new Allergy(childOne, alimentTwo);
     private static EatingDisorder eatingDisorderThree = new Intolerance(childTwo, alimentOne);
 
-    @BeforeAll
-    static void createEatingDisorder() {
-        childOne.save();
-        childTwo.save();
-        alimentOne.save();
-        alimentTwo.save();
-        eatingDisorderOne.save();
-        eatingDisorderTwo.save();
-        eatingDisorderThree.save();
-    }
-
-    @AfterAll
-    static void deleteEatingDisorder() {
-        eatingDisorderOne.delete();
-        eatingDisorderTwo.delete();
-        eatingDisorderThree.delete();
-        childOne.delete();
-        childTwo.delete();
-        alimentOne.delete();
-        alimentTwo.delete();
+    @Test
+    void readEatingDisorderByAffectedChildString() {
+        List result = eatingDisorderRepository.getEatingDisorderByAffectedChild(childOne.getFiscalCode());
+        assertNotNull(result);
     }
 
     @Test
-    void readEatingDisorderByAffectedChild() {
-        List result = eatingDisorderRepository.getEatingDisorderByAffectedChild(childOne.getFiscalCode());
+    void readEatingDisorderByAffectedChildInteger() {
+        List result = eatingDisorderRepository.getEatingDisorderByAffectedChild(3);
         assertNotNull(result);
     }
 

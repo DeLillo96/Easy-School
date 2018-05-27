@@ -53,9 +53,9 @@ public class PopupTabController {
             } else {
                 loader = new FXMLLoader(getClass().getResource("../Views/dailyTrips.fxml"));
                 setTripTab.setContent(loader.load());
-                DailyTripsController dailyTripsController = loader.getController();
-                dailyTripsController.setCalendarId(calendarId);
-                dailyTripsController.filter();
+                TripController tripController = loader.getController();
+                tripController.setCalendarId(calendarId);
+                tripController.filter();
             }
 
         } catch (ParseException e) {

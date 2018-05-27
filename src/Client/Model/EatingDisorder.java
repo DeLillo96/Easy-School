@@ -20,18 +20,20 @@ public class EatingDisorder extends AbstractRowModel {
     public EatingDisorder(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService(), tableController, data);
 
+        getType().getItems().addAll(null, "allergy", "intolerance");
+        getType().setPrefSize(380, 40);
+        getType().setMinSize(380, 40);
+        getType().setMaxSize(380, 40);
+
         refreshModel();
         events();
         buttons.getChildren().remove(delete);
     }
 
     @Override
-    protected void refreshModel() {
+    public void refreshModel() {
         setName((String) data.get("name"));
-        getType().getItems().addAll(null, "allergy", "intolerance");
-        getType().setPrefSize(380, 40);
-        getType().setMinSize(380, 40);
-        getType().setMaxSize(380, 40);
+        save.getStyleClass().remove("red-button");
     }
 
     public void events() {
@@ -46,9 +48,9 @@ public class EatingDisorder extends AbstractRowModel {
         try {
             JSONObject result;
             EatingDisorderService service = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
-            if(type.getValue().equals("Allergy")) {
+            if(type.getValue().equals("allergy")) {
                 result = service.assignAllergy(getId(), child.getId());
-            }else if(type.getValue().equals("Intolerance")) {
+            }else if(type.getValue().equals("intolerance")) {
                 result = service.assignIntolerance(getId(), child.getId());
             }else {
                 result = service.deAssign(getId(), child.getId());

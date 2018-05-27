@@ -139,6 +139,21 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public PlaceToPlaceService getPlaceToPlaceService() throws Exception {
+        return (PlaceToPlaceService) new BaseServiceAdapter("placetoplace", in, out);
+    }
+
+    @Override
+    public RelationService getBusTripService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("bustrip", in, out);
+    }
+
+    @Override
+    public RelationService getPlaceInTripService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("placeintrip", in, out);
+    }
+
+    @Override
     public void closeConnection() {
         JSONObject request = new JSONObject();
         request.put("service", "main");

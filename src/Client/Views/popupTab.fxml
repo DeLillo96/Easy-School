@@ -59,7 +59,7 @@
             </tooltip>
             <styleClass>
                 <String fx:value="circle-button" />
-                <String fx:value="exit-button" />
+                <String fx:value="orange-button" />
             </styleClass>
         </Button>
     </children>

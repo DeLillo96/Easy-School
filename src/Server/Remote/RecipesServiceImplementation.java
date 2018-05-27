@@ -70,6 +70,16 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
     }
 
     @Override
+    public Integer rightCount(Integer rightId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Integer leftCount(Integer leftId) throws Exception {
+        return null;
+    }
+
+    @Override
     public JSONObject rightRead(Integer dishId) throws Exception {
         List list = alimentRepository.getAlimentByDish(dishId);
         return new Result(true, list).toJson();

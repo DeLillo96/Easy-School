@@ -127,6 +127,21 @@ public class RMIServicesManager implements RemoteServicesManager {
         return (BaseService) registry.lookup("staff");
     }
 
+    @Override
+    public PlaceToPlaceService getPlaceToPlaceService() throws Exception {
+        return (PlaceToPlaceService) registry.lookup("placetoplace");
+    }
+
+    @Override
+    public RelationService getBusTripService() throws Exception {
+        return (RelationService) registry.lookup("bustrip");
+    }
+
+    @Override
+    public RelationService getPlaceInTripService() throws Exception {
+        return (RelationService) registry.lookup("placeintrip");
+    }
+
 
     @Override
     public void closeConnection() throws Exception {

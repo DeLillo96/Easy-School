@@ -1,9 +1,9 @@
 package Server.Remote;
 
+import Server.Entity.Bus;
 import Server.Entity.Trip;
-import Server.Entity.Child;
+import Server.Repository.BusRepository;
 import Server.Repository.TripRepository;
-import Server.Repository.ChildRepository;
 import Server.Result;
 import Shared.RelationService;
 import org.json.simple.JSONObject;
@@ -12,33 +12,34 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class ChildrenInTripServiceImplementation extends UnicastRemoteObject implements RelationService {
-    protected ChildRepository childRepository;
+public class BusTripServiceImplementation extends UnicastRemoteObject implements RelationService {
+    protected BusRepository busRepository;
     protected TripRepository tripRepository;
 
-    public ChildrenInTripServiceImplementation() throws RemoteException {
-        childRepository = new ChildRepository();
+    public BusTripServiceImplementation() throws RemoteException {
+        busRepository = new BusRepository();
         tripRepository = new TripRepository();
     }
 
     @Override
-    public JSONObject assign(Integer childId, Integer tripId) throws Exception {
+    public JSONObject assign(Integer tripId, Integer busId) throws Exception {
         Trip trip = tripRepository.getTripById(tripId);
+        Bus bus = busRepository.getBusById(busId);
 
-        for (Child ChildInTrip : trip.getChildInTrip()) {
-            if (ChildInTrip.getId().equals(childId)) {
+        for (Bus starting : trip.getVehicles()) {
+            if (starting.getId().equals(busId)) {
                 Result result = new Result();
                 result.addData(trip);
                 return result.toJson();
             }
         }
 
-        trip.getChildInTrip().add(childRepository.getChildById(childId));
+        trip.getVehicles().add(bus);
         return trip.save().toJson();
     }
 
     @Override
-    public JSONObject assign(Integer rightId, List<Integer> leftIds) throws Exception {
+    public JSONObject assign(Integer rightId, List leftIds) throws Exception {
         return null;
     }
 
@@ -56,12 +57,12 @@ public class ChildrenInTripServiceImplementation extends UnicastRemoteObject imp
     }
 
     @Override
-    public JSONObject deAssign(Integer childId, Integer tripId) throws Exception {
+    public JSONObject deAssign(Integer tripId, Integer busId) throws Exception {
         Trip trip = tripRepository.getTripById(tripId);
 
-        for (Child ChildInTrip : trip.getChildInTrip()) {
-            if (ChildInTrip.getId().equals(childId)) {
-                trip.getChildInTrip().remove(ChildInTrip);
+        for (Bus bus : trip.getVehicles()) {
+            if (bus.getId().equals(busId)) {
+                trip.getVehicles().remove(bus);
                 return trip.save().toJson();
             }
         }
@@ -72,24 +73,23 @@ public class ChildrenInTripServiceImplementation extends UnicastRemoteObject imp
     }
 
     @Override
-    public JSONObject leftRead(Integer childId) throws Exception {
-        List list = tripRepository.getTripByChildId(childId);
+    public JSONObject leftRead(Integer tripId) throws Exception {
+        List list = busRepository.getBusesByTrip(tripId);
         return new Result(true, list).toJson();
     }
 
     @Override
-    public Integer rightCount(Integer rightId) throws Exception {
+    public Integer rightCount(Integer tripId) throws Exception {
         return null;
     }
 
     @Override
-    public Integer leftCount(Integer tripId) throws Exception {
-        return childRepository.getCountChildInTrip(tripId);
+    public Integer leftCount(Integer leftId) throws Exception {
+        return null;
     }
 
     @Override
-    public JSONObject rightRead(Integer tripId) throws Exception {
-        List list = childRepository.getChildInTrip(tripId);
-        return new Result(true, list).toJson();
+    public JSONObject rightRead(Integer busId) throws Exception {
+        return null;
     }
 }

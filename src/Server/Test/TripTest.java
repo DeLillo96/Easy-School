@@ -1,5 +1,6 @@
 package Server.Test;
 
+import Server.Repository.BusRepository;
 import Server.Repository.TripRepository;
 import Server.Result;
 import org.json.simple.JSONObject;
@@ -23,6 +24,12 @@ public class TripTest {
 
         JSONObject response = new Result(true, result).toJson();
         assertNotNull(response, "parse error");
+    }
+
+    @Test
+    void getBusesByTrip() {
+        List buses = new BusRepository().getBusesByTrip(20);
+        assertNotNull(buses);
     }
 
     @Test

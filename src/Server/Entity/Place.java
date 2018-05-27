@@ -45,22 +45,6 @@ public class Place extends AbstractEntity {
     @ManyToMany(mappedBy = "places", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Set<Trip> trips = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "StartingBuses",
-            joinColumns = {@JoinColumn(name = "place_id")},
-            inverseJoinColumns = {@JoinColumn(name = "bus_id")}
-    )
-    private Set<Bus> startBuses = new HashSet<>();
-
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "ArrivingBuses",
-            joinColumns = {@JoinColumn(name = "place_id")},
-            inverseJoinColumns = {@JoinColumn(name = "bus_id")}
-    )
-    private Set<Bus> arrivalBuses = new HashSet<>();
-
     public Place() {
     }
 
@@ -108,22 +92,6 @@ public class Place extends AbstractEntity {
 
     public void setTrips(Set<Trip> trips) {
         this.trips = trips;
-    }
-
-    public Set<Bus> getStartBuses() {
-        return startBuses;
-    }
-
-    public void setStartBuses(Set<Bus> startBuses) {
-        this.startBuses = startBuses;
-    }
-
-    public Set<Bus> getArrivalBuses() {
-        return arrivalBuses;
-    }
-
-    public void setArrivalBuses(Set<Bus> arrivalBuses) {
-        this.arrivalBuses = arrivalBuses;
     }
 
     @Override

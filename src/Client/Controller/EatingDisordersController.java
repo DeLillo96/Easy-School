@@ -30,7 +30,7 @@ public class EatingDisordersController extends AbstractTableController {
     private Children child;
 
     public EatingDisordersController() throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
+        super(null);
     }
 
     public void setChild(Children child) {
@@ -38,31 +38,6 @@ public class EatingDisordersController extends AbstractTableController {
         childName.setText(child.getStringName());
         childSurname.setText(child.getStringSurname());
         childFiscalCode.setText(child.getStringFiscalCode());
-    }
-
-    @FXML
-    @Override
-    public void filter() {
-        try {
-            ArrayList<EatingDisorder> list = search(takeFilters());
-
-            RelationService eatingDisorderService = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
-            JSONObject result = eatingDisorderService.rightRead(child.getId());
-
-            ArrayList<EatingDisorder> eatingDisorders = parseEatingDisorderIntoRows((JSONObject) result.get("data"));
-            for (EatingDisorder eatingDisorder : list) {
-                eatingDisorders.forEach(o -> {
-                    if (o.getId().equals(eatingDisorder.getId())) {
-                        eatingDisorder.getType().setValue(o.getType().getValue());
-                    }
-                });
-            }
-
-            ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(list);
-            tableView.setItems(items);
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
     }
 
     @Override
@@ -75,20 +50,29 @@ public class EatingDisordersController extends AbstractTableController {
     }
 
     @Override
-    protected ArrayList parseIntoRows(JSONObject data) throws Exception {
-        return null;
+    protected ArrayList search(JSONObject filters) throws Exception {
+        RelationService service = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
+        JSONObject response = service.rightRead(child.getId());
+
+        if ((boolean) response.get("success")) {
+
+            JSONObject data = (JSONObject) response.get("data");
+            return parseIntoRows(data);
+
+        } else throw new Exception("Read from server error");
     }
 
-    protected ArrayList parseEatingDisorderIntoRows(JSONObject data) throws Exception {
+    @Override
+    protected ArrayList parseIntoRows(JSONObject data) throws Exception {
         ArrayList<EatingDisorder> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            JSONObject eatingDisorder = (JSONObject) data.get(i);
-            JSONObject aliment = (JSONObject) eatingDisorder.get("affectedAliment");
+            JSONObject items = (JSONObject) data.get(i);
 
-            EatingDisorder element = new EatingDisorder(this, aliment);
+            EatingDisorder element = new EatingDisorder(this, (JSONObject) items.get(0));
             element.setChild(child);
-            element.getType().setValue((String) eatingDisorder.get("type"));
+            if(items.get(1) != null) element.getType().setValue((String) items.get(1));
+            element.refreshModel();
             list.add(element);
         }
         return list;

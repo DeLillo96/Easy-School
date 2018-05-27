@@ -2,6 +2,7 @@ package Server.Repository;
 
 import Server.Entity.Bus;
 import Server.Entity.Place;
+import Server.Entity.Trip;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,17 +28,18 @@ public class BusRepository extends AbstractRepository {
         return buses != null && buses.size() == 1 ? (Bus) buses.get(0) : null;
     }
 
-    public List<Bus> getArrivalBusesByPlace(Integer placeId) {
-        PlaceRepository placeRepository = new PlaceRepository();
-        Place place = placeRepository.getPlaceById(placeId);
-
-        return new ArrayList(place.getArrivalBuses());
-    }
-
-    public List<Bus> getStartBusesByPlace(Integer placeId) {
-        PlaceRepository placeRepository = new PlaceRepository();
-        Place place = placeRepository.getPlaceById(placeId);
-
-        return new ArrayList(place.getStartBuses());
+    public List getBusesByTrip(Integer tripId) {
+        return read(
+                "select\n" +
+                "  V,\n" +
+                "  case when\n" +
+                "    V.id in (" +
+                "       select V.id from " +
+                "           Trip T join T.vehicles V " +
+                "               where T.id = " + tripId +
+                "       ) then true\n" +
+                "  else false\n" +
+                "    end\n" +
+                "from Bus V", null);
     }
 }

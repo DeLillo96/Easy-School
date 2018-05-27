@@ -1,21 +1,16 @@
 package Client.Controller;
 
 import Client.ControllerManager;
-import Client.Model.AbstractRowModel;
-import Client.Model.DayTrips;
 import Client.Model.Places;
+import Client.Model.Trip;
 import Client.Remote.RemoteManager;
 import Shared.RelationService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-
-//import com.sun.javafx.scene.control.DoubleField;
 
 public class PlacesController extends AbstractTableController {
     /* FILTERS */
@@ -28,42 +23,28 @@ public class PlacesController extends AbstractTableController {
     @FXML
     private TextField maxCostTextField;
 
-    private DayTrips trip;
+    private Trip trip;
 
     public PlacesController() throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getPlaceService());
+        super(null);
     }
 
-    public void setTrip(DayTrips trip) {
+    public void setTrip(Trip trip) {
         this.trip = trip;
-        tripName.setText(trip.getStringName());
-        filter();
+        tripName.setText(trip.getCode().getText());
     }
 
-    @FXML
     @Override
-    public void filter() {
-        try {
-            ArrayList<Places> list = search(takeFilters());
+    protected ArrayList search(JSONObject filters) throws Exception {
+        RelationService service = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
+        JSONObject response = service.leftRead(trip.getId());
 
-            RelationService parentService = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService();
-            JSONObject result = parentService.rightRead(trip.getId());
+        if ((boolean) response.get("success")) {
 
-            ArrayList<Places> visitedPlaces = parseIntoRows((JSONObject) result.get("data"));
-            for (Places visitedPlace : list) {
-                visitedPlaces.forEach(o -> {
-                    if (o.getId().equals(visitedPlace.getId())) {
-                        visitedPlace.getSelect().setSelected(true);
-                    }
-                });
-            }
+            JSONObject data = (JSONObject) response.get("data");
+            return parseIntoRows(data);
 
-            ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(list);
-            tableView.setItems(items);
-
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
+        } else throw new Exception("Read from server error");
     }
 
     @FXML
@@ -94,16 +75,19 @@ public class PlacesController extends AbstractTableController {
         ArrayList<Places> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            JSONObject places = (JSONObject) data.get(i);
+            JSONObject place = (JSONObject) data.get(i);
 
-            Places item = new Places(this, places);
-            item.setTrip(trip);
+            Places item = new Places(this, (JSONObject) place.get(0));
+            item.getSelect().setSelected(Boolean.valueOf((String) place.get(1)));
             list.add(item);
         }
+
         return list;
     }
 
+    @FXML
     public void remove() {
+        trip.refreshModel();
         ControllerManager.getInstance().removePopup();
     }
 

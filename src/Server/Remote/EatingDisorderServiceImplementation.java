@@ -1,9 +1,6 @@
 package Server.Remote;
 
-import Server.Entity.Aliment;
-import Server.Entity.Allergy;
-import Server.Entity.Child;
-import Server.Entity.Intolerance;
+import Server.Entity.*;
 import Server.Repository.AlimentRepository;
 import Server.Repository.ChildRepository;
 import Server.Repository.EatingDisorderRepository;
@@ -41,13 +38,17 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
     public JSONObject assignAllergy(Integer alimentId, Integer childId) throws Exception {
         Child child = (new ChildRepository()).getChildById(childId);
         Aliment aliment = (new AlimentRepository()).getAlimentById(alimentId);
-        List<Allergy> list = eatingDisorderRepository.read();
+        List<EatingDisorder> list = eatingDisorderRepository.read();
 
-        for (Allergy allergy : list) {
-            if (allergy.getAffectedAlimentId().equals(alimentId) &&
-                    allergy.getAffectedChildId().equals(childId)
+        for (EatingDisorder eatingDisorder : list) {
+            if (eatingDisorder.getAffectedAlimentId().equals(alimentId) &&
+                    eatingDisorder.getAffectedChildId().equals(childId)
                     ) {
-                return allergy.save().toJson();
+                if(eatingDisorder instanceof Allergy) {
+                    return eatingDisorder.save().toJson();
+                } else {
+                    eatingDisorder.delete();
+                }
             }
         }
 
@@ -63,13 +64,17 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
     public JSONObject assignIntolerance(Integer alimentId, Integer childId) throws Exception {
         Child child = (new ChildRepository()).getChildById(childId);
         Aliment aliment = (new AlimentRepository()).getAlimentById(alimentId);
-        List<Intolerance> list = eatingDisorderRepository.read();
+        List<EatingDisorder> list = eatingDisorderRepository.read();
 
-        for (Intolerance intolerance : list) {
-            if (intolerance.getAffectedAlimentId().equals(alimentId) &&
-                    intolerance.getAffectedChildId().equals(childId)
+        for (EatingDisorder eatingDisorder : list) {
+            if (eatingDisorder.getAffectedAlimentId().equals(alimentId) &&
+                    eatingDisorder.getAffectedChildId().equals(childId)
                     ) {
-                return intolerance.save().toJson();
+                if(eatingDisorder instanceof Intolerance) {
+                    return eatingDisorder.save().toJson();
+                } else {
+                    eatingDisorder.delete();
+                }
             }
         }
 
@@ -94,6 +99,16 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
 
     @Override
     public JSONObject leftRead(Integer leftId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Integer rightCount(Integer rightId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Integer leftCount(Integer leftId) throws Exception {
         return null;
     }
 }

@@ -49,5 +49,11 @@ public interface RemoteServicesManager {
 
     BaseService getStaffService() throws Exception;
 
+    PlaceToPlaceService getPlaceToPlaceService() throws Exception;
+
+    RelationService getBusTripService() throws Exception;
+
+    RelationService getPlaceInTripService() throws Exception;
+
     void closeConnection() throws Exception;
 }

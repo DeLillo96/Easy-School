@@ -76,6 +76,16 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
     }
 
     @Override
+    public Integer rightCount(Integer rightId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Integer leftCount(Integer leftId) throws Exception {
+        return null;
+    }
+
+    @Override
     public JSONObject rightRead(Integer calendarId) throws Exception {
         List list = menuRepository.getMenuByCalendar(calendarId);
         return new Result(true, list).toJson();

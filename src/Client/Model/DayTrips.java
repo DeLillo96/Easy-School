@@ -51,7 +51,7 @@ public class DayTrips extends AbstractRowModel {
     }
 
     public void places() {
-        ControllerManager.getInstance().renderAddPlaces(this);
+        //ControllerManager.getInstance().renderAddPlaces(this);
     }
 
     public Integer getId() {

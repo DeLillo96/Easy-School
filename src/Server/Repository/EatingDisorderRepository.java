@@ -26,10 +26,25 @@ public class EatingDisorderRepository extends AbstractRepository {
         return new ArrayList(children.getEatingDisorders());
     }
 
-    public List<EatingDisorder> getEatingDisorderByAffectedChild(Integer childId) {
-        ChildRepository childRepository = new ChildRepository();
-        Child children = childRepository.getChildById(childId);
-        return new ArrayList(children.getEatingDisorders());
+    public List getEatingDisorderByAffectedChild(Integer childId) {
+        return read(
+                "select\n" +
+                "  A,\n" +
+                "  case when\n" +
+                "    A.id in (" +
+                "       select AL.affectedAliment.id from " +
+                "           Allergy AL join AL.affectedChild CH " +
+                "       where CH.id = " + childId +
+                "   ) then 'allergy'\n" +
+                "   when\n" +
+                "    A.id in (" +
+                "       select I.affectedAliment.id from " +
+                "           Intolerance I join I.affectedChild CH " +
+                "       where CH.id = " + childId +
+                "   ) then 'intolerance'\n" +
+                "   else null\n" +
+                "   end\n" +
+                "from Aliment A", null);
     }
 
     public Set<EatingDisorder> getEatingDisorderByAffectedAliment(String affectedAliment) {

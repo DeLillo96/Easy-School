@@ -26,10 +26,6 @@ public class PlaceTest {
     static void createPlaces() {
         busOne.save();
         busTwo.save();
-        placeOne.getStartBuses().add(busOne);
-        placeTwo.getStartBuses().add(busOne);
-        placeOne.getArrivalBuses().add(busTwo);
-        placeTwo.getArrivalBuses().add(busTwo);
         placeOne.save();
         placeTwo.save();
         tripOne.getPlaces().add(placeOne);
@@ -62,6 +58,11 @@ public class PlaceTest {
     }
 
     //todo test di modifica
+    @Test
+    void readFromToPlaces() {
+        List buses = placeRepository.getBusesFromToPlaces(2,3);
+        assertNotNull(buses);
+    }
 
     @Test
     void readPlacesByTrip() {

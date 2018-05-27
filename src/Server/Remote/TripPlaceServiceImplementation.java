@@ -44,8 +44,16 @@ public class TripPlaceServiceImplementation extends UnicastRemoteObject implemen
     }
 
     @Override
-    public JSONObject assign(List rightIds, Integer leftId) throws Exception {
-        return null;
+    public JSONObject assign(List<Integer> rightIds, Integer leftId) throws Exception {
+        Result response = new Result();
+        for (Integer rightId : rightIds) {
+            JSONObject result = assign(rightId, leftId);
+            if(!(Boolean) result.get("success")) {
+                response.setSuccess(false);
+                response.addMessage(result.get("messages").toString());
+            }
+        }
+        return response.toJson();
     }
 
     @Override
@@ -65,15 +73,23 @@ public class TripPlaceServiceImplementation extends UnicastRemoteObject implemen
     }
 
     @Override
-    public JSONObject leftRead(Integer placeId) throws Exception {
-        //List list = tripRepository.getTripByPlace(placeId);
-        //return new Result(true, list).toJson();
+    public JSONObject leftRead(Integer tripId) throws Exception {
+        List list = placeRepository.getPlaceByTrip(tripId);
+        return new Result(true, list).toJson();
+    }
+
+    @Override
+    public Integer rightCount(Integer tripId) throws Exception {
+        return placeRepository.getCountPlaceInTrip(tripId);
+    }
+
+    @Override
+    public Integer leftCount(Integer leftId) throws Exception {
         return null;
     }
 
     @Override
-    public JSONObject rightRead(Integer tripId) throws Exception {
-        List list = placeRepository.getPlaceByTrip(tripId);
-        return new Result(true, list).toJson();
+    public JSONObject rightRead(Integer placeId) throws Exception {
+        return null;
     }
 }

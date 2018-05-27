@@ -69,6 +69,12 @@ public class ChildTest {
     }
 
     @Test
+    void readCountChildInTrip(){
+        Integer result = childRepository.getCountChildInTrip(1);
+        assertTrue(result > 0);
+    }
+
+    @Test
     void modifyChild() {
         child.setSurname("Targarien");
         Result result = child.save();

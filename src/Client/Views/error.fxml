@@ -25,7 +25,7 @@
                 <Insets/>
             </opaqueInsets>
             <styleClass>
-                <String fx:value="exit-button"/>
+                <String fx:value="orange-button"/>
                 <String fx:value="circle-button"/>
             </styleClass>
         </Button>

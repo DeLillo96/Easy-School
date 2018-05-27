@@ -18,7 +18,6 @@ import java.util.Set;
         @Filter(name = "id", condition = "id = :id"),
         @Filter(name = "day", condition = "day = :day"),
 })
-
 @Table(name = "Trip")
 public class Trip extends AbstractEntity {
     @Id
@@ -51,17 +50,16 @@ public class Trip extends AbstractEntity {
 
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "relatedVehicles",
+            name = "Vehicles",
             joinColumns = {@JoinColumn(name = "trip_id")},
             inverseJoinColumns = {@JoinColumn(name = "vehicles_id")}
     )
-    private Set<Place> vehicles = new HashSet<>();
+    private Set<Bus> vehicles = new HashSet<>();
 
     public Trip() {}
 
     public Trip(String code) {
         this.code = code;
-        //useless
     }
 
     public Integer getId() {
@@ -104,11 +102,11 @@ public class Trip extends AbstractEntity {
         this.places = places;
     }
 
-    public Set<Place> getVehicles() {
+    public Set<Bus> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(Set<Place> vehicles) {
+    public void setVehicles(Set<Bus> vehicles) {
         this.vehicles = vehicles;
     }
 

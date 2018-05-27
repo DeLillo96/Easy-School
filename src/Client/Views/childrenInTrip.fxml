@@ -168,7 +168,7 @@
         <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#remove" text="X" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
             <styleClass>
                 <String fx:value="circle-button" />
-                <String fx:value="exit-button" />
+                <String fx:value="orange-button" />
             </styleClass>
         </Button>
     </children>

@@ -2,6 +2,7 @@ package Client.Controller;
 
 import Client.ControllerManager;
 import Client.Model.ChildInTrip;
+import Client.Model.Trip;
 import Client.Remote.RemoteManager;
 import Shared.RelationService;
 import javafx.fxml.FXML;
@@ -27,7 +28,7 @@ public class ChildrenInTripController extends AbstractTableController {
     @FXML
     private TextField fiscalCodeTextField;
 
-    private Integer tripId;
+    private Trip trip;
 
     public ChildrenInTripController() throws Exception {
         super(null);
@@ -40,7 +41,7 @@ public class ChildrenInTripController extends AbstractTableController {
             tableView.getItems().forEach(item -> childIds.add(Integer.parseInt((String) item.getData().get("id"))));
 
             RelationService service = RemoteManager.getInstance().getRemoteServicesManager().getChildInTripService();
-            notifyResult(service.assign(childIds, getDailyTripId()));
+            notifyResult(service.assign(childIds, trip.getId()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +50,7 @@ public class ChildrenInTripController extends AbstractTableController {
     @Override
     protected ArrayList search(JSONObject filters) throws Exception {
         RelationService service = RemoteManager.getInstance().getRemoteServicesManager().getChildInTripService();
-        JSONObject response = service.rightRead(tripId);
+        JSONObject response = service.rightRead(trip.getId());
 
         if ((boolean) response.get("success")) {
 
@@ -99,14 +100,15 @@ public class ChildrenInTripController extends AbstractTableController {
 
     @FXML
     public void remove() {
+        trip.refreshModel();
         ControllerManager.getInstance().removePopup();
     }
 
-    public Integer getDailyTripId() {
-        return tripId;
+    public Trip getTrip() {
+        return trip;
     }
 
-    public void setDailyTripId(Integer dailyTripId) {
-        this.tripId = dailyTripId;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 }

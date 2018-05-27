@@ -10,11 +10,11 @@ import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 public class Buses extends AbstractRowModel {
-    private TextField licensePlate = new TextField();
+    private TextField code = new TextField();
     private TextField companyName = new TextField();
-    private CheckBox startSelect = new CheckBox();
-    private CheckBox arrivalSelect = new CheckBox();
-    private Places place;
+    private CheckBox select = new CheckBox();
+
+    private Trip trip;
 
     public Buses(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
@@ -23,8 +23,7 @@ public class Buses extends AbstractRowModel {
     public Buses(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController, data);
 
-        startSelect.setTooltip(new Tooltip("Add/remove start bus"));
-        arrivalSelect.setTooltip(new Tooltip("Add/remove arrival bus"));
+        select.setTooltip(new Tooltip("Add/remove bus"));
 
         refreshModel();
         events();
@@ -35,42 +34,36 @@ public class Buses extends AbstractRowModel {
             needToSave();
             data.put("companyName", newText);
         });
-        licensePlate.textProperty().addListener((obs, oldText, newText) -> {
+        code.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();
-            data.put("licensePlate", newText);
+            data.put("code", newText);
         });
-        arrivalSelect.setOnAction(event -> needToSave());
-        startSelect.setOnAction(event -> needToSave());
+        select.setOnAction(event -> needToSave());
     }
 
     @Override
     public void save() {
         try {
-            JSONObject result = service.save(data);
+            JSONObject result = service.save(getData());
             if ((boolean) result.get("success")) {
                 setData((JSONObject) ((JSONObject) result.get("data")).get(0));
-                refreshModel();
-                RelationService busArrivalPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusArrivalPlaceService();
-                result = arrivalSelect.isSelected() ?
-                        busArrivalPlaceService.assign(getId(), place.getId()) :
-                        busArrivalPlaceService.deAssign(getId(), place.getId());
-
-                RelationService busStartingPlaceService = RemoteManager.getInstance().getRemoteServicesManager().getBusStartingPlaceService();
-                result = startSelect.isSelected() ?
-                        busStartingPlaceService.assign(getId(), place.getId()) :
-                        busStartingPlaceService.deAssign(getId(), place.getId());
+                RelationService busTripService = RemoteManager.getInstance().getRemoteServicesManager().getBusTripService();
+                result = select.isSelected() ?
+                        busTripService.assign(trip.getId(), getId()) :
+                        busTripService.deAssign(trip.getId(), getId());
+                        busTripService.deAssign(trip.getId(), getId());
             }
             save.getStyleClass().remove("red-button");
             notifyResult(result);
         } catch (Exception e) {
-            ControllerManager.getInstance().notifyError(e.getMessage());
             e.printStackTrace();
+            ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
 
     @Override
     protected void refreshModel() {
-        setLicensePlate((String) data.get("licensePlate"));
+        setCode((String) data.get("code"));
         setCompanyName((String) data.get("companyName"));
     }
 
@@ -78,20 +71,20 @@ public class Buses extends AbstractRowModel {
         return Integer.parseInt((String) data.get("id"));
     }
 
-    public TextField getLicensePlate() {
-        return licensePlate;
+    public TextField getCode() {
+        return code;
     }
 
-    public void setLicensePlate(TextField licensePlate) {
-        this.licensePlate = licensePlate;
+    public void setCode(TextField code) {
+        this.code = code;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate.setText(licensePlate);
+    public void setCode(String code) {
+        this.code.setText(code);
     }
 
-    public String getStringLicensePlate() {
-        return licensePlate.getText();
+    public String getStringCode() {
+        return code.getText();
     }
 
     public TextField getCompanyName() {
@@ -110,27 +103,19 @@ public class Buses extends AbstractRowModel {
         return companyName.getText();
     }
 
-    public CheckBox getStartSelect() {
-        return startSelect;
+    public CheckBox getSelect() {
+        return select;
     }
 
-    public void setStartSelect(CheckBox startSelect) {
-        this.startSelect = startSelect;
+    public void setSelect(CheckBox select) {
+        this.select = select;
     }
 
-    public CheckBox getArrivalSelect() {
-        return arrivalSelect;
+    public Trip getTrip() {
+        return trip;
     }
 
-    public void setArrivalSelect(CheckBox arrivalSelect) {
-        this.arrivalSelect = arrivalSelect;
-    }
-
-    public Places getPlace() {
-        return place;
-    }
-
-    public void setPlace(Places place) {
-        this.place = place;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 }

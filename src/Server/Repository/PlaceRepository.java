@@ -1,8 +1,8 @@
 package Server.Repository;
 
 import Server.Entity.Bus;
-import Server.Entity.Trip;
 import Server.Entity.Place;
+import Server.Entity.Trip;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,26 +29,47 @@ public class PlaceRepository extends AbstractRepository {
         return places;
     }
 
-    public List<Place> getPlaceByTrip(Integer tripId) {
+    public List getPlaceByTrip(Integer tripId) {
+        return read(
+                "select\n" +
+                    "  P,\n" +
+                    "  case when\n" +
+                    "    P.id in (" +
+                    "       select PT.id from " +
+                    "           Trip T join T.places PT " +
+                    "               where T.id = " + tripId +
+                    "       ) then true\n" +
+                    "  else false\n" +
+                    "    end\n" +
+                    "from Place P", null);
+    }
+
+    public List getPlaceInTrip(Integer tripId) {
         TripRepository dayTripRepository = new TripRepository();
         Trip trips = dayTripRepository.getTripById(tripId);
         Set<Place> places = trips.getPlaces();
-        return new ArrayList<Place>(places);
-
+        return new ArrayList<>(places);
     }
 
-    public List<Place> getPlacebyStartingBuses(Integer busId) {
-        BusRepository busRepository = new BusRepository();
-        Bus bus = busRepository.getBusById(busId);
-
-        return new ArrayList<Place>(bus.getStartPlaces());
+    public Integer getCountPlaceInTrip(Integer tripId) {
+        List response = read(
+            "       select count(PT) from " +
+                "           Trip T join T.places PT " +
+                "               where T.id = " + tripId +
+                "       group by T.id", null);
+        //todo usare la size della lista normale.
+        return response != null && response.size() > 0 ? Integer.parseInt(String.valueOf(response.get(0))) : 0;
     }
 
-    public List<Place> getPlacebyDestinationBuses(Integer busId) {
-        BusRepository busRepository = new BusRepository();
-        Bus bus = busRepository.getBusById(busId);
-
-        return new ArrayList<Place>(bus.getDestinationPlaces());
+    public List getBusesFromToPlaces(Integer fromId, Integer toId) {
+        return read(
+                "select sb\n" +
+                "   from Place p\n" +
+                "   join p.startBuses sb\n" +
+                "   where p.id = " + fromId + " and sb.id in (\n" +
+                "       select p.id\n" +
+                "       from Place p\n" +
+                "           join p.arrivalBuses sb\n" +
+                "           where p.id = " + toId + ")", null);
     }
-
 }

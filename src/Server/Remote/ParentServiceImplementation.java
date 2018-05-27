@@ -71,6 +71,16 @@ public class ParentServiceImplementation extends UnicastRemoteObject implements 
     }
 
     @Override
+    public Integer rightCount(Integer rightId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Integer leftCount(Integer leftId) throws Exception {
+        return null;
+    }
+
+    @Override
     public JSONObject rightRead(Integer childId) throws Exception {
         List list = adultRepository.getAdultByChild(childId);
         return new Result(true, list).toJson();

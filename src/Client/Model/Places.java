@@ -16,7 +16,7 @@ public class Places extends AbstractRowModel {
     private TextField cost = new TextField();
     private CheckBox select = new CheckBox();
 
-    private DayTrips trip;
+    private Trip trip;
 
     public Places(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
@@ -25,30 +25,10 @@ public class Places extends AbstractRowModel {
     public Places(AbstractTableController tableController, JSONObject data) throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getPlaceService(), tableController, data);
 
-        select.setTooltip(new Tooltip("Add/remove visited place"));
+        select.setTooltip(new Tooltip("Add/remove place"));
 
         refreshModel();
         events();
-    }
-
-    @Override
-    protected void initializeButtons() {
-        super.initializeButtons();
-
-        Button buses = new Button();
-        defineImageButton(buses, "Client/Resources/Images/bus.png");
-        buses.setOnAction(actionEvent -> buses());
-        buses.setTooltip(new Tooltip("Show buses"));
-
-        if (data.size() == 0) {
-            buses.setVisible(false);
-        }
-
-        getButtons().getChildren().addAll(buses);
-    }
-
-    public void buses() {
-        ControllerManager.getInstance().renderAddBuses(this);
     }
 
     public void events() {
@@ -155,11 +135,11 @@ public class Places extends AbstractRowModel {
         this.select = select;
     }
 
-    public DayTrips getTrip() {
+    public Trip getTrip() {
         return trip;
     }
 
-    public void setTrip(DayTrips trip) {
+    public void setTrip(Trip trip) {
         this.trip = trip;
     }
 }

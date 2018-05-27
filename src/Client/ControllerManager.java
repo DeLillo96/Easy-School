@@ -123,13 +123,13 @@ public class ControllerManager {
         }
     }
 
-    public void renderAddBuses(Places place) {
+    public void renderAddBuses(Trip trip) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/buses.fxml"));
             addPopup(loader.load());
 
             BusesController busesController = loader.getController();
-            busesController.setPlace(place);
+            busesController.setTrip(trip);
 
             busesController.filter();
         } catch (IOException e) {
@@ -160,25 +160,26 @@ public class ControllerManager {
         }
     }
 
-    public void renderAddPlaces(DayTrips trip) {
+    public void renderAddPlaces(Trip trip) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/places.fxml"));
             addPopup(loader.load());
 
             PlacesController placesController = loader.getController();
             placesController.setTrip(trip);
+            placesController.filter();
         } catch (IOException e) {
             notifyError(e.getMessage());
         }
     }
 
-    public void renderChildInTrip(DailyTrips dailyTrips) {
+    public void renderChildInTrip(Trip trip) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/childrenInTrip.fxml"));
             addPopup(loader.load());
 
             ChildrenInTripController childrenInTripController = loader.getController();
-            childrenInTripController.setDailyTripId(dailyTrips.getId());
+            childrenInTripController.setTrip(trip);
             childrenInTripController.filter();
         } catch (IOException e) {
             notifyError(e.getMessage());

@@ -85,4 +85,12 @@ public abstract class AbstractTableController {
     public void setNewRowFlag(boolean newRowFlag) {
         this.newRowFlag = newRowFlag;
     }
+
+    public TableView<AbstractRowModel> getTableView() {
+        return tableView;
+    }
+
+    public void setTableView(TableView<AbstractRowModel> tableView) {
+        this.tableView = tableView;
+    }
 }

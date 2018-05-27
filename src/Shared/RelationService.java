@@ -17,4 +17,8 @@ public interface RelationService extends Remote {
     JSONObject rightRead(Integer rightId) throws Exception;
 
     JSONObject leftRead(Integer leftId) throws Exception;
+
+    Integer rightCount(Integer rightId) throws Exception;
+
+    Integer leftCount(Integer leftId) throws Exception;
 }

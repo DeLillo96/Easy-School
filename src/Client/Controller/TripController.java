@@ -1,18 +1,17 @@
 package Client.Controller;
 
-import Client.Model.Children;
-import Client.Model.DailyTrips;
+import Client.Model.Trip;
 import Client.Remote.RemoteManager;
 import javafx.fxml.FXML;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public class DailyTripsController extends AbstractTableController {
+public class TripController extends AbstractTableController {
 
     private Integer calendarId;
 
-    public DailyTripsController() throws Exception {
+    public TripController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getDailyTripService());
     }
 
@@ -25,12 +24,12 @@ public class DailyTripsController extends AbstractTableController {
 
     @Override
     protected ArrayList parseIntoRows(JSONObject data) throws Exception {
-        ArrayList<DailyTrips> list = new ArrayList<>();
+        ArrayList<Trip> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
             JSONObject trip = (JSONObject) data.get(i);
 
-            DailyTrips item = new DailyTrips(this, trip);
+            Trip item = new Trip(this, trip);
             item.refreshModel();
 
             list.add(item);
@@ -40,7 +39,7 @@ public class DailyTripsController extends AbstractTableController {
 
     @FXML
     public void add() throws Exception {
-        DailyTrips item = new DailyTrips(this);
+        Trip item = new Trip(this);
         item.setCalendarId(calendarId);
         addIntoTable(item);
     }

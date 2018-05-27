@@ -64,9 +64,9 @@ public abstract class AbstractRowModel {
             JSONObject result = service.save(getData());
             if ((boolean) result.get("success")) {
                 data = (JSONObject) ((JSONObject) result.get("data")).get(0);
-                refreshModel();
-                save.getStyleClass().remove("red-button");
                 enableButtons();
+                save.getStyleClass().remove("red-button");
+                refreshModel();
             }
             notifyResult(result);
         } catch (Exception e) {

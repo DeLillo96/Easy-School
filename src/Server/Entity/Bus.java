@@ -12,13 +12,13 @@ import java.util.Set;
 
 @FilterDefs({
         @FilterDef(name = "id", parameters = @ParamDef(name = "id", type = "integer")),
-        @FilterDef(name = "licensePlate", parameters = @ParamDef(name = "licensePlate", type = "string")),
+        @FilterDef(name = "code", parameters = @ParamDef(name = "code", type = "string")),
         @FilterDef(name = "companyName", parameters = @ParamDef(name = "companyName", type = "string"))
 })
 
 @Filters({
         @Filter(name = "id", condition = "id = :id"),
-        @Filter(name = "licensePlate", condition = "licensePlate like '%' || :licensePlate || '%'"),
+        @Filter(name = "code", condition = "code like '%' || :code || '%'"),
         @Filter(name = "companyName", condition = "companyName like '%' || :companyName || '%'"),
 })
 
@@ -32,25 +32,19 @@ public class Bus extends AbstractEntity {
     private Integer id;
 
     @Column(unique = true)
-    private String licensePlate;
+    private String code;
 
     @Column(nullable = false)
     private String companyName;
 
-    @ManyToMany(mappedBy = "startBuses", fetch = FetchType.EAGER)
-    private Set<Place> startPlaces = new HashSet<>();
-
-    @ManyToMany(mappedBy = "arrivalBuses", fetch = FetchType.EAGER)
-    private Set<Place> destinationPlaces = new HashSet<>();
-
-    @ManyToMany(mappedBy = "vehicles", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "vehicles", fetch = FetchType.EAGER)
     private Set<Trip> trips = new HashSet<>();
 
     public Bus() {
     }
 
-    public Bus(String licensePlate, String companyName) {
-        this.licensePlate = licensePlate;
+    public Bus(String code, String companyName) {
+        this.code = code;
         this.companyName = companyName;
     }
 
@@ -62,12 +56,12 @@ public class Bus extends AbstractEntity {
         this.id = id;
     }
 
-    public String getLicensePlate() {
-        return licensePlate;
+    public String getCode() {
+        return code;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getCompanyName() {
@@ -78,29 +72,13 @@ public class Bus extends AbstractEntity {
         this.companyName = companyName;
     }
 
-    public Set<Place> getStartPlaces() {
-        return startPlaces;
-    }
-
-    public void setStartPlaces(Set<Place> startPlaces) {
-        this.startPlaces = startPlaces;
-    }
-
-    public Set<Place> getDestinationPlaces() {
-        return destinationPlaces;
-    }
-
-    public void setDestinationPlaces(Set<Place> destinationPlaces) {
-        this.destinationPlaces = destinationPlaces;
-    }
-
     @Override
     protected void beforeSave() {
         super.beforeSave();
 
-        String correctLicensePlate = this.getLicensePlate();
-        if(!validateString(getLicensePlate(), "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException("Violated constraints on code/license plate field (Only numbers and letters are allowed, no spaces)");
-        this.setLicensePlate(correctLicensePlate.toUpperCase());
+        String correctCode = this.getCode();
+        if(!validateString(getCode(), "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException("Violated constraints on code/license plate field (Only numbers and letters are allowed, no spaces)");
+        this.setCode(correctCode.toUpperCase());
 
         String correctCompanyName = this.getCompanyName();
         this.setCompanyName(nameCorrector(companyName));

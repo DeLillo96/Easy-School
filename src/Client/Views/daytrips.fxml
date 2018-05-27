@@ -83,7 +83,7 @@
                         <PropertyValueFactory property="buttons"/>
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Name">
+                <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Code">
                     <cellValueFactory>
                         <PropertyValueFactory property="name"/>
                     </cellValueFactory>
