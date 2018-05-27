@@ -23,6 +23,9 @@ public class Login {
     @FXML
     private ChoiceBox remoteChoiceBox;
 
+    /**
+     * This method parses two strings from username and password fields, gets
+     */
     @FXML
     public void loginButtonAction() {
         try {

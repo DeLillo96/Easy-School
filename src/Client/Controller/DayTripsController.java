@@ -15,7 +15,6 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class DayTripsController extends AbstractTableController {
-    /* FILTERS */
     @FXML
     private TextField nameTextField;
 
@@ -28,6 +27,10 @@ public class DayTripsController extends AbstractTableController {
         filter();
     }
 
+    /**
+     * Generates a new DayTrips model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         addIntoTable(new DayTrips(this));

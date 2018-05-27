@@ -31,6 +31,9 @@ public class Staff extends AbstractRowModel {
         super.initializeButtons();
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         name.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();

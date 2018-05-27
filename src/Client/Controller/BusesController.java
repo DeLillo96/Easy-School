@@ -27,6 +27,10 @@ public class BusesController extends AbstractTableController {
         super(null);
     }
 
+    /**
+     * Set a Trip element to the controller, used for assignations
+     * @param trip
+     */
     public void setTrip(Trip trip) {
         this.trip = trip;
         tripName.setText(trip.getCode().getText());
@@ -45,6 +49,10 @@ public class BusesController extends AbstractTableController {
         } else throw new Exception("Read from server error");
     }
 
+    /**
+     * Generates a new Buses model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         Buses bus = new Buses(this);
@@ -77,6 +85,9 @@ public class BusesController extends AbstractTableController {
         return list;
     }
 
+    /**
+     * Removes the current popup
+     */
     @FXML
     public void remove() {
         trip.refreshModel();

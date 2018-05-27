@@ -17,7 +17,6 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class EatingDisordersController extends AbstractTableController {
-    /* FILTERS */
     @FXML
     private Text childName;
     @FXML
@@ -33,6 +32,10 @@ public class EatingDisordersController extends AbstractTableController {
         super(null);
     }
 
+    /**
+     * Set a Child element to the controller, used for assignations
+     * @param child
+     */
     public void setChild(Children child) {
         this.child = child;
         childName.setText(child.getStringName());
@@ -78,6 +81,9 @@ public class EatingDisordersController extends AbstractTableController {
         return list;
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }

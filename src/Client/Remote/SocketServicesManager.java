@@ -11,6 +11,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Implements RemoteServicesManager using Socket services
+ * Each method returns a specific adapted of the required shared interface
+ * Each adapter contains a specific string indicating the type of satisfied service, an input BufferedReader and
+ * an output PrintWriter
+ */
 public class SocketServicesManager implements RemoteServicesManager {
     BufferedReader in;
     PrintWriter out;

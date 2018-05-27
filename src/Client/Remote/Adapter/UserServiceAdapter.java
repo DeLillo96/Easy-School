@@ -7,6 +7,9 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
+/**
+ * User services adapter (login and logout functions)
+ */
 public class UserServiceAdapter extends BaseServiceAdapter implements UserService {
 
     public UserServiceAdapter(BufferedReader in, PrintWriter out) {

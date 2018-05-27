@@ -38,6 +38,9 @@ public class DailyMenu extends AbstractRowModel {
         buttons.getChildren().remove(delete);
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         select.setOnAction(event -> needToSave());
     }

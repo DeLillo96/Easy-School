@@ -7,6 +7,9 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
+/**
+ * Base services adapter (C.R.U.D. operations)
+ */
 public class BaseServiceAdapter implements BaseService {
     protected String service;
     protected BufferedReader in;
@@ -33,7 +36,10 @@ public class BaseServiceAdapter implements BaseService {
 
     @Override
     public JSONObject save(JSONObject data) throws Exception {
-        return null;
+        submitRequest("save", data);
+
+        JSONParser parser = new JSONParser();
+        return (JSONObject) parser.parse(in.readLine());
     }
 
     @Override
@@ -43,7 +49,10 @@ public class BaseServiceAdapter implements BaseService {
 
     @Override
     public JSONObject delete(JSONObject data) throws Exception {
-        return null;
+        submitRequest("delete", data);
+
+        JSONParser parser = new JSONParser();
+        return (JSONObject) parser.parse(in.readLine());
     }
 
     @Override
@@ -51,6 +60,13 @@ public class BaseServiceAdapter implements BaseService {
         return null;
     }
 
+    /**
+     * Method which sends a new request through output PrintWriter
+     * The request is a JSONObject containing the type of required service and function and the data used for the
+     * operation's accomplishment
+     * @param function (Required function)
+     * @param data (Data used by service and function)
+     */
     protected void submitRequest(String function, JSONObject data) {
         JSONObject request = new JSONObject();
         request.put("service", service);

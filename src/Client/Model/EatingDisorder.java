@@ -36,6 +36,9 @@ public class EatingDisorder extends AbstractRowModel {
         save.getStyleClass().remove("red-button");
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         type.setOnAction(event -> {
             needToSave();

@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Abstract class, implements a repository's base services
+ */
 public abstract class AbstractBaseService extends UnicastRemoteObject implements BaseService {
     protected Repository repository;
 
@@ -95,9 +98,11 @@ public abstract class AbstractBaseService extends UnicastRemoteObject implements
         return parser;
     }
 
-    protected int getMaxLength(JSONObject jsonObject) {
-        return (Integer) jsonObject.get("max_length");
-    }
-
+    /**
+     * Method used to case a JSONObject containing an entity model into a defined entity
+     * @param jsonObject (JSONObject containing defined entity model)
+     * @return (Correctly parsed entity)
+     * @throws IOException
+     */
     protected abstract EntityInterface castJsonIntoEntity(JSONObject jsonObject) throws IOException;
 }

@@ -10,6 +10,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Class which uses an input BufferedReader and an output PrintWriter to read service requests from the assigned client,
+ * executes the requested operations and sends back a Result object back to the client
+ */
 public class SocketParser extends Thread {
     final private Socket socket;
 
@@ -31,7 +35,7 @@ public class SocketParser extends Thread {
 
                 JSONObject result = null;
 
-                if (json.get("service").equals("user")) {
+                if (json.get("service").equals("users")) {
                     UserService userService = new UserServiceImplementation();
 
                     if (json.get("function").equals("login")) {
@@ -40,9 +44,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("child")) {
+                }else if (json.get("service").equals("child")) {
                     ChildrenServiceImplementation childrenService = new ChildrenServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -50,10 +52,13 @@ public class SocketParser extends Thread {
                         result = childrenService.read(data);
 
                         out.println(result.toString());
-                    }
-                }
+                    }else if(json.get("function").equals("save")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childrenService.save(data);
 
-                if (json.get("service").equals("adult")) {
+                        out.println(result.toString());
+                    }
+                }else if (json.get("service").equals("adult")) {
                     AdultServiceImplementation adultService = new AdultServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -62,9 +67,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("aliment")) {
+                }else if (json.get("service").equals("aliment")) {
                     AlimentServiceImplementation alimentService = new AlimentServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -73,9 +76,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("bus")) {
+                }else if (json.get("service").equals("bus")) {
                     BusServiceImplementation busService = new BusServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -84,9 +85,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("calendar")) {
+                }else if (json.get("service").equals("calendar")) {
                     CalendarServiceImplementation calendarService = new CalendarServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -95,9 +94,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("daytrips")) {
+                }else if (json.get("service").equals("daytrips")) {
                     TripServiceImplementation dayTripService = new TripServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -106,9 +103,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("dishes")) {
+                }else if (json.get("service").equals("dishes")) {
                     DishServiceImplementation dishService = new DishServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -117,9 +112,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("eatingDisorders")) {
+                }else if (json.get("service").equals("eatingDisorders")) {
                     EatingDisorderServiceImplementation eatingDisorderService = new EatingDisorderServiceImplementation();
 
                     if (json.get("function").equals("Rightread")) {
@@ -128,9 +121,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("menus")) {
+                }else if (json.get("service").equals("menus")) {
                     MenuServiceImplementation menuService = new MenuServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -139,9 +130,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("places")) {
+                }else if (json.get("service").equals("places")) {
                     PlaceServiceImplementation placeService = new PlaceServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -150,9 +139,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("staff")) {
+                }else if (json.get("service").equals("staff")) {
                     StaffServiceImplementation staffService = new StaffServiceImplementation();
 
                     if (json.get("function").equals("read")) {
@@ -161,9 +148,7 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }
-
-                if (json.get("service").equals("main")) {
+                }else if (json.get("service").equals("main")) {
                     if (json.get("function").equals("exit")) {
                         socket.close();
                     }

@@ -11,6 +11,9 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * This abstract class contains the methods used to control the content of a generic view of the application
+ */
 public abstract class AbstractTableController {
 
     protected BaseService service;
@@ -22,6 +25,11 @@ public abstract class AbstractTableController {
         service = baseService;
     }
 
+    /**
+     * Method used to fill a generic tableView with specific elements, according to particular filters given in input.
+     * At the first invocation, the filters are empty in order to fill the tableView with all the elements contained in
+     * the invoked DB table
+     */
     @FXML
     public void filter() {
         try {
@@ -34,6 +42,13 @@ public abstract class AbstractTableController {
         }
     }
 
+    /**
+     * Method which takes particular filters in input and returns an ArrayList containing all the elements read from DB
+     * (according to filters' conditions), transported to the client through a JSONObject and parsed into specific rows
+     * @param filters
+     * @return an ArrayList containing all the parsed rows to insert into the tableView
+     * @throws Exception RemoteException
+     */
     protected ArrayList search(JSONObject filters) throws Exception {
         JSONObject response = service.read(filters);
 
@@ -54,6 +69,11 @@ public abstract class AbstractTableController {
         }
     }
 
+
+    /**
+     * Method used to generate a new tableView row
+     * @param item (Specific type of row, different for every tableView)
+     */
     protected void addIntoTable(AbstractRowModel item) {
         if (isNewRowFlag()) {
             tableView.getItems().add(item);
@@ -62,12 +82,27 @@ public abstract class AbstractTableController {
         }
     }
 
+
+    /**
+     * Method used to delete a specific tableView row
+     * @param abstractRowModel (Specific model of row, different for every table)
+     */
     public void delete(AbstractRowModel abstractRowModel) {
         tableView.getItems().remove(abstractRowModel);
     }
 
+    /**
+     * Method used to get values from filters' fields
+     * @return
+     */
     protected abstract JSONObject takeFilters();
 
+    /**
+     * Method which parses an input JSONObject and generates an ArrayList of a table's specific row model
+     * @param data (Parsed JSONObject)
+     * @return (ArrayList of elements that will be insert into a tableView)
+     * @throws Exception ParseException
+     */
     protected abstract ArrayList parseIntoRows(JSONObject data) throws Exception;
 
     public BaseService getService() {

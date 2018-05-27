@@ -119,7 +119,7 @@ public abstract class Person extends AbstractEntity {
 
         String correctFiscalCode = this.getFiscalCode();
         if(!validateString(correctFiscalCode, "^[a-zA-Z0-9]*$")) throw new IllegalArgumentException("Violated constraints on fiscal code field (Only numbers and letters are allowed, no spaces)");
-        if(this.getFiscalCode().length()!=16) throw new IllegalArgumentException("Violated constraints on fidcal code field (This field has to be filled with a combination of 16 letters or numbers in any combination)");
+        if(this.getFiscalCode().length()!=16) throw new IllegalArgumentException("Violated constraints on fiscal code field (This field has to be filled with a sequence of 16 letters or numbers in any combination)");
         this.setFiscalCode(correctFiscalCode.toUpperCase());
     }
 }

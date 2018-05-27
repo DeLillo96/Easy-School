@@ -11,6 +11,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Abstract class, each repository is linked to a specific DB table, implements read operations and instantiate save
+ * operations
+ */
 public abstract class AbstractRepository implements Repository {
     protected String tableName;
 
@@ -82,6 +86,11 @@ public abstract class AbstractRepository implements Repository {
         return result;
     }
 
+    /**
+     * Method used in read operations, prepares a reading session with specified parameters
+     * @param filters (Specified read filters)
+     * @param session (Hibernate session)
+     */
     protected void prepareFilter(HashMap<String, Object> filters, Session session) {
         Iterator it = filters.entrySet().iterator();
         while (it.hasNext()) {

@@ -47,6 +47,10 @@ public class AdultsController extends AbstractTableController {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAdultService());
     }
 
+    /**
+     * Set a Child element to the controller, used for assignations
+     * @param child
+     */
     public void setChild(Children child) {
         this.child = child;
         childName.setText(child.getStringName());
@@ -80,6 +84,10 @@ public class AdultsController extends AbstractTableController {
         }
     }
 
+    /**
+     * Generates a new Adult model in order to add it to the tableView as a new row
+     * @throws Exception
+     */
     @FXML
     public void add() throws Exception {
         Adults adult = new Adults(this);
@@ -128,6 +136,9 @@ public class AdultsController extends AbstractTableController {
         return list;
     }
 
+    /**
+     * Removes the current popup
+     */
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }

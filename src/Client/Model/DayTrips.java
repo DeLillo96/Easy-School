@@ -43,6 +43,9 @@ public class DayTrips extends AbstractRowModel {
         setName((String) data.get("name"));
     }
 
+    /**
+     * Method used to set listeners and related events to trigger
+     */
     public void events() {
         name.textProperty().addListener((obs, oldText, newText) -> {
             needToSave();

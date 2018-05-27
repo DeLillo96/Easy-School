@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Class used to handle the application's main tabPane
+ */
 public class Home {
     private Stage stage;
     @FXML
@@ -24,6 +27,10 @@ public class Home {
     @FXML
     private Tab staffTab;
 
+    /**
+     * For each tab in the tabPane, this methos loads an FXML file resource and set it to a specific tab
+     * @throws IOException
+     */
     @FXML
     public void initialize() throws IOException {
         AnchorPane homePane = FXMLLoader.load(getClass().getResource("../Views/calendar.fxml"));

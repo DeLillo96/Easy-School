@@ -14,6 +14,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Class which generates the calendar view in home tab
+ */
 public class CalendarController {
 
     @FXML
@@ -41,6 +44,11 @@ public class CalendarController {
     private List<CalendarDay> dayList = new ArrayList<>();
     private BaseService calendarServices;
 
+    /**
+     * Method which takes day, month and year and generates a string in "yyyy-MM-dd" format
+     * @param dayNumber (Number of the day)
+     * @return
+     */
     public String dateStringConstructor(int dayNumber) {
         String returnString = ""+selectedYear+"-";
         if(selectedMonth<10) returnString = returnString+"0";
@@ -50,6 +58,12 @@ public class CalendarController {
         return returnString;
     }
 
+    /**
+     * Method used to load calendar cells, according to selected month and year, and to assign a DB calendar element to
+     * each calendar cell
+     * @param month (Selected month)
+     * @param year (Selected year)
+     */
     private void loadCalendarLabels(int month, int year) {
 
         yearSelect.setPromptText("" + selectedYear);
@@ -111,6 +125,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Checks selected month and year and refreshes the calendar
+     */
     private void checkMonthSelectorConstraints() {
         refreshView = true;
         errorMessage = "";
@@ -126,6 +143,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Checks datePicker value and loads the related calendar day's popup
+     */
     private void checkDatePickerConstraints() {
         try {
             JSONObject dataFilter = new JSONObject();
@@ -158,6 +178,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Method used to initialize the basic calendar grid
+     */
     public void initializeCalendarGrid() {
         int rows = 6;
         int cols = 7;
@@ -179,6 +202,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Method used to initialize the weekday header on the calendar
+     */
     public void initializeCalendarWeekdayHeader() {
 
         int weekdays = 7;
@@ -195,6 +221,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Method used to assign calendar services to the controller, to set initial month and year and to load the GUI
+     */
     public void initialize() {
         try {
             calendarServices = RemoteManager.getInstance().getRemoteServicesManager().getCalendarService();

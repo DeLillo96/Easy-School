@@ -6,6 +6,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used for socket services, each connected client is bound to a specific SocketParser object
+ */
 public class SocketManager extends Thread {
     final private ServerSocket serverSocket;
     final private List<SocketParser> clients;
