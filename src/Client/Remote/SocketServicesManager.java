@@ -90,23 +90,13 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public RelationService getBusStartingPlaceService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("busstartplace", in, out);
-    }
-
-    @Override
-    public RelationService getBusArrivalPlaceService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("busarrivalplace", in, out);
-    }
-
-    @Override
     public RelationService getTripPlaceService() throws Exception {
         return (RelationService) new BaseServiceAdapter("tripplace", in, out);
     }
 
     @Override
-    public RelationService getDailyMenuService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("dailymenu", in, out);
+    public RelationService getDailyDishService() throws Exception {
+        return (RelationService) new BaseServiceAdapter("dailydish", in, out);
     }
 
     @Override
@@ -117,6 +107,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     @Override
     public RelationService getChildInTripService() throws Exception {
         return (RelationService) new BaseServiceAdapter("childintrip", in, out);
+    }
+
+    @Override
+    public BaseService getDishService() throws Exception {
+        return new BaseServiceAdapter("dish", in, out);
     }
 
     @Override

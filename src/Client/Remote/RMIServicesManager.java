@@ -81,23 +81,13 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
-    public RelationService getBusStartingPlaceService() throws Exception {
-        return (RelationService) registry.lookup("busstartingplace");
-    }
-
-    @Override
-    public RelationService getBusArrivalPlaceService() throws Exception {
-        return (RelationService) registry.lookup("busdestinationplace");
-    }
-
-    @Override
     public RelationService getTripPlaceService() throws Exception {
         return (RelationService) registry.lookup("tripplace");
     }
 
     @Override
-    public RelationService getDailyMenuService() throws Exception {
-        return (RelationService) registry.lookup("dailymenu");
+    public RelationService getDailyDishService() throws Exception {
+        return (RelationService) registry.lookup("dailydish");
     }
 
     @Override
@@ -108,6 +98,11 @@ public class RMIServicesManager implements RemoteServicesManager {
     @Override
     public RelationService getChildInTripService() throws Exception {
         return (RelationService) registry.lookup("childintrip");
+    }
+
+    @Override
+    public BaseService getDishService() throws Exception {
+        return (BaseService) registry.lookup("dish");
     }
 
     @Override

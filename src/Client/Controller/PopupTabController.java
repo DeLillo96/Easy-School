@@ -46,9 +46,9 @@ public class PopupTabController {
      */
     public void render() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/dailyMenus.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/dailyDish.fxml"));
         setMenuTab.setContent(loader.load());
-        DailyMenusController dailyMenusController = loader.getController();
+        DailyDishController dailyMenusController = loader.getController();
         dailyMenusController.setCalendarId(calendarId);
         dailyMenusController.filter();
 

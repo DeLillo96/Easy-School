@@ -1,8 +1,6 @@
 package Server.Repository;
 
 import Server.Entity.Calendar;
-import Server.Entity.Trip;
-import Server.Entity.Menu;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,9 +28,4 @@ public class CalendarRepository extends AbstractRepository {
         return calendar != null && calendar.size() == 1 ? (Calendar) calendar.get(0) : null;
     }
 
-    public List getCalendarByMenuId(int menu_id) {
-        MenuRepository menuRepository = new MenuRepository();
-        Menu menus = menuRepository.getMenuById(menu_id);
-        return new ArrayList(menus.getDate());
-    }
 }

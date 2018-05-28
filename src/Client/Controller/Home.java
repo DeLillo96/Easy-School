@@ -23,8 +23,6 @@ public class Home {
     @FXML
     private Tab canteenTab;
     @FXML
-    private Tab dayTripsTab;
-    @FXML
     private Tab staffTab;
 
     /**
@@ -39,11 +37,8 @@ public class Home {
         AnchorPane childrenPane = FXMLLoader.load(getClass().getResource("../Views/children.fxml"));
         childrenTab.setContent(childrenPane);
 
-        AnchorPane canteenPane = FXMLLoader.load(getClass().getResource("../Views/menu.fxml"));
+        AnchorPane canteenPane = FXMLLoader.load(getClass().getResource("../Views/dish.fxml"));
         canteenTab.setContent(canteenPane);
-
-        AnchorPane dayTripsPane = FXMLLoader.load(getClass().getResource("../Views/daytrips.fxml"));
-        dayTripsTab.setContent(dayTripsPane);
 
         AnchorPane staffPane = FXMLLoader.load(getClass().getResource("../Views/staff.fxml"));
         staffTab.setContent(staffPane);

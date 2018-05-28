@@ -17,12 +17,7 @@
             <children>
                 <TableView fx:id="tableView" layoutY="131.0">
                     <columns>
-                        <TableColumn fx:id="buttonsColumn" maxWidth="4000.0" minWidth="-Infinity" prefWidth="-1.0">
-                            <cellValueFactory>
-                                <PropertyValueFactory property="buttons" />
-                            </cellValueFactory>
-                        </TableColumn>
-                        <TableColumn fx:id="checkDailyMenuColumn" maxWidth="3000.0" minWidth="-Infinity" prefWidth="0.0" text="Daily Menu">
+                        <TableColumn maxWidth="3000.0" minWidth="-Infinity" prefWidth="0.0" text="Daily Menu">
                             <cellValueFactory>
                                 <PropertyValueFactory property="select" />
                             </cellValueFactory>
@@ -30,22 +25,22 @@
                                 <String fx:value="table-cell" />
                             </styleClass>
                         </TableColumn>
-                        <TableColumn fx:id="firstColumn" minWidth="-Infinity" prefWidth="-1.0" text="First">
+                        <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="First">
                             <cellValueFactory>
                                 <PropertyValueFactory property="first" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="secondColumn" minWidth="-Infinity" prefWidth="-1.0" text="Second">
+                        <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Second">
                             <cellValueFactory>
                                 <PropertyValueFactory property="second" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="sideColumn" minWidth="-Infinity" prefWidth="-1.0" text="Side">
+                        <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Side">
                             <cellValueFactory>
                                 <PropertyValueFactory property="side" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="sweetColumn" minWidth="-Infinity" prefWidth="-1.0" text="Sweet">
+                        <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Sweet">
                             <cellValueFactory>
                                 <PropertyValueFactory property="sweet" />
                             </cellValueFactory>
@@ -63,11 +58,11 @@
                 <Insets top="30.0" />
             </padding>
         </VBox>
-        <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#saveAll">
+        <Button alignment="CENTER" defaultButton="true" onAction="#saveAll">
             <graphic>
                 <ImageView fitHeight="40.0" fitWidth="40.0">
                     <image>
-                        <Image url="@../Resources/Images/search.png" />
+                        <Image url="@../Resources/Images/save.png" />
                     </image>
                 </ImageView>
             </graphic>

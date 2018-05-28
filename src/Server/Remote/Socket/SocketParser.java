@@ -121,15 +121,6 @@ public class SocketParser extends Thread {
 
                         out.println(result.toString());
                     }
-                }else if (json.get("service").equals("menus")) {
-                    MenuServiceImplementation menuService = new MenuServiceImplementation();
-
-                    if (json.get("function").equals("read")) {
-                        JSONObject data = (JSONObject) json.get("data");
-                        result = menuService.read(data);
-
-                        out.println(result.toString());
-                    }
                 }else if (json.get("service").equals("places")) {
                     PlaceServiceImplementation placeService = new PlaceServiceImplementation();
 

@@ -31,17 +31,15 @@ public interface RemoteServicesManager {
 
     RelationService getParentService() throws Exception;
 
-    RelationService getBusStartingPlaceService() throws Exception;
-
-    RelationService getBusArrivalPlaceService() throws Exception;
-
     RelationService getTripPlaceService() throws Exception;
 
-    RelationService getDailyMenuService() throws Exception;
+    RelationService getDailyDishService() throws Exception;
 
     BaseService getDailyTripService() throws Exception;
 
     RelationService getChildInTripService() throws Exception;
+
+    BaseService getDishService() throws Exception;
 
     BaseService getFirstDishService() throws Exception;
 

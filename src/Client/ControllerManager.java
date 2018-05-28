@@ -186,19 +186,6 @@ public class ControllerManager {
     }
 
     /**
-     * Renders dishes popup
-     * @param menu (Menu model assigned to dishes popup)
-     * @throws IOException
-     */
-    public void renderDishes(Menu menu) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/dishes.fxml"));
-        addPopup(loader.load());
-
-        DishesController dishesController = loader.getController();
-        dishesController.render(menu);
-    }
-
-    /**
      * Renders recipes popup
      * @param dish (Dish model assigned to recipes popup)
      */

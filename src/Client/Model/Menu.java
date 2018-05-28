@@ -50,11 +50,7 @@ public class Menu extends AbstractRowModel {
      * Method which opens a new dish popup referred to current menu, in order to show or modify assigned dishes
      */
     public void modify() {
-        try {
-            ControllerManager.getInstance().renderDishes(this);
-        } catch (IOException e) {
-            ControllerManager.getInstance().notifyError("Rendering error");
-        }
+
     }
 
     @Override

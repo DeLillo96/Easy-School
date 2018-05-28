@@ -38,8 +38,12 @@ public class ChildrenInTripController extends AbstractTableController {
     public void saveAll() {
         try {
             ArrayList<Integer> childIds = new ArrayList<>();
-            tableView.getItems().forEach(item -> childIds.add(Integer.parseInt((String) item.getData().get("id"))));
-
+            for (int i = 0; i < tableView.getItems().size(); i++) {
+                ChildInTrip item = (ChildInTrip) tableView.getItems().get(i);
+                if( item.getSelect().isSelected()) {
+                    childIds.add(item.getId());
+                }
+            }
             RelationService service = RemoteManager.getInstance().getRemoteServicesManager().getChildInTripService();
             notifyResult(service.assign(childIds, trip.getId()));
         } catch (Exception e) {

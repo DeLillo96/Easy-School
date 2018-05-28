@@ -18,25 +18,24 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
         <!-- MAPPINGS -->
-        <mapping class="Server.Entity.Users"/>
-        <mapping class="Server.Entity.Calendar"/>
-        <mapping class="Server.Entity.Child"/>
         <mapping class="Server.Entity.Adult"/>
         <mapping class="Server.Entity.Aliment"/>
+        <mapping class="Server.Entity.Allergy"/>
+        <mapping class="Server.Entity.Bus"/>
+        <mapping class="Server.Entity.Calendar"/>
+        <mapping class="Server.Entity.Child"/>
         <mapping class="Server.Entity.Dish"/>
         <mapping class="Server.Entity.EatingDisorder"/>
-        <mapping class="Server.Entity.Menu"/>
-        <mapping class="Server.Entity.Place"/>
-        <mapping class="Server.Entity.Bus"/>
-        <mapping class="Server.Entity.Trip"/>
         <mapping class="Server.Entity.First"/>
+        <mapping class="Server.Entity.Intolerance"/>
+        <mapping class="Server.Entity.Pediatrician"/>
+        <mapping class="Server.Entity.Place"/>
         <mapping class="Server.Entity.Second"/>
         <mapping class="Server.Entity.Side"/>
-        <mapping class="Server.Entity.Sweet"/>
-        <mapping class="Server.Entity.Supplier"/>
-        <mapping class="Server.Entity.Pediatrician"/>
-        <mapping class="Server.Entity.Intolerance"/>
-        <mapping class="Server.Entity.Allergy"/>
         <mapping class="Server.Entity.Staff"/>
+        <mapping class="Server.Entity.Supplier"/>
+        <mapping class="Server.Entity.Sweet"/>
+        <mapping class="Server.Entity.Trip"/>
+        <mapping class="Server.Entity.Users"/>
     </session-factory>
 </hibernate-configuration>

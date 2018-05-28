@@ -44,9 +44,8 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
                 </HBox>
-                <TabPane fx:id="popupTabPane" rotateGraphic="true" snapToPixel="false" stylesheets="@../Resources/Style/default.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="200.0">
+                <TabPane rotateGraphic="true" snapToPixel="false" stylesheets="@../Resources/Style/default.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="200.0">
                     <tabs>
-                        <Tab fx:id="setPresencesTab" closable="false" text="Presences" />
                         <Tab fx:id="setMenuTab" closable="false" text="Daily Menus" />
                         <Tab fx:id="setTripTab" closable="false" text="Trip Presences" />
                     </tabs>

@@ -40,6 +40,9 @@ public abstract class Dish extends AbstractEntity {
     )
     private Set<Aliment> ingredients = new HashSet<>();
 
+    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
+    private Set<Calendar> calendars = new HashSet<>();
+
     public Dish() {
     }
 
@@ -78,5 +81,13 @@ public abstract class Dish extends AbstractEntity {
         String correctName = this.getName();
         if(!validateString(correctName, "^[\\p{L} .'-]+$")) throw new IllegalArgumentException("Violated constraints on name field (No symbols allowed, no numbers allowed)");
         this.setName(nameCorrector(correctName));
+    }
+
+    public Set<Calendar> getCalendars() {
+        return calendars;
+    }
+
+    public void setCalendars(Set<Calendar> calendars) {
+        this.calendars = calendars;
     }
 }

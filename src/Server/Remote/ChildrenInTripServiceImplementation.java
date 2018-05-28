@@ -45,6 +45,9 @@ public class ChildrenInTripServiceImplementation extends UnicastRemoteObject imp
     @Override
     public JSONObject assign(List<Integer> rightIds, Integer leftId) throws Exception {
         Result response = new Result();
+        Trip trip = tripRepository.getTripById(leftId);
+        trip.getChildInTrip().clear();
+        trip.save();
         for (Integer rightId : rightIds) {
             JSONObject result = assign(rightId, leftId);
             if(!(Boolean) result.get("success")) {

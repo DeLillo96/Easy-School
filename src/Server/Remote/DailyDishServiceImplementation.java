@@ -1,9 +1,9 @@
 package Server.Remote;
 
 import Server.Entity.Calendar;
-import Server.Entity.Menu;
+import Server.Entity.Dish;
 import Server.Repository.CalendarRepository;
-import Server.Repository.MenuRepository;
+import Server.Repository.DishRepository;
 import Server.Result;
 import Shared.RelationService;
 import org.json.simple.JSONObject;
@@ -12,42 +12,47 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DailyMenuServiceImplementation extends UnicastRemoteObject implements RelationService {
-    protected MenuRepository menuRepository;
+public class DailyDishServiceImplementation extends UnicastRemoteObject implements RelationService {
+    protected DishRepository dishRepository;
     protected CalendarRepository calendarRepository;
 
-    public DailyMenuServiceImplementation() throws RemoteException {
-        menuRepository = new MenuRepository();
+    public DailyDishServiceImplementation() throws RemoteException {
+        dishRepository = new DishRepository();
         calendarRepository = new CalendarRepository();
     }
 
     private List<String> checkEatingDisorders(Integer calendarId) {
         List<String> list = new ArrayList<>();
-
-
-
+        List eatingDisorder = dishRepository.getListOfEatingDisorderByDay(calendarId);
+        for (int i = 0; i < eatingDisorder.size(); i++) {
+            Object[] strings = (Object []) eatingDisorder.get(i);
+            list.add(strings[1] + " - " + strings[0]);
+        }
         return list;
     }
 
     @Override
-    public JSONObject assign(Integer calendarId, Integer menuId) throws Exception {
-        Menu menu = menuRepository.getMenuById(menuId);
+    public JSONObject assign(Integer calendarId, Integer dishId) throws Exception {
+        Calendar calendar = calendarRepository.getCalendarById(calendarId);
 
-        for (Calendar calendar : menu.getDate()) {
-            if (calendar.getId().equals(calendarId)) {
+        for (Dish dish : calendar.getDishes()) {
+            if (dish.getId().equals(dishId)) {
                 Result result = new Result();
-                result.addData(menu);
+                result.addData(calendar);
                 return result.toJson();
             }
         }
 
-        menu.getDate().add(calendarRepository.getCalendarById(calendarId));
-        return menu.save().toJson();
+        calendar.getDishes().add(dishRepository.getDishById(dishId));
+        return calendar.save().toJson();
     }
 
     @Override
     public JSONObject assign(Integer rightId, List<Integer> leftIds) throws Exception {
         Result response = new Result();
+        Calendar calendar = calendarRepository.getCalendarById(rightId);
+        calendar.getDishes().clear();
+        calendar.save();
         for (Integer leftId : leftIds) {
             JSONObject result = assign(rightId, leftId);
             if(!(Boolean) result.get("success")) {
@@ -65,12 +70,12 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
     }
 
     @Override
-    public JSONObject deAssign(Integer calendarId, Integer menuId) throws Exception {
+    public JSONObject deAssign(Integer calendarId, Integer dishId) throws Exception {
         Calendar calendar = calendarRepository.getCalendarById(calendarId);
 
-        for (Menu dailyMenu : calendar.getDailyMenus()) {
-            if (dailyMenu.getId().equals(menuId)) {
-                calendar.getDailyMenus().remove(dailyMenu);
+        for (Dish dailyDish : calendar.getDishes()) {
+            if (dailyDish.getId().equals(dishId)) {
+                calendar.getDishes().remove(dailyDish);
                 return calendar.save().toJson();
             }
         }
@@ -81,9 +86,8 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
     }
 
     @Override
-    public JSONObject leftRead(Integer menuId) throws Exception {
-        List list = calendarRepository.getCalendarByMenuId(menuId);
-        return new Result(true, list).toJson();
+    public JSONObject leftRead(Integer dishId) throws Exception {
+        return null;
     }
 
     @Override
@@ -98,7 +102,7 @@ public class DailyMenuServiceImplementation extends UnicastRemoteObject implemen
 
     @Override
     public JSONObject rightRead(Integer calendarId) throws Exception {
-        List list = menuRepository.getMenuByCalendar(calendarId);
-        return new Result(true, list).toJson();
+        List list = dishRepository.getAllDailyDish(calendarId);
+        return new Result(checkEatingDisorders(calendarId), true, list).toJson();
     }
 }

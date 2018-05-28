@@ -1,14 +1,10 @@
 package Server.Entity;
 
-import Client.Model.DayTrips;
 import org.hibernate.annotations.*;
-
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,8 +41,13 @@ public class Calendar extends AbstractEntity {
     )
     private Set<Child> presentChildren = new HashSet<>();
 
-    @ManyToMany(mappedBy = "date", fetch = FetchType.EAGER)
-    private Set<Menu> dailyMenus = new HashSet<>();
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "Dishes",
+            joinColumns = {@JoinColumn(name = "calendar_id")},
+            inverseJoinColumns = {@JoinColumn(name = "dish_id")}
+    )
+    private Set<Dish> dishes = new HashSet<>();
 
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Trip> dailyTrip = new HashSet<>();
@@ -97,14 +98,6 @@ public class Calendar extends AbstractEntity {
         this.presentChildren = presentChilds;
     }
 
-    public Set<Menu> getDailyMenus() {
-        return dailyMenus;
-    }
-
-    public void setDailyMenus(Set<Menu> dailyMenus) {
-        this.dailyMenus = dailyMenus;
-    }
-
     public Set<Child> getPresentChildren() {
         return presentChildren;
     }
@@ -119,6 +112,14 @@ public class Calendar extends AbstractEntity {
 
     public void setTrip(Set<Trip> dailyTrip) {
         this.dailyTrip = dailyTrip;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     @Override
