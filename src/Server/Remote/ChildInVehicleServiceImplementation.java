@@ -54,13 +54,14 @@ public class ChildInVehicleServiceImplementation extends UnicastRemoteObject imp
 
     @Override
     public JSONObject leftRead(Integer leftId, Integer centerId) throws Exception {
-        List response = childInVehicleRepository.getChildInVehicleRepository(leftId, centerId);
+        List response = childInVehicleRepository.getVehicleInChildRepository(leftId, centerId);
         return new Result(true, response).toJson();
     }
 
     @Override
     public JSONObject centerRead(Integer leftId, Integer rightId) throws Exception {
-        return null;
+        List response = childInVehicleRepository.getChildInVehicleRepository(leftId, rightId);
+        return new Result(true, response).toJson();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Client.Controller;
 
+import Client.Model.CalendarDay;
 import Client.Model.Trip;
 import Client.Remote.RemoteManager;
 import javafx.fxml.FXML;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class TripController extends AbstractTableController {
 
-    private Integer calendarId;
+    private CalendarDay calendar;
 
     public TripController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getDailyTripService());
@@ -18,7 +19,7 @@ public class TripController extends AbstractTableController {
     @Override
     protected JSONObject takeFilters() {
         JSONObject filters = new JSONObject();
-        filters.put("day", calendarId);
+        filters.put("day", calendar.getCalendarId());
         return filters;
     }
 
@@ -30,6 +31,7 @@ public class TripController extends AbstractTableController {
             JSONObject trip = (JSONObject) data.get(i);
 
             Trip item = new Trip(this, trip);
+            item.setCalendar(calendar);
             item.refreshModel();
 
             list.add(item);
@@ -40,15 +42,20 @@ public class TripController extends AbstractTableController {
     @FXML
     public void add() throws Exception {
         Trip item = new Trip(this);
-        item.setCalendarId(calendarId);
+        item.setCalendar(calendar);
+        item.refreshModel();
         addIntoTable(item);
     }
 
     public Integer getCalendarId() {
-        return calendarId;
+        return calendar.getCalendarId();
     }
 
     public void setCalendarId(Integer calendarId) {
-        this.calendarId = calendarId;
+        this.calendar.setCalendarId(calendarId);
+    }
+
+    public void setCalendar(CalendarDay calendar) {
+        this.calendar = calendar;
     }
 }

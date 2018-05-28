@@ -26,10 +26,6 @@ public class CalendarController {
     @FXML
     private Button changeCalendar;
     @FXML
-    private DatePicker calendarDatePicker;
-    @FXML
-    private Button renderDatePopup;
-    @FXML
     private HBox weekdayHeader;
     @FXML
     private GridPane calendarGrid;
@@ -144,41 +140,6 @@ public class CalendarController {
     }
 
     /**
-     * Checks datePicker value and loads the related calendar day's popup
-     */
-    private void checkDatePickerConstraints() {
-        try {
-            JSONObject dataFilter = new JSONObject();
-            JSONObject dataCreateParams = new JSONObject();
-            JSONObject data;
-            JSONObject day;
-            Integer calendarId = 1;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date calendarDay = dateFormat.parse(calendarDatePicker.getValue().toString());
-            dataFilter.put("date", calendarDay);
-            JSONObject response = calendarServices.read(dataFilter);
-            if((boolean) response.get("success")) {
-                data = (JSONObject) response.get("data");
-                if(!(data.isEmpty())) {
-                    day = (JSONObject) data.get(0);
-                    calendarId = Integer.parseInt((String) day.get("id"));
-                }else {
-                    dataCreateParams.put("date", calendarDatePicker.getValue().toString());
-                    JSONObject result = calendarServices.save(dataCreateParams);
-                    if ((boolean) result.get("success")) {
-                        data = (JSONObject) ((JSONObject) result.get("data")).get(0);
-                        calendarId = Integer.parseInt((String) data.get("id"));
-                    }
-                }
-            }
-            ControllerManager.getInstance().renderCalendarPopup(calendarId, calendarDatePicker.getValue().toString());
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("Please select a data from the Date Picker");
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Method used to initialize the basic calendar grid
      */
     public void initializeCalendarGrid() {
@@ -237,7 +198,6 @@ public class CalendarController {
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
         changeCalendar.setOnAction(actionEvent -> checkMonthSelectorConstraints());
-        renderDatePopup.setOnAction(actionEvent -> checkDatePickerConstraints());
         loadCalendarLabels(selectedMonth, selectedYear);
     }
 
