@@ -86,7 +86,9 @@ public class AlimentController extends AbstractTableController {
      */
     @FXML
     public void add() throws Exception {
-        addIntoTable(new Aliment(this));
+        Aliment aliment = new Aliment(this);
+        aliment.setDishId(dish.getId());
+        addIntoTable(aliment);
     }
 
     /**
