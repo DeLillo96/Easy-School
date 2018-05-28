@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
         @FilterDef(name = "surname", parameters = {@ParamDef(name = "surname", type = "string")}),
         @FilterDef(name = "fiscalCode", parameters = {@ParamDef(name = "fiscalCode", type = "string")}),
         @FilterDef(name = "birthDateFrom", parameters = {@ParamDef(name = "birthDateFrom", type = "date")}),
-        @FilterDef(name = "birthDateTo", parameters = {@ParamDef(name = "birthDateTo", type = "date")}),
+        @FilterDef(name = "birthDateTo", parameters = {@ParamDef(name = "birthDateTo", type = "date")})
 })
 @Filters({
         @Filter(name = "id", condition = "id = :id"),

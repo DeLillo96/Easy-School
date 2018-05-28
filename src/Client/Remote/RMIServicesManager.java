@@ -41,6 +41,16 @@ public class RMIServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getSupplierService() throws Exception {
+        return (BaseService) registry.lookup("supplier");
+    }
+
+    @Override
+    public BaseService getPediatricianService() throws Exception {
+        return (BaseService) registry.lookup("pediatrician");
+    }
+
+    @Override
     public EatingDisorderService getEatingDisorderService() throws Exception {
         return (EatingDisorderService) registry.lookup("eatingdisorder");
     }
@@ -83,6 +93,16 @@ public class RMIServicesManager implements RemoteServicesManager {
     @Override
     public RelationService getTripPlaceService() throws Exception {
         return (RelationService) registry.lookup("tripplace");
+    }
+
+    @Override
+    public RelationService getSupplyingService() throws Exception {
+        return (RelationService) registry.lookup("supply");
+    }
+
+    @Override
+    public RelationService getChildPediatricianService() throws Exception {
+        return (RelationService) registry.lookup("follow");
     }
 
     @Override

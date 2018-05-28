@@ -45,13 +45,6 @@ public class AdultRepository extends AbstractRepository {
             return null;
     }
 
-    public Set<Adult> getAdultByChildFiscalCode(String childFiscalCode) {
-        ChildRepository childRepository = new ChildRepository();
-        Child child = childRepository.getChildByFiscalCode(childFiscalCode);
-
-        return child.getParents();
-    }
-
     public List getAdultByChild(Integer childId) {
         ChildRepository childRepository = new ChildRepository();
         Child child = childRepository.getChildById(childId);

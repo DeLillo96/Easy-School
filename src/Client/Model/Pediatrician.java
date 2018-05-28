@@ -3,59 +3,35 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
-import javafx.scene.control.Button;
+import Shared.RelationService;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
+import java.util.Date;
 
-public class Children extends AbstractRowModel {
+public class Pediatrician extends AbstractRowModel {
     private TextField name = new TextField();
     private TextField surname = new TextField();
     private TextField fiscalCode = new TextField();
     private DatePicker birthDate = new DatePicker();
-    private Button parents;
-    private Button pediatrician;
-    private Button disorder;
+    private CheckBox select = new CheckBox();
+    private Children child;
 
-    public Children(AbstractTableController tableController) throws Exception {
+    public Pediatrician(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
     }
 
-    public Children(AbstractTableController tableController, JSONObject data) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getChildrenService(), tableController, data);
+    public Pediatrician(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(RemoteManager.getInstance().getRemoteServicesManager().getPediatricianService(), tableController, data);
+
+        select.setTooltip(new Tooltip("Add/remove pediatrician"));
 
         refreshModel();
         events();
-    }
-
-    @Override
-    protected void initializeButtons() {
-        super.initializeButtons();
-
-        parents = new Button();
-        defineImageButton(parents, "Client/Resources/Images/parents.png");
-        parents.setOnAction(actionEvent -> parents());
-        parents.setTooltip(new Tooltip("Show parents"));
-
-        pediatrician = new Button();
-        defineImageButton(pediatrician, "Client/Resources/Images/parents.png");
-        pediatrician.setOnAction(actionEvent -> pediatrician());
-        pediatrician.setTooltip(new Tooltip("Show pediatricians"));
-
-        disorder = new Button();
-        defineImageButton(disorder, "Client/Resources/Images/eating.png");
-        disorder.setOnAction(actionEvent -> disorder());
-        disorder.setTooltip(new Tooltip("Set eating disorders"));
-
-        if (data.size() == 0) {
-            parents.setVisible(false);
-            pediatrician.setVisible(false);
-            disorder.setVisible(false);
-        }
-        getButtons().getChildren().addAll(parents, pediatrician, disorder);
     }
 
     /**
@@ -78,6 +54,27 @@ public class Children extends AbstractRowModel {
             needToSave();
             data.put("birthDate", birthDate.getValue().toString());
         });
+        select.setOnAction(event -> needToSave());
+    }
+
+    @Override
+    public void save() {
+        try {
+            JSONObject result = service.save(getData());
+            if ((boolean) result.get("success")) {
+                setData((JSONObject) ((JSONObject) result.get("data")).get(0));
+                refreshModel();
+                save.getStyleClass().remove("red-button");
+                RelationService pediatricianService = RemoteManager.getInstance().getRemoteServicesManager().getChildPediatricianService();
+                result = select.isSelected() ?
+                        pediatricianService.assign(child.getId(), getId()) :
+                        pediatricianService.deAssign(child.getId(), getId());
+                enableButtons();
+            }
+            notifyResult(result);
+        } catch (Exception e) {
+            ControllerManager.getInstance().notifyError(e.getMessage());
+        }
     }
 
     @Override
@@ -88,19 +85,7 @@ public class Children extends AbstractRowModel {
         setBirthDate((CharSequence) data.get("birthDate"));
     }
 
-    public void parents() {
-        ControllerManager.getInstance().renderAddAdults(this);
-    }
-
-    public void pediatrician() {
-        ControllerManager.getInstance().renderAddPediatricians(this);
-    }
-
-    public void disorder() {
-        ControllerManager.getInstance().renderAddEatingDisorders(this);
-    }
-
-    public int getId() {
+    public Integer getId() {
         return Integer.parseInt((String) data.get("id"));
     }
 
@@ -113,7 +98,7 @@ public class Children extends AbstractRowModel {
     }
 
     public void setName(String name) {
-        if (name != null) this.name.setText(name);
+        this.name.setText(name);
     }
 
     public String getStringName() {
@@ -129,7 +114,7 @@ public class Children extends AbstractRowModel {
     }
 
     public void setSurname(String surname) {
-        if (surname != null) this.surname.setText(surname);
+        this.surname.setText(surname);
     }
 
     public String getStringSurname() {
@@ -141,7 +126,7 @@ public class Children extends AbstractRowModel {
     }
 
     public void setFiscalCode(TextField fiscalCode) {
-        if (fiscalCode != null) this.fiscalCode = fiscalCode;
+        this.fiscalCode = fiscalCode;
     }
 
     public void setFiscalCode(String fiscalCode) {
@@ -158,5 +143,26 @@ public class Children extends AbstractRowModel {
 
     public void setBirthDate(CharSequence birthDate) {
         if (birthDate != null) this.birthDate.setValue(LocalDate.parse(birthDate));
+    }
+
+    public Date getDateOnDatePicker() {
+        //return birthDate.getValue();
+        return new Date();
+    }
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
+    }
+
+    public Children getChild() {
+        return child;
+    }
+
+    public void setChild(Children child) {
+        this.child = child;
     }
 }

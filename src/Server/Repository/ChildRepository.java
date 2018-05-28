@@ -2,6 +2,7 @@ package Server.Repository;
 
 import Server.Entity.Adult;
 import Server.Entity.Child;
+import Server.Entity.Pediatrician;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +41,13 @@ public class ChildRepository extends AbstractRepository {
         Adult adult = adultRepository.getAdultById(adultId);
 
         return new ArrayList(adult.getChildren());
+    }
+
+    public List getChildByPediatrician(Integer pediatricianId) {
+        PediatricianRepository pediatricianRepository = new PediatricianRepository();
+        Pediatrician pediatrician = pediatricianRepository.getPediatricianById(pediatricianId);
+
+        return new ArrayList(pediatrician.getChildren());
     }
 
     public List getChildInTrip(Integer dailyTripId) {

@@ -13,6 +13,10 @@ public interface RemoteServicesManager {
 
     BaseService getAdultService() throws Exception;
 
+    BaseService getSupplierService() throws Exception;
+
+    BaseService getPediatricianService() throws Exception;
+
     BaseService getAlimentService() throws Exception;
 
     BaseService getBusService() throws Exception;
@@ -30,6 +34,10 @@ public interface RemoteServicesManager {
     BaseService getPlaceService() throws Exception;
 
     RelationService getParentService() throws Exception;
+
+    RelationService getSupplyingService() throws Exception;
+
+    RelationService getChildPediatricianService() throws Exception;
 
     RelationService getTripPlaceService() throws Exception;
 

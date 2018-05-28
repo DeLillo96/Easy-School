@@ -2,6 +2,7 @@ package Server.Repository;
 
 import Server.Entity.Aliment;
 import Server.Entity.Dish;
+import Server.Entity.Supplier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,5 +34,12 @@ public class AlimentRepository extends AbstractRepository {
         Dish dish = dishRepository.getDishById(dishId);
 
         return new ArrayList(dish.getIngredients());
+    }
+
+    public List getAlimentBySupplier(Integer supplierId) {
+        SupplierRepository supplierRepository = new SupplierRepository();
+        Supplier supplier = supplierRepository.getSupplierById(supplierId);
+
+        return new ArrayList(supplier.getSupply());
     }
 }

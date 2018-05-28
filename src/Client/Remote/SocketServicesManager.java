@@ -1,6 +1,8 @@
 package Client.Remote;
 
 import Client.Remote.Adapter.BaseServiceAdapter;
+import Client.Remote.Adapter.EatingDisorderServiceAdapter;
+import Client.Remote.Adapter.RelationServiceAdapter;
 import Client.Remote.Adapter.UserServiceAdapter;
 import Shared.*;
 import org.json.simple.JSONObject;
@@ -46,8 +48,18 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public BaseService getSupplierService() throws Exception {
+        return new BaseServiceAdapter("supplier", in, out);
+    }
+
+    @Override
+    public BaseService getPediatricianService() throws Exception {
+        return new BaseServiceAdapter("pediatrician", in, out);
+    }
+
+    @Override
     public EatingDisorderService getEatingDisorderService() throws Exception {
-        return (EatingDisorderService) new BaseServiceAdapter("eatingdisorder", in, out);
+        return new EatingDisorderServiceAdapter("eatingdisorder", in, out);
     }
 
     @Override
@@ -77,23 +89,32 @@ public class SocketServicesManager implements RemoteServicesManager {
 
     @Override
     public RelationService getRecipesService() throws Exception {
-        //todo ERRORACCIO!
-        return (RelationService) new BaseServiceAdapter("recipes", in, out);
+        return new RelationServiceAdapter("recipes", in, out);
     }
 
     @Override
     public RelationService getParentService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("parents", in, out);
+        return new RelationServiceAdapter("parents", in, out);
     }
 
     @Override
     public RelationService getTripPlaceService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("tripplace", in, out);
+        return new RelationServiceAdapter("tripplace", in, out);
+    }
+
+    @Override
+    public RelationService getSupplyingService() throws Exception {
+        return new RelationServiceAdapter("supply", in, out);
+    }
+
+    @Override
+    public RelationService getChildPediatricianService() throws Exception {
+        return new RelationServiceAdapter("follow", in, out);
     }
 
     @Override
     public RelationService getDailyDishService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("dailydish", in, out);
+        return new RelationServiceAdapter("dailydish", in, out);
     }
 
     @Override
@@ -103,7 +124,7 @@ public class SocketServicesManager implements RemoteServicesManager {
 
     @Override
     public RelationService getChildInTripService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("childintrip", in, out);
+        return new RelationServiceAdapter("childintrip", in, out);
     }
 
     @Override
@@ -138,12 +159,12 @@ public class SocketServicesManager implements RemoteServicesManager {
 
     @Override
     public RelationService getBusTripService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("bustrip", in, out);
+        return new RelationServiceAdapter("bustrip", in, out);
     }
 
     @Override
     public RelationService getPlaceInTripService() throws Exception {
-        return (RelationService) new BaseServiceAdapter("placeintrip", in, out);
+        return new RelationServiceAdapter("placeintrip", in, out);
     }
 
     @Override

@@ -5,6 +5,7 @@ import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import Shared.RelationService;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -13,6 +14,7 @@ import org.json.simple.JSONObject;
 public class Aliment extends AbstractRowModel {
     private final SimpleIntegerProperty dishId = new SimpleIntegerProperty(0);
     private TextField name = new TextField();
+    private Button suppliers;
 
     private CheckBox select = new CheckBox();
 
@@ -29,6 +31,21 @@ public class Aliment extends AbstractRowModel {
         events();
     }
 
+    @Override
+    protected void initializeButtons() {
+        super.initializeButtons();
+
+        suppliers = new Button();
+        defineImageButton(suppliers, "Client/Resources/Images/suppliers.png");
+        suppliers.setOnAction(actionEvent -> suppliers());
+        suppliers.setTooltip(new Tooltip("Show suppliers"));
+
+        if (data.size() == 0) {
+            suppliers.setVisible(false);
+        }
+        getButtons().getChildren().addAll(suppliers);
+    }
+
     /**
      * Method used to set listeners and related events to trigger
      */
@@ -39,6 +56,10 @@ public class Aliment extends AbstractRowModel {
         });
 
         select.setOnAction(event -> needToSave());
+    }
+
+    public void suppliers() {
+        ControllerManager.getInstance().renderAddSuppliers(this);
     }
 
     public Integer getId() {

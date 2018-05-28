@@ -149,6 +149,43 @@ public class ControllerManager {
     }
 
     /**
+     * Renders pediatricians popup
+     * @param child (Child model assigned to adults popup)
+     */
+    public void renderAddPediatricians(Children child) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/pediatricians.fxml"));
+            addPopup(loader.load());
+
+            PediatricianController pediatricianController = loader.getController();
+            pediatricianController.setChild(child);
+
+            pediatricianController.filter();
+        } catch (IOException e) {
+            e.printStackTrace();
+            notifyError(e.getMessage());
+        }
+    }
+
+    /**
+     * Renders suppliers popup
+     * @param aliment (Aliment model assigned to adults popup)
+     */
+    public void renderAddSuppliers(Aliment aliment) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/suppliers.fxml"));
+            addPopup(loader.load());
+
+            SuppliersController suppliersController = loader.getController();
+            suppliersController.setAliment(aliment);
+
+            suppliersController.filter();
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    /**
      * Renders eating disorders popup
      * @param child (Child model assigned to eating disorders popup)
      */

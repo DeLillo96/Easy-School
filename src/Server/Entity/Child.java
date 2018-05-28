@@ -71,6 +71,14 @@ public class Child extends Person {
         this.trips = trips;
     }
 
+    public Set<Pediatrician> getPediatrician() {
+        return pediatrician;
+    }
+
+    public void setPediatrician(Set<Pediatrician> pediatrician) {
+        this.pediatrician = pediatrician;
+    }
+
     @Override
     protected void beforeSave() {
         super.beforeSave();
