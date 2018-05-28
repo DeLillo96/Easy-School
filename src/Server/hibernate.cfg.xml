@@ -37,5 +37,6 @@
         <mapping class="Server.Entity.Sweet"/>
         <mapping class="Server.Entity.Trip"/>
         <mapping class="Server.Entity.Users"/>
+        <mapping class="Server.Entity.ChildInVehicle"/>
     </session-factory>
 </hibernate-configuration>

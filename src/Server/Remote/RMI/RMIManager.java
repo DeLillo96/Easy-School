@@ -43,6 +43,7 @@ public class RMIManager {
         registry.rebind("sweetdish", new SweetDishServiceImplementation());
         registry.rebind("bustrip", new BusTripServiceImplementation());
         registry.rebind("placeintrip", new PlaceInTripServiceImplementation());
+        registry.rebind("childinvehicle", new ChildInVehicleServiceImplementation());
     }
 
     public int getPort() {

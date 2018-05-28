@@ -63,5 +63,7 @@ public interface RemoteServicesManager {
 
     RelationService getPlaceInTripService() throws Exception;
 
+    TernaryRelationService getChildInVehicleService() throws Exception;
+
     void closeConnection() throws Exception;
 }

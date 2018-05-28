@@ -160,6 +160,11 @@ public class RMIServicesManager implements RemoteServicesManager {
         return (RelationService) registry.lookup("placeintrip");
     }
 
+    @Override
+    public TernaryRelationService getChildInVehicleService() throws Exception {
+        return (TernaryRelationService) registry.lookup("childinvehicle");
+    }
+
 
     @Override
     public void closeConnection() throws Exception {

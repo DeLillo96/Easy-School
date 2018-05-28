@@ -168,6 +168,11 @@ public class SocketServicesManager implements RemoteServicesManager {
     }
 
     @Override
+    public TernaryRelationService getChildInVehicleService() throws Exception {
+        return (TernaryRelationService) new BaseServiceAdapter("childinvehicle", in, out);
+    }
+
+    @Override
     public void closeConnection() throws IOException {
         JSONObject request = new JSONObject();
         request.put("service", "main");

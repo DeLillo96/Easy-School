@@ -275,6 +275,24 @@ public class ControllerManager {
     }
 
     /**
+     * Renders popup containing the list of children assigned to a daily trip
+     * @param trip (Trip model assigned to childInTrip popup)
+     */
+    public void renderChildInVehicles(Trip trip, ChildInTrip childInTrip) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/childreninvehicle.fxml"));
+            addPopup(loader.load());
+
+            ChildrenInVehicleController childrenInVehicleController = loader.getController();
+            childrenInVehicleController.setTrip(trip);
+            childrenInVehicleController.setChildInTrip(childInTrip);
+            childrenInVehicleController.filter();
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+    /**
      * Add a popup to a generic stack
      * @param parent (Base of the client's view)
      */

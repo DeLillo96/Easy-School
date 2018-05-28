@@ -96,6 +96,7 @@ public class ChildrenInTripController extends AbstractTableController {
 
             ChildInTrip item = new ChildInTrip(this, (JSONObject) child.get(0));
             item.getSelect().setSelected(Boolean.valueOf((String) child.get(1)));
+            item.setTrip(trip);
             list.add(item);
         }
 

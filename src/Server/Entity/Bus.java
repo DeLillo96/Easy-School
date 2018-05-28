@@ -3,6 +3,7 @@ package Server.Entity;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -37,8 +38,11 @@ public class Bus extends AbstractEntity {
     @Column(nullable = false)
     private String companyName;
 
-    @OneToMany(mappedBy = "vehicles", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "vehicles", fetch = FetchType.EAGER)
     private Set<Trip> trips = new HashSet<>();
+
+    @ManyToMany(mappedBy = "vehicles", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<ChildInVehicle> childs = new HashSet<>();
 
     public Bus() {
     }
@@ -70,6 +74,22 @@ public class Bus extends AbstractEntity {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public Set<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(Set<Trip> trips) {
+        this.trips = trips;
+    }
+
+    public Set<ChildInVehicle> getChilds() {
+        return childs;
+    }
+
+    public void setChilds(Set<ChildInVehicle> childs) {
+        this.childs = childs;
     }
 
     @Override

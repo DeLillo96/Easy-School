@@ -1,8 +1,11 @@
 package Client.Model;
 
 import Client.Controller.AbstractTableController;
+import Client.ControllerManager;
 import Client.Remote.RemoteManager;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
@@ -12,6 +15,9 @@ public class ChildInTrip extends AbstractRowModel {
     private Text fiscalCode = new Text();
     private Text birthDate = new Text();
     private CheckBox select = new CheckBox();
+    private Button childInVehicle;
+
+    private Trip trip;
 
     public ChildInTrip(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
@@ -28,7 +34,26 @@ public class ChildInTrip extends AbstractRowModel {
         events();
     }
 
+    @Override
+    protected void initializeButtons() {
+        super.initializeButtons();
+
+        childInVehicle = new Button();
+        defineImageButton(childInVehicle, "Client/Resources/Images/bus.png");
+        childInVehicle.setOnAction(actionEvent -> childInVehiclePopup());
+        childInVehicle.setTooltip(new Tooltip("Show childInVehicle"));
+        childInVehicle.setVisible(false);
+
+        getButtons().getChildren().clear();
+        getButtons().getChildren().add(childInVehicle);
+    }
+
+    private void childInVehiclePopup() {
+        ControllerManager.getInstance().renderChildInVehicles(trip, this);
+    }
+
     public void events() {
+        select.selectedProperty().addListener( (o, oldCheck, newCheck) -> childInVehicle.setVisible(newCheck));
     }
 
     public int getId() {
@@ -100,7 +125,13 @@ public class ChildInTrip extends AbstractRowModel {
     }
 
     @Override
-    protected void refreshModel() {
+    protected void refreshModel() { }
 
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 }

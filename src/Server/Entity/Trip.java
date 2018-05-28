@@ -56,6 +56,9 @@ public class Trip extends AbstractEntity {
     )
     private Set<Bus> vehicles = new HashSet<>();
 
+    @OneToMany(mappedBy = "trip", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<ChildInVehicle> trips = new HashSet<>();
+
     public Trip() {}
 
     public Trip(String code) {
@@ -112,6 +115,14 @@ public class Trip extends AbstractEntity {
 
     public String getCode() {
         return code;
+    }
+
+    public Set<ChildInVehicle> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(Set<ChildInVehicle> trips) {
+        this.trips = trips;
     }
 
     public void setCode(String code) {

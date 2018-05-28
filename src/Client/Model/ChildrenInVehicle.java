@@ -4,24 +4,26 @@ import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
 import Shared.RelationService;
+import Shared.TernaryRelationService;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
-public class Buses extends AbstractRowModel {
+public class ChildrenInVehicle extends AbstractRowModel {
     private TextField code = new TextField();
     private TextField companyName = new TextField();
     private CheckBox select = new CheckBox();
 
     private Trip trip;
+    private ChildInTrip childInTrip;
 
-    public Buses(AbstractTableController tableController) throws Exception {
+    public ChildrenInVehicle(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
     }
 
-    public Buses(AbstractTableController tableController, JSONObject data) throws Exception {
-        super(RemoteManager.getInstance().getRemoteServicesManager().getBusService(), tableController, data);
+    public ChildrenInVehicle(AbstractTableController tableController, JSONObject data) throws Exception {
+        super(null, tableController, data);
 
         select.setTooltip(new Tooltip("Add/remove bus"));
 
@@ -42,25 +44,6 @@ public class Buses extends AbstractRowModel {
             data.put("code", newText);
         });
         select.setOnAction(event -> needToSave());
-    }
-
-    @Override
-    public void save() {
-        try {
-            JSONObject result = service.save(getData());
-            if ((boolean) result.get("success")) {
-                setData((JSONObject) ((JSONObject) result.get("data")).get(0));
-                RelationService busTripService = RemoteManager.getInstance().getRemoteServicesManager().getBusTripService();
-                result = select.isSelected() ?
-                        busTripService.assign(trip.getId(), getId()) :
-                        busTripService.deAssign(trip.getId(), getId());
-            }
-            save.getStyleClass().remove("red-button");
-            notifyResult(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            ControllerManager.getInstance().notifyError(e.getMessage());
-        }
     }
 
     @Override

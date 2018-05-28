@@ -135,6 +135,11 @@
         </AnchorPane>
         <TableView fx:id="tableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
             <columns>
+                <TableColumn minWidth="-Infinity" prefWidth="-1.0">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="buttons" />
+                    </cellValueFactory>
+                </TableColumn>
                 <TableColumn minWidth="-Infinity" prefWidth="-1.0" text="Subscribe">
                     <cellValueFactory>
                         <PropertyValueFactory property="select" />
