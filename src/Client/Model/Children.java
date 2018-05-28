@@ -41,7 +41,7 @@ public class Children extends AbstractRowModel {
         parents.setTooltip(new Tooltip("Show parents"));
 
         pediatrician = new Button();
-        defineImageButton(pediatrician, "Client/Resources/Images/parents.png");
+        defineImageButton(pediatrician, "Client/Resources/Images/pediatrician.png");
         pediatrician.setOnAction(actionEvent -> pediatrician());
         pediatrician.setTooltip(new Tooltip("Show pediatricians"));
 

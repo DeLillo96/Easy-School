@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,10 +16,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdultTest {
     private static AdultRepository adultRepository = new AdultRepository();
     private static Users user = new Users("hound", "none");
-    private static Adult adult = new Adult("Sandor", "Clegane", "SNDCLG92H51A730S", new Date(), "8204710473");
-
+    private static Adult adult;
     @BeforeAll
     static void createAdult() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date calendarDay;
+        try {
+            calendarDay = simpleDateFormat.parse("1986-05-04");
+            adult = new Adult("Sandor", "Clegane", "SNDCLG92H51A730S", calendarDay, "8204710473");
+        }catch(Exception e) {}
         user.save();
         adult.setUser(user);
         adult.save();

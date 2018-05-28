@@ -218,7 +218,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = eatingDisorderService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = eatingDisorderService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -247,6 +247,12 @@ public class SocketParser extends Thread {
                     }else if(json.get("function").equals("assignallergy")) {
                         JSONObject data = (JSONObject) json.get("data");
                         result = eatingDisorderService.assignAllergy((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+
+                        out.writeObject(result);
+                        out.flush();
+                    }else if(json.get("function").equals("assignintolerance")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = eatingDisorderService.assignIntolerance((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -466,7 +472,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = busTripService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = busTripService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -510,7 +516,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = childPediatricianService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = childPediatricianService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -554,7 +560,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = childrenInTripService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = childrenInTripService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -598,7 +604,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = dailyDishService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = dailyDishService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -642,7 +648,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = parentService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = parentService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -686,7 +692,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = placeInTripService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = placeInTripService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -730,7 +736,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = supplyingService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = supplyingService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -774,7 +780,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = recipesService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = recipesService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();
@@ -818,7 +824,7 @@ public class SocketParser extends Thread {
                         out.flush();
                     }else if(json.get("function").equals("deassign")) {
                         JSONObject data = (JSONObject) json.get("data");
-                        result = tripPlaceService.assign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
+                        result = tripPlaceService.deAssign((Integer) data.get("rightId"), (Integer) data.get("leftId"));
 
                         out.writeObject(result);
                         out.flush();

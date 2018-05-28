@@ -12,7 +12,7 @@ import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
 
 public class Aliment extends AbstractRowModel {
-    private final SimpleIntegerProperty dishId = new SimpleIntegerProperty(0);
+    private final SimpleIntegerProperty dishId = new SimpleIntegerProperty();
     private TextField name = new TextField();
     private Button suppliers;
 
@@ -114,6 +114,7 @@ public class Aliment extends AbstractRowModel {
                 result = select.isSelected() ?
                         recipesService.assign(getDishId(), getId()) :
                         recipesService.deAssign(getDishId(), getId());
+                enableButtons();
             }
             notifyResult(result);
         } catch (Exception e) {
