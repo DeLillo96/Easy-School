@@ -2,17 +2,16 @@ package Client.Remote.Adapter;
 
 import Shared.UserService;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * User services adapter (login and logout functions)
  */
 public class UserServiceAdapter extends BaseServiceAdapter implements UserService {
 
-    public UserServiceAdapter(BufferedReader in, PrintWriter out) {
+    public UserServiceAdapter(ObjectInputStream in, ObjectOutputStream out) {
         super("users", in, out);
     }
 
@@ -24,8 +23,7 @@ public class UserServiceAdapter extends BaseServiceAdapter implements UserServic
 
         submitRequest("login", data);
 
-        JSONParser parser = new JSONParser();
-        return (JSONObject) parser.parse(in.readLine());
+        return (JSONObject) in.readObject();
     }
 
     @Override
