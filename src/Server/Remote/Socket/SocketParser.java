@@ -1,6 +1,7 @@
 package Server.Remote.Socket;
 
 import Server.Remote.*;
+import Server.Result;
 import Shared.UserService;
 import org.json.simple.JSONObject;
 
@@ -857,7 +858,14 @@ public class SocketParser extends Thread {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Result result = new Result(e.getMessage(), false);
+
+                try {
+                    out.writeObject(result.toJson());
+                    out.flush();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
     }
