@@ -68,9 +68,14 @@ public class Supplier extends AbstractEntity{
             inverseJoinColumns = {@JoinColumn(name = "child_id")}
     )
 
-
-
     private Set<Aliment> supply = new HashSet<>();
+
+    public Supplier() {}
+
+    public Supplier(String name, String iva) {
+        setName(name);
+        setIva(iva);
+    }
 
     public Set<Aliment> getSupply() {
         return supply;

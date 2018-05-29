@@ -28,6 +28,16 @@ public class Staff extends Person {
         this.mansion = mansion;
     }
 
+    public Staff() {}
+
+    public Staff(String name, String surname, String fiscalCode, Date birthDate, String mansion) {
+        setName(name);
+        setSurname(surname);
+        setFiscalCode(fiscalCode);
+        setBirthDate(birthDate);
+        this.mansion = mansion;
+    }
+
     @Override
     protected void beforeSave() {
         super.beforeSave();

@@ -1,9 +1,11 @@
 package Server.Test;
 
+import Server.Entity.Trip;
 import Server.Repository.BusRepository;
 import Server.Repository.TripRepository;
 import Server.Result;
 import org.json.simple.JSONObject;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -13,22 +15,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TripTest {
-    private TripRepository tripRepository = new TripRepository();
+    private static TripRepository tripRepository = new TripRepository();
+    private static Trip trip = new Trip("Trip to the wall");
 
-    @Test
-    void readQueryTest() {
-        HashMap<String, Object> filters = new HashMap<>();
-        filters.put("day", 2);
-        List result = tripRepository.read(filters);
-        assertTrue(result.size() > 0, "read from filter error");
-
-        JSONObject response = new Result(true, result).toJson();
-        assertNotNull(response, "parse error");
+    @BeforeAll
+    static void createTrip() {
+        trip.save();
     }
 
     @Test
     void getBusesByTrip() {
-        List buses = new BusRepository().getBusesByTrip(20);
+        List buses = new BusRepository().getBusesByTrip(trip.getId());
         assertNotNull(buses);
     }
 

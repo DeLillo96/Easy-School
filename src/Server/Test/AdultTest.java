@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AdultTest {
     private static AdultRepository adultRepository = new AdultRepository();
-    private static Users user = new Users("hound", "none");
     private static Adult adult;
     @BeforeAll
     static void createAdult() {
@@ -25,15 +24,12 @@ public class AdultTest {
             calendarDay = simpleDateFormat.parse("1986-05-04");
             adult = new Adult("Sandor", "Clegane", "SNDCLG92H51A730S", calendarDay, "8204710473");
         }catch(Exception e) {}
-        user.save();
-        adult.setUser(user);
         adult.save();
     }
 
     @AfterAll
     static void deleteAdult() {
         adult.delete();
-        user.delete();
     }
 
     @Test
@@ -47,22 +43,28 @@ public class AdultTest {
     }
 
     @Test
-    void readAdultByUser() {
-        Adult readAdult = adultRepository.getAdultByReferencedUser(user);
+    void addDoubleAdult() {
+        Adult newAdult;
 
-        Users readUser = readAdult.getUser();
+        newAdult = adultRepository.getAdultByFiscalCode(adult.getFiscalCode());
+        newAdult.setId(0);
+
+        Result result = newAdult.save();
 
         String message = "Read error";
-        assertEquals(user.getUsername(), readUser.getUsername(), message);
-        assertEquals(user.getPassword(), readUser.getPassword(), message);
-        assertEquals(user.getEmail(), readUser.getEmail(), message);
+        assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
+        if (!result.isSuccess()) newAdult.delete();
     }
 
     @Test
     void verifyConstraint() {
         Adult newAdult = new Adult("Rory", "McCann", adult.getFiscalCode(), new Date(), "8273058105");
-        Result result = newAdult.save();
-
+        Result result = new Result();
+        try {
+            result = newAdult.save();
+        }catch (Exception e) {
+            result.setSuccess(false);
+        }
         assertFalse(result.isSuccess(), "Error: " + result.getMessages().toString());
 
         if (!result.isSuccess()) newAdult.delete();
@@ -71,7 +73,7 @@ public class AdultTest {
     @Test
     void modifyAdult() {
         adult.setName("Rory");
-        adult.setSurname("McCann");
+        adult.setSurname("McCannnnnn");
         Result result = adult.save();
 
         assertTrue(result.isSuccess(), "Error: " + result.getMessages().toString());

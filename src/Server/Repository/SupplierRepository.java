@@ -29,9 +29,9 @@ public class SupplierRepository extends AbstractRepository {
         return suppliers != null && suppliers.size() == 1 ? (Supplier) suppliers.get(0) : null;
     }
 
-    public Supplier getSupplierByIVA(String IVA) {
+    public Supplier getSupplierByIVA(String iva) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("IVA", IVA);
+        params.put("iva", iva);
         List suppliers = read(params);
 
         return suppliers != null && suppliers.size() == 1 ? (Supplier) suppliers.get(0) : null;

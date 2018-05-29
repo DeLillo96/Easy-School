@@ -1,8 +1,9 @@
 package Server.Test;
 
-import Server.Entity.Adult;
 import Server.Entity.Child;
+import Server.Entity.Pediatrician;
 import Server.Repository.AdultRepository;
+import Server.Repository.PediatricianRepository;
 import Server.Result;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,13 +15,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParentsTest {
-    private static Adult mom;
+public class PediatricianTest {
+    private static Pediatrician doctor;
     private static Child child;
-    private AdultRepository adultRepository = new AdultRepository();
+    private PediatricianRepository pediatricianRepository = new PediatricianRepository();
 
     @BeforeAll
-    static void createParents() {
+    static void createPediatrician() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date calendarDay;
         try {
@@ -29,30 +30,30 @@ public class ParentsTest {
         }catch(Exception e) {}
         child.save();
         try {
-            calendarDay = simpleDateFormat.parse("1986-05-04");
-            mom = new Adult("Catelyn", "Tully", "CRLTLL93D65L153G", calendarDay, "7263017233");
+            calendarDay = simpleDateFormat.parse("1955-05-04");
+            doctor = new Pediatrician("Catelyn", "Tully", "CRLTLL93D65L153G", calendarDay, "7263017233");
         }catch(Exception e) {}
-        mom.getChildren().add(child);
-        mom.save();
+        doctor.getChildren().add(child);
+        doctor.save();
     }
 
     @AfterAll
-    static void deleteParents() {
-        mom.delete();
+    static void deletePediatrician() {
+        doctor.delete();
         child.delete();
     }
 
     @Test
-    void readChildWithParents() {
-        Adult readAdult = adultRepository.getAdultByFiscalCode(mom.getFiscalCode());
+    void readChildWithPediatrician() {
+        Pediatrician readPediatrician = pediatricianRepository.getPediatricianByFiscalCode(doctor.getFiscalCode());
 
-        assertNotNull(readAdult, "read child error");
-        assertTrue(readAdult.getChildren().size() >= 1, "Failed join");
+        assertNotNull(readPediatrician, "read child error");
+        assertTrue(readPediatrician.getChildren().size() >= 1, "Failed join");
     }
 
     @Test
-    void addParent() {
-        assertTrue(child.getParents().add(mom), "Failed add parent operation");
+    void addChild() {
+        assertTrue(child.getPediatrician().add(doctor), "Failed add pediatrician operation");
 
         Result result = child.save();
         assertTrue(result.isSuccess(), "Error during saving operation " + result.getMessages().toString());

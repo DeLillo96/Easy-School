@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipesTest {
 
-    private static Dish dish = new Side("Bread & Wolf");
+    private static Dish dish = new Side("Bread and Wolf");
     private static Aliment firstAlim = new Aliment("Bread");
     private static Aliment secondAlim = new Aliment("Wolf");
     private DishRepository dishRepository = new DishRepository();

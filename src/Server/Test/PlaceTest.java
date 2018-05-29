@@ -57,13 +57,6 @@ public class PlaceTest {
         assertNotNull(resultMultiple);
     }
 
-    //todo test di modifica
-    @Test
-    void readFromToPlaces() {
-        List buses = placeRepository.getBusesFromToPlaces(2,3);
-        assertNotNull(buses);
-    }
-
     @Test
     void readPlacesByTrip() {
         List result = placeRepository.getPlaceByTrip(tripOne.getId());
