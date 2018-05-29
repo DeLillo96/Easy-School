@@ -55,6 +55,10 @@
                                 </image>
                             </ImageView>
                         </graphic>
+                        <styleClass>
+                            <String fx:value="alone-button"/>
+                            <String fx:value="radius-15"/>
+                        </styleClass>
                         <tooltip>
                             <Tooltip text="Refresh calendar" />
                         </tooltip>

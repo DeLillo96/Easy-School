@@ -119,7 +119,7 @@
                               <Font name="Monospaced Regular" size="25.0" />
                            </font>
                         </Text>
-                        <ChoiceBox fx:id="vehicles" prefWidth="150.0" />
+                        <ChoiceBox fx:id="vehicles" prefWidth="250" />
                      </children>
                   </VBox>
                     </children>

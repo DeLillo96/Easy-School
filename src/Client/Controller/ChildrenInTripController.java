@@ -67,23 +67,6 @@ public class ChildrenInTripController extends AbstractTableController {
     @Override
     protected JSONObject takeFilters() {
         JSONObject filters = new JSONObject();
-
-        filters.put("name", nameTextField.getText());
-        filters.put("surname", surnameTextField.getText());
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            if (birthDatePickerFrom.getValue() != null) {
-                Date fromDate = dateFormat.parse(birthDatePickerFrom.getValue().toString());
-                filters.put("birthDateFrom", fromDate);
-            }
-            if (birthDatePickerTo.getValue() != null) {
-                Date toDate = dateFormat.parse(birthDatePickerTo.getValue().toString());
-                filters.put("birthDateTo", toDate);
-            }
-        } catch (ParseException ignored) {
-        }
-        filters.put("fiscalCode", fiscalCodeTextField.getText());
-
         return filters;
     }
 

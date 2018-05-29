@@ -17,20 +17,6 @@
                 <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0"
                       AnchorPane.topAnchor="0.0">
                     <children>
-                        <VBox alignment="CENTER">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Trip">
-                                    <font>
-                                        <Font name="Monospaced Regular" size="25.0"/>
-                                    </font>
-                                </Text>
-                                <TextField fx:id="tripTextField">
-                                    <VBox.margin>
-                                        <Insets left="5.0" right="5.0"/>
-                                    </VBox.margin>
-                                </TextField>
-                            </children>
-                        </VBox>
                         <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
                             <tooltip>
                                 <Tooltip text="Search"/>
