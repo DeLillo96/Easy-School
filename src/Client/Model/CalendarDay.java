@@ -3,7 +3,9 @@ package Client.Model;
 import Client.Controller.CalendarController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
+import Shared.BaseService;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -27,8 +29,7 @@ public class CalendarDay {
     public CalendarDay(CalendarController calendarController) {
         this.setController(calendarController);
         setContainer(new VBox());
-        container.setMinWidth(40);
-        container.setMinWidth(this.getController().getWeekdayHeader().getPrefWidth() / 7);
+        container.setAlignment(Pos.CENTER);
         container.getStyleClass().add("calendar-box");
         events();
     }
@@ -122,10 +123,29 @@ public class CalendarDay {
      * @param day (Day of the current month)
      */
     public void setDay(Integer day) {
+        this.container.getChildren().clear();
         this.day = day;
         Label lbl = new Label(day.toString());
         lbl.setPadding(new Insets(5));
         this.container.getChildren().add(lbl);
+
+        addViewTrip();
+    }
+
+    private void addViewTrip() {
+        try {
+            JSONObject filters = new JSONObject();
+            filters.put("day", calendarId);
+            BaseService service = RemoteManager.getInstance().getRemoteServicesManager().getDayTripService();
+            JSONObject response = service.read(filters);
+            JSONObject data = (JSONObject) response.get("data");
+            for (int i = 0; i < data.size(); i++) {
+                JSONObject trip = (JSONObject) data.get(i);
+                Label label = new Label((String) trip.get("code"));
+                label.getStyleClass().add("calendar-label");
+                container.getChildren().add(label);
+            }
+        } catch (Exception ignored){}
     }
 
     public Integer getCalendarId() {

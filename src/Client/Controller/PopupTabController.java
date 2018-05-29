@@ -62,6 +62,7 @@ public class PopupTabController {
      * Removes the current popup
      */
     public void remove() {
+        calendarDay.setDay(calendarDay.getDay());
         ControllerManager.getInstance().removePopup();
     }
 

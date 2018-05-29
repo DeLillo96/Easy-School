@@ -137,6 +137,17 @@
     -fx-text-fill: darkslategray
 }
 
+.calendar-label {
+    -fx-font-size: 13;
+    -fx-font-family: Monospaced;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-color: #02e1b3;
+    -fx-border-color: #3ac7c2;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
 .unactive-box {
     -fx-background-color: #E9F2F5;
 }
