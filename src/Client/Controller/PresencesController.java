@@ -1,7 +1,7 @@
 package Client.Controller;
 
 import Client.ControllerManager;
-import Client.Model.ChildInTrip;
+import Client.Model.Presence;
 import Client.Model.Children;
 import Client.Model.Trip;
 import Client.Remote.RemoteManager;
@@ -82,23 +82,23 @@ public class PresencesController extends AbstractTableController {
             JSONObject response = service.centerRead(trip.getId(), vehiclesIds.get(vehicles.getSelectionModel().getSelectedIndex()));
             JSONObject data = (JSONObject) response.get("data");
             for (int j = 0; j < tableView.getItems().size(); j++) {
-                ChildInTrip child = (ChildInTrip) tableView.getItems().get(j);
-                child.removeRowStyleClass("green-button");
-                child.removeRowStyleClass("red-button");
+                Presence child = (Presence) tableView.getItems().get(j);
+                child.removeStatus();
+                child.setStatusMessage("");
                 for (int i = 0; i < data.size(); i++) {
                     Integer childId = Integer.parseInt((String) (((JSONObject) data.get(i)).get("id")));
                     if (child.getSelect().isSelected()) {
                         if(childId.equals(child.getId())) {
-                            child.removeRowStyleClass("red-button");
-                            child.setRowStyleClass("green-button");
+                            child.setStatusGreen();
+                            child.setStatusMessage("Correct");
                         } else {
-                            child.removeRowStyleClass("green-button");
-                            child.setRowStyleClass("red-button");
+                            child.setStatusRed();
+                            child.setStatusMessage("This child is in the wrong vehicle");
                         }
                     } else {
                         if(childId.equals(child.getId())) {
-                            child.removeRowStyleClass("green-button");
-                            child.setRowStyleClass("red-button");
+                            child.setStatusRed();
+                            child.setStatusMessage("Missed child");
                         }
                     }
                 }
@@ -127,13 +127,13 @@ public class PresencesController extends AbstractTableController {
 
     @Override
     protected ArrayList parseIntoRows(JSONObject data) throws Exception {
-        ArrayList<ChildInTrip> list = new ArrayList<>();
+        ArrayList<Presence> list = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
             JSONObject child = (JSONObject) data.get(i);
 
             if(Boolean.valueOf((String) child.get(1))) {
-                list.add(new ChildInTrip(this, (JSONObject) child.get(0)));
+                list.add(new Presence(this, (JSONObject) child.get(0)));
             }
         }
 

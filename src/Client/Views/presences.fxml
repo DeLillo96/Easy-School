@@ -149,6 +149,11 @@
             <columns>
                 <TableColumn minWidth="-Infinity" prefWidth="-1.0">
                     <cellValueFactory>
+                        <PropertyValueFactory property="buttons" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn minWidth="-Infinity" prefWidth="-1.0">
+                    <cellValueFactory>
                         <PropertyValueFactory property="select" />
                     </cellValueFactory>
                 </TableColumn>
