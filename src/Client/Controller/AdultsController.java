@@ -78,6 +78,7 @@ public class AdultsController extends AbstractTableController {
 
             ObservableList<AbstractRowModel> items = FXCollections.observableArrayList(list);
             tableView.setItems(items);
+            newRowFlag = true;
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());

@@ -97,6 +97,7 @@ public abstract class AbstractRowModel {
         try {
             JSONObject result = service.delete(getData());
             if ((boolean) result.get("success")) controller.delete(this);
+            if(data.size() == 0) controller.setNewRowFlag(true);
             notifyResult(result);
         } catch (Exception e) {
             ControllerManager.getInstance().notifyError(e.getMessage());
@@ -121,7 +122,7 @@ public abstract class AbstractRowModel {
     protected void needToSave() {
         ObservableList styleClasses = save.getStyleClass();
         if (!styleClasses.contains("red-button")) styleClasses.add("red-button");
-        if (!controller.isNewRowFlag()) controller.setNewRowFlag(true);
+        if (!controller.isNewRowFlag() && data.get("id") == null) controller.setNewRowFlag(true);
     }
 
     public JSONObject getData() {

@@ -19,7 +19,7 @@ public abstract class AbstractTableController {
     protected BaseService service;
     @FXML
     protected TableView<AbstractRowModel> tableView;
-    private boolean newRowFlag = true;
+    protected boolean newRowFlag = true;
 
     public AbstractTableController(BaseService baseService) {
         service = baseService;
@@ -36,6 +36,7 @@ public abstract class AbstractTableController {
             ArrayList list = search(takeFilters());
             ObservableList items = FXCollections.observableArrayList(list);
             tableView.setItems(items);
+            newRowFlag = true;
         } catch (Exception e) {
             e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
