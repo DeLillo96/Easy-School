@@ -104,6 +104,14 @@ public class CalendarController {
                     day.setUnusedDay();
                 } else {
                     day.setDay(lblCount);
+                    GregorianCalendar today = new GregorianCalendar();
+                    if(
+                        today.get(Calendar.DAY_OF_MONTH) == lblCount &&
+                        today.get(Calendar.MONTH) == selectedMonth &&
+                        today.get(Calendar.YEAR) == selectedYear
+                    ) {
+                        day.setToday();
+                    }
                     day.setCalendarId(null);
                     if(foundCalendars) {
                         String actualCalendar = dateStringConstructor(lblCount);

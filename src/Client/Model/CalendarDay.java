@@ -40,6 +40,7 @@ public class CalendarDay {
         setDay(0);
         container.getChildren().clear();
         container.getStyleClass().remove("unactive-box");
+        container.getStyleClass().remove("today-box");
     }
 
     /**
@@ -47,6 +48,13 @@ public class CalendarDay {
      */
     public void setUnusedDay() {
         container.getStyleClass().add("unactive-box");
+    }
+
+    /**
+     * Method used to sign calendar cell as today cell
+     */
+    public void setToday() {
+        container.getStyleClass().add("today-box");
     }
 
     /**

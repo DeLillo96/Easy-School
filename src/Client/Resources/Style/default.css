@@ -64,15 +64,14 @@
     -fx-border-color: #d04615;
 }
 
-.red-button {
+.red-button, .red-button .tooltip {
     -fx-background-color: #e63906;
     -fx-border-color: #ba0000;
 }
 
-.green-button {
+.green-button, .green-button .tooltip {
     -fx-background-color: #16c744;
     -fx-border-color: #21a657;
-    -fx-color-label-visible: #16c744;
 }
 
 .choice-box-table, .button-table {
@@ -140,6 +139,10 @@
 
 .unactive-box {
     -fx-background-color: #E9F2F5;
+}
+
+.today-box {
+    -fx-background-color: #d39bc2;
 }
 
 .unactive-box:hover {
