@@ -3,6 +3,7 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
+import Shared.TernaryRelationService;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
@@ -133,5 +134,17 @@ public class ChildInTrip extends AbstractRowModel {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
+    }
+
+    public void setRowStyleClass(String styleClass) {
+        name.getStyleClass().add(styleClass);
+        surname.getStyleClass().add(styleClass);
+        fiscalCode.getStyleClass().add(styleClass);
+    }
+
+    public void removeRowStyleClass(String styleClass) {
+        name.getStyleClass().remove(styleClass);
+        surname.getStyleClass().remove(styleClass);
+        fiscalCode.getStyleClass().remove(styleClass);
     }
 }

@@ -83,12 +83,12 @@ public class CalendarDay {
                     data = (JSONObject) result.get("data");
                     for (int i = 0; i < data.size(); i++) {
                         JSONObject singleJsonDay = (JSONObject) data.get(i);
-                        if (actualDateString.equals((String) singleJsonDay.get("date"))) {
+                        if (actualDateString.equals(singleJsonDay.get("date"))) {
                             this.setCalendarId(Integer.parseInt((String) singleJsonDay.get("id")));
                             break;
                         }
                     }
-                }else {
+                } else {
                     dataCreateParams.put("date", actualDateString);
                     try {
                         result = controller.getCalendarServices().save(dataCreateParams);
@@ -98,11 +98,10 @@ public class CalendarDay {
                     if ((boolean) result.get("success")) {
                         data = (JSONObject) ((JSONObject) result.get("data")).get(0);
                         calendarId = Integer.parseInt((String) data.get("id"));
-                        System.out.println(calendarId);
                     }
                 }
             }
-            ControllerManager.getInstance().renderCalendarPopup(calendarId, actualDateString);
+            ControllerManager.getInstance().renderCalendarPopup(this);
         }
     }
 
@@ -135,6 +134,10 @@ public class CalendarDay {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getStringDate() {
+        return controller.dateStringConstructor(day);
     }
 
     public VBox getContainer() {

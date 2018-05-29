@@ -1,100 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane" stylesheets="@../Resources/Style/default.css"
-            xmlns="http://javafx.com/javafx/8.0.121" fx:controller="Client.Controller.CalendarController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.CalendarController">
     <children>
-        <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="110.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
-                    <ChoiceBox fx:id="monthSelect" layoutY="55.0" prefHeight="30.0" prefWidth="200.0"
-                               snapToPixel="false" value="">
+                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+                    <ChoiceBox fx:id="monthSelect" layoutY="55.0" prefHeight="30.0" prefWidth="200.0" snapToPixel="false" value="">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="January"/>
-                                <String fx:value="February"/>
-                                <String fx:value="March"/>
-                                <String fx:value="April"/>
-                                <String fx:value="May"/>
-                                <String fx:value="June"/>
-                                <String fx:value="July"/>
-                                <String fx:value="August"/>
-                                <String fx:value="September"/>
-                                <String fx:value="October"/>
-                                <String fx:value="November"/>
-                                <String fx:value="December"/>
+                                <String fx:value="January" />
+                                <String fx:value="February" />
+                                <String fx:value="March" />
+                                <String fx:value="April" />
+                                <String fx:value="May" />
+                                <String fx:value="June" />
+                                <String fx:value="July" />
+                                <String fx:value="August" />
+                                <String fx:value="September" />
+                                <String fx:value="October" />
+                                <String fx:value="November" />
+                                <String fx:value="December" />
                             </FXCollections>
                         </items>
                         <HBox.margin>
-                            <Insets top="5.0" left="30.0"/>
+                            <Insets left="30.0" top="5.0" />
                         </HBox.margin>
                     </ChoiceBox>
                     <TextField fx:id="yearSelect">
                         <HBox.margin>
-                            <Insets left="30.0"/>
+                            <Insets left="30.0" />
                         </HBox.margin>
                     </TextField>
-                    <Button fx:id="changeCalendar">
+                    <Button fx:id="changeCalendar" text="CHANGE!">
                         <tooltip>
-                            <Tooltip text="Refresh calendar"/>
+                            <Tooltip text="Refresh calendar" />
                         </tooltip>
                         <HBox.margin>
-                            <Insets left="30.0"/>
-                        </HBox.margin>
-                        <graphic>
-                            <ImageView fitHeight="40.0" fitWidth="40.0">
-                                <image>
-                                    <Image url="@../Resources/Images/refresh.png"/>
-                                </image>
-                            </ImageView>
-                        </graphic>
-                        <styleClass>
-                            <String fx:value="alone-button"/>
-                            <String fx:value="radius-15"/>
-                        </styleClass>
-                    </Button>
-                    <DatePicker fx:id="calendarDatePicker">
-                        <HBox.margin>
-                            <Insets left="30.0"/>
-                        </HBox.margin>
-                    </DatePicker>
-                    <Button fx:id="renderDatePopup" text="POPUP!">
-                        <tooltip>
-                            <Tooltip text="Add events"/>
-                        </tooltip>
-                        <HBox.margin>
-                            <Insets left="30.0"/>
+                            <Insets left="30.0" />
                         </HBox.margin>
                     </Button>
                 </HBox>
-                <HBox fx:id="weekdayHeader" minHeight="-Infinity" prefHeight="80.0" prefWidth="873.0"/>
-                <GridPane fx:id="calendarGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                          prefWidth="863.0" styleClass="calendar_pane" VBox.vgrow="ALWAYS">
+                <HBox fx:id="weekdayHeader" minHeight="-Infinity" prefHeight="80.0" prefWidth="873.0" />
+                <GridPane fx:id="calendarGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="863.0" styleClass="calendar_pane" VBox.vgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS"/>
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="120.0" vgrow="ALWAYS" />
                     </rowConstraints>
                 </GridPane>
             </children>

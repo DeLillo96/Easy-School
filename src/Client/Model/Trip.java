@@ -3,16 +3,25 @@ package Client.Model;
 import Client.Controller.AbstractTableController;
 import Client.ControllerManager;
 import Client.Remote.RemoteManager;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import org.json.simple.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
 public class Trip extends AbstractRowModel {
     private TextField code = new TextField();
     private Button child;
     private Button place;
     private Button planning;
+    private Button appeal;
+
+    private CalendarDay calendar;
 
     public Trip(AbstractTableController tableController) throws Exception {
         this(tableController, new JSONObject());
@@ -22,7 +31,6 @@ public class Trip extends AbstractRowModel {
         super(RemoteManager.getInstance().getRemoteServicesManager().getDailyTripService(), tableController, dailyTrip);
 
         events();
-        refreshModel();
     }
 
     public void events() {
@@ -38,25 +46,34 @@ public class Trip extends AbstractRowModel {
     protected void initializeButtons() {
         super.initializeButtons();
 
-        child = new Button();
-        defineImageButton(child, "Client/Resources/Images/add.png");
-        child.setOnAction(actionEvent -> openChildInTripPopup());
-        child.setVisible(getId() != null);
-        child.setTooltip(new Tooltip());
+        appeal = new Button();
+        defineImageButton(appeal, "Client/Resources/Images/check.png");
+        appeal.setOnAction(actionEvent -> openAppealPopup());
+        appeal.setVisible(false);
+        appeal.setTooltip(new Tooltip());
+
+        planning = new Button();
+        defineImageButton(planning, "Client/Resources/Images/addbus.png");
+        planning.setOnAction(actionEvent -> openBusPopup());
+        planning.setTooltip(new Tooltip());
 
         place = new Button();
         defineImageButton(place, "Client/Resources/Images/addplace.png");
         place.setOnAction(actionEvent -> openPlaceInTripPopup());
         place.setVisible(getId() != null);
         place.setTooltip(new Tooltip());
-        
-        planning = new Button();
-        defineImageButton(planning, "Client/Resources/Images/addbus.png");
-        planning.setOnAction(actionEvent -> openBusPopup());
-        planning.setVisible(false);
-        planning.setTooltip(new Tooltip());
 
-        getButtons().getChildren().addAll(child, place, planning);
+        child = new Button();
+        defineImageButton(child, "Client/Resources/Images/add.png");
+        child.setOnAction(actionEvent -> openChildInTripPopup());
+        child.setVisible(getId() != null);
+        child.setTooltip(new Tooltip());
+
+        getButtons().getChildren().addAll(planning, place, child, appeal);
+    }
+
+    private void openAppealPopup() {
+        ControllerManager.getInstance().renderPresences(this);
     }
 
     private void openBusPopup() {
@@ -75,16 +92,33 @@ public class Trip extends AbstractRowModel {
     public void refreshModel() {
         setCode((String) data.get("code"));
 
-        try {
-            Integer childCount = RemoteManager.getInstance().getRemoteServicesManager().getChildInTripService().leftCount(getId());
-            Integer placeCount = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService().rightCount(getId());
+        try{
+            GregorianCalendar today = new GregorianCalendar();
+            GregorianCalendar selected = new GregorianCalendar();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            selected.setTime(df.parse(calendar.getStringDate()));
+            if (today.get(GregorianCalendar.YEAR) == selected.get(GregorianCalendar.YEAR) &&
+                    today.get(GregorianCalendar.DAY_OF_YEAR) == selected.get(GregorianCalendar.DAY_OF_YEAR)) {
+                for (Node button: buttons.getChildren()) {
+                    button.setVisible(false);
+                }
+                appeal.setVisible(true);
+            } else {
+                try {
+                    Integer childCount = RemoteManager.getInstance().getRemoteServicesManager().getBusTripService().leftCount(getId());
+                    Integer placeCount = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService().rightCount(getId());
 
-            warningButton(childCount > 0, child, "child");
-            warningButton(placeCount > 0, place, "place");
+                    warningButton(childCount > 0, planning, "planning");
+                    warningButton(placeCount > 0, place, "place");
 
-            planning.setVisible(childCount > 0 && placeCount > 0);
-        } catch (Exception e) {
-            e.printStackTrace();
+                    child.setVisible(childCount > 0 && placeCount > 0);
+                    appeal.setVisible(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (ParseException e) {
+            ControllerManager.getInstance().notifyError("Error in date render");
         }
 
         save.getStyleClass().remove("red-button");
@@ -133,5 +167,14 @@ public class Trip extends AbstractRowModel {
             data.put("day", day);
         }
         day.put("id", calendarId);
+    }
+
+    public CalendarDay getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(CalendarDay calendar) {
+        this.calendar = calendar;
+        setCalendarId(calendar.getCalendarId());
     }
 }

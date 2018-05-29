@@ -69,6 +69,12 @@
     -fx-border-color: #ba0000;
 }
 
+.green-button {
+    -fx-background-color: #16c744;
+    -fx-border-color: #21a657;
+    -fx-color-label-visible: #16c744;
+}
+
 .choice-box-table, .button-table {
     -fx-font-size: 20;
     -fx-font-weight: normal;

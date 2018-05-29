@@ -113,17 +113,15 @@ public class ControllerManager {
 
     /**
      * Renders calendar day popup
-     * @param calendarId (Calendar model's Id assigned to calendar popup)
-     * @param date (String containing calendar's date)
+     * @param calendarDay (Calendar model assigned to calendar popup)
      */
-    public void renderCalendarPopup(Integer calendarId, String date) {
+    public void renderCalendarPopup(CalendarDay calendarDay) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/popupTab.fxml"));
             addPopup(loader.load());
 
             PopupTabController popupTabController = loader.getController();
-            popupTabController.setCalendarId(calendarId);
-            popupTabController.setDate(date);
+            popupTabController.setCalendarDay(calendarDay);
             popupTabController.render();
         } catch (IOException e) {
             notifyError(e.getMessage());
@@ -287,6 +285,21 @@ public class ControllerManager {
             childrenInVehicleController.setTrip(trip);
             childrenInVehicleController.setChildInTrip(childInTrip);
             childrenInVehicleController.filter();
+        } catch (IOException e) {
+            notifyError(e.getMessage());
+        }
+    }
+
+
+    public void renderPresences(Trip trip) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/presences.fxml"));
+            addPopup(loader.load());
+
+            PresencesController presencesController = loader.getController();
+            presencesController.setTrip(trip);
+            presencesController.fillVehicleBox();
+            presencesController.filter();
         } catch (IOException e) {
             notifyError(e.getMessage());
         }
