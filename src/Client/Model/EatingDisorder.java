@@ -51,11 +51,13 @@ public class EatingDisorder extends AbstractRowModel {
         try {
             JSONObject result;
             EatingDisorderService service = RemoteManager.getInstance().getRemoteServicesManager().getEatingDisorderService();
-            if(type.getValue().equals("allergy")) {
-                result = service.assignAllergy(getId(), child.getId());
-            }else if(type.getValue().equals("intolerance")) {
-                result = service.assignIntolerance(getId(), child.getId());
-            }else {
+            if(type.getValue()!= null) {
+                if(type.getValue().equals("allergy")) {
+                    result = service.assignAllergy(getId(), child.getId());
+                } else {
+                    result = service.assignIntolerance(getId(), child.getId());
+                }
+            } else {
                 result = service.deAssign(getId(), child.getId());
             }
             if ((boolean) result.get("success")) {

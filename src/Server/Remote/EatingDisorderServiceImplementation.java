@@ -87,8 +87,20 @@ public class EatingDisorderServiceImplementation extends UnicastRemoteObject imp
     }
 
     @Override
-    public JSONObject deAssign(Integer rightId, Integer leftId) throws Exception {
-        return null;
+    public JSONObject deAssign(Integer alimentId, Integer childId) throws Exception {
+        Child child = (new ChildRepository()).getChildById(childId);
+        Aliment aliment = (new AlimentRepository()).getAlimentById(alimentId);
+        List<EatingDisorder> list = eatingDisorderRepository.read();
+
+        for (EatingDisorder eatingDisorder : list) {
+            if (eatingDisorder.getAffectedAlimentId().equals(alimentId) &&
+                    eatingDisorder.getAffectedChildId().equals(childId)
+                    ) {
+                return eatingDisorder.delete().toJson();
+            }
+        }
+
+        return new Result().toJson();
     }
 
     @Override
