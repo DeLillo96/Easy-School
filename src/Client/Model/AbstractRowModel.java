@@ -80,8 +80,8 @@ public abstract class AbstractRowModel {
             if ((boolean) result.get("success")) {
                 data = (JSONObject) ((JSONObject) result.get("data")).get(0);
                 enableButtons();
-                save.getStyleClass().remove("red-button");
                 refreshModel();
+                save.getStyleClass().remove("red-button");
             }
             notifyResult(result);
         } catch (Exception e) {

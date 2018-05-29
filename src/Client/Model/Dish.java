@@ -27,6 +27,9 @@ public class Dish extends AbstractRowModel {
 
         controller = (DishController) tableController;
         type.setItems(FXCollections.observableArrayList("first", "second", "side", "sweet"));
+        getType().setPrefSize(380, 40);
+        getType().setMinSize(380, 40);
+        getType().setMaxSize(380, 40);
         refreshModel();
         events();
     }

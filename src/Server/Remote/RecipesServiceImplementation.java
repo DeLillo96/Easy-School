@@ -26,8 +26,8 @@ public class RecipesServiceImplementation extends UnicastRemoteObject implements
         Dish dish = dishRepository.getDishById(dishId);
         Aliment aliment = alimentRepository.getAlimentById(alimentId);
 
-        for (Aliment recipe : dish.getIngredients()) {
-            if (recipe.getId().equals(alimentId)) {
+        for (Dish d : aliment.getDishes()) {
+            if (d.getId().equals(dishId)) {
                 Result result = new Result();
                 result.addData(dish);
                 return result.toJson();
