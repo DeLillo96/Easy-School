@@ -85,7 +85,7 @@ public class DailyDishController extends AbstractTableController {
     }
 
     public void fillWarning(JSONObject result) {
-        if(!result.get("messages").equals("")) {
+        if(!result.get("messages").equals("[]")) {
             warning.setVisible(true);
             String message = "ATTENTION!\nThese aliment are an eating disorder for the number of child\n";
             String messages = ((String) result.get("messages")).replace(',','\n');

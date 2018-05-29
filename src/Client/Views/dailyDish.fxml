@@ -23,16 +23,11 @@
 
                 <VBox alignment="CENTER">
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Daily Menu">
                             <font>
                                 <Font name="Monospaced Regular" size="25.0" />
                             </font>
                         </Text>
-                        <TextField fx:id="nameTextField">
-                            <VBox.margin>
-                                <Insets left="5.0" right="5.0" />
-                            </VBox.margin>
-                        </TextField>
                     </children>
                 </VBox>
                 <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
