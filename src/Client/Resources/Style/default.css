@@ -153,7 +153,8 @@
 }
 
 .today-box {
-    -fx-background-color: #d39bc2;
+    -fx-background-color: #f58118;
+    -fx-border-color: #d04615;
 }
 
 .unactive-box:hover {

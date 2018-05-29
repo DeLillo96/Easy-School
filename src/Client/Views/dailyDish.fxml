@@ -30,22 +30,6 @@
                         </Text>
                     </children>
                 </VBox>
-                <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
-                    <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0">
-                            <image>
-                                <Image url="@../Resources/Images/search.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <HBox.margin>
-                        <Insets left="5.0" />
-                    </HBox.margin>
-                    <styleClass>
-                        <String fx:value="alone-button" />
-                        <String fx:value="radius-15" />
-                    </styleClass>
-                </Button>
             <Button fx:id="warning" alignment="CENTER" contentDisplay="CENTER">
                 <tooltip>
                     <Tooltip text="none" >

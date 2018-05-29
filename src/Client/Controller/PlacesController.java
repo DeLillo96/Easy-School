@@ -87,6 +87,7 @@ public class PlacesController extends AbstractTableController {
 
             Places item = new Places(this, (JSONObject) place.get(0));
             item.getSelect().setSelected(Boolean.valueOf((String) place.get(1)));
+            item.setTrip(trip);
             list.add(item);
         }
 

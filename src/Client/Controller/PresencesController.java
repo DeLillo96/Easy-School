@@ -91,6 +91,7 @@ public class PresencesController extends AbstractTableController {
                         if(childId.equals(child.getId())) {
                             child.setStatusGreen();
                             child.setStatusMessage("Correct");
+                            break;
                         } else {
                             child.setStatusRed();
                             child.setStatusMessage("This child is in the wrong vehicle");
@@ -99,6 +100,7 @@ public class PresencesController extends AbstractTableController {
                         if(childId.equals(child.getId())) {
                             child.setStatusRed();
                             child.setStatusMessage("Missed child");
+                            break;
                         }
                     }
                 }

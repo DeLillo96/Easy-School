@@ -49,12 +49,13 @@ public class Trip extends AbstractRowModel {
         appeal = new Button();
         defineImageButton(appeal, "Client/Resources/Images/check.png");
         appeal.setOnAction(actionEvent -> openAppealPopup());
-        appeal.setVisible(false);
+        appeal.setVisible(getId() != null);
         appeal.setTooltip(new Tooltip("Check presences"));
 
         planning = new Button();
         defineImageButton(planning, "Client/Resources/Images/addbus.png");
         planning.setOnAction(actionEvent -> openBusPopup());
+        planning.setVisible(getId() != null);
         planning.setTooltip(new Tooltip("Rent vehicles"));
 
         place = new Button();
@@ -91,53 +92,7 @@ public class Trip extends AbstractRowModel {
     @Override
     public void refreshModel() {
         setCode((String) data.get("code"));
-
-        try{
-            GregorianCalendar today = new GregorianCalendar();
-            GregorianCalendar selected = new GregorianCalendar();
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            selected.setTime(df.parse(calendar.getStringDate()));
-            if (today.get(GregorianCalendar.YEAR) == selected.get(GregorianCalendar.YEAR) &&
-                    today.get(GregorianCalendar.DAY_OF_YEAR) == selected.get(GregorianCalendar.DAY_OF_YEAR)) {
-                for (Node button: buttons.getChildren()) {
-                    button.setVisible(false);
-                }
-                appeal.setVisible(true);
-            } else {
-                try {
-                    Integer childCount = RemoteManager.getInstance().getRemoteServicesManager().getBusTripService().leftCount(getId());
-                    Integer placeCount = RemoteManager.getInstance().getRemoteServicesManager().getTripPlaceService().rightCount(getId());
-
-                    warningButton(childCount > 0, planning, "planning");
-                    warningButton(placeCount > 0, place, "place");
-
-                    child.setVisible(childCount > 0 && placeCount > 0);
-                    appeal.setVisible(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (ParseException e) {
-            ControllerManager.getInstance().notifyError("Error in date render");
-        }
-
         save.getStyleClass().remove("red-button");
-    }
-
-    protected void warningButton(Boolean isWarning, Button btn, String tooltipMessage ){
-        Tooltip tooltip = btn.getTooltip();
-        if(isWarning) {
-            btn.getStyleClass().remove("orange-button");
-            tooltip.getStyleClass().remove("orange-button");
-
-            tooltip.setText("Change selected " + tooltipMessage);
-        } else {
-            btn.getStyleClass().add("orange-button");
-            tooltip.getStyleClass().add("orange-button");
-
-            tooltip.setText("Need to set " + tooltipMessage);
-
-        }
     }
 
     public Integer getId() {

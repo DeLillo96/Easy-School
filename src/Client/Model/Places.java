@@ -64,6 +64,7 @@ public class Places extends AbstractRowModel {
             }
             notifyResult(result);
         } catch (Exception e) {
+            e.printStackTrace();
             ControllerManager.getInstance().notifyError(e.getMessage());
         }
     }
