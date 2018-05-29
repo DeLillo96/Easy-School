@@ -54,64 +54,6 @@
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <VBox alignment="CENTER">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                                    <font>
-                                        <Font name="Monospaced Regular" size="25.0" />
-                                    </font>
-                                </Text>
-                                <TextField fx:id="nameTextField">
-                                    <VBox.margin>
-                                        <Insets left="5.0" right="5.0" />
-                                    </VBox.margin>
-                                </TextField>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
-                                    <font>
-                                        <Font name="Monospaced Regular" size="25.0" />
-                                    </font>
-                                </Text>
-                                <TextField fx:id="surnameTextField">
-                                    <VBox.margin>
-                                        <Insets left="5.0" right="5.0" />
-                                    </VBox.margin>
-                                </TextField>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FiscalCode">
-                                    <font>
-                                        <Font name="Monospaced Regular" size="25.0" />
-                                    </font>
-                                </Text>
-                                <TextField fx:id="fiscalCodeTextField">
-                                    <VBox.margin>
-                                        <Insets left="5.0" right="5.0" />
-                                    </VBox.margin>
-                                </TextField>
-                            </children>
-                        </VBox>
-                        <Button fx:id="searchButton" alignment="CENTER" defaultButton="true" onAction="#filter">
-                            <tooltip>
-                                <Tooltip text="Search" />
-                            </tooltip>
-                            <graphic>
-                                <ImageView fitHeight="40.0" fitWidth="40.0">
-                                    <image>
-                                        <Image url="@../Resources/Images/search.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <styleClass>
-                                <String fx:value="alone-button" />
-                                <String fx:value="radius-15" />
-                            </styleClass>
-                        </Button>
                   <VBox alignment="CENTER">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle">

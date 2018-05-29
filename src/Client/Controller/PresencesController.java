@@ -119,11 +119,6 @@ public class PresencesController extends AbstractTableController {
     @Override
     protected JSONObject takeFilters() {
         JSONObject filters = new JSONObject();
-
-        filters.put("name", nameTextField.getText());
-        filters.put("surname", surnameTextField.getText());
-        filters.put("fiscalCode", fiscalCodeTextField.getText());
-
         return filters;
     }
 
