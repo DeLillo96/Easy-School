@@ -1,9 +1,6 @@
 package Client.Remote;
 
-import Client.Remote.Adapter.BaseServiceAdapter;
-import Client.Remote.Adapter.EatingDisorderServiceAdapter;
-import Client.Remote.Adapter.RelationServiceAdapter;
-import Client.Remote.Adapter.UserServiceAdapter;
+import Client.Remote.Adapter.*;
 import Shared.*;
 import org.json.simple.JSONObject;
 
@@ -169,7 +166,7 @@ public class SocketServicesManager implements RemoteServicesManager {
 
     @Override
     public TernaryRelationService getChildInVehicleService() throws Exception {
-        return (TernaryRelationService) new BaseServiceAdapter("childinvehicle", in, out);
+        return new TernaryRelationServiceAdapter("childinvehicle", in, out);
     }
 
     @Override

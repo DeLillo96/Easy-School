@@ -852,6 +852,40 @@ public class SocketParser extends Thread {
                         out.writeObject(tripPlaceService.leftCount((Integer) data.get("leftId")));
                         out.flush();
                     }
+                }else if (json.get("service").equals("childinvehicle")) {
+                    ChildInVehicleServiceImplementation childInVehicleService = new ChildInVehicleServiceImplementation();
+
+                    if (json.get("function").equals("assign")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childInVehicleService.assign((Integer) data.get("rightId"), (Integer) data.get("center"), (List<Integer>) data.get("leftId"));
+
+                        out.writeObject(result);
+                        out.flush();
+                    }else if (json.get("function").equals("deassign")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childInVehicleService.deAssign((Integer) data.get("rightId"), (Integer) data.get("center"), (Integer) data.get("leftId"));
+
+                        out.writeObject(result);
+                        out.flush();
+                    }else if (json.get("function").equals("rightread")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childInVehicleService.rightRead((Integer) data.get("rightId"), (Integer) data.get("centerId"));
+
+                        out.writeObject(result);
+                        out.flush();
+                    }else if (json.get("function").equals("leftread")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childInVehicleService.leftRead((Integer) data.get("leftId"), (Integer) data.get("centerId"));
+
+                        out.writeObject(result);
+                        out.flush();
+                    }else if(json.get("function").equals("centerread")) {
+                        JSONObject data = (JSONObject) json.get("data");
+                        result = childInVehicleService.centerRead((Integer) data.get("leftId"), (Integer) data.get("rightId"));
+
+                        out.writeObject(result);
+                        out.flush();
+                    }
                 }else if (json.get("service").equals("main")) {
                     if (json.get("function").equals("exit")) {
                         socket.close();

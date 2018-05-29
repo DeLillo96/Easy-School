@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ public class AlimentController extends AbstractTableController {
 
     @FXML
     private TextField nameTextField;
+
+    @FXML
+    private Text alimentName;
 
     public AlimentController() throws Exception {
         super(RemoteManager.getInstance().getRemoteServicesManager().getAlimentService());
@@ -79,6 +83,7 @@ public class AlimentController extends AbstractTableController {
 
     public void setDish(Dish dish) {
         this.dish = dish;
+        this.alimentName.setText(dish.getStringName());
     }
 
     /**
@@ -98,5 +103,5 @@ public class AlimentController extends AbstractTableController {
     public void remove() {
         ControllerManager.getInstance().removePopup();
     }
-    
+
 }

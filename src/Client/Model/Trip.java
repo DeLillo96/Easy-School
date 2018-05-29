@@ -50,24 +50,24 @@ public class Trip extends AbstractRowModel {
         defineImageButton(appeal, "Client/Resources/Images/check.png");
         appeal.setOnAction(actionEvent -> openAppealPopup());
         appeal.setVisible(false);
-        appeal.setTooltip(new Tooltip());
+        appeal.setTooltip(new Tooltip("Check presences"));
 
         planning = new Button();
         defineImageButton(planning, "Client/Resources/Images/addbus.png");
         planning.setOnAction(actionEvent -> openBusPopup());
-        planning.setTooltip(new Tooltip());
+        planning.setTooltip(new Tooltip("Rent vehicles"));
 
         place = new Button();
         defineImageButton(place, "Client/Resources/Images/addplace.png");
         place.setOnAction(actionEvent -> openPlaceInTripPopup());
         place.setVisible(getId() != null);
-        place.setTooltip(new Tooltip());
+        place.setTooltip(new Tooltip("Add places"));
 
         child = new Button();
         defineImageButton(child, "Client/Resources/Images/add.png");
         child.setOnAction(actionEvent -> openChildInTripPopup());
         child.setVisible(getId() != null);
-        child.setTooltip(new Tooltip());
+        child.setTooltip(new Tooltip("Set children to vehicles"));
 
         getButtons().getChildren().addAll(planning, place, child, appeal);
     }

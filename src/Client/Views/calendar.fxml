@@ -14,6 +14,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane fx:id="rootPane" stylesheets="@../Resources/Style/default.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller.CalendarController">
     <children>
         <VBox alignment="CENTER" layoutY="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -45,7 +47,14 @@
                             <Insets left="30.0" />
                         </HBox.margin>
                     </TextField>
-                    <Button fx:id="changeCalendar" text="CHANGE!">
+                    <Button fx:id="changeCalendar">
+                        <graphic>
+                            <ImageView fitHeight="40.0" fitWidth="40.0">
+                                <image>
+                                    <Image url="@../Resources/Images/refresh.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
                         <tooltip>
                             <Tooltip text="Refresh calendar" />
                         </tooltip>
