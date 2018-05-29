@@ -66,15 +66,6 @@ public class PlacesController extends AbstractTableController {
     protected JSONObject takeFilters() {
         JSONObject filters = new JSONObject();
 
-        filters.put("name", nameTextField.getText());
-        filters.put("address", addressTextField.getText());
-        try {
-            if (!maxCostTextField.getText().equals(""))
-                filters.put("cost", Integer.parseInt(maxCostTextField.getText()));
-        } catch (Exception e) {
-            ControllerManager.getInstance().notifyError("Insert a number in 'cost' text field");
-        }
-
         return filters;
     }
 

@@ -45,11 +45,7 @@ public class EatingDisordersController extends AbstractTableController {
 
     @Override
     protected JSONObject takeFilters() {
-        JSONObject filters = new JSONObject();
-
-        filters.put("name", nameTextField.getText());
-
-        return filters;
+        return new JSONObject();
     }
 
     @Override

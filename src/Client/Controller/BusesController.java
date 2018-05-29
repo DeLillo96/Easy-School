@@ -64,9 +64,6 @@ public class BusesController extends AbstractTableController {
     protected JSONObject takeFilters() {
         JSONObject filters = new JSONObject();
 
-        filters.put("code", codeTextField.getText());
-        filters.put("companyName", companyNameTextField.getText());
-
         return filters;
     }
 
