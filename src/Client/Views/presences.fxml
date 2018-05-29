@@ -145,7 +145,8 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <TableView fx:id="tableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0">
+        <TableView fx:id="tableView" prefWidth="1136.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                   AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="130.0">
             <columns>
                 <TableColumn minWidth="-Infinity" prefWidth="-1.0">
                     <cellValueFactory>
