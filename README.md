@@ -34,3 +34,13 @@ command and turns off using the `down.sh` command.
 ### 3.4 DUMP ###  
 To recover the database from a dump file is possible use `restore_db.sh` command, 
 make sure the docker container is up.  
+## 4 Classes ##  
+### 4.1 Entity ###  
+#### 4.1.1 Description ####  
+The entity classes are linked 1 to 1 with the database Entity via Hibernate,
+the fields in the database table are the attributes of the class.  
+The entity objects will have the CRUD functions only on the associated table.
+#### 4.1.2 Pattern ####
+For the Entity classes is used a simple **Abstract Pattern**.
+#### 4.1.3 Design ####  
+< import the image >  
