@@ -21,3 +21,16 @@
 ### 2.3 Tools ###  
 - Docker  
 - Postgres  
+## 3 Data ##
+### 3.1 Management ###  
+For the creation of the database was used Hibernate, 
+a distributed framework that provides ORM services, 
+that allow the management of data persistence on a relational database, Postgres in this case.  
+### 3.2 Location ###  
+The database is in a docker container that is turned on using the `up.sh` 
+command and turns off using the `down.sh` command.  
+### 3.3 ER Diagram ###  
+< import the image >  
+### 3.4 DUMP ###  
+To recover the database from a dump file is possible use `restore_db.sh` command, 
+make sure the docker container is up.  
