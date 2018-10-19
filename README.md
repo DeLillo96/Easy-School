@@ -17,7 +17,7 @@
 - CSS  
 ### 2.2 Framework and Libraries ###  
 - Hibernate  
-- ... something else ...  
+- JUnit 5  
 ### 2.3 Tools ###  
 - Docker  
 - Postgres  
