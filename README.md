@@ -34,13 +34,29 @@ command and turns off using the `down.sh` command.
 ### 3.4 DUMP ###  
 To recover the database from a dump file is possible use `restore_db.sh` command, 
 make sure the docker container is up.  
-## 4 Classes ##  
-### 4.1 Entity ###  
-#### 4.1.1 Description ####  
+## 4 Architecture ##
+### 4.1 Description ##
+EasySchool has been developed with a client-server architecture.
+### 4.2 Protocols ###
+- RMI _(port 3692)_
+- Socket _(port 9374)_
+### 4.3 Communication ###
+The exchange of information and data between client and server of both protocols is done via JSON format.
+## 5 Classes ##  
+### 5.1 Entity ###  
+#### 5.1.1 Description ####  
 The entity classes are linked 1 to 1 with the database Entity via Hibernate,
 the fields in the database table are the attributes of the class.  
 The entity objects will have the CRUD functions only on the associated table.
-#### 4.1.2 Pattern ####
+#### 5.1.2 Pattern ####
 For the Entity classes is used a simple **Abstract Pattern**.
-#### 4.1.3 Design ####  
+#### 5.1.3 Design ####  
 < import the image >  
+### 5.2 Repository ###  
+#### 5.2.1 Description ####  
+The Repository classes are linked with the Entity classes which require a list of data, not the single tuple.
+The Repository objects have only read privileges on the attached database tables, they can also apply filters to search for a specific list of data.
+#### 5.2.2 Pattern ####  
+For the Repository classes is used a simple **Abstract Pattern**.
+#### 5.2.3 Design ####  
+< import the image >
