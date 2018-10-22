@@ -24,7 +24,10 @@ Follow the steps:
         ```
     > Obviously the name of database "**application**", the user "**admin**" and the password "**admin**" can be changed.  
     If you change them remember it, because Hibernate needs that information to work.
-3) Install Java SE (https://www.oracle.com/technetwork/java/javase/downloads) on the Client and Server machine  
+3) Install Java SE (https://www.oracle.com/technetwork/java/javase/downloads) on the Client and Server machine
+4) On the Server run `Server.java`
+    >if any of the database default data has been changed, remember to edit them in the `hibernate.cfg.xml` file.
+4) On the Clients run `Client.java`
 ## 3 Technology ##  
 ### 3.1 Languages ###  
 - Java  
@@ -76,3 +79,10 @@ The Repository objects have only read privileges on the attached database tables
 For the Repository classes is used a simple **Abstract Pattern**.
 #### 6.2.3 Design ####  
 < import the image >
+
+### 6.3 RemoteServices ###
+#### 6.3.1 Description ####
+#### 6.3.2 Pattern ####  
+#### 6.3.3 Design ####  
+## X Communication ##
+## X Test ##
